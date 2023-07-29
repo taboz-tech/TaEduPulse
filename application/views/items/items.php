@@ -84,15 +84,6 @@ defined('BASEPATH') OR exit('');
                                 <span class="help-block errMsg" id="itemNameErr"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 form-group-sm">
-                                <label for="categorie">Category</label>
-                                <select id="categorie" name="categorie" class="form-control">
-                                </select>
-                                <span class="help-block errMsg" id="categorieErr"></span>
-                            </div>
-                        </div>
-
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
@@ -114,8 +105,7 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="unitPrice">($)Unit Price</label>
-                                <input type="text" id="itemPrice" name="itemPrice" placeholder="($)Unit Price" class="form-control" readonly
-                                    >
+                                <input type="text" id="itemPrice" name="itemPrice" placeholder="($)Unit Price" class="form-control">
                                 <span class="help-block errMsg" id="itemPriceErr"></span>
                             </div>
                         </div>

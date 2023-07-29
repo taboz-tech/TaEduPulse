@@ -108,13 +108,6 @@ defined('BASEPATH') OR exit('');
                                 Event Log
                             </a>
                         </li>--->
-
-                        <li class="<?= $pageTitle == 'Categories' ? 'active' : '' ?>">
-                            <a href="<?= site_url('categories') ?>">
-                                <i class="fa fa-cubes"></i>
-                                Categories
-                            </a>
-                        </li>
                         
                         <li class="<?= $pageTitle == 'Database' ? 'active' : '' ?>">
                             <a href="<?= site_url('dbmanagement') ?>">
@@ -210,13 +203,6 @@ defined('BASEPATH') OR exit('');
                                 Event Log
                             </a>
                         </li>--->
-
-                        <li class="<?= $pageTitle == 'Categories' ? 'active' : '' ?>">
-                            <a href="<?= site_url('categories') ?>">
-                                <i class="fa fa-cubes"></i>
-                                Categories
-                            </a>
-                        </li>
                         
                         <li class="<?= $pageTitle == 'Database' ? 'active' : '' ?>">
                             <a href="<?= site_url('dbmanagement') ?>">

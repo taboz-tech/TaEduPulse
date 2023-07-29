@@ -14,7 +14,7 @@ class Items extends CI_Controller{
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['item','category']);
+        $this->load->model(['item']);
     }
     
     /**
@@ -71,14 +71,13 @@ class Items extends CI_Controller{
         $data['links'] = $this->pagination->create_links();//page links
         $data['sn'] = $start+1;
         $data['cum_total'] = $this->item->getItemsCumTotal();
-        $categories = $this->category->getCat();
-        $data['categories'] = array_column($categories, 'name', 'id');
         
         $json['itemsListTable'] = $this->load->view('items/itemslisttable', $data, TRUE);//get view with populated items table
         
 
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
-    }
+    } 
+
     
     
     /*
@@ -88,71 +87,7 @@ class Items extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-
-     /**
-     * "laciv" = "load all categories in item view"
-     */
     
-
-     public function laciiv() {
-        $this->genlib->ajaxOnly();
-    
-        $categories = $this->category->getCat();
-        $data['categories'] = array_values($categories);
-        
-        // Return the categories as JSON response
-        header('Content-Type: application/json');
-        echo json_encode($data['categories']);
-    }
-    
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-
-     /**
-     * get percentage of a category
-     */
-    
-
-    public function getPerc() {
-        $this->genlib->ajaxOnly();       
-        $categorie = $_GET['categorie'];    
-        $categoriePercentage = $this->category->getbid($categorie);
-        if ($categorie) {
-            // Return the category data as JSON response
-            header('Content-Type: application/json');
-            echo json_encode($categoriePercentage);
-        } else {
-            // Return an error message if the category is not found
-            header('Content-Type: application/json');
-            echo json_encode(['error' => 'Categorie not found']);
-        }
-    }
-
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-
-     /**
-     * Calculate price depending on the category 
-     */
-    public function calcPrice() {
-        $this->genlib->ajaxOnly();
-        $itemCost = $_GET['itemCost'];
-        $categoriePercentage = $_GET['returnedData'];
-        $itemPrice = round($itemCost + ($itemCost * $categoriePercentage / 100), 2, PHP_ROUND_HALF_UP);
-        header('Content-Type: application/json');
-        echo json_encode($itemPrice);
-      }
-      
 
     /*
     ********************************************************************************************************************************
@@ -173,8 +108,7 @@ class Items extends CI_Controller{
         $this->form_validation->set_rules('itemName', 'Item name', ['required', 'trim', 'max_length[80]', 'is_unique[items.name]'],
                 ['required'=>"required"]);
         $this->form_validation->set_rules('itemQuantity', 'Item quantity', ['required', 'trim', 'numeric'], ['required'=>"required"]);
-        $this->form_validation->set_rules('itemPrice', 'Item Price', ['required', 'trim', 'numeric'], ['required'=>"required"]);
-        $this->form_validation->set_rules('categorie', 'Categorie', ['required', 'trim', 'numeric'], ['required'=>"required"]);        
+        $this->form_validation->set_rules('itemPrice', 'Item Price', ['required', 'trim', 'numeric'], ['required'=>"required"]);        
         $this->form_validation->set_rules('itemCost', 'Item Cost', ['required', 'trim', 'numeric'], ['required'=>"required"]);
         $this->form_validation->set_rules('itemCode', 'Item Code', ['required', 'trim', 'max_length[20]', 'is_unique[items.code]'], 
                 ['required'=>"required", 'is_unique'=>"There is already an item with this code"]);
@@ -187,7 +121,7 @@ class Items extends CI_Controller{
              * function header: add($itemName, $itemQuantity, $itemPrice, $itemDescription, $itemCode)
              */
             $insertedId = $this->item->add(set_value('itemName'), set_value('itemQuantity'), set_value('itemPrice'), 
-                    set_value('itemDescription'), set_value('itemCode'),set_value('itemCost'),set_value('categorie'));
+                    set_value('itemDescription'), set_value('itemCode'),set_value('itemCost'));
             
             $itemName = set_value('itemName');
             $itemQty = set_value('itemQuantity');

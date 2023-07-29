@@ -29,42 +29,6 @@ $(document).ready(function(){
         $("#itemsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewItemDiv").toggleClass('hidden');
         $("#itemName").focus();
-    
-        // Make an AJAX request to fetch the categories
-        $.ajax({
-            url: appRoot + "items/laciiv", // Update the URL to the appropriate endpoint
-            type: "get",
-            dataType: "json", // Expect JSON response
-            success: function(response) {
-                var selectField = $("#categorie");
-                var searchInput = $("#categorie-search");
-    
-                // Clear the existing options in the select field
-                selectField.empty();
-    
-                // Iterate over the categories in the response and add options to the select field
-                response.forEach(function(category) {
-                    selectField.append("<option value='" + category.id + "'>" + category.name + "</option>");
-                });
-    
-                // Enable Select2 on the select field to provide search functionality
-                selectField.select2();
-    
-                // Update the select field options based on user input in the search field
-                searchInput.on('input', function() {
-                    var searchQuery = searchInput.val().toLowerCase();
-    
-                    selectField.find('option').each(function() {
-                        var optionText = $(this).text().toLowerCase();
-                        var isVisible = optionText.includes(searchQuery);
-                        $(this).toggle(isVisible);
-                    });
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log("Failed to load categories: " + error);
-            }
-        });
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,7 +93,7 @@ $(document).ready(function(){
     $("#addNewItem").click(function(e){
         e.preventDefault();
         
-        changeInnerHTML(['itemNameErr', 'itemQuantityErr', 'itemPriceErr', 'itemCodeErr', 'addCustErrMsg','itemCostErr','categorieErr'], "");
+        changeInnerHTML(['itemNameErr', 'itemQuantityErr', 'itemPriceErr', 'itemCodeErr', 'addCustErrMsg','itemCostErr'], "");
         
         var itemName = $("#itemName").val();
         var itemQuantity = $("#itemQuantity").val();
@@ -137,7 +101,6 @@ $(document).ready(function(){
         var itemCode = $("#itemCode").val();
         var itemDescription = $("#itemDescription").val();
         var itemCost = $("#itemCost").val();
-        var categorie = $("#categorie").val();
         
         if(!itemName || !itemQuantity || !itemPrice || !itemCode || !itemCost){
             !itemName ? $("#itemNameErr").text("required") : "";
@@ -156,7 +119,7 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: appRoot+"items/add",
-            data:{itemName:itemName, itemQuantity:itemQuantity, itemPrice:itemPrice, itemDescription:itemDescription, itemCode:itemCode, itemCost:itemCost, categorie:categorie},
+            data:{itemName:itemName, itemQuantity:itemQuantity, itemPrice:itemPrice, itemDescription:itemDescription, itemCode:itemCode, itemCost:itemCost},
             
             success: function(returnedData){
                 if(returnedData.status === 1){
@@ -178,7 +141,6 @@ $(document).ready(function(){
                     $("#itemPriceErr").text(returnedData.itemPrice);
                     $("#itemCodeErr").text(returnedData.itemCode);
                     $("#itemCostErr").text(returnedData.itemCost)
-                    $("#categorieErr").text(returnedData.categorie)
                     $("#itemQuantityErr").text(returnedData.itemQuantity);
                     $("#addCustErrMsg").text(returnedData.msg);
                     
@@ -485,48 +447,6 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Set the price of the product when cost is inserted on the form 
-
-    $("#itemCost").blur(function(e){
-        var categorie = $("#categorie").val();
-        var itemCost = $("#itemCost") .val();
-        var itemName = $("#itemName") .val()
-        
-        if(!categorie || !itemCost || !itemName){
-            !categorie ? $("#categorieErr").html("required") : "";
-            !itemCost ? $("#itemCostErr").html("required") : "";
-            !itemName ? $("#itemNameErr").html("required"): "";
-            return;
-        }
-        
-        displayFlashMsg("Calculating price for  '"+itemName+"'", "fa fa-spinner faa-spin animated", '', '');
-        $.ajax({
-            url: appRoot+"items/getPerc",
-            type: "get",
-            data: {categorie:categorie},
-            success: function(returnedData){
-                $.ajax({
-                    url: appRoot + "items/calcPrice",
-                    type: "get",
-                    data: { returnedData: returnedData,itemCost:itemCost },
-                    success: function(response) {
-                        changeFlashMsgContent('Price calculated and set to ' + response, '', 'green', 2000);
-                        $("#itemPrice").val(response);
-                        
-                        
-                    },
-                    error: function(xhr, status, error) {
-                        console.log("Failed to calculate the price: " + error);
-                        
-                    }
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log("Failed To Get percentage: " + error);
-            }
-        });
-        
-      });
 });
 
 
@@ -571,9 +491,5 @@ function resetItemSN(){
     });
 }
 
-/**
- * Update Price When Categorie And Item Cost Change On The Form
- * @param {type} url
- * @returns {undefined}
- */
+
 

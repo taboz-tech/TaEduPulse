@@ -6,7 +6,7 @@
     </head>
     <body>
         <p>Hi <?=$this->input->post('title')." ".$this->input->post('firstName')?>,<br>
-            Welcome to Ibadan golf club. Find below your registration details and please do not hesitate to inform us if there is any 
+            Welcome to Taboz Investments. Find below your registration details and please do not hesitate to inform us if there is any 
             mistake. Thanks.
         </p>
         <table style="text-align: left">
@@ -68,6 +68,6 @@
             </tbody>
         </table>
         <p>We hope you enjoy your time with us.</p>
-        <p><small>The Manager, <br>Ibadan Golf Club</small></p>
+        <p><small>The Manager, <br>Taboz Investments</small></p>
     </body>
 </html>

@@ -63,6 +63,6 @@
                 </tr>
             </tbody>
         </table>
-        <p><small>The Manager, <br>Ibadan Golf Club</small></p>
+        <p><small>The Manager, <br>Taboz Investments</small></p>
     </body>
 </html>

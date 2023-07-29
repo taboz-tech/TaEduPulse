@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'item', 'category']);
+        $this->load->model(['transaction', 'item']);
         
         $this->load->helper('text');
         
@@ -56,24 +56,7 @@ class Search extends CI_Controller{
     */
     
     
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
     
-
-    public function categorieSearch(){
-        $data['allCategories'] = $this->category->categoriesearch($this->value);
-        $data['sn'] = 1;
-        
-        $json['categoriesListTable'] = $data['allCategories'] ? $this->load->view('categories/categorieslisttable', $data, TRUE) : "No match found";
-        
-        //set final output
-        $this->output->set_content_type('application/json')->set_output(json_encode($json));
-    }
     
     /*
     ********************************************************************************************************************************
