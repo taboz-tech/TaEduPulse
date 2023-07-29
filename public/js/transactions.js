@@ -190,7 +190,7 @@ $(document).ready(function(){
         else{
             //reload the table if all text in search box has been cleared
             displayFlashMsg("Loading page...", spinnerClass, "", "");
-            lilt();
+            lslt();
         }
     });
     

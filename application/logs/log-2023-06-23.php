@@ -10,7 +10,7 @@ ERROR - 2023-06-23 09:48:20 --> Start page: 0
 ERROR - 2023-06-23 09:48:20 --> Pagination configuration set: Array
 (
     [total_rows] => 24
-    [base_url] => http://localhost/inventory-sales-ci/items/lilt
+    [base_url] => http://localhost/Cliffs_Internation/items/lilt
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -37,9 +37,9 @@ ERROR - 2023-06-23 09:48:20 --> Pagination configuration set: Array
 )
 
 ERROR - 2023-06-23 09:48:20 --> Pagination initialized.
-ERROR - 2023-06-23 09:48:20 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/inventory-sales-ci/system/libraries/Pagination.php 522
-ERROR - 2023-06-23 09:48:20 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 09:48:20 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:48:20 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/Cliffs_Internation/system/libraries/Pagination.php 522
+ERROR - 2023-06-23 09:48:20 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:48:20 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 09:56:21 --> orderBy: name
 ERROR - 2023-06-23 09:56:21 --> orderFormat: ASC
 ERROR - 2023-06-23 09:56:21 --> Total items: 24
@@ -50,7 +50,7 @@ ERROR - 2023-06-23 09:56:21 --> Start page: 0
 ERROR - 2023-06-23 09:56:21 --> Pagination configuration set: Array
 (
     [total_rows] => 24
-    [base_url] => http://localhost/inventory-sales-ci/items/lilt
+    [base_url] => http://localhost/Cliffs_Internation/items/lilt
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -77,9 +77,9 @@ ERROR - 2023-06-23 09:56:21 --> Pagination configuration set: Array
 )
 
 ERROR - 2023-06-23 09:56:21 --> Pagination initialized.
-ERROR - 2023-06-23 09:56:21 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/inventory-sales-ci/system/libraries/Pagination.php 522
-ERROR - 2023-06-23 09:56:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 09:56:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:56:21 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/Cliffs_Internation/system/libraries/Pagination.php 522
+ERROR - 2023-06-23 09:56:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:56:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 09:57:07 --> orderBy: name
 ERROR - 2023-06-23 09:57:07 --> orderFormat: ASC
 ERROR - 2023-06-23 09:57:07 --> Total items: 24
@@ -90,7 +90,7 @@ ERROR - 2023-06-23 09:57:07 --> Start page: 0
 ERROR - 2023-06-23 09:57:07 --> Pagination configuration set: Array
 (
     [total_rows] => 24
-    [base_url] => http://localhost/inventory-sales-ci/items/lilt
+    [base_url] => http://localhost/Cliffs_Internation/items/lilt
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -241,9 +241,9 @@ ERROR - 2023-06-23 09:57:07 --> Items retrieved from the database: Array
 
 )
 
-ERROR - 2023-06-23 09:57:07 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/inventory-sales-ci/system/libraries/Pagination.php 522
-ERROR - 2023-06-23 09:57:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 09:57:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:57:07 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/Cliffs_Internation/system/libraries/Pagination.php 522
+ERROR - 2023-06-23 09:57:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:57:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 09:59:36 --> orderBy: name
 ERROR - 2023-06-23 09:59:36 --> orderFormat: ASC
 ERROR - 2023-06-23 09:59:36 --> Total items: 24
@@ -253,9 +253,9 @@ ERROR - 2023-06-23 09:59:36 --> Limit: 10
 ERROR - 2023-06-23 09:59:36 --> Start page: 0
 ERROR - 2023-06-23 09:59:36 --> Pagination initialized.
 ERROR - 2023-06-23 09:59:36 --> range  retrieved from the database: Showing 1-10 of 24
-ERROR - 2023-06-23 09:59:36 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/inventory-sales-ci/system/libraries/Pagination.php 522
-ERROR - 2023-06-23 09:59:36 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 09:59:36 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:59:36 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/Cliffs_Internation/system/libraries/Pagination.php 522
+ERROR - 2023-06-23 09:59:36 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 09:59:36 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:00:51 --> orderBy: name
 ERROR - 2023-06-23 10:00:51 --> orderFormat: ASC
 ERROR - 2023-06-23 10:00:51 --> Total items: 24
@@ -264,10 +264,10 @@ ERROR - 2023-06-23 10:00:51 --> PAge Number: 0
 ERROR - 2023-06-23 10:00:51 --> Limit: 10
 ERROR - 2023-06-23 10:00:51 --> Start page: 0
 ERROR - 2023-06-23 10:00:51 --> Pagination initialized.
-ERROR - 2023-06-23 10:00:51 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/inventory-sales-ci/system/libraries/Pagination.php 522
-ERROR - 2023-06-23 10:00:51 --> Links retrieved from the database: <ul class='pagination'><li><a><b style="color:black">1</b></a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2" rel="next">&gt;&gt;</a></li></ul>
-ERROR - 2023-06-23 10:00:51 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:00:51 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:00:51 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/Cliffs_Internation/system/libraries/Pagination.php 522
+ERROR - 2023-06-23 10:00:51 --> Links retrieved from the database: <ul class='pagination'><li><a><b style="color:black">1</b></a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2" rel="next">&gt;&gt;</a></li></ul>
+ERROR - 2023-06-23 10:00:51 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:00:51 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:02:45 --> orderBy: name
 ERROR - 2023-06-23 10:02:45 --> orderFormat: ASC
 ERROR - 2023-06-23 10:02:45 --> Total items: 24
@@ -276,10 +276,10 @@ ERROR - 2023-06-23 10:02:45 --> PAge Number: 0
 ERROR - 2023-06-23 10:02:45 --> Limit: 10
 ERROR - 2023-06-23 10:02:45 --> Start page: 0
 ERROR - 2023-06-23 10:02:45 --> Pagination initialized.
-ERROR - 2023-06-23 10:02:45 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/inventory-sales-ci/system/libraries/Pagination.php 522
+ERROR - 2023-06-23 10:02:45 --> Severity: 8192 --> ctype_digit(): Argument of type null will be interpreted as string in the future /var/www/html/Cliffs_Internation/system/libraries/Pagination.php 522
 ERROR - 2023-06-23 10:02:45 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:02:45 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:02:45 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:02:45 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:02:45 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:03:54 --> orderBy: name
 ERROR - 2023-06-23 10:03:54 --> orderFormat: ASC
 ERROR - 2023-06-23 10:03:54 --> Total items: 24
@@ -289,15 +289,15 @@ ERROR - 2023-06-23 10:03:54 --> Limit: 30
 ERROR - 2023-06-23 10:03:54 --> Start page: 0
 ERROR - 2023-06-23 10:03:54 --> Pagination initialized.
 ERROR - 2023-06-23 10:03:54 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:03:54 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:09:21 --> orderBy: name
 ERROR - 2023-06-23 10:09:21 --> orderFormat: ASC
 ERROR - 2023-06-23 10:09:21 --> Total items: 24
@@ -307,8 +307,8 @@ ERROR - 2023-06-23 10:09:21 --> Limit: 10
 ERROR - 2023-06-23 10:09:21 --> Start page: 0
 ERROR - 2023-06-23 10:09:21 --> Pagination initialized.
 ERROR - 2023-06-23 10:09:21 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:09:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:09:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:09:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:09:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:21:49 --> orderBy: name
 ERROR - 2023-06-23 10:21:49 --> orderFormat: ASC
 ERROR - 2023-06-23 10:21:49 --> Total items: 24
@@ -327,7 +327,7 @@ ERROR - 2023-06-23 10:21:52 --> Limit: 1
 ERROR - 2023-06-23 10:21:52 --> Start page: 4
 ERROR - 2023-06-23 10:21:52 --> Pagination initialized.
 ERROR - 2023-06-23 10:21:52 --> SN retrieved from the database: 5
-ERROR - 2023-06-23 10:21:52 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:21:52 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:21:56 --> orderBy: name
 ERROR - 2023-06-23 10:21:56 --> orderFormat: ASC
 ERROR - 2023-06-23 10:21:56 --> Total items: 24
@@ -337,8 +337,8 @@ ERROR - 2023-06-23 10:21:56 --> Limit: 10
 ERROR - 2023-06-23 10:21:56 --> Start page: 0
 ERROR - 2023-06-23 10:21:56 --> Pagination initialized.
 ERROR - 2023-06-23 10:21:56 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:21:56 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:21:56 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:21:56 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:21:56 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:04 --> orderBy: name
 ERROR - 2023-06-23 10:41:04 --> orderFormat: ASC
 ERROR - 2023-06-23 10:41:04 --> Total items: 24
@@ -348,8 +348,8 @@ ERROR - 2023-06-23 10:41:04 --> Limit: 5
 ERROR - 2023-06-23 10:41:04 --> Start page: 0
 ERROR - 2023-06-23 10:41:04 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:04 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:04 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:41:04 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:04 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:04 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:08 --> orderBy: name
 ERROR - 2023-06-23 10:41:08 --> orderFormat: ASC
 ERROR - 2023-06-23 10:41:08 --> Total items: 24
@@ -359,8 +359,8 @@ ERROR - 2023-06-23 10:41:08 --> Limit: 5
 ERROR - 2023-06-23 10:41:08 --> Start page: 0
 ERROR - 2023-06-23 10:41:08 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:08 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:08 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:41:08 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:08 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:08 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:09 --> orderBy: name
 ERROR - 2023-06-23 10:41:09 --> orderFormat: ASC
 ERROR - 2023-06-23 10:41:09 --> Total items: 24
@@ -379,8 +379,8 @@ ERROR - 2023-06-23 10:41:12 --> Limit: 5
 ERROR - 2023-06-23 10:41:12 --> Start page: 10
 ERROR - 2023-06-23 10:41:12 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:12 --> SN retrieved from the database: 11
-ERROR - 2023-06-23 10:41:12 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:41:12 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:12 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:12 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:26 --> orderBy: code
 ERROR - 2023-06-23 10:41:26 --> orderFormat: ASC
 ERROR - 2023-06-23 10:41:26 --> Total items: 24
@@ -390,7 +390,7 @@ ERROR - 2023-06-23 10:41:26 --> Limit: 5
 ERROR - 2023-06-23 10:41:26 --> Start page: 0
 ERROR - 2023-06-23 10:41:26 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:26 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:26 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:26 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:35 --> orderBy: name
 ERROR - 2023-06-23 10:41:35 --> orderFormat: ASC
 ERROR - 2023-06-23 10:41:35 --> Total items: 24
@@ -400,8 +400,8 @@ ERROR - 2023-06-23 10:41:35 --> Limit: 5
 ERROR - 2023-06-23 10:41:35 --> Start page: 0
 ERROR - 2023-06-23 10:41:35 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:35 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:35 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:41:35 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:35 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:35 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:41 --> orderBy: code
 ERROR - 2023-06-23 10:41:41 --> orderFormat: ASC
 ERROR - 2023-06-23 10:41:41 --> Total items: 24
@@ -411,7 +411,7 @@ ERROR - 2023-06-23 10:41:41 --> Limit: 5
 ERROR - 2023-06-23 10:41:41 --> Start page: 0
 ERROR - 2023-06-23 10:41:41 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:41 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:41 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:41 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:44 --> orderBy: unitPrice
 ERROR - 2023-06-23 10:41:44 --> orderFormat: DESC
 ERROR - 2023-06-23 10:41:44 --> Total items: 24
@@ -421,8 +421,8 @@ ERROR - 2023-06-23 10:41:44 --> Limit: 5
 ERROR - 2023-06-23 10:41:44 --> Start page: 0
 ERROR - 2023-06-23 10:41:44 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:44 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:44 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:41:44 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:44 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:44 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:41:49 --> orderBy: quantity
 ERROR - 2023-06-23 10:41:49 --> orderFormat: DESC
 ERROR - 2023-06-23 10:41:49 --> Total items: 24
@@ -432,8 +432,8 @@ ERROR - 2023-06-23 10:41:49 --> Limit: 5
 ERROR - 2023-06-23 10:41:49 --> Start page: 0
 ERROR - 2023-06-23 10:41:49 --> Pagination initialized.
 ERROR - 2023-06-23 10:41:49 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:41:49 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:41:49 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:49 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:41:49 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:42:15 --> orderBy: name
 ERROR - 2023-06-23 10:42:15 --> orderFormat: DESC
 ERROR - 2023-06-23 10:42:15 --> Total items: 24
@@ -443,8 +443,8 @@ ERROR - 2023-06-23 10:42:15 --> Limit: 5
 ERROR - 2023-06-23 10:42:15 --> Start page: 0
 ERROR - 2023-06-23 10:42:15 --> Pagination initialized.
 ERROR - 2023-06-23 10:42:15 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:42:15 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:42:15 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:42:15 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:42:15 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:42:21 --> orderBy: code
 ERROR - 2023-06-23 10:42:21 --> orderFormat: DESC
 ERROR - 2023-06-23 10:42:21 --> Total items: 24
@@ -454,7 +454,7 @@ ERROR - 2023-06-23 10:42:21 --> Limit: 5
 ERROR - 2023-06-23 10:42:21 --> Start page: 0
 ERROR - 2023-06-23 10:42:21 --> Pagination initialized.
 ERROR - 2023-06-23 10:42:21 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:42:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:42:21 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:42:50 --> orderBy: unitPrice
 ERROR - 2023-06-23 10:42:50 --> orderFormat: ASC
 ERROR - 2023-06-23 10:42:50 --> Total items: 24
@@ -464,9 +464,9 @@ ERROR - 2023-06-23 10:42:50 --> Limit: 5
 ERROR - 2023-06-23 10:42:50 --> Start page: 0
 ERROR - 2023-06-23 10:42:50 --> Pagination initialized.
 ERROR - 2023-06-23 10:42:50 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:42:50 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:42:50 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:42:50 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:42:50 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:42:50 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:42:50 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:43:00 --> orderBy: quantity
 ERROR - 2023-06-23 10:43:00 --> orderFormat: ASC
 ERROR - 2023-06-23 10:43:00 --> Total items: 24
@@ -476,7 +476,7 @@ ERROR - 2023-06-23 10:43:00 --> Limit: 5
 ERROR - 2023-06-23 10:43:00 --> Start page: 0
 ERROR - 2023-06-23 10:43:00 --> Pagination initialized.
 ERROR - 2023-06-23 10:43:00 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:43:00 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:43:00 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:43:42 --> orderBy: name
 ERROR - 2023-06-23 10:43:42 --> orderFormat: ASC
 ERROR - 2023-06-23 10:43:42 --> Total items: 24
@@ -486,8 +486,8 @@ ERROR - 2023-06-23 10:43:42 --> Limit: 10
 ERROR - 2023-06-23 10:43:42 --> Start page: 0
 ERROR - 2023-06-23 10:43:42 --> Pagination initialized.
 ERROR - 2023-06-23 10:43:42 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:43:42 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:43:42 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:43:42 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:43:42 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:43:46 --> orderBy: quantity
 ERROR - 2023-06-23 10:43:46 --> orderFormat: ASC
 ERROR - 2023-06-23 10:43:46 --> Total items: 24
@@ -497,108 +497,108 @@ ERROR - 2023-06-23 10:43:46 --> Limit: 10
 ERROR - 2023-06-23 10:43:46 --> Start page: 0
 ERROR - 2023-06-23 10:43:46 --> Pagination initialized.
 ERROR - 2023-06-23 10:43:46 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:43:46 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:43:46 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:43:46 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:45:58 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-06-23 10:43:46 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:43:46 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:43:46 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:45:58 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:00 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:00 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:00 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:00 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:01 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:01 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:01 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:01 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:02 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:02 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:02 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:02 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:02 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:02 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:03 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:03 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:46:21 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:46:21 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 10:47:04 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 10:47:04 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-06-23 10:53:41 --> orderBy: name
 ERROR - 2023-06-23 10:53:41 --> orderFormat: ASC
 ERROR - 2023-06-23 10:53:41 --> Total items: 24
@@ -608,8 +608,8 @@ ERROR - 2023-06-23 10:53:41 --> Limit: 10
 ERROR - 2023-06-23 10:53:41 --> Start page: 0
 ERROR - 2023-06-23 10:53:41 --> Pagination initialized.
 ERROR - 2023-06-23 10:53:41 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:53:41 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:53:41 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:53:41 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:53:41 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
 ERROR - 2023-06-23 10:53:55 --> orderBy: name
 ERROR - 2023-06-23 10:53:55 --> orderFormat: ASC
 ERROR - 2023-06-23 10:53:55 --> Total items: 24
@@ -619,51 +619,51 @@ ERROR - 2023-06-23 10:53:55 --> Limit: 10
 ERROR - 2023-06-23 10:53:55 --> Start page: 0
 ERROR - 2023-06-23 10:53:55 --> Pagination initialized.
 ERROR - 2023-06-23 10:53:55 --> SN retrieved from the database: 1
-ERROR - 2023-06-23 10:53:55 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 10:53:55 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 11:58:26 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 11:58:26 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:14 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/items/itemslisttable.php 49
-ERROR - 2023-06-23 13:08:47 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/inventory-sales-ci/system/libraries/Session/Session_driver.php 132
-ERROR - 2023-06-23 13:08:48 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 13:25:24 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/inventory-sales-ci/system/libraries/Session/Session_driver.php 132
-ERROR - 2023-06-23 13:25:25 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 13:58:58 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-06-23 10:53:55 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 10:53:55 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 11:58:26 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 11:58:26 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:13 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:14 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 12:02:23 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/items/itemslisttable.php 49
+ERROR - 2023-06-23 13:08:47 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/Cliffs_Internation/system/libraries/Session/Session_driver.php 132
+ERROR - 2023-06-23 13:08:48 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 13:25:24 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/Cliffs_Internation/system/libraries/Session/Session_driver.php 132
+ERROR - 2023-06-23 13:25:25 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 13:58:58 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 14:49:29 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 14:49:29 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 15:04:06 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 15:04:06 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-06-23 16:04:21 --> ALL TRANSACTIONS: Array
 (
     [0] => stdClass Object
@@ -5116,26 +5116,26 @@ ERROR - 2023-06-23 16:36:07 --> ALL TRANSACTIONS: Array
 
 )
 
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
-ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/inventory-sales-ci/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: Warning --> Undefined property: stdClass::$cumAmount /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
+ERROR - 2023-06-23 16:36:07 --> Severity: 8192 --> number_format(): Passing null to parameter #1 ($num) of type float is deprecated /var/www/html/Cliffs_Internation/application/views/transactions/transtable.php 31
 ERROR - 2023-06-23 16:42:13 --> ALL TRANSACTIONS: Array
 (
     [0] => stdClass Object
@@ -7292,69 +7292,69 @@ ERROR - 2023-06-23 16:51:06 --> ALL TRANSACTIONS: Array
 
 )
 
-ERROR - 2023-06-23 16:51:31 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-06-23 16:51:31 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 16:51:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 16:51:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 16:51:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 16:51:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 16:51:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 16:51:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 16:51:34 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 16:51:34 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 16:51:34 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 16:51:34 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-23 16:51:34 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-23 16:51:34 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-06-23 16:51:35 --> ALL TRANSACTIONS: Array
 (
     [0] => stdClass Object

@@ -1,5 +1,5 @@
 
-**Database Name: iventorysalesci**
+**Database Name: cliffs_college**
 
 **Developed by Tavonga Mafura**
 

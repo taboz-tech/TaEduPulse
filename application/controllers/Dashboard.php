@@ -14,7 +14,7 @@ class Dashboard extends CI_Controller{
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['item', 'transaction', 'analytic']);
+        $this->load->model(['student', 'transaction', 'analytic']);
     }
     
     

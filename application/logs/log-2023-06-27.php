@@ -1,28 +1,28 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 132
-ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 290
-ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 164
-ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 233
-ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 313
-ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 354
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 284
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 296
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 306
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 316
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 317
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 318
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 319
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 377
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 108
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 110
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 143
-ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/inventory-sales-ci/system/core/Exceptions.php:271) /var/www/html/inventory-sales-ci/system/helpers/url_helper.php 564
-ERROR - 2023-06-27 07:58:23 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
+ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 132
+ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 290
+ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 164
+ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 233
+ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 313
+ERROR - 2023-06-27 07:58:18 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 354
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 284
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 296
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 306
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 316
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 317
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 318
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 319
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 377
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 108
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 110
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 143
+ERROR - 2023-06-27 07:58:18 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/Cliffs_Internation/system/core/Exceptions.php:271) /var/www/html/Cliffs_Internation/system/helpers/url_helper.php 564
+ERROR - 2023-06-27 07:58:23 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-06-27 08:07:48 --> Pagination config: Array
 (
     [total_rows] => 10
-    [base_url] => http://localhost/inventory-sales-ci/categories/lclt
+    [base_url] => http://localhost/Cliffs_Internation/categories/lclt
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -51,7 +51,7 @@ ERROR - 2023-06-27 08:07:48 --> Pagination config: Array
 ERROR - 2023-06-27 08:08:41 --> Pagination config: Array
 (
     [total_rows] => 25
-    [base_url] => http://localhost/inventory-sales-ci/items/lilt
+    [base_url] => http://localhost/Cliffs_Internation/items/lilt
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -164,7 +164,7 @@ ERROR - 2023-06-27 08:12:34 --> All Categories: Array
 ERROR - 2023-06-27 08:15:24 --> All Ranges: Showing 1-10 of 10
 ERROR - 2023-06-27 08:15:37 --> All Ranges: Showing 1-5 of 10
 ERROR - 2023-06-27 09:17:22 --> All links: 
-ERROR - 2023-06-27 09:17:50 --> All links: <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>
+ERROR - 2023-06-27 09:17:50 --> All links: <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>
 ERROR - 2023-06-27 09:20:34 --> All sn: 1
 ERROR - 2023-06-27 09:20:49 --> All sn: 1
 ERROR - 2023-06-27 09:21:10 --> All sn: 1
@@ -616,7 +616,7 @@ ERROR - 2023-06-27 09:24:57 --> Items List Table:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 09:32:39 --> Categories List Table: 
@@ -2175,7 +2175,7 @@ ERROR - 2023-06-27 10:17:00 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 10:17:00 --> Page Title: Items
 ERROR - 2023-06-27 10:18:10 --> Page Content: 
 <div class="pwell hidden-print">   
@@ -2343,7 +2343,7 @@ ERROR - 2023-06-27 10:18:10 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/categories.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/categories.js"></script>
 ERROR - 2023-06-27 10:18:10 --> Page Title: Categories
 ERROR - 2023-06-27 10:21:28 --> Page Content: 
 <div class="pwell hidden-print">   
@@ -2600,7 +2600,7 @@ ERROR - 2023-06-27 10:21:28 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 10:21:28 --> Page Title: Items
 ERROR - 2023-06-27 10:34:41 --> Rendered view: 
 <div class='col-sm-6'>
@@ -2775,7 +2775,7 @@ ERROR - 2023-06-27 10:34:41 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:36:00 --> Rendered view: 
@@ -2950,7 +2950,7 @@ ERROR - 2023-06-27 10:36:00 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:38:47 --> Rendered view: 
@@ -3125,7 +3125,7 @@ ERROR - 2023-06-27 10:38:47 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:38:50 --> Rendered view: 
@@ -3300,7 +3300,7 @@ ERROR - 2023-06-27 10:38:50 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:45:37 --> Rendered view: 
@@ -3475,7 +3475,7 @@ ERROR - 2023-06-27 10:45:37 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:48:02 --> Rendered view: 
@@ -3650,7 +3650,7 @@ ERROR - 2023-06-27 10:48:02 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:52:41 --> Rendered view: 
@@ -3825,7 +3825,7 @@ ERROR - 2023-06-27 10:52:41 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 10:59:38 --> Page Content: 
@@ -4083,7 +4083,7 @@ ERROR - 2023-06-27 10:59:38 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 10:59:38 --> Page Title: Items
 ERROR - 2023-06-27 10:59:52 --> Page Content: 
 <div class="pwell hidden-print">   
@@ -4340,7 +4340,7 @@ ERROR - 2023-06-27 10:59:52 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 10:59:52 --> Page Title: Items
 ERROR - 2023-06-27 11:00:05 --> Rendered view: 
 <div class='col-sm-6'>
@@ -4514,7 +4514,7 @@ ERROR - 2023-06-27 11:00:05 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:01:06 --> Page Content: 
@@ -4772,7 +4772,7 @@ ERROR - 2023-06-27 11:01:06 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:01:06 --> Page Title: Items
 ERROR - 2023-06-27 11:01:14 --> Rendered view: 
 <div class='col-sm-6'>
@@ -4946,7 +4946,7 @@ ERROR - 2023-06-27 11:01:14 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:01:26 --> Page Content: 
@@ -5204,7 +5204,7 @@ ERROR - 2023-06-27 11:01:26 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:01:26 --> Page Title: Items
 ERROR - 2023-06-27 11:02:02 --> Rendered view: 
 <div class='col-sm-6'>
@@ -5378,7 +5378,7 @@ ERROR - 2023-06-27 11:02:02 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:15:36 --> Page Content: 
@@ -5636,9 +5636,9 @@ ERROR - 2023-06-27 11:15:36 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:15:36 --> Page Title: Items
-ERROR - 2023-06-27 11:15:36 --> Severity: Warning --> Undefined variable $json /var/www/html/inventory-sales-ci/application/controllers/Items.php 82
+ERROR - 2023-06-27 11:15:36 --> Severity: Warning --> Undefined variable $json /var/www/html/Cliffs_Internation/application/controllers/Items.php 82
 ERROR - 2023-06-27 11:15:56 --> Page Content: 
 <div class="pwell hidden-print">   
     <div class="row">
@@ -5894,7 +5894,7 @@ ERROR - 2023-06-27 11:15:56 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:15:56 --> Page Title: Items
 ERROR - 2023-06-27 11:17:14 --> Page Content: 
 <div class="pwell hidden-print">   
@@ -6151,7 +6151,7 @@ ERROR - 2023-06-27 11:17:14 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:17:14 --> Page Title: Items
 ERROR - 2023-06-27 11:17:14 --> Rendered view: 
 <div class='col-sm-6'>
@@ -6422,7 +6422,7 @@ ERROR - 2023-06-27 11:17:14 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:18:08 --> Rendered view: 
@@ -6597,7 +6597,7 @@ ERROR - 2023-06-27 11:18:08 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:22:13 --> Page Content: 
@@ -6855,7 +6855,7 @@ ERROR - 2023-06-27 11:22:13 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:22:13 --> Page Title: Items
 ERROR - 2023-06-27 11:22:13 --> Rendered view: 
 <div class='col-sm-6'>
@@ -7126,7 +7126,7 @@ ERROR - 2023-06-27 11:22:13 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:24:22 --> Page Content: 
@@ -7384,7 +7384,7 @@ ERROR - 2023-06-27 11:24:22 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:24:22 --> Page Title: Items
 ERROR - 2023-06-27 11:24:22 --> Rendered view: 
 <!-- <div class='col-sm-6'>
@@ -7655,7 +7655,7 @@ ERROR - 2023-06-27 11:24:22 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:24:35 --> Page Content: 
@@ -7913,7 +7913,7 @@ ERROR - 2023-06-27 11:24:35 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 11:24:35 --> Page Title: Items
 ERROR - 2023-06-27 11:24:35 --> Rendered view: 
 <div class='col-sm-6'>
@@ -8184,7 +8184,7 @@ ERROR - 2023-06-27 11:24:35 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/items/lilt/-1" onclick="return lilt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/2" onclick="return lilt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/3" onclick="return lilt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/items/lilt/1" onclick="return lilt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:33:39 --> Rendered view: 
@@ -8359,7 +8359,7 @@ ERROR - 2023-06-27 11:33:39 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 11:37:59 --> Rendered view: 
@@ -8786,7 +8786,7 @@ ERROR - 2023-06-27 11:38:13 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/3" onclick="return lclt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/4" onclick="return lclt(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/5" onclick="return lclt(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/3" onclick="return lclt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/4" onclick="return lclt(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/5" onclick="return lclt(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:09:52 --> Rendered view: 
@@ -8961,7 +8961,7 @@ ERROR - 2023-06-27 12:09:52 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:10:20 --> Page Content: 
@@ -9219,7 +9219,7 @@ ERROR - 2023-06-27 12:10:20 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 12:10:20 --> Page Title: Items
 ERROR - 2023-06-27 12:10:45 --> Page Content: 
 <div class="pwell hidden-print">   
@@ -9476,7 +9476,7 @@ ERROR - 2023-06-27 12:10:45 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 12:10:45 --> Page Title: Items
 ERROR - 2023-06-27 12:18:19 --> Rendered view: 
 <div class='col-sm-6'>
@@ -9650,7 +9650,7 @@ ERROR - 2023-06-27 12:18:19 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:20:09 --> Rendered view: 
@@ -9825,7 +9825,7 @@ ERROR - 2023-06-27 12:20:09 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a><b style="color:black">1</b></a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a><b style="color:black">1</b></a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:20:12 --> Rendered view: 
@@ -9874,10 +9874,10 @@ ERROR - 2023-06-27 12:20:12 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a><b style="color:black">2</b></a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a><b style="color:black">2</b></a></li></ul>    </ul>
 </div>
 
-ERROR - 2023-06-27 12:20:53 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 212
+ERROR - 2023-06-27 12:20:53 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 212
 ERROR - 2023-06-27 12:21:07 --> Rendered view: 
 <div class='col-sm-6'>
     Showing 1-10 of 11</div>
@@ -10050,7 +10050,7 @@ ERROR - 2023-06-27 12:21:07 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:21:28 --> Rendered view: 
@@ -10225,7 +10225,7 @@ ERROR - 2023-06-27 12:21:28 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:21:40 --> Rendered view: 
@@ -10400,7 +10400,7 @@ ERROR - 2023-06-27 12:21:40 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:21:46 --> Rendered view: 
@@ -10575,7 +10575,7 @@ ERROR - 2023-06-27 12:21:46 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:21:58 --> Rendered view: 
@@ -10750,7 +10750,7 @@ ERROR - 2023-06-27 12:21:58 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:04 --> Rendered view: 
@@ -10925,7 +10925,7 @@ ERROR - 2023-06-27 12:22:04 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:07 --> Rendered view: 
@@ -11100,7 +11100,7 @@ ERROR - 2023-06-27 12:22:07 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:13 --> Rendered view: 
@@ -11275,7 +11275,7 @@ ERROR - 2023-06-27 12:22:13 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:18 --> Rendered view: 
@@ -11450,7 +11450,7 @@ ERROR - 2023-06-27 12:22:18 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:29 --> Rendered view: 
@@ -11625,7 +11625,7 @@ ERROR - 2023-06-27 12:22:29 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:37 --> Rendered view: 
@@ -11674,7 +11674,7 @@ ERROR - 2023-06-27 12:22:37 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/3" onclick="return lclt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/4" onclick="return lclt(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/5" onclick="return lclt(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/3" onclick="return lclt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/4" onclick="return lclt(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/5" onclick="return lclt(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:40 --> Rendered view: 
@@ -11779,7 +11779,7 @@ ERROR - 2023-06-27 12:22:40 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/3" onclick="return lclt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/3" onclick="return lclt(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
 ERROR - 2023-06-27 12:22:48 --> Rendered view: 
@@ -12226,7 +12226,7 @@ ERROR - 2023-06-27 12:23:16 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 12:23:16 --> Page Title: Items
 ERROR - 2023-06-27 12:34:56 --> Rendered view: 
 <div class='col-sm-6'>
@@ -12400,11 +12400,11 @@ ERROR - 2023-06-27 12:34:56 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
-ERROR - 2023-06-27 12:35:15 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 212
-ERROR - 2023-06-27 12:37:33 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 212
+ERROR - 2023-06-27 12:35:15 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 212
+ERROR - 2023-06-27 12:37:33 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 212
 ERROR - 2023-06-27 12:42:36 --> Rendered view: 
 <div class='col-sm-6'>
     Showing 1-10 of 11</div>
@@ -12577,44 +12577,44 @@ ERROR - 2023-06-27 12:42:36 --> Rendered view:
 <!---Pagination div-->
 <div class="col-sm-12 text-center">
     <ul class="pagination">
-        <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
+        <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/categories/lclt/-1" onclick="return lclt(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/2" onclick="return lclt(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/categories/lclt/1" onclick="return lclt(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>    </ul>
 </div>
 
-ERROR - 2023-06-27 12:47:07 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 211
-ERROR - 2023-06-27 12:58:08 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 211
-ERROR - 2023-06-27 12:59:55 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 211
-ERROR - 2023-06-27 13:00:31 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 211
-ERROR - 2023-06-27 13:38:17 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 211
-ERROR - 2023-06-27 13:53:21 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/inventory-sales-ci/application/controllers/Categories.php 211
-ERROR - 2023-06-27 13:55:28 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-06-27 12:47:07 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 211
+ERROR - 2023-06-27 12:58:08 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 211
+ERROR - 2023-06-27 12:59:55 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 211
+ERROR - 2023-06-27 13:00:31 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 211
+ERROR - 2023-06-27 13:38:17 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 211
+ERROR - 2023-06-27 13:53:21 --> Severity: Warning --> Undefined variable $cateforieWithName /var/www/html/Cliffs_Internation/application/controllers/Categories.php 211
+ERROR - 2023-06-27 13:55:28 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-27 13:55:47 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-27 13:55:47 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-27 13:57:18 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-27 13:57:18 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-06-27 13:58:21 --> Severity: Warning --> Undefined variable $categoryId /var/www/html/inventory-sales-ci/application/controllers/Categories.php 186
-ERROR - 2023-06-27 13:58:21 --> Severity: Warning --> Undefined variable $categoryId /var/www/html/inventory-sales-ci/application/controllers/Categories.php 187
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-06-27 13:58:21 --> Severity: Warning --> Undefined variable $categoryId /var/www/html/Cliffs_Internation/application/controllers/Categories.php 186
+ERROR - 2023-06-27 13:58:21 --> Severity: Warning --> Undefined variable $categoryId /var/www/html/Cliffs_Internation/application/controllers/Categories.php 187
 ERROR - 2023-06-27 14:45:27 --> Page Content: 
 <div class="pwell hidden-print">   
     <div class="row">
@@ -12870,28 +12870,28 @@ ERROR - 2023-06-27 14:45:27 --> Page Content:
     </div>
 </div>
 <!--end of modal-->
-<script src="http://localhost/inventory-sales-ci/public/js/items.js"></script>
+<script src="http://localhost/Cliffs_Internation/public/js/items.js"></script>
 ERROR - 2023-06-27 14:45:27 --> Page Title: Items
-ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 132
-ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 290
-ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 164
-ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 233
-ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 313
-ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 354
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 284
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 296
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 306
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 316
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 317
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 318
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 319
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 377
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 108
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 110
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 143
-ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/inventory-sales-ci/system/core/Exceptions.php:271) /var/www/html/inventory-sales-ci/system/helpers/url_helper.php 564
-ERROR - 2023-06-27 17:01:59 --> Severity: Warning --> Undefined variable $sn /var/www/html/inventory-sales-ci/application/views/categories/categorieslisttable.php 28
-ERROR - 2023-06-27 17:01:59 --> Severity: Warning --> Undefined variable $sn /var/www/html/inventory-sales-ci/application/views/categories/categorieslisttable.php 41
-ERROR - 2023-06-27 17:03:45 --> Severity: 8192 --> str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated /var/www/html/inventory-sales-ci/system/core/Output.php 457
-ERROR - 2023-06-27 17:03:57 --> Severity: 8192 --> str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated /var/www/html/inventory-sales-ci/system/core/Output.php 457
-ERROR - 2023-06-27 17:04:01 --> Severity: 8192 --> str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated /var/www/html/inventory-sales-ci/system/core/Output.php 457
+ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 132
+ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 290
+ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 164
+ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 233
+ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 313
+ERROR - 2023-06-27 17:01:32 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 354
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 284
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 296
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 306
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 316
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 317
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 318
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 319
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 377
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 108
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 110
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 143
+ERROR - 2023-06-27 17:01:32 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/Cliffs_Internation/system/core/Exceptions.php:271) /var/www/html/Cliffs_Internation/system/helpers/url_helper.php 564
+ERROR - 2023-06-27 17:01:59 --> Severity: Warning --> Undefined variable $sn /var/www/html/Cliffs_Internation/application/views/categories/categorieslisttable.php 28
+ERROR - 2023-06-27 17:01:59 --> Severity: Warning --> Undefined variable $sn /var/www/html/Cliffs_Internation/application/views/categories/categorieslisttable.php 41
+ERROR - 2023-06-27 17:03:45 --> Severity: 8192 --> str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated /var/www/html/Cliffs_Internation/system/core/Output.php 457
+ERROR - 2023-06-27 17:03:57 --> Severity: 8192 --> str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated /var/www/html/Cliffs_Internation/system/core/Output.php 457
+ERROR - 2023-06-27 17:04:01 --> Severity: 8192 --> str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated /var/www/html/Cliffs_Internation/system/core/Output.php 457

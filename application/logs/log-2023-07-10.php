@@ -1,258 +1,258 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 132
-ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 290
-ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 164
-ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 233
-ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 313
-ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 354
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 284
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 296
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 306
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 316
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 317
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 318
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 319
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 377
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 108
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 110
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 143
-ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/inventory-sales-ci/system/core/Exceptions.php:271) /var/www/html/inventory-sales-ci/system/helpers/url_helper.php 564
-ERROR - 2023-07-10 08:42:53 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 08:47:44 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 132
+ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 290
+ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 164
+ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 233
+ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 313
+ERROR - 2023-07-10 08:42:48 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 354
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 284
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 296
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 306
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 316
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 317
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 318
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 319
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 377
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 108
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 110
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 143
+ERROR - 2023-07-10 08:42:48 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/Cliffs_Internation/system/core/Exceptions.php:271) /var/www/html/Cliffs_Internation/system/helpers/url_helper.php 564
+ERROR - 2023-07-10 08:42:53 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 08:47:44 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 08:48:38 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/inventory-sales-ci/system/libraries/Session/Session_driver.php 132
-ERROR - 2023-07-10 08:48:38 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 08:48:54 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 08:48:38 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/Cliffs_Internation/system/libraries/Session/Session_driver.php 132
+ERROR - 2023-07-10 08:48:38 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 08:48:54 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:12:18 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/inventory-sales-ci/system/libraries/Session/Session_driver.php 132
-ERROR - 2023-07-10 09:12:18 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:12:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:12:18 --> Severity: 8192 --> setcookie(): Passing null to parameter #2 ($value) of type string is deprecated /var/www/html/Cliffs_Internation/system/libraries/Session/Session_driver.php 132
+ERROR - 2023-07-10 09:12:18 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:12:32 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:12:48 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:12:48 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:15:16 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:15:16 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:15:51 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:15:51 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 132
-ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 290
-ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 164
-ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 233
-ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 313
-ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 354
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 284
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 296
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 306
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 316
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 317
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 318
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 319
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 377
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 108
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 110
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 143
-ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/inventory-sales-ci/system/core/Exceptions.php:271) /var/www/html/inventory-sales-ci/system/helpers/url_helper.php 564
-ERROR - 2023-07-10 09:19:22 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 132
+ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 290
+ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 164
+ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 233
+ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 313
+ERROR - 2023-07-10 09:19:03 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 354
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 284
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 296
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 306
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 316
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 317
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 318
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 319
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 377
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 108
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 110
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 143
+ERROR - 2023-07-10 09:19:03 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/Cliffs_Internation/system/core/Exceptions.php:271) /var/www/html/Cliffs_Internation/system/helpers/url_helper.php 564
+ERROR - 2023-07-10 09:19:22 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:19:51 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:19:51 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:20:27 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:20:27 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:27:44 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:27:44 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:27:52 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:27:52 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:28:17 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:28:17 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:29:01 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:29:01 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:38:43 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:38:43 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 09:38:53 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 09:38:53 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 10:54:21 --> DESC transDate
-ERROR - 2023-07-10 10:54:21 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 10:54:21 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 10:54:38 --> DESC quantity
 ERROR - 2023-07-10 10:54:40 --> DESC transDate
-ERROR - 2023-07-10 10:54:40 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 10:54:40 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:03:27 --> DESC transDate
-ERROR - 2023-07-10 11:03:27 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:03:27 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:04:12 --> DESC transDate
-ERROR - 2023-07-10 11:04:12 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:04:12 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:13:38 --> DESC transDate
 ERROR - 2023-07-10 11:13:38 --> 44
-ERROR - 2023-07-10 11:13:38 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:13:38 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:14:50 --> DESC transDate
 ERROR - 2023-07-10 11:14:50 --> 44
 ERROR - 2023-07-10 11:14:50 --> we are here now
-ERROR - 2023-07-10 11:14:50 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:14:50 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:15:40 --> DESC transDate
 ERROR - 2023-07-10 11:15:40 --> 44
 ERROR - 2023-07-10 11:15:40 --> we are here now
 ERROR - 2023-07-10 11:15:40 --> 0
-ERROR - 2023-07-10 11:15:40 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:15:40 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:16:05 --> ASC transDate
 ERROR - 2023-07-10 11:16:05 --> 44
 ERROR - 2023-07-10 11:16:05 --> we are here now
@@ -261,43 +261,43 @@ ERROR - 2023-07-10 11:17:22 --> DESC transDate
 ERROR - 2023-07-10 11:17:22 --> 44
 ERROR - 2023-07-10 11:17:22 --> we are here now
 ERROR - 2023-07-10 11:17:22 --> 0
-ERROR - 2023-07-10 11:17:22 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:17:22 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:21:44 --> DESC transDate
 ERROR - 2023-07-10 11:21:44 --> 44
 ERROR - 2023-07-10 11:21:44 --> 0
 ERROR - 2023-07-10 11:21:44 --> we are here now
-ERROR - 2023-07-10 11:21:45 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:21:45 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:22:56 --> DESC transDate
 ERROR - 2023-07-10 11:22:56 --> 44
 ERROR - 2023-07-10 11:22:56 --> 0
 ERROR - 2023-07-10 11:22:56 --> 10
 ERROR - 2023-07-10 11:22:56 --> 0
 ERROR - 2023-07-10 11:22:56 --> we are here now
-ERROR - 2023-07-10 11:22:56 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:22:56 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:23:19 --> ASC transDate
 ERROR - 2023-07-10 11:23:19 --> 44
 ERROR - 2023-07-10 11:23:19 --> 0
@@ -309,15 +309,15 @@ ERROR - 2023-07-10 11:27:07 --> 44
 ERROR - 2023-07-10 11:27:07 --> 0
 ERROR - 2023-07-10 11:27:07 --> 10
 ERROR - 2023-07-10 11:27:07 --> 0
-ERROR - 2023-07-10 11:27:07 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:27:07 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:27:36 --> ASC transDate
 ERROR - 2023-07-10 11:27:36 --> 44
 ERROR - 2023-07-10 11:27:36 --> 0
@@ -326,7 +326,7 @@ ERROR - 2023-07-10 11:27:36 --> 0
 ERROR - 2023-07-10 11:27:36 --> Array
 (
     [total_rows] => 44
-    [base_url] => http://localhost/inventory-sales-ci/transactions/latr_
+    [base_url] => http://localhost/Cliffs_Internation/transactions/latr_
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -360,7 +360,7 @@ ERROR - 2023-07-10 11:27:39 --> 0
 ERROR - 2023-07-10 11:27:39 --> Array
 (
     [total_rows] => 44
-    [base_url] => http://localhost/inventory-sales-ci/transactions/latr_
+    [base_url] => http://localhost/Cliffs_Internation/transactions/latr_
     [per_page] => 10
     [uri_segment] => 3
     [num_links] => 5
@@ -386,15 +386,15 @@ ERROR - 2023-07-10 11:27:39 --> Array
 
 )
 
-ERROR - 2023-07-10 11:27:39 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:27:39 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:30:41 --> ASC transDate
 ERROR - 2023-07-10 11:30:41 --> 44
 ERROR - 2023-07-10 11:30:41 --> 0
@@ -407,15 +407,15 @@ ERROR - 2023-07-10 11:30:44 --> 0
 ERROR - 2023-07-10 11:30:44 --> 10
 ERROR - 2023-07-10 11:30:44 --> 0
 ERROR - 2023-07-10 11:30:44 --> we are here taboz
-ERROR - 2023-07-10 11:30:44 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:30:44 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:35:30 --> ASC transDate
 ERROR - 2023-07-10 11:35:30 --> 44
 ERROR - 2023-07-10 11:35:30 --> 0
@@ -836,15 +836,15 @@ ERROR - 2023-07-10 11:35:48 --> Array
 
 )
 
-ERROR - 2023-07-10 11:35:48 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:35:48 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
 ERROR - 2023-07-10 11:37:34 --> ASC transDate
 ERROR - 2023-07-10 11:37:34 --> 44
 ERROR - 2023-07-10 11:37:34 --> 0
@@ -1056,7 +1056,7 @@ ERROR - 2023-07-10 11:37:34 --> Array
 )
 
 ERROR - 2023-07-10 11:37:34 --> 1-10 of 44
-ERROR - 2023-07-10 11:37:34 --> <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/-1" onclick="return latr_(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/2" onclick="return latr_(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/3" onclick="return latr_(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/4" onclick="return latr_(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/5" onclick="return latr_(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/1" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>
+ERROR - 2023-07-10 11:37:34 --> <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/-1" onclick="return latr_(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/2" onclick="return latr_(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/3" onclick="return latr_(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/4" onclick="return latr_(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/5" onclick="return latr_(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/1" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>
 ERROR - 2023-07-10 11:37:34 --> 1
 ERROR - 2023-07-10 11:37:54 --> DESC transDate
 ERROR - 2023-07-10 11:37:54 --> 44
@@ -1269,59 +1269,59 @@ ERROR - 2023-07-10 11:37:54 --> Array
 )
 
 ERROR - 2023-07-10 11:37:54 --> 1-10 of 44
-ERROR - 2023-07-10 11:37:54 --> <ul class='pagination'><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/-1" onclick="return latr_(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/2" onclick="return latr_(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/3" onclick="return latr_(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/4" onclick="return latr_(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/5" onclick="return latr_(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/inventory-sales-ci/transactions/latr_/1" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>
+ERROR - 2023-07-10 11:37:54 --> <ul class='pagination'><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/-1" onclick="return latr_(this.href);" data-ci-pagination-page="-1" rel="prev">&lt;&lt;</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="start">1</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/2" onclick="return latr_(this.href);" data-ci-pagination-page="2">2</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/3" onclick="return latr_(this.href);" data-ci-pagination-page="3">3</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/4" onclick="return latr_(this.href);" data-ci-pagination-page="4">4</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/5" onclick="return latr_(this.href);" data-ci-pagination-page="5">5</a></li><li><a href="http://localhost/Cliffs_Internation/transactions/latr_/1" onclick="return latr_(this.href);" data-ci-pagination-page="1" rel="next">&gt;&gt;</a></li></ul>
 ERROR - 2023-07-10 11:37:54 --> 1
-ERROR - 2023-07-10 11:37:54 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+ERROR - 2023-07-10 11:37:54 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 132
-ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 290
-ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 164
-ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 233
-ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 313
-ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 354
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 284
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 296
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 306
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 316
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 317
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 318
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 319
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 377
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 108
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 110
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 143
-ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/inventory-sales-ci/system/core/Exceptions.php:271) /var/www/html/inventory-sales-ci/system/helpers/url_helper.php 564
-ERROR - 2023-07-10 16:11:24 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/inventory-sales-ci/system/core/Common.php 196
-ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 132
-ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 290
-ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 164
-ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 233
-ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 313
-ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 354
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 284
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 296
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 306
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 316
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 317
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 318
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 319
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 377
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/drivers/Session_files_driver.php 108
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 110
-ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/inventory-sales-ci/system/libraries/Session/Session.php 143
-ERROR - 2023-07-10 16:12:14 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/inventory-sales-ci/system/core/Common.php:196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 132
+ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 290
+ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 164
+ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 233
+ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 313
+ERROR - 2023-07-10 16:11:14 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 354
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 284
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 296
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 306
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 316
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 317
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 318
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 319
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 377
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 108
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 110
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 143
+ERROR - 2023-07-10 16:11:14 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at /var/www/html/Cliffs_Internation/system/core/Exceptions.php:271) /var/www/html/Cliffs_Internation/system/helpers/url_helper.php 564
+ERROR - 2023-07-10 16:11:24 --> Severity: error --> Exception: Class "CI_Exceptions" not found /var/www/html/Cliffs_Internation/system/core/Common.php 196
+ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::open($save_path, $name) should either be compatible with SessionHandlerInterface::open(string $path, string $name): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 132
+ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::close() should either be compatible with SessionHandlerInterface::close(): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 290
+ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::read($session_id) should either be compatible with SessionHandlerInterface::read(string $id): string|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 164
+ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::write($session_id, $session_data) should either be compatible with SessionHandlerInterface::write(string $id, string $data): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 233
+ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::destroy($session_id) should either be compatible with SessionHandlerInterface::destroy(string $id): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 313
+ERROR - 2023-07-10 16:11:57 --> Severity: 8192 --> Return type of CI_Session_files_driver::gc($maxlifetime) should either be compatible with SessionHandlerInterface::gc(int $max_lifetime): int|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 354
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 284
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> session_set_cookie_params(): Session cookie parameters cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 296
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 306
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 316
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 317
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 318
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 319
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 377
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> ini_set(): Session ini settings cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/drivers/Session_files_driver.php 108
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> session_set_save_handler(): Session save handler cannot be changed after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 110
+ERROR - 2023-07-10 16:11:57 --> Severity: Warning --> session_start(): Session cannot be started after headers have already been sent /var/www/html/Cliffs_Internation/system/libraries/Session/Session.php 143
+ERROR - 2023-07-10 16:12:14 --> Severity: Error --> Uncaught Error: Class "CI_Exceptions" not found in /var/www/html/Cliffs_Internation/system/core/Common.php:196
 Stack trace:
-#0 /var/www/html/inventory-sales-ci/system/core/Common.php(617): load_class()
-#1 /var/www/html/inventory-sales-ci/system/core/Common.php(163): _error_handler()
-#2 /var/www/html/inventory-sales-ci/system/core/Common.php(163): require_once('...')
-#3 /var/www/html/inventory-sales-ci/system/core/Common.php(652): load_class()
+#0 /var/www/html/Cliffs_Internation/system/core/Common.php(617): load_class()
+#1 /var/www/html/Cliffs_Internation/system/core/Common.php(163): _error_handler()
+#2 /var/www/html/Cliffs_Internation/system/core/Common.php(163): require_once('...')
+#3 /var/www/html/Cliffs_Internation/system/core/Common.php(652): load_class()
 #4 [internal function]: _exception_handler()
 #5 {main}
-  thrown /var/www/html/inventory-sales-ci/system/core/Common.php 196
+  thrown /var/www/html/Cliffs_Internation/system/core/Common.php 196

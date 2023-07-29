@@ -2,27 +2,27 @@
 defined('BASEPATH') OR exit('');
 
 /**
- * Description of Items
+ * Description of Students
  *
  * @author Tavonga <mafuratavonga@gmail.com>
- * @date 31st Dec, 2022
+ * @date 29 July, 2023
  */
-class Items extends CI_Controller{
+class Students extends CI_Controller{
     
     public function __construct(){
         parent::__construct();
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['item']);
+        $this->load->model(['student']);
     }
     
     /**
      * 
      */
     public function index(){
-        $data['pageContent'] = $this->load->view('items/items', '', TRUE);
-        $data['pageTitle'] = "Items";
+        $data['pageContent'] = $this->load->view('students/studentss', '', TRUE);
+        $data['pageTitle'] = "Students";
 
         $this->load->view('main', $data);
     }
@@ -36,9 +36,9 @@ class Items extends CI_Controller{
     */
     
     /**
-     * "lilt" = "load Items List Table"
+     * "lslt" = "load Students List Table"
      */
-    public function lilt(){
+    public function lslt(){
         $this->genlib->ajaxOnly();
         
         $this->load->helper('text');
@@ -49,7 +49,7 @@ class Items extends CI_Controller{
 
         
         //count the total number of items in db
-        $totalItems = $this->db->count_all('items');
+        $totalStudents = $this->db->count_all('students');
     
         $this->load->library('pagination');
         
@@ -61,18 +61,18 @@ class Items extends CI_Controller{
 
         
         //call setPaginationConfig($totalRows, $urlToCall, $limit, $attributes) in genlib to configure pagination
-        $config = $this->genlib->setPaginationConfig($totalItems, "items/lilt", $limit, ['onclick'=>'return lilt(this.href);']);
+        $config = $this->genlib->setPaginationConfig($totalStudents, "students/lslt", $limit, ['onclick'=>'return lslt(this.href);']);
         
         $this->pagination->initialize($config);//initialize the library class
         
         //get all items from db
-        $data['allItems'] = $this->item->getAll($orderBy, $orderFormat, $start, $limit);
-        $data['range'] = $totalItems > 0 ? "Showing " . ($start+1) . "-" . ($start + count($data['allItems'])) . " of " . $totalItems : "";
+        $data['allStudents'] = $this->student->getAll($orderBy, $orderFormat, $start, $limit);
+        $data['range'] = $totalStudents > 0 ? "Showing " . ($start+1) . "-" . ($start + count($data['allStudents'])) . " of " . $totalStudents : "";
         $data['links'] = $this->pagination->create_links();//page links
         $data['sn'] = $start+1;
-        $data['cum_total'] = $this->item->getItemsCumTotal();
+        $data['cum_total'] = $this->student->getItemsCumTotal();
         
-        $json['itemsListTable'] = $this->load->view('items/itemslisttable', $data, TRUE);//get view with populated items table
+        $json['studentsListTable'] = $this->load->view('students/studentslisttable', $data, TRUE);//get view with populated items table
         
 
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -105,39 +105,40 @@ class Items extends CI_Controller{
 
         $this->form_validation->set_error_delimiters('', '');
         
-        $this->form_validation->set_rules('itemName', 'Item name', ['required', 'trim', 'max_length[80]', 'is_unique[items.name]'],
-                ['required'=>"required"]);
-        $this->form_validation->set_rules('itemQuantity', 'Item quantity', ['required', 'trim', 'numeric'], ['required'=>"required"]);
-        $this->form_validation->set_rules('itemPrice', 'Item Price', ['required', 'trim', 'numeric'], ['required'=>"required"]);        
-        $this->form_validation->set_rules('itemCost', 'Item Cost', ['required', 'trim', 'numeric'], ['required'=>"required"]);
-        $this->form_validation->set_rules('itemCode', 'Item Code', ['required', 'trim', 'max_length[20]', 'is_unique[items.code]'], 
-                ['required'=>"required", 'is_unique'=>"There is already an item with this code"]);
-        
+        $this->form_validation->set_rules('studentName', 'Student name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('studentSurname', 'Student Surname', ['required', 'trim', 'max_length[40]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('studentId', 'Student Id', ['required', 'trim', 'max_length[20]','is_unique[student_id.code]'],['required' => 'There is already a student with this student id.']);
+        $this->form_validation->set_rules('studentClass_name', 'Student Class_name', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('studentGender', 'Student Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
+                
         if($this->form_validation->run() !== FALSE){
             $this->db->trans_start();//start transaction
             
             /**
              * insert info into db
-             * function header: add($itemName, $itemQuantity, $itemPrice, $itemDescription, $itemCode)
+             * function header: add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees)
              */
-            $insertedId = $this->item->add(set_value('itemName'), set_value('itemQuantity'), set_value('itemPrice'), 
-                    set_value('itemDescription'), set_value('itemCode'),set_value('itemCost'));
+            $insertedId = $this->student->add(set_value('studentName'), set_value('studentSurname'), set_value('studentStudent_id'), 
+                    set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'));
             
-            $itemName = set_value('itemName');
-            $itemQty = set_value('itemQuantity');
-            $itemPrice = "$".number_format(set_value('itemPrice'), 2);
-            $itemCost = "$".number_format(set_value('itemCost'), 2);
+            $studentName = set_value('studentName');
+            $studentSurname = set_value('studentSurname');
+            $studentStudent_id = set_value('studentStudent_id');
+            $studentParent_name= set_value('studentParent_name');
+            $studentAddress = set_value('studentAddress');
             
             //insert into eventlog
             //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Addition of {$itemQty} quantities of a new item '{$itemName}' with a unit price of {$itemPrice} and a unit cost of {$itemCost} to stock";
+            $desc = "Addition of {$studentName} {$studentSurname} as a new student with ID '{$studentStudent_id}', Parent Name '{$studentParent_name}'and Address '{$studentAddress}' to the Students.";
             
-            $insertedId ? $this->genmod->addevent("Creation of new item", $insertedId, $desc, "items", $this->session->admin_id) : "";
+            $insertedId ? $this->genmod->addevent("Creation of new Student", $insertedId, $desc, "students", $this->session->admin_id) : "";
             
             $this->db->trans_complete();
             
             $json = $this->db->trans_status() !== FALSE ? 
-                    ['status'=>1, 'msg'=>"Item successfully added"] 
+                    ['status'=>1, 'msg'=>"Student successfully added"] 
                     : 
                     ['status'=>0, 'msg'=>"Oops! Unexpected server error! Please contact administrator for help. Sorry for the embarrassment"];
         }
@@ -164,13 +165,13 @@ class Items extends CI_Controller{
     
     
     /**
-     * Primarily used to check whether an item already has a particular random code being generated for a new item
+     * Primarily used to check whether a student already has a particular random student id  being generated for a new item
      * @param type $selColName
      * @param type $whereColName
      * @param type $colValue
      */
     public function gettablecol($selColName, $whereColName, $colValue){
-        $a = $this->genmod->gettablecol('items', $selColName, $whereColName, $colValue);
+        $a = $this->genmod->gettablecol('students', $selColName, $whereColName, $colValue);
         
         $json['status'] = $a ? 1 : 0;
         $json['colVal'] = $a;
@@ -193,15 +194,18 @@ class Items extends CI_Controller{
     public function gcoandqty(){
         $json['status'] = 0;
         
-        $itemCode = $this->input->get('_iC', TRUE);
+        $studentStudent_id = $this->input->get('_iC', TRUE);
         
-        if($itemCode){
-            $item_info = $this->item->getItemInfo(['code'=>$itemCode], ['quantity', 'unitPrice', 'description']);
+        if($studentStudent_id){
+            $student_info = $this->student->getItemInfo(['student_id'=>$studentStudent_id], ['name', 'surname', 'class_name', 'parent_name','parent_phone','address']);
 
-            if($item_info){
-                $json['availQty'] = (int)$item_info->quantity;
-                $json['unitPrice'] = $item_info->unitPrice;
-                $json['description'] = $item_info->description;
+            if($student_info){
+                $json['studentName'] = $student_info->name;
+                $json['studentSurname'] = $student_info->surname;
+                $json['studentClass_name'] = $student_info->class_name;
+                $json['studentParent_name'] = $student_info->parent_name;
+                $json['studentParent_phone'] = $student_info->parent_phone;
+                $json['studentAddress'] = $student_info->address;
                 $json['status'] = 1;
             }
         }
@@ -220,62 +224,6 @@ class Items extends CI_Controller{
     */
     
     
-    public function updatestock(){
-        $this->genlib->ajaxOnly();
-        
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_error_delimiters('', '');
-        
-        $this->form_validation->set_rules('_iId', 'Item ID', ['required', 'trim', 'numeric'], ['required'=>"required"]);
-        $this->form_validation->set_rules('_upType', 'Update type', ['required', 'trim', 'in_list[newStock,deficit]'], ['required'=>"required"]);
-        $this->form_validation->set_rules('qty', 'Quantity', ['required', 'trim', 'numeric'], ['required'=>"required"]);
-        $this->form_validation->set_rules('desc', 'Update Description', ['required', 'trim'], ['required'=>"required"]);
-        
-        if($this->form_validation->run() !== FALSE){
-            //update stock based on the update type
-            $updateType = set_value('_upType');
-            $itemId = set_value('_iId');
-            $qty = set_value('qty');
-            $desc = set_value('desc');
-            
-            $this->db->trans_start();
-            
-            $updated = $updateType === "deficit" 
-                    ? 
-                $this->item->deficit($itemId, $qty, $desc) 
-                    : 
-                $this->item->newstock($itemId, $qty, $desc);
-            
-            //add event to log if successful
-            $stockUpdateType = $updateType === "deficit" ? "Deficit" : "New Stock";
-            
-            $event = "Stock Update ($stockUpdateType)";
-            
-            $action = $updateType === "deficit" ? "removed from" : "added to";//action that happened
-            
-            $eventDesc = "<p>{$qty} quantities of {$this->genmod->gettablecol('items', 'name', 'id', $itemId)} was {$action} stock</p>
-                Reason: <p>{$desc}</p>";
-            
-            //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $updated ? $this->genmod->addevent($event, $itemId, $eventDesc, "items", $this->session->admin_id) : "";
-            
-            $this->db->trans_complete();//end transaction
-            
-            $json['status'] = $this->db->trans_status() !== FALSE ? 1 : 0;
-            $json['msg'] = $updated ? "Stock successfully updated" : "Unable to update stock at this time. Please try again later";
-        }
-        
-        else{
-            $json['status'] = 0;
-            $json['msg'] = "One or more required fields are empty or not correctly filled";
-            $json = $this->form_validation->error_array();
-        }
-        
-        
-        $this->output->set_content_type('application/json')->set_output(json_encode($json));
-    }
-   
    
    /*
     ********************************************************************************************************************************
@@ -284,6 +232,7 @@ class Items extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+    // edit these details ($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_name, $studentParent_phone,$studentFees)
    
     public function edit(){
         $this->genlib->ajaxOnly();
@@ -292,16 +241,15 @@ class Items extends CI_Controller{
 
         $this->form_validation->set_error_delimiters('', '');
         
-        $this->form_validation->set_rules('_iId', 'Item ID', ['required', 'trim', 'numeric']);
-        $this->form_validation->set_rules('itemName', 'Item Name', ['required', 'trim', 
-            'callback_crosscheckName['.$this->input->post('_iId', TRUE).']'], ['required'=>'required']);
+        $this->form_validation->set_rules('_sId', '', ['required', 'trim', 'numeric']);
+        $this->form_validation->set_rules('itemName', 'Item Name', ['required', 'trim', 'callback_crosscheckName['.$this->input->post('_sId', TRUE).']'], ['required'=>'required']);
         $this->form_validation->set_rules('itemCode', 'Item Code', ['required', 'trim', 
-            'callback_crosscheckCode['.$this->input->post('_iId', TRUE).']'], ['required'=>'required']);
+            'callback_crosscheckCode['.$this->input->post('_sId', TRUE).']'], ['required'=>'required']);
         $this->form_validation->set_rules('itemPrice', 'Item Unit Price', ['required', 'trim', 'numeric']);
         $this->form_validation->set_rules('itemDesc', 'Item Description', ['trim']);
         
         if($this->form_validation->run() !== FALSE){
-            $itemId = set_value('_iId');
+            $itemId = set_value('_sId');
             $itemDesc = set_value('itemDesc');
             $itemPrice = set_value('itemPrice');
             $itemName = set_value('itemName');

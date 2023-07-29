@@ -2,12 +2,12 @@
 defined('BASEPATH') OR exit('');
 
 /**
- * Description of Customer
+ * model for students 
  *
  * @author Tavonga <mafuratavonga@gmail.com>
- * @date 15th Jan, 2023
+ * @date 29th July, 2023
  */
-class Item extends CI_Model{
+class Student extends CI_Model{
     public function __construct(){
         parent::__construct();
     }
@@ -22,7 +22,7 @@ class Item extends CI_Model{
         $this->db->limit($limit, $start);
         $this->db->order_by($orderBy, $orderFormat);
         
-        $run_q = $this->db->get('items');
+        $run_q = $this->db->get('students');
         
         if($run_q->num_rows() > 0){
             return $run_q->result();
@@ -44,15 +44,19 @@ class Item extends CI_Model{
     
     /**
      * 
-     * @param type $itemName
-     * @param type $itemQuantity
-     * @param type $itemPrice
-     * @param type $itemDescription
-     * @param type $itemCode
+     * @param type $studentName
+     * @param type $studentSurname
+     * @param type $studentStudent_id
+     * @param type $studentClass_name
+     * @param type $studentGender
+     * @param type $studentParent_name
+     * @param type $studentParent_phone
+     * @param type $studentAddress
+     * @param type $studentFees 
      * @return boolean
      */
-    public function add($itemName, $itemQuantity, $itemPrice, $itemDescription, $itemCode, $itemCost){
-        $data = ['name'=>$itemName, 'quantity'=>$itemQuantity, 'unitPrice'=>$itemPrice, 'description'=>$itemDescription, 'code'=>$itemCode, 'cost'=>$itemCost];
+    public function add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees){
+        $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'student_id'=>$studentStudent_id, 'class_name'=>$studentClass_name, 'gender'=>$studentGender, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'address'=>$studentAddress, 'fees'=>$studentFees];
                 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" 
@@ -61,7 +65,7 @@ class Item extends CI_Model{
                 : 
         $this->db->set('dateAdded', "NOW()", FALSE);
         
-        $this->db->insert('items', $data);
+        $this->db->insert('students', $data);
         
         if($this->db->insert_id()){
             return $this->db->insert_id();
@@ -85,12 +89,12 @@ class Item extends CI_Model{
      * @param type $value
      * @return boolean
      */
-    public function itemsearch($value){
-        $q = "SELECT * FROM items 
+    public function studentsearch($value){
+        $q = "SELECT * FROM students 
             WHERE 
             name LIKE '%".$this->db->escape_like_str($value)."%'
             || 
-            code LIKE '%".$this->db->escape_like_str($value)."%'";
+            student_id LIKE '%".$this->db->escape_like_str($value)."%'";
         
         $run_q = $this->db->query($q, [$value, $value]);
         
@@ -112,26 +116,6 @@ class Item extends CI_Model{
     ********************************************************************************************************************************
     */
     
-    /**
-     * To add to the number of an item in stock
-     * @param type $itemId
-     * @param type $numberToadd
-     * @return boolean
-     */
-    public function incrementItem($itemId, $numberToadd){
-        $q = "UPDATE items SET quantity = quantity + ? WHERE id = ?";
-        
-        $this->db->query($q, [$numberToadd, $itemId]);
-        
-        if($this->db->affected_rows() > 0){
-            return TRUE;
-        }
-        
-        else{
-            return FALSE;
-        }
-    }
-    
     /*
     ********************************************************************************************************************************
     ********************************************************************************************************************************
@@ -139,67 +123,6 @@ class Item extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-    
-    public function decrementItem($itemCode, $numberToRemove){
-        $q = "UPDATE items SET quantity = quantity - ? WHERE code = ?";
-        
-        $this->db->query($q, [$numberToRemove, $itemCode]);
-        
-        if($this->db->affected_rows() > 0){
-            return TRUE;
-        }
-        
-        else{
-            return FALSE;
-        }
-    }
-
-
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-    
-    
-   public function newstock($itemId, $qty){
-       $q = "UPDATE items SET quantity = quantity + $qty WHERE id = ?";
-       
-       $this->db->query($q, [$itemId]);
-       
-       if($this->db->affected_rows()){
-           return TRUE;
-       }
-       
-       else{
-           return FALSE;
-       }
-   }
-   
-   
-   /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-   
-   public function deficit($itemId, $qty){
-       $q = "UPDATE items SET quantity = quantity - $qty WHERE id = ?";
-       
-       $this->db->query($q, [$itemId]);
-       
-       if($this->db->affected_rows()){
-           return TRUE;
-       }
-       
-       else{
-           return FALSE;
-       }
-   }
    
    /*
     ********************************************************************************************************************************
@@ -211,16 +134,19 @@ class Item extends CI_Model{
    
    /**
     * 
-    * @param type $itemId
-    * @param type $itemName
-    * @param type $itemDesc
-    * @param type $itemPrice
+    * @param type $studentId
+    * @param type $studentName
+    * @param type $studentSurname
+    * @param type $studentClass_name
+    * @param type $studentParent_name
+    * @param type $studentParent_phone
+    * @param type $studentFees
     */
-   public function edit($itemId, $itemName, $itemDesc, $itemPrice){
-       $data = ['name'=>$itemName, 'unitPrice'=>$itemPrice, 'description'=>$itemDesc];
+   public function edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_name, $studentParent_phone,$studentFees){
+       $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'class_name'=>$studentClass_name, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'fees'=>$studentFees];
        
-       $this->db->where('id', $itemId);
-       $this->db->update('items', $data);
+       $this->db->where('id', $studentId);
+       $this->db->update('students', $data);
        
        return TRUE;
    }
@@ -232,23 +158,6 @@ class Item extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-   
-	public function getActiveItems($orderBy, $orderFormat){
-        $this->db->order_by($orderBy, $orderFormat);
-		
-		$this->db->where('quantity >=', 1);
-        
-        $run_q = $this->db->get('items');
-        
-        if($run_q->num_rows() > 0){
-            return $run_q->result();
-        }
-        
-        else{
-            return FALSE;
-        }
-    }
-
 
     /*
     ********************************************************************************************************************************
@@ -264,12 +173,12 @@ class Item extends CI_Model{
      * 
      * return array | FALSE
      */
-    public function getItemInfo($where_clause, $fields_to_fetch){
+    public function getStudentInfo($where_clause, $fields_to_fetch){
         $this->db->select($fields_to_fetch);
         
         $this->db->where($where_clause);
 
-        $run_q = $this->db->get('items');
+        $run_q = $this->db->get('students');
         
         return $run_q->num_rows() ? $run_q->row() : FALSE;
     }
@@ -282,10 +191,10 @@ class Item extends CI_Model{
     ********************************************************************************************************************************
     */
 
-    public function getItemsCumTotal(){
-        $this->db->select("SUM(unitPrice*quantity) as cumPrice");
+    public function getstudentsCumTotal(){
+        $this->db->select("SUM(fees) as cumPrice");
 
-        $run_q = $this->db->get('items');
+        $run_q = $this->db->get('students');
         
         return $run_q->num_rows() ? $run_q->row()->cumPrice : FALSE;
     }

@@ -4,7 +4,7 @@ $(document).ready(function(){
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
 	
     //load all items once the page is ready
-    lilt();
+    lslt();
     
     
     
@@ -127,7 +127,7 @@ $(document).ready(function(){
                     document.getElementById("addNewItemForm").reset();
                     
                     //refresh the items list table
-                    lilt();
+                    lslt();
                     
                     //return focus to item code input to allow adding item with barcode scanner
                     $("#itemCode").focus();
@@ -169,7 +169,7 @@ $(document).ready(function(){
     //reload items list table when events occur
     $("#itemsListPerPage, #itemsListSortBy").change(function(){
         displayFlashMsg("Please wait...", spinnerClass, "", "");
-        lilt();
+        lslt();
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,7 +195,7 @@ $(document).ready(function(){
         else{
             //reload the table if all text in search box has been cleared
             displayFlashMsg("Loading page...", spinnerClass, "", "");
-            lilt();
+            lslt();
         }
     });
     
@@ -258,7 +258,7 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: appRoot+"items/edit",
-            data: {itemName:itemName, itemPrice:itemPrice, itemDesc:itemDesc, _iId:itemId, itemCode:itemCode}
+            data: {itemName:itemName, itemPrice:itemPrice, itemDesc:itemDesc, _sId:itemId, itemCode:itemCode}
         }).done(function(returnedData){
             if(returnedData.status === 1){
                 $("#editItemFMsg").css('color', 'green').html("Item successfully updated");
@@ -267,7 +267,7 @@ $(document).ready(function(){
                     $("#editItemModal").modal('hide');
                 }, 1000);
                 
-                lilt();
+                lslt();
             }
             
             else{
@@ -353,13 +353,13 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: appRoot+"items/updatestock",
-            data: {_iId:itemId, _upType:updateType, qty:stockUpdateQuantity, desc:stockUpdateDescription}
+            data: {_sId:itemId, _upType:updateType, qty:stockUpdateQuantity, desc:stockUpdateDescription}
         }).done(function(returnedData){
             if(returnedData.status === 1){
                 $("#stockUpdateFMsg").html(returnedData.msg);
                 
                 //refresh items' list
-                lilt();
+                lslt();
                 
                 //reset form
                 document.getElementById("updateStockForm").reset();
@@ -452,11 +452,11 @@ $(document).ready(function(){
 
 
 /**
- * "lilt" = "load Items List Table"
+ * "lslt" = "load Students List Table"
  * @param {type} url
  * @returns {undefined}
  */
-function lilt(url) {
+function lslt(url) {
 
     var orderBy = $("#itemsListSortBy").val().split("-")[0];
     var orderFormat = $("#itemsListSortBy").val().split("-")[1];
@@ -464,7 +464,7 @@ function lilt(url) {
 
     $.ajax({
         type: 'get',
-        url: url ? url : appRoot + "items/lilt/",
+        url: url ? url : appRoot + "students/lslt/",
         data: {
             orderBy: orderBy,
             orderFormat: orderFormat,

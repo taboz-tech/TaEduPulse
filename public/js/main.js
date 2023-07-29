@@ -1,6 +1,6 @@
 'use strict';
 
-var appRoot = setAppRoot("inventory-sales-ci", "inventory-sales-ci");
+var appRoot = setAppRoot("Cliffs_Internation", "Cliffs_Internation");
 var spinnerClass = 'fa fa-spinner faa-spin animated';
 
 $(document).ready(function(){

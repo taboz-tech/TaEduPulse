@@ -75,11 +75,11 @@ $query_builder = TRUE;
 
 //details for mysql
 $db['mysql'] = array(
-	'dsn'	=> 'mysql:hostname=localhost; dbname=iventorysalesci',
+	'dsn'	=> 'mysql:hostname=localhost; dbname=cliffs_college',
 	'hostname' => '',
 	'username' => 'root',
 	'password' => 'tavonga14',
-	'database' => 'iventorysalesci',
+	'database' => 'cliffs_college',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -103,7 +103,7 @@ $db['sqlite'] = array(
 	'hostname' => '',
 	'username' => '',
 	'password' => '',
-	'database' => BASEPATH . 'sqlite/iventorysalesci.sqlite',
+	'database' => BASEPATH . 'sqlite/cliffs_college.sqlite',
 	'dbdriver' => 'sqlite3',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
