@@ -110,7 +110,7 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentId', 'Student Id', ['required', 'trim', 'max_length[20]','is_unique[student_id.code]'],['required' => 'There is already a student with this student id.']);
         $this->form_validation->set_rules('studentClass_name', 'Student Class_name', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentGender', 'Student Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
                 
         if($this->form_validation->run() !== FALSE){
@@ -242,29 +242,34 @@ class Students extends CI_Controller{
         $this->form_validation->set_error_delimiters('', '');
         
         $this->form_validation->set_rules('_sId', '', ['required', 'trim', 'numeric']);
-        $this->form_validation->set_rules('itemName', 'Item Name', ['required', 'trim', 'callback_crosscheckName['.$this->input->post('_sId', TRUE).']'], ['required'=>'required']);
-        $this->form_validation->set_rules('itemCode', 'Item Code', ['required', 'trim', 
-            'callback_crosscheckCode['.$this->input->post('_sId', TRUE).']'], ['required'=>'required']);
-        $this->form_validation->set_rules('itemPrice', 'Item Unit Price', ['required', 'trim', 'numeric']);
-        $this->form_validation->set_rules('itemDesc', 'Item Description', ['trim']);
-        
+        $this->form_validation->set_rules('studentName', 'Student Name', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentSurname', 'Student Surname', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentClass_name', 'Student Class_name', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentFees', 'Student Fees', ['required', 'trim', 'numeric'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentParent_name', 'Student Parent_name', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[20]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required'])
+
         if($this->form_validation->run() !== FALSE){
-            $itemId = set_value('_sId');
-            $itemDesc = set_value('itemDesc');
-            $itemPrice = set_value('itemPrice');
-            $itemName = set_value('itemName');
-            $itemCode = $this->input->post('itemCode', TRUE);
+            $studentId = set_value('_sId');
+            $studentName = set_value('studentName');
+            $studentSurname = set_value('studentSurname');
+            $studentClass_name = set_value('studentClass_name');
+            $studentFees = set_value('studentFees');
+            $studentParent_name = set_value('studentParent_name');
+            $studentAddress = set_value('studentAddress');
+            $studentStudent_id = $this->input->post('studentStudent_id', TRUE);
             
             //update item in db
-            $updated = $this->item->edit($itemId, $itemName, $itemDesc, $itemPrice);
+            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentFees,$studentParent_name,$studentAddress);
             
             $json['status'] = $updated ? 1 : 0;
             
             //add event to log
             //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Details of item with code '$itemCode' was updated";
+            $desc = "Details of student with Student ID '$studentStudent_id' was updated";
             
-            $this->genmod->addevent("Item Update", $itemId, $desc, 'items', $this->session->admin_id);
+            $this->genmod->addevent("Student Update", $studentId, $desc, 'students', $this->session->admin_id);
         }
         
         else{
@@ -285,54 +290,7 @@ class Students extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-    
-    public function crosscheckName($itemName, $itemId){
-        //check db to ensure name was previously used for the item we are updating
-        $itemWithName = $this->genmod->getTableCol('items', 'id', 'name', $itemName);
-        
-        //if item name does not exist or it exist but it's the name of current item
-        if(!$itemWithName || ($itemWithName == $itemId)){
-            return TRUE;
-        }
-        
-        else{//if it exist
-            $this->form_validation->set_message('crosscheckName', 'There is an item with this name');
-                
-            return FALSE;
-        }
-    }
-    
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-    
-    
-    /**
-     * 
-     * @param type $item_code
-     * @param type $item_id
-     * @return boolean
-     */
-    public function crosscheckCode($item_code, $item_id){
-        //check db to ensure item code was previously used for the item we are updating
-        $item_with_code = $this->genmod->getTableCol('items', 'id', 'code', $item_code);
-        
-        //if item code does not exist or it exist but it's the code of current item
-        if(!$item_with_code || ($item_with_code == $item_id)){
-            return TRUE;
-        }
-        
-        else{//if it exist
-            $this->form_validation->set_message('crosscheckCode', 'There is an item with this code');
-                
-            return FALSE;
-        }
-    }
-    
+  
     /*
     ********************************************************************************************************************************
     ********************************************************************************************************************************
@@ -346,10 +304,10 @@ class Students extends CI_Controller{
         $this->genlib->ajaxOnly();
         
         $json['status'] = 0;
-        $item_id = $this->input->post('i', TRUE);
+        $student_id = $this->input->post('i', TRUE);
         
-        if($item_id){
-            $this->db->where('id', $item_id)->delete('items');
+        if($student_id){
+            $this->db->where('id', $student_id)->delete('students');
             
             $json['status'] = 1;
         }

@@ -9,12 +9,12 @@ defined('BASEPATH') OR exit('');
             <div class="row">
                 <div class="col-sm-12">
                     <div class="col-sm-2 form-inline form-group-sm">
-                        <button class="btn btn-primary btn-sm" id='createItem'>Add New Item</button>
+                        <button class="btn btn-primary btn-sm" id='createStudent'>Add New Student</button>
                     </div>
 
                     <div class="col-sm-3 form-inline form-group-sm">
-                        <label for="itemsListPerPage">Show</label>
-                        <select id="itemsListPerPage" class="form-control">
+                        <label for="studentsListPerPage">Show</label>
+                        <select id="studentsListPerPage" class="form-control">
                             <option value="1">1</option>
                             <option value="5">5</option>
                             <option value="10" selected>10</option>
@@ -28,22 +28,22 @@ defined('BASEPATH') OR exit('');
                     </div>
 
                     <div class="col-sm-4 form-group-sm form-inline">
-                        <label for="itemsListSortBy">Sort by</label>
-                        <select id="itemsListSortBy" class="form-control">
-                            <option value="name-ASC">Item Name (A-Z)</option>
-                            <option value="code-ASC">Item Code (Ascending)</option>
-                            <option value="unitPrice-DESC">Unit Price (Highest first)</option>
-                            <option value="quantity-DESC">Quantity (Highest first)</option>
-                            <option value="name-DESC">Item Name (Z-A)</option>
-                            <option value="code-DESC">Item Code (Descending)</option>
-                            <option value="unitPrice-ASC">Unit Price (lowest first)</option>
-                            <option value="quantity-ASC">Quantity (lowest first)</option>
+                        <label for="studentsListSortBy">Sort by</label>
+                        <select id="studentListSortBy" class="form-control">
+                            <option value="name-ASC">Student Name (A-Z)</option>
+                            <option value="surname-ASC">Student Surname (Ascending)</option>
+                            <option value="dateAdded-ASC">Date Added (Ascending)</option>
+                            <option value="parent_name-ASC">Parent Name (Ascending)</option>
+                            <option value="name-DESC">Student Name (Z-A)</option>
+                            <option value="surname-DESC">Student Surname (Descending)</option>
+                            <option value="dateAdded-DESC">Date Added (Descending)</option>
+                            <option value="parent_name-DESC">Parent Name (Descending)</option>
                         </select>
                     </div>
 
                     <div class="col-sm-3 form-inline form-group-sm">
-                        <label for='itemSearch'><i class="fa fa-search"></i></label>
-                        <input type="search" id="itemSearch" class="form-control" placeholder="Search Items">
+                        <label for='studentSearch'><i class="fa fa-search"></i></label>
+                        <input type="search" id="studentSearch" class="form-control" placeholder="Search Students">
                     </div>
                 </div>
             </div>
@@ -53,159 +53,192 @@ defined('BASEPATH') OR exit('');
     
     <hr>
     
-    <!-- row of adding new item form and items list table-->
+    <!-- row of adding new student form and studnets list table-->
     <div class="row">
         <div class="col-sm-12">
-            <!--Form to add/update an item-->
-            <div class="col-sm-4 hidden" id='createNewItemDiv'>
+            <!--Form to add/update an student-->
+            <div class="col-sm-4 hidden" id='createNewStudentDiv'>
                 <div class="well">
                     <button class="btn btn-info btn-xs pull-left" id="useBarcodeScanner">Use Scanner</button>
-                    <button class="close cancelAddItem">&times;</button><br>
-                    <form name="addNewItemForm" id="addNewItemForm" role="form">
+                    <button class="close cancelAddStudent">&times;</button><br>
+                    <form name="addNewStudentForm" id="addNewStudentForm" role="form">
                         <div class="text-center errMsg" id='addCustErrMsg'></div>
                         
                         <br>
                         
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="itemCode">Item Code</label>
-                                <input type="text" id="itemCode" name="itemCode" placeholder="Item Code" maxlength="80"
-                                    class="form-control" onchange="checkField(this.value, 'itemCodeErr')" autofocus>
+                                <label for="studentStudent_id">Studen ID</label>
+                                <input type="text" id="studentStudent_id" name="studentStudent_id" placeholder="Student Id" maxlength="15"
+                                    class="form-control" onchange="checkField(this.value, 'studentStudent_idErr')" autofocus>
                                 <!--<span class="help-block"><input type="checkbox" id="gen4me"> auto-generate</span>-->
-                                <span class="help-block errMsg" id="itemCodeErr"></span>
+                                <span class="help-block errMsg" id="studentStudent_idErr"></span>
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="itemName">Item Name</label>
-                                <input type="text" id="itemName" name="itemName" placeholder="Item Name" maxlength="80"
-                                    class="form-control" onchange="checkField(this.value, 'itemNameErr')">
-                                <span class="help-block errMsg" id="itemNameErr"></span>
+                                <label for="studentName">Student Name</label>
+                                <input type="text" id="studentName" name="studentName" placeholder="Student Name" maxlength="30"
+                                    class="form-control" onchange="checkField(this.value, 'studentNameErr')">
+                                <span class="help-block errMsg" id="studentNameErr"></span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="itemQuantity">Quantity</label>
-                                <input type="number" id="itemQuantity" name="itemQuantity" placeholder="Available Quantity"
-                                    class="form-control" min="0" onchange="checkField(this.value, 'itemQuantityErr')">
-                                <span class="help-block errMsg" id="itemQuantityErr"></span>
+                                <label for="studentSurname">Student Surname</label>
+                                <input type="text" id="studentSurname" name="studentSurname" placeholder="Student Surname" maxlength="40"
+                                    class="form-control"  onchange="checkField(this.value, 'studentSurnameErr')">
+                                <span class="help-block errMsg" id="studentSurnameErr"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="itemCost">($)Item Cost</label>
-                                <input type="text" id="itemCost" name="itemCost" placeholder="($)Item Cost" maxlength="20"
-                                    class="form-control" onchange="checkField(this.value, 'itemCostErr')">
-                                <span class="help-block errMsg" id="itemCostErr"></span>
+                                <label for="studentClass_name">Student Class</label>
+                                <input type="text" id="studentClass_name" name="studentClass_name" placeholder="Student Class_name" maxlength="15"
+                                    class="form-control" onchange="checkField(this.value, 'studentClass_nameErr')">
+                                <span class="help-block errMsg" id="studentClass_nameErr"></span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="unitPrice">($)Unit Price</label>
-                                <input type="text" id="itemPrice" name="itemPrice" placeholder="($)Unit Price" class="form-control">
-                                <span class="help-block errMsg" id="itemPriceErr"></span>
+                                <label for="studentGender">Student Gender</label>
+                                <input type="text" id="studentGender" name="studentGender" placeholder="Student Gender" maxlength="10"
+                                    class="form-control" onchange="checkField(this.value, 'studentGenderErr')">
+                                <span class="help-block errMsg" id="studentGenderErr"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="studentFees">Student Fees</label>
+                                <input type="number" id="studentFees" name="studentFees" placeholder="Student Fees" min="0"
+                                    class="form-control" onchange="checkField(this.value, 'studentFeesErr')">
+                                <span class="help-block errMsg" id="studentFeesErr"></span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="itemDescription" class="">Description (Optional)</label>
-                                <textarea class="form-control" id="itemDescription" name="itemDescription" rows='4'
-                                    placeholder="Optional Item Description"></textarea>
+                                <label for="studentParent_name">Student Parent_name</label>
+                                <input type="text" id="studentParent_name" name="studentParent_name" placeholder="Student Parent_name" maxlength="50"
+                                    class="form-control" onchange="checkField(this.value, 'studentParent_nameErr')">
+                                <span class="help-block errMsg" id="studentParent_nameErr"></span>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="studentParent_phone">Student Parent_phone</label>
+                                <input type="text" id="studentParent_phone" name="studentParent_phone" placeholder="Student Parent_phone" maxlength="15"
+                                    class="form-control" onchange="checkField(this.value, 'studentParent_phoneErr')">
+                                <span class="help-block errMsg" id="studentParent_phoneErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="studentAddress">Student Address</label>
+                                <input type="text" id="studentAddress" name="studentAddress" placeholder="Student Address" maxlength="80"
+                                    class="form-control" onchange="checkField(this.value, 'studentAddressErr')">
+                                <span class="help-block errMsg" id="studentAddressErr"></span>
+                            </div>
+                        </div>
+
+
+
+                        
                         <br>
                         <div class="row text-center">
                             <div class="col-sm-6 form-group-sm">
-                                <button class="btn btn-primary btn-sm" id="addNewItem">Add Item</button>
+                                <button class="btn btn-primary btn-sm" id="addNewStudent">Add Student</button>
                             </div>
 
                             <div class="col-sm-6 form-group-sm">
-                                <button type="reset" id="cancelAddItem" class="btn btn-danger btn-sm cancelAddItem" form='addNewItemForm'>Cancel</button>
+                                <button type="reset" id="cancelAddStudent" class="btn btn-danger btn-sm cancelAddItem" form='addNewStudentForm'>Cancel</button>
                             </div>
                         </div>
                     </form><!-- end of form-->
                 </div>
             </div>
             
-            <!--- Item list div-->
-            <div class="col-sm-12" id="itemsListDiv">
-                <!-- Item list Table-->
+            <!--- Student list div-->
+            <div class="col-sm-12" id="studentsListDiv">
+                <!-- Student list Table-->
                 <div class="row">
-                    <div class="col-sm-12" id="itemsListTable"></div>
+                    <div class="col-sm-12" id="studentsListTable"></div>
                 </div>
                 <!--end of table-->
             </div>
-            <!--- End of item list div-->
+            <!--- End of student list div-->
 
         </div>
     </div>
-    <!-- End of row of adding new item form and items list table-->
+    <!-- End of row of adding new student form and students list table-->
 </div>
 
-<!--modal to update stock-->
-<div id="updateStockModal" class="modal fade" role="dialog" data-backdrop="static">
+<!--modal to update student-->
+<div id="updateStudentModal" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="text-center">Update Stock</h4>
-                <div id="stockUpdateFMsg" class="text-center"></div>
+                <h4 class="text-center">Update Student</h4>
+                <div id="studentUpdateFMsg" class="text-center"></div>
             </div>
             <div class="modal-body">
-                <form name="updateStockForm" id="updateStockForm" role="form">
+                <form name="updateStudentForm" id="updateStudentForm" role="form">
                     <div class="row">
                         <div class="col-sm-4 form-group-sm">
-                            <label>Item Name</label>
-                            <input type="text" readonly id="stockUpdateItemName" class="form-control">
+                            <label>Student Name</label>
+                            <input type="text" readonly id="studentUpdateStudentName" class="form-control">
                         </div>
                         
                         <div class="col-sm-4 form-group-sm">
-                            <label>Item Code</label>
-                            <input type="text" readonly id="stockUpdateItemCode" class="form-control">
+                            <label>Student Id</label>
+                            <input type="text" readonly id="studentUpdateStudentStudent_id" class="form-control">
                         </div>
                         
                         <div class="col-sm-4 form-group-sm">
-                            <label>Quantity in Stock</label>
-                            <input type="text" readonly id="stockUpdateItemQInStock" class="form-control">
+                            <label>Studet Fees </label>
+                            <input type="text" readonly id="studentUpdateStudentFees" class="form-control">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-6 form-group-sm">
-                            <label for="stockUpdateType">Update Type</label>
-                            <select id="stockUpdateType" class="form-control checkField">
+                            <label for="studentUpdateType">Update Type</label>
+                            <select id="studentUpdateType" class="form-control checkField">
                                 <option value="">---</option>
-                                <option value="newStock">New Stock</option>
-                                <option value="deficit">Deficit</option>
+                                <option value="newFees">New Fees</option>
+                                <option value="addition"> Additional</option>
                             </select>
-                            <span class="help-block errMsg" id="stockUpdateTypeErr"></span>
+                            <span class="help-block errMsg" id="studentUpdateTypeErr"></span>
                         </div>
                         
                         <div class="col-sm-6 form-group-sm">
-                            <label for="stockUpdateQuantity">Quantity</label>
-                            <input type="number" id="stockUpdateQuantity" placeholder="Update Quantity"
+                            <label for="studentUpdateFees">Quantity</label>
+                            <input type="number" id="studentUpdateFees" placeholder="Update Fees"
                                 class="form-control checkField" min="0">
-                            <span class="help-block errMsg" id="stockUpdateQuantityErr"></span>
+                            <span class="help-block errMsg" id="studentUpdateFeesErr"></span>
                         </div>
                     </div>
                     
                     <div class="row">
                         <div class="col-sm-12 form-group-sm">
-                            <label for="stockUpdateDescription" class="">Description</label>
-                            <textarea class="form-control checkField" id="stockUpdateDescription" placeholder="Update Description"></textarea>
-                            <span class="help-block errMsg" id="stockUpdateDescriptionErr"></span>
+                            <label for="studentUpdateDescription" class="">Description</label>
+                            <textarea class="form-control checkField" id="studentUpdateDescription" placeholder="Update Description"></textarea>
+                            <span class="help-block errMsg" id="studentUpdateDescriptionErr"></span>
                         </div>
                     </div>
                     
-                    <input type="hidden" id="stockUpdateItemId">
+                    <input type="hidden" id="studentUpdateStudent_id">
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" id="stockUpdateSubmit">Update</button>
+                <button class="btn btn-primary" id="studentUpdateSubmit">Update</button>
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -215,7 +248,7 @@ defined('BASEPATH') OR exit('');
 
 
 
-<!--modal to edit item-->
+<!--modal to edit students-->
 <div id="editItemModal" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
