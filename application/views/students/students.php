@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('');
                         
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
-                                <label for="studentStudent_id">Studen ID</label>
+                                <label for="studentStudent_id">Student ID</label>
                                 <input type="text" id="studentStudent_id" name="studentStudent_id" placeholder="Student Id" maxlength="15"
                                     class="form-control" onchange="checkField(this.value, 'studentStudent_idErr')" autofocus>
                                 <!--<span class="help-block"><input type="checkbox" id="gen4me"> auto-generate</span>-->
@@ -219,7 +219,7 @@ defined('BASEPATH') OR exit('');
                         </div>
                         
                         <div class="col-sm-6 form-group-sm">
-                            <label for="studentUpdateFees">Quantity</label>
+                            <label for="studentUpdateFees"> Update fees</label>
                             <input type="number" id="studentUpdateFees" placeholder="Update Fees"
                                 class="form-control checkField" min="0">
                             <span class="help-block errMsg" id="studentUpdateFeesErr"></span>
@@ -249,51 +249,75 @@ defined('BASEPATH') OR exit('');
 
 
 <!--modal to edit students-->
-<div id="editItemModal" class="modal fade" role="dialog" data-backdrop="static">
+<div id="editStudentModal" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="text-center">Edit Item</h4>
-                <div id="editItemFMsg" class="text-center"></div>
+                <h4 class="text-center">Edit Student</h4>
+                <div id="editStudentFMsg" class="text-center"></div>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="row">
                         <div class="col-sm-4 form-group-sm">
-                            <label for="itemNameEdit">Item Name</label>
-                            <input type="text" id="itemNameEdit" placeholder="Item Name" autofocus class="form-control checkField">
-                            <span class="help-block errMsg" id="itemNameEditErr"></span>
+                            <label for="studentNameEdit">Student Name</label>
+                            <input type="text" id="studentNameEdit" placeholder="Student Name" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentNameEditErr"></span>
                         </div>
                         
                         <div class="col-sm-4 form-group-sm">
-                            <label for="itemCode">Item Code</label>
-                            <input type="text" id="itemCodeEdit" class="form-control">
-                            <span class="help-block errMsg" id="itemCodeEditErr"></span>
+                            <label for="studentSurnameEdit">Student Surname</label>
+                            <input type="text" id="studentSurnameEdit" placeholder="Student Surname" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentSurnameEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentClass_nameEdit">Student Class_name</label>
+                            <input type="text" id="studentClass_nameEdit" placeholder="Student Class_name" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentClass_nameEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentStudent_id"> Student Id</label>
+                            <input type="text" id="studentStudent_idEdit" class="form-control">
+                            <span class="help-block errMsg" id="studentStudent_idEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentAddressEdit">Student Address</label>
+                            <input type="text" id="studentAddressEdit" placeholder="Student Address" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentAddressEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentParent_nameEdit">Student Parent_name</label>
+                            <input type="text" id="studentParent_nameEdit" placeholder="Student Parent_name" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentParent_nameEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentParent_phoneEdit">Student Parent_phone</label>
+                            <input type="text" id="studentParent_phoneEdit" placeholder="Student Parent_phone" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentParent_phoneEditErr"></span>
                         </div>
                         
                         <div class="col-sm-4 form-group-sm">
-                            <label for="unitPrice">Unit Price</label>
-                            <input type="text" id="itemPriceEdit" name="itemPrice" placeholder="Unit Price" class="form-control checkField">
-                            <span class="help-block errMsg" id="itemPriceEditErr"></span>
+                            <label for="studentFees">Student Fees</label>
+                            <input type="text" id="studentFeesEdit" name="studentFeesPrice" placeholder="studentFees" class="form-control checkField">
+                            <span class="help-block errMsg" id="studentFeesEditErr"></span>
                         </div>
                     </div>
                     
-                    <div class="row">
-                        <div class="col-sm-12 form-group-sm">
-                            <label for="itemDescriptionEdit" class="">Description (Optional)</label>
-                            <textarea class="form-control" id="itemDescriptionEdit" placeholder="Optional Item Description"></textarea>
-                        </div>
-                    </div>
-                    <input type="hidden" id="itemIdEdit">
+                    <input type="hidden" id="studentIdEdit">
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" id="editItemSubmit">Save</button>
+                <button class="btn btn-primary" id="editStudentSubmit">Save</button>
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
 <!--end of modal-->
-<script src="<?=base_url()?>public/js/items.js"></script>
+<script src="<?=base_url()?>public/js/students.js"></script>

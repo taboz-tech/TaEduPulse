@@ -16,61 +16,39 @@
                 <thead>
                     <tr>
                         <th>SN</th>
-                        <th>ITEM NAME</th>
-                        <th>ITEM CODE</th>
-                        <th>DESCRIPTION</th>
-                        <th>QTY IN STOCK</th>
-                        <th>UNIT PRICE</th>
-                        <th>UNIT COST</th>
-                        <th>TOTAL SOLD</th>
-                        <th>TOTAL EARNED ON ITEM</th>
-                        <th>UPDATE QUANTITY</th>
+                        <th>STUDENT NAME</th>
+                        <th>STUDENT SURNAME</th>
+                        <th>STUDENT ID</th>
+                        <th>CLASS NAME</th>
+                        <th>PARENT NAME</th>
+                        <th>PARENT PHONE</th>
+                        <th>ADDRESS</th>
+                        <th>FEES</th>
+                        <th>GENDER</th>
+                        <th>UPDATE FEES</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($allItems as $get): ?>
+                    <?php foreach($allStudents as $get): ?>
                     <tr>
-                        <input type="hidden" value="<?=$get->id?>" class="curItemId">
-                        <th class="itemSN"><?=$sn?>.</th>
-                        <td><span id="itemName-<?=$get->id?>"><?=$get->name?></span></td>
-                        <td><span id="itemCode-<?=$get->id?>"><?=$get->code?></td>
-                        <td>
-                            <span id="itemDesc-<?=$get->id?>" data-toggle="tooltip" title="<?=$get->description?>" data-placement="auto">
-                                <?=word_limiter($get->description, 15)?>
-                            </span>
-                        </td>
-                        <td class="<?=$get->quantity <= 10 ? 'bg-danger' : ($get->quantity <= 25 ? 'bg-warning' : '')?>">
-                            <span id="itemQuantity-<?=$get->id?>"><?=$get->quantity?></span>
-                        </td>
-                        <td>$<span id="itemPrice-<?=$get->id?>"><?=number_format($get->unitPrice, 2)?></span></td>
-                        <td>$<span id="itemCost-<?=$get->id?>"><?=number_format($get->cost, 2)?></span></td>
-                        <td>
-                            <?php
-                            $totalSold = $this->genmod->gettablecol('transactions', 'SUM(quantity)', 'itemCode', $get->code);
-                            if ($totalSold !== null && $totalSold > 0) {
-                                echo $totalSold;
-                            } else {
-                                echo 'N/A';
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                            $totalPrice = $this->genmod->gettablecol('transactions', 'SUM(totalPrice)', 'itemCode', $get->code);
-                            if ($totalPrice !== null) {
-                                echo '$' . number_format($totalPrice, 2);
-                            } else {
-                                echo 'N/A'; // or any other default value you want to display for null values
-                            }
-                            ?>
-                        </td>
-                        <td><a class="pointer updateStock" id="stock-<?=$get->id?>">Update Quantity</a></td>
+                        <input type="hidden" value="<?=$get->id?>" class="curStudentId">
+                        <th class="studentSN"><?=$sn?>.</th>
+                        <td><span id="studentName-<?=$get->id?>"><?=$get->name?></span></td>
+                        <td><span id="studentSurname-<?=$get->id?>"><?=$get->surname?></td>
+                        <td><span id="studentStudent_id-<?=$get->id?>"><?=$get->student_id?></td>
+                        <td><span id="studentClass_name-<?=$get->id?>"><?=$get->class_name?></td>
+                        <td><span id="studentParent_name-<?=$get->id?>"><?=$get->parent_name?></td>
+                        <td><span id="studentParent_phone-<?=$get->id?>"><?=$get->parent_phone?></td>
+                        <td><span id="studentAddress-<?=$get->id?>"><?=$get->address?></td>
+                        <td><span id="studentFees-<?=$get->id?>"><?=number_format($get->fees,2)?></td>
+                        <td><span id="studentGender-<?=$get->id?>"><?=$get->gender?></td>
+                        <td><a class="pointer updateStudent" id="student-<?=$get->id?>">Update Student</a></td>
                         <td class="text-center text-primary">
-                            <span class="editItem" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
+                            <span class="editStudent" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
-                        <td class="text-center"><i class="fa fa-trash text-danger delItem pointer"></i></td>
+                        <td class="text-center"><i class="fa fa-trash text-danger delStudent pointer"></i></td>
                     </tr>
                     <?php $sn++; ?>
                     <?php endforeach; ?>
@@ -79,7 +57,7 @@
         </div>
         <!-- table div end-->
         <?php else: ?>
-        <ul><li>No items</li></ul>
+        <ul><li>No Students</li></ul>
         <?php endif; ?>
     </div>
     <!--- panel end-->

@@ -3,7 +3,7 @@
 $(document).ready(function(){
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
 	
-    //load all items once the page is ready
+    //load all Students once the page is ready
     lslt();
     
     
@@ -12,7 +12,7 @@ $(document).ready(function(){
     $("#useBarcodeScanner").click(function(e){
         e.preventDefault();
         
-        $("#itemCode").focus();
+        $("#studentStudent_id").focus();
     });
     
     
@@ -23,12 +23,12 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**
-     * Toggle the form to add a new item
+     * Toggle the form to add a new student
      */
-    $("#createItem").click(function() {
-        $("#itemsListDiv").toggleClass("col-sm-8", "col-sm-12");
-        $("#createNewItemDiv").toggleClass('hidden');
-        $("#itemName").focus();
+    $("#createStudent").click(function() {
+        $("#studentsListDiv").toggleClass("col-sm-8", "col-sm-12");
+        $("#createNewStudentDiv").toggleClass('hidden');
+        $("#studentName").focus();
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,11 +38,11 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       
     
-    $(".cancelAddItem").click(function(){
+    $(".cancelAddStudent").click(function(){
         //reset and hide the form
-        document.getElementById("addNewItemForm").reset();//reset the form
-        $("#createNewItemDiv").addClass('hidden');//hide the form
-        $("#itemsListDiv").attr('class', "col-sm-12");//make the table span the whole div
+        document.getElementById("addNewStudentForm").reset();//reset the form
+        $("#createNewStudentDiv").addClass('hidden');//hide the form
+        $("#studentsListDiv").attr('class', "col-sm-12");//make the table span the whole div
     });
     
     
@@ -52,7 +52,7 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //execute when 'auto-generate' checkbox is clicked while trying to add a new item
+    //execute when 'auto-generate' checkbox is clicked while trying to add a new student
     $("#gen4me").click(function(){
         //if checked, generate a unique item code for user. Else, clear field
         if($("#gen4me").prop("checked")){
@@ -61,13 +61,13 @@ $(document).ready(function(){
             do{
                 //generate random string, reduce the length to 10 and convert to uppercase
                 var rand = Math.random().toString(36).slice(2).substring(0, 10).toUpperCase();
-                $("#itemCode").val(rand);//paste the code in input
-                $("#itemCodeErr").text('');//remove the error message being displayed (if any)
+                $("#studentStudent_id").val(rand);//paste the code in input
+                $("#studentStudent_idErr").text('');//remove the error message being displayed (if any)
                 
                 //check whether code exist for another item
                 $.ajax({
                     type: 'get',
-                    url: appRoot+"items/gettablecol/id/code/"+rand,
+                    url: appRoot+"students/gettablecol/id/code/"+rand,
                     success: function(returnedData){
                         codeExist = returnedData.status;//returnedData.status could be either 1 or 0
                     }
@@ -79,7 +79,7 @@ $(document).ready(function(){
         }
         
         else{
-            $("#itemCode").val("");
+            $("#studentStudent_id").val("");
         }
     });
     
@@ -90,58 +90,69 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     //handles the submission of adding new item
-    $("#addNewItem").click(function(e){
+    $("#addNewStudent").click(function(e){
         e.preventDefault();
         
-        changeInnerHTML(['itemNameErr', 'itemQuantityErr', 'itemPriceErr', 'itemCodeErr', 'addCustErrMsg','itemCostErr'], "");
+        changeInnerHTML(['studentNameErr', 'studentStudent_idErr', 'studentSurnameErr', 'studentClass_nameErr', 'addCustErrMsg','studentGenderErr', 'studentFeesErr', 'studentParent_nameErr', 'studentParent_phoneErr', 'studentAddressErr'], "");
         
-        var itemName = $("#itemName").val();
-        var itemQuantity = $("#itemQuantity").val();
-        var itemPrice = $("#itemPrice").val().replace(",", "");
-        var itemCode = $("#itemCode").val();
-        var itemDescription = $("#itemDescription").val();
-        var itemCost = $("#itemCost").val();
+        var studentStudent_id = $("#studentStudent_id").val();
+        var studentName = $("#studentName").val();
+        var studentSurname = $("#studentSurname").val();
+        var studentClass_name = $("#studentClass_name").val();
+        var studentGender = $("#studentGender").val();
+        var studentFees = $("#studentFees").val().replace(",", "");
+        var studentParent_name = $("#studentParent_name").val();
+        var studentParent_phone = $("#studentParent_phone").val();
+        var studentAddress = $("#studentAddress").val();
+
         
-        if(!itemName || !itemQuantity || !itemPrice || !itemCode || !itemCost){
-            !itemName ? $("#itemNameErr").text("required") : "";
-            !itemQuantity ? $("#itemQuantityErr").text("required") : "";
-            !itemPrice ? $("#itemPriceErr").text("required") : "";
-            !itemCode ? $("#itemCodeErr").text("required") : "";
-            !itemCost ? $("#itemCostErr").text("required") : "";
+        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees){
+            !studentName ? $("#studentNameErr").text("required") : "";
+            !studentStudent_id ? $("#studentStudent_idErr").text("required") : "";
+            !studentSurname ? $("#studentSurnameErr").text("required") : "";
+            !studentGender ? $("#studentGenderErr").text("required") : "";
+            !studentParent_phone ? $("#studentParent_phoneErr").text("required") : "";
+            !studentAddress ? $("#studentAddressErr").text("required") : "";
+            !studentFees ? $("#studentFeesErr").text("required") : "";
+            
             
             $("#addCustErrMsg").text("One or more required fields are empty");
             
             return;
         }
         
-        displayFlashMsg("Adding Item '"+itemName+"'", "fa fa-spinner faa-spin animated", '', '');
+        displayFlashMsg("Adding Student '"+studentName+"'", "fa fa-spinner faa-spin animated", '', '');
         
         $.ajax({
             type: "post",
-            url: appRoot+"items/add",
-            data:{itemName:itemName, itemQuantity:itemQuantity, itemPrice:itemPrice, itemDescription:itemDescription, itemCode:itemCode, itemCost:itemCost},
+            url: appRoot+"students/add",
+            data:{studentStudent_id:studentStudent_id, studentName:studentName, studentSurname:studentSurname, studentClass_name:studentClass_name, studentGender:studentGender, studentFees:studentFees, studentParent_name:studentParent_name, studentParent_phone:studentParent_phone, studentAddress:studentAddress},
             
             success: function(returnedData){
                 if(returnedData.status === 1){
                     changeFlashMsgContent(returnedData.msg, "text-success", '', 1500);
-                    document.getElementById("addNewItemForm").reset();
+                    document.getElementById("addNewStudentForm").reset();
                     
-                    //refresh the items list table
+                    //refresh the students list table
                     lslt();
                     
-                    //return focus to item code input to allow adding item with barcode scanner
-                    $("#itemCode").focus();
+                    //return focus to student code input to allow adding item with barcode scanner
+                    $("#studentStudent_id").focus();
                 }
                 
                 else{
                     hideFlashMsg();
                     
                     //display all errors
-                    $("#itemNameErr").text(returnedData.itemName);
-                    $("#itemPriceErr").text(returnedData.itemPrice);
-                    $("#itemCodeErr").text(returnedData.itemCode);
-                    $("#itemCostErr").text(returnedData.itemCost)
-                    $("#itemQuantityErr").text(returnedData.itemQuantity);
+                    $("#studentStudent_idErr").text(returnedData.studentStudent_id);
+                    $("#studentNameErr").text(returnedData.studentName);
+                    $("#studentSurnameErr").text(returnedData.studentSurname);
+                    $("#studentClass_nameErr").text(returnedData.studentClass_name)
+                    $("#studentGenderErr").text(returnedData.studentGender);
+                    $("#studentFeesErr").text(returnedData.studentFees);
+                    $("#studentParent_nameErr").text(returnedData.studentParent_name);
+                    $("#studentParent_phoneErr").text(returnedData.studentParent_phone);
+                    $("#studentAddressErr").text(returnedData.studentAddress);
                     $("#addCustErrMsg").text(returnedData.msg);
                     
                 }
@@ -166,8 +177,8 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //reload items list table when events occur
-    $("#itemsListPerPage, #itemsListSortBy").change(function(){
+    //reload students list table when events occur
+    $("#studentsListPerPage, #studentsListSortBy").change(function(){
         displayFlashMsg("Please wait...", spinnerClass, "", "");
         lslt();
     });
@@ -178,16 +189,16 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    $("#itemSearch").keyup(function(){
+    $("#studentSearch").keyup(function(){
         var value = $(this).val();
         
         if(value){
             $.ajax({
-                url: appRoot+"search/itemsearch",
+                url: appRoot+"search/studentsearch",
                 type: "get",
                 data: {v:value},
                 success: function(returnedData){
-                    $("#itemsListTable").html(returnedData.itemsListTable);
+                    $("#studentsListTable").html(returnedData.studentsListTable);
                 }
             });
         }
@@ -205,32 +216,47 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //triggers when an item's "edit" icon is clicked
-    $("#itemsListTable").on('click', ".editItem", function(e){
+    //triggers when a student's "edit" icon is clicked
+    $("#studentsListTable").on('click', ".editStudent", function(e){
         e.preventDefault();
         
-        //get item info
-        var itemId = $(this).attr('id').split("-")[1];
-        var itemDesc = $("#itemDesc-"+itemId).attr('title');
-        var itemName = $("#itemName-"+itemId).html();
-        var itemPrice = $("#"+itemId).html().split(".")[0].replace(",", "");
-        var itemCode = $("#itemCode-"+itemId).html();
+        //get Student info
+        var studentId = $(this).attr('id').split("-")[1];
+        var studentName = $("#studentName-" + studentId).html();
+        var studentSurname = $("#studentSurname-" + studentId).html();
+        var studentStudentId = $("#studentStudent_id-" + studentId).html();
+        var studentClassName = $("#studentClass_name-" + studentId).html();
+        var studentParentName = $("#studentParent_name-" + studentId).html();
+        var studentParentPhone = $("#studentParent_phone-" + studentId).html();
+        var studentAddress = $("#studentAddress-" + studentId).html();
+        var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
         
         //prefill form with info
-        $("#itemIdEdit").val(itemId);
-        $("#itemNameEdit").val(itemName);
-        $("#itemCodeEdit").val(itemCode);
-        $("#itemPriceEdit").val(itemPrice);
-        $("#itemDescriptionEdit").val(itemDesc);
+        $("#studentIdEdit").val(studentId);
+        $("#studentNameEdit").val(studentName);
+        $("#studentSurnameEdit").val(studentSurname);
+        $("#studentClass_nameEdit").val(studentClassName);
+        $("#studentAddressEdit").val(studentAddress);
+        $("#studentStudent_idEdit").val(studentStudentId);
+        $("#studentParent_nameEdit").val(studentParentName);
+        $("#studentParent_phoneEdit").val(studentParentPhone);
+        $("#studentFeesEdit").val(studentFees);
         
         //remove all error messages that might exist
-        $("#editItemFMsg").html("");
-        $("#itemNameEditErr").html("");
-        $("#itemCodeEditErr").html("");
-        $("#itemPriceEditErr").html("");
+        $("#editStudentFMsg").html("");
+        $("#studentIdEditErr").html("");
+        $("#studentNameEditErr").html("");
+        $("#studentSurnameEditErr").html("");
+        $("#studentClass_nameEditErr").html("");
+        $("#studentAddressEditErr").html("");
+        $("#studentStudent_idEditErr").html("");
+        $("#studentParent_nameEditErr").html("");
+        $("#studentParent_phoneEditErr").html("");
+        $("#studentFeesEditErr").html("");
+        
         
         //launch modal
-        $("#editItemModal").modal('show');
+        $("#editStudentModal").modal('show');
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,41 +265,47 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    $("#editItemSubmit").click(function(){
-        var itemName = $("#itemNameEdit").val();
-        var itemPrice = $("#itemPriceEdit").val();
-        var itemDesc = $("#itemDescriptionEdit").val();
-        var itemId = $("#itemIdEdit").val();
-        var itemCode = $("#itemCodeEdit").val();
+    $("#editStudentSubmit").click(function(){
+        var studentId = $("#studentIdEdit").val();
+        var studentName = $("#studentNameEdit").val();
+        var studentSurname = $("#studentSurnameEdit").val();
+        var studentStudentId  = $("#studentStudent_idEdit").val();
+        var studentClassName = $("#studentClass_nameEdit").val();
+        var studentParentName = $("#studentParent_nameEdit").val();
+        var studentParentPhone = $("#studentParent_phoneEdit").val();
+        var studentAddress= $("#studentAddressEdit").val();
+        var studentFees= $("#studentFeesEdit").val();
+
         
-        if(!itemName || !itemPrice || !itemId){
-            !itemName ? $("#itemNameEditErr").html("Item name cannot be empty") : "";
-            !itemPrice ? $("#itemPriceEditErr").html("Item price cannot be empty") : "";
-            !itemId ? $("#editItemFMsg").html("Unknown item") : "";
+        if(!studentStudentId || !studentFees || !studentId || !studentName){
+            !studentStudentId ? $("#studentStudent_idErr").html("Student name cannot be empty") : "";
+            !studentFees ? $("#studentFeesEditErr").html("Student fees cannot be empty") : "";
+            !studentIdId ? $("#editStudentFMsg").html("Unknown item") : "";
+            !studentName ? $("#studentNameEditErr").html("Student name can not be empty") : "";
             return;
         }
         
-        $("#editItemFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");
+        $("#editStudentFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");
         
         $.ajax({
             method: "POST",
-            url: appRoot+"items/edit",
-            data: {itemName:itemName, itemPrice:itemPrice, itemDesc:itemDesc, _sId:itemId, itemCode:itemCode}
+            url: appRoot+"students/edit",
+            data: {studentName:studentName, studentStudentId:studentStudentId, studentSurname:studentSurname, _sId:studentId, studentClassName:studentClassName, studentParentName:studentParentName, studentParentPhone:studentParentPhone, studentAddress:studentAddress, studentFees:studentFees}
         }).done(function(returnedData){
             if(returnedData.status === 1){
-                $("#editItemFMsg").css('color', 'green').html("Item successfully updated");
+                $("#editStudentFMsg").css('color', 'green').html("Student successfully updated");
                 
                 setTimeout(function(){
-                    $("#editItemModal").modal('hide');
+                    $("#editStudentModal").modal('hide');
                 }, 1000);
                 
                 lslt();
             }
             
             else{
-                $("#editItemFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
+                $("#editStudentFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
                 
-                $("#itemNameEditErr").html(returnedData.itemName);
+                $("#studentStudent_idErr").html(returnedData.stud);
                 $("#itemCodeEditErr").html(returnedData.itemCode);
                 $("#itemPriceEditErr").html(returnedData.itemPrice);
             }

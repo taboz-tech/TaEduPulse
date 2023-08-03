@@ -67,12 +67,12 @@ class Search extends CI_Controller{
     */
     
     
-    public function itemSearch(){
-        $data['allItems'] = $this->item->itemsearch($this->value);
+    public function studentSearch(){
+        $data['allStudents'] = $this->student->studentsearch($this->value);
         $data['sn'] = 1;
-        $data['cum_total'] = $this->item->getItemsCumTotal();
+        $data['cum_total'] = $this->student->getItemsCumTotal();
         
-        $json['itemsListTable'] = $data['allItems'] ? $this->load->view('items/itemslisttable', $data, TRUE) : "No match found";
+        $json['studentsListTable'] = $data['allStudents'] ? $this->load->view('students/studentslisttable', $data, TRUE) : "No match found";
         
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));

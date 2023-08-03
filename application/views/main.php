@@ -170,10 +170,10 @@ defined('BASEPATH') OR exit('');
                         
                         
                         <?php if($this->session->admin_role === "Super"):?>
-                        <li class="<?= $pageTitle == 'Items' ? 'active' : '' ?>">
-                            <a href="<?= site_url('items') ?>">
+                        <li class="<?= $pageTitle == 'Students' ? 'active' : '' ?>">
+                            <a href="<?= site_url('students') ?>">
                                 <i class="fa fa-archive"></i>
-                                Inventory Items
+                                Students
                             </a>
                         </li>
 
