@@ -202,7 +202,7 @@ defined('BASEPATH') OR exit('');
                         </div>
                         
                         <div class="col-sm-4 form-group-sm">
-                            <label>Studet Fees </label>
+                            <label>Student Fees </label>
                             <input type="text" readonly id="studentUpdateStudentFees" class="form-control">
                         </div>
                     </div>

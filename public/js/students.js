@@ -280,7 +280,7 @@ $(document).ready(function(){
         if(!studentStudentId || !studentFees || !studentId || !studentName){
             !studentStudentId ? $("#studentStudent_idErr").html("Student name cannot be empty") : "";
             !studentFees ? $("#studentFeesEditErr").html("Student fees cannot be empty") : "";
-            !studentIdId ? $("#editStudentFMsg").html("Unknown item") : "";
+            !studentId ? $("#editStudentFMsg").html("Unknown item") : "";
             !studentName ? $("#studentNameEditErr").html("Student name can not be empty") : "";
             return;
         }
@@ -305,12 +305,12 @@ $(document).ready(function(){
             else{
                 $("#editStudentFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
                 
-                $("#studentStudent_idErr").html(returnedData.stud);
-                $("#itemCodeEditErr").html(returnedData.itemCode);
-                $("#itemPriceEditErr").html(returnedData.itemPrice);
+                $("#studentStudent_idErr").html(returnedData.studentId);
+                $("#studentNameEditErr").html(returnedData.studentName);
+                $("#studentSurnameErr").html(returnedData.studentSurname);
             }
         }).fail(function(){
-            $("#editItemFMsg").css('color', 'red').html("Unable to process your request at this time. Please check your internet connection and try again");
+            $("#editStudentFMsg").css('color', 'red').html("Unable to process your request at this time. Please check your internet connection and try again");
         });
     });
     
@@ -321,20 +321,21 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //trigers the modal to update stock
-    $("#itemsListTable").on('click', '.updateStock', function(){
+    //trigers the modal to update student
+    $("#studentsListTable").on('click', '.updateStudent', function(){
         //get item info and fill the form with them
-        var itemId = $(this).attr('id').split("-")[1];
-        var itemName = $("#itemName-"+itemId).html();
-        var itemCurQuantity = $("#itemQuantity-"+itemId).html();
-        var itemCode = $("#itemCode-"+itemId).html();
+        var studentId = $(this).attr('id').split("-")[1];
+        var studentName = $("#studentName-" + studentId).html();
+        var studentStudentId = $("#studentStudent_id-" + studentId).html();
+        var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
         
-        $("#stockUpdateItemId").val(itemId);
-        $("#stockUpdateItemName").val(itemName);
-        $("#stockUpdateItemCode").val(itemCode);
-        $("#stockUpdateItemQInStock").val(itemCurQuantity);
         
-        $("#updateStockModal").modal('show');
+        $("#studentUpdateStudent_id").val(studentId);
+        $("#studentUpdateStudentName").val(studentName);
+        $("#studentUpdatestudentUpdateStudentStudent_id").val(studentStudentId);
+        $("#studentUpdateItemQInStock").val(studentFees);
+        
+        $("#updateStudentModal").modal('show');
     });
     
     
@@ -344,17 +345,17 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //runs when the update type is changed while trying to update stock
-    //sets a default description if update type is "newStock"
-    $("#stockUpdateType").on('change', function(){
-        var updateType = $("#stockUpdateType").val();
+    //runs when the update type is changed while trying to update student
+    //sets a default description if update type is "newFees"
+    $("#studentUpdateType").on('change', function(){
+        var updateType = $("#studentUpdateType").val();
         
-        if(updateType && (updateType === 'newStock')){
-            $("#stockUpdateDescription").val("New items were purchased");
+        if(updateType && (updateType === 'newFees')){
+            $("#studentUpdateDescription").val("New Fees gazzeted");
         }
         
         else{
-            $("#stockUpdateDescription").val("");
+            $("#studentpdateDescription").val("");
         }
     });
     
@@ -364,54 +365,54 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //handles the updating of item's quantity in stock
-    $("#stockUpdateSubmit").click(function(){
-        var updateType = $("#stockUpdateType").val();
-        var stockUpdateQuantity = $("#stockUpdateQuantity").val();
-        var stockUpdateDescription = $("#stockUpdateDescription").val();
-        var itemId = $("#stockUpdateItemId").val();
+    //handles the updating of student fees 
+    $("#studentUpdateSubmit").click(function(){
+        var updateType = $("#studentUpdateType").val();
+        var studentUpdateFees = $("#stockUpdateFees").val();
+        var studentUpdateDescription = $("#studentUpdateDescription").val();
+        var studentId = $("#studentUpdateStudent_id").val();
         
-        if(!updateType || !stockUpdateQuantity || !stockUpdateDescription || !itemId){
-            !updateType ? $("#stockUpdateTypeErr").html("required") : "";
-            !stockUpdateQuantity ? $("#stockUpdateQuantityErr").html("required") : "";
-            !stockUpdateDescription ? $("#stockUpdateDescriptionErr").html("required") : "";
-            !itemId ? $("#stockUpdateItemIdErr").html("required") : "";
+        if(!updateType || !studentUpdateFees || !studentUpdateDescription || !studentId){
+            !updateType ? $("#studentUpdateTypeErr").html("required") : "";
+            !studentUpdateFees ? $("#studentUpdateFeesErr").html("required") : "";
+            !studentUpdateDescription ? $("#studentUpdateDescriptionErr").html("required") : "";
+            !studentId ? $("#studentUpdateStudent_idErr").html("required") : "";
             
             return;
         }
         
-        $("#stockUpdateFMsg").html("<i class='"+spinnerClass+"'></i> Updating Stock.....");
+        $("#studentUpdateFMsg").html("<i class='"+spinnerClass+"'></i> Updating Student.....");
         
         $.ajax({
             method: "POST",
-            url: appRoot+"items/updatestock",
-            data: {_sId:itemId, _upType:updateType, qty:stockUpdateQuantity, desc:stockUpdateDescription}
+            url: appRoot+"students/updatestudent",
+            data: {_sId:studentId, _upType:updateType, fees:studentUpdateFees, desc:studentUpdateDescription}
         }).done(function(returnedData){
             if(returnedData.status === 1){
-                $("#stockUpdateFMsg").html(returnedData.msg);
+                $("#studentUpdateFMsg").html(returnedData.msg);
                 
-                //refresh items' list
+                //refresh students' list
                 lslt();
                 
                 //reset form
-                document.getElementById("updateStockForm").reset();
+                document.getElementById("updateStudentForm").reset();
                 
                 //dismiss modal after some secs
                 setTimeout(function(){
-                    $("#updateStockModal").modal('hide');//hide modal
-                    $("#stockUpdateFMsg").html("");//remove msg
+                    $("#updateStudentModal").modal('hide');//hide modal
+                    $("#studentUpdateFMsg").html("");//remove msg
                 }, 1000);
             }
             
             else{
-                $("#stockUpdateFMsg").html(returnedData.msg);
+                $("#studentUpdateFMsg").html(returnedData.msg);
                 
-                $("#stockUpdateTypeErr").html(returnedData._upType);
-                $("#stockUpdateQuantityErr").html(returnedData.qty);
-                $("#stockUpdateDescriptionErr").html(returnedData.desc);
+                $("#studentUpdateTypeErr").html(returnedData._upType);
+                $("#studentUpdateFeesErr").html(returnedData.qty);
+                $("#studentUpdateDescriptionErr").html(returnedData.desc);
             }
         }).fail(function(){
-            $("#stockUpdateFMsg").html("Unable to process your request at this time. Please check your internet connection and try again");
+            $("#studentUpdateFMsg").html("Unable to process your request at this time. Please check your internet connection and try again");
         });
     });
     
@@ -422,45 +423,45 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     //PREVENT AUTO-SUBMISSION BY THE BARCODE SCANNER
-    $("#itemCode").keypress(function(e){
+    $("#studentStudent_id").keypress(function(e){
         if(e.which === 13){
             e.preventDefault();
             
             //change to next input by triggering the tab keyboard
-            $("#itemName").focus();
+            $("#studentName").focus();
         }
     });
     
     
     
-    //TO DELETE AN ITEM (The item will be marked as "deleted" instead of removing it totally from the db)
-    $("#itemsListTable").on('click', '.delItem', function(e){
+    //TO DELETE A STUDENT (The studet will be marked as "deleted" instead of removing it totally from the db)
+    $("#studentsListTable").on('click', '.delStudent', function(e){
         e.preventDefault();
         
-        //get the item id
-        var itemId = $(this).parents('tr').find('.curItemId').val();
-        var itemRow = $(this).closest('tr');//to be used in removing the currently deleted row
+        //get the student id
+        var studentId = $(this).parents('tr').find('.curStudentId').val();
+        var studentRow = $(this).closest('tr');//to be used in removing the currently deleted row
         
-        if(itemId){
-            var confirm = window.confirm("Are you sure you want to delete item? This cannot be undone.");
+        if(studentId){
+            var confirm = window.confirm("Are you sure you want to delete student? This cannot be undone.");
             
             if(confirm){
                 displayFlashMsg('Please wait...', spinnerClass, 'black');
                 
                 $.ajax({
-                    url: appRoot+"items/delete",
+                    url: appRoot+"students/delete",
                     method: "POST",
-                    data: {i:itemId}
+                    data: {i:studentId}
                 }).done(function(rd){
                     if(rd.status === 1){
-                        //remove item from list, update items' SN, display success msg
-                        $(itemRow).remove();
+                        //remove student from list, update students' SN, display success msg
+                        $(studentRow).remove();
 
                         //update the SN
-                        resetItemSN();
+                        resetStudentSN();
 
                         //display success message
-                        changeFlashMsgContent('Item deleted', '', 'green', 1000);
+                        changeFlashMsgContent('Student deleted', '', 'green', 1000);
                     }
 
                     else{
@@ -490,9 +491,9 @@ $(document).ready(function(){
  */
 function lslt(url) {
 
-    var orderBy = $("#itemsListSortBy").val().split("-")[0];
-    var orderFormat = $("#itemsListSortBy").val().split("-")[1];
-    var limit = $("#itemsListPerPage").val();
+    var orderBy = $("#studentsListSortBy").val().split("-")[0];
+    var orderFormat = $("#studentsListSortBy").val().split("-")[1];
+    var limit = $("#studentsListPerPage").val();
 
     $.ajax({
         type: 'get',
@@ -505,7 +506,7 @@ function lslt(url) {
 
         success: function (returnedData) {
             hideFlashMsg();
-            $("#itemsListTable").html(returnedData.itemsListTable);
+            $("#studentsListTable").html(returnedData.studentsListTable);
         },
 
         error: function () {
@@ -517,8 +518,8 @@ function lslt(url) {
 
 
 
-function resetItemSN(){
-    $(".itemSN").each(function(i){
+function resetStudentSN(){
+    $(".studentSN").each(function(i){
         $(this).html(parseInt(i)+1);
     });
 }

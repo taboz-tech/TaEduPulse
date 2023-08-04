@@ -21,7 +21,7 @@ class Students extends CI_Controller{
      * 
      */
     public function index(){
-        $data['pageContent'] = $this->load->view('students/studentss', '', TRUE);
+        $data['pageContent'] = $this->load->view('students/students', '', TRUE);
         $data['pageTitle'] = "Students";
 
         $this->load->view('main', $data);
@@ -248,7 +248,7 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentFees', 'Student Fees', ['required', 'trim', 'numeric'], ['required'=>'required']);
         $this->form_validation->set_rules('studentParent_name', 'Student Parent_name', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[20]'], ['required'=>'required']);
-        $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required'])
+        $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
 
         if($this->form_validation->run() !== FALSE){
             $studentId = set_value('_sId');

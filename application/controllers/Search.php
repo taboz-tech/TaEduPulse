@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'item']);
+        $this->load->model(['transaction', 'student']);
         
         $this->load->helper('text');
         

@@ -15,7 +15,7 @@ class Transactions extends CI_Controller{
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['transaction', 'item']);
+        $this->load->model(['transaction', 'student']);
     }
     
     /*
@@ -27,7 +27,7 @@ class Transactions extends CI_Controller{
     */
     
     public function index(){
-        $transData['items'] = $this->item->getActiveItems('name', 'ASC');//get items with at least one qty left, to be used when doing a new transaction
+        $transData['studentss'] = $this->student->getActiveItems('name', 'ASC');//get items with at least one qty left, to be used when doing a new transaction
         
         $data['pageContent'] = $this->load->view('transactions/transactions', $transData, TRUE);
         $data['pageTitle'] = "Transactions";
