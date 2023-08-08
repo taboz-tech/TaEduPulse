@@ -224,10 +224,10 @@ $(document).ready(function(){
         var studentId = $(this).attr('id').split("-")[1];
         var studentName = $("#studentName-" + studentId).html();
         var studentSurname = $("#studentSurname-" + studentId).html();
-        var studentStudentId = $("#studentStudent_id-" + studentId).html();
-        var studentClassName = $("#studentClass_name-" + studentId).html();
-        var studentParentName = $("#studentParent_name-" + studentId).html();
-        var studentParentPhone = $("#studentParent_phone-" + studentId).html();
+        var studentStudent_id = $("#studentStudent_id-" + studentId).html();
+        var studentClass_name = $("#studentClass_name-" + studentId).html();
+        var studentParent_name = $("#studentParent_name-" + studentId).html();
+        var studentParent_phone = $("#studentParent_phone-" + studentId).html();
         var studentAddress = $("#studentAddress-" + studentId).html();
         var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
         
@@ -235,11 +235,11 @@ $(document).ready(function(){
         $("#studentIdEdit").val(studentId);
         $("#studentNameEdit").val(studentName);
         $("#studentSurnameEdit").val(studentSurname);
-        $("#studentClass_nameEdit").val(studentClassName);
+        $("#studentClass_nameEdit").val(studentClass_name);
         $("#studentAddressEdit").val(studentAddress);
-        $("#studentStudent_idEdit").val(studentStudentId);
-        $("#studentParent_nameEdit").val(studentParentName);
-        $("#studentParent_phoneEdit").val(studentParentPhone);
+        $("#studentStudent_idEdit").val(studentStudent_id);
+        $("#studentParent_nameEdit").val(studentParent_name);
+        $("#studentParent_phoneEdit").val(studentParent_name);
         $("#studentFeesEdit").val(studentFees);
         
         //remove all error messages that might exist
@@ -265,78 +265,66 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    $("#editStudentSubmit").click(function(){
+    $("#editStudentSubmit").click(function () {
         var studentId = $("#studentIdEdit").val();
         var studentName = $("#studentNameEdit").val();
         var studentSurname = $("#studentSurnameEdit").val();
-        var studentStudentId  = $("#studentStudent_idEdit").val();
-        var studentClassName = $("#studentClass_nameEdit").val();
-        var studentParentName = $("#studentParent_nameEdit").val();
-        var studentParentPhone = $("#studentParent_phoneEdit").val();
-        var studentAddress= $("#studentAddressEdit").val();
-        var studentFees= $("#studentFeesEdit").val();
-
-        
-        if(!studentStudentId || !studentFees || !studentId || !studentName){
-            !studentStudentId ? $("#studentStudent_idErr").html("Student name cannot be empty") : "";
-            !studentFees ? $("#studentFeesEditErr").html("Student fees cannot be empty") : "";
-            !studentId ? $("#editStudentFMsg").html("Unknown item") : "";
-            !studentName ? $("#studentNameEditErr").html("Student name can not be empty") : "";
+        var studentStudent_id = $("#studentStudent_idEdit").val();
+        var studentClass_name = $("#studentClass_nameEdit").val();
+        var studentParent_name = $("#studentParent_nameEdit").val();
+        var studentParent_phone = $("#studentParent_phoneEdit").val();
+        var studentAddress = $("#studentAddressEdit").val();
+        var studentFees = $("#studentFeesEdit").val();
+    
+        // Clear previous error messages
+        $(".error-message").html("");
+                
+        if (!studentStudent_id || !studentFees || !studentId || !studentName) {
+            if (!studentStudent_id) $("#studentStudent_idErr").html("Student ID cannot be empty");
+            if (!studentFees) $("#studentFeesEditErr").html("Student fees cannot be empty");
+            if (!studentId) $("#editStudentFMsg").html("Unknown item");
+            if (!studentName) $("#studentNameEditErr").html("Student name cannot be empty");
             return;
         }
-        
+    
         $("#editStudentFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");
-        
+    
         $.ajax({
             method: "POST",
-            url: appRoot+"students/edit",
-            data: {studentName:studentName, studentStudentId:studentStudentId, studentSurname:studentSurname, _sId:studentId, studentClassName:studentClassName, studentParentName:studentParentName, studentParentPhone:studentParentPhone, studentAddress:studentAddress, studentFees:studentFees}
-        }).done(function(returnedData){
-            if(returnedData.status === 1){
+            url: appRoot + "students/edit",
+            data: {
+                studentName: studentName,
+                studentStudent_id: studentStudent_id,
+                studentSurname: studentSurname,
+                _sId: studentId,
+                studentClass_name: studentClass_name,
+                studentParent_name: studentParent_name,
+                studentParent_phone: studentParent_phone,
+                studentAddress: studentAddress,
+                studentFees: studentFees
+            }
+        }).done(function (returnedData) {
+            if (returnedData.status === 1) {
                 $("#editStudentFMsg").css('color', 'green').html("Student successfully updated");
-                
-                setTimeout(function(){
+    
+                setTimeout(function () {
                     $("#editStudentModal").modal('hide');
                 }, 1000);
-                
+    
                 lslt();
-            }
-            
-            else{
+            } else {
                 $("#editStudentFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
-                
-                $("#studentStudent_idErr").html(returnedData.studentId);
-                $("#studentNameEditErr").html(returnedData.studentName);
-                $("#studentSurnameErr").html(returnedData.studentSurname);
+    
+                if (returnedData.studentId) $("#studentStudent_idErr").html(returnedData.studentId);
+                if (returnedData.studentName) $("#studentNameEditErr").html(returnedData.studentName);
+                if (returnedData.studentSurname) $("#studentSurnameErr").html(returnedData.studentSurname);
             }
-        }).fail(function(){
+        }).fail(function () {
             $("#editStudentFMsg").css('color', 'red').html("Unable to process your request at this time. Please check your internet connection and try again");
         });
     });
     
     
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //trigers the modal to update student
-    $("#studentsListTable").on('click', '.updateStudent', function(){
-        //get item info and fill the form with them
-        var studentId = $(this).attr('id').split("-")[1];
-        var studentName = $("#studentName-" + studentId).html();
-        var studentStudentId = $("#studentStudent_id-" + studentId).html();
-        var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
-        
-        
-        $("#studentUpdateStudent_id").val(studentId);
-        $("#studentUpdateStudentName").val(studentName);
-        $("#studentUpdatestudentUpdateStudentStudent_id").val(studentStudentId);
-        $("#studentUpdateItemQInStock").val(studentFees);
-        
-        $("#updateStudentModal").modal('show');
-    });
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,94 +332,8 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //runs when the update type is changed while trying to update student
-    //sets a default description if update type is "newFees"
-    $("#studentUpdateType").on('change', function(){
-        var updateType = $("#studentUpdateType").val();
-        
-        if(updateType && (updateType === 'newFees')){
-            $("#studentUpdateDescription").val("New Fees gazzeted");
-        }
-        
-        else{
-            $("#studentpdateDescription").val("");
-        }
-    });
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //handles the updating of student fees 
-    $("#studentUpdateSubmit").click(function(){
-        var updateType = $("#studentUpdateType").val();
-        var studentUpdateFees = $("#stockUpdateFees").val();
-        var studentUpdateDescription = $("#studentUpdateDescription").val();
-        var studentId = $("#studentUpdateStudent_id").val();
-        
-        if(!updateType || !studentUpdateFees || !studentUpdateDescription || !studentId){
-            !updateType ? $("#studentUpdateTypeErr").html("required") : "";
-            !studentUpdateFees ? $("#studentUpdateFeesErr").html("required") : "";
-            !studentUpdateDescription ? $("#studentUpdateDescriptionErr").html("required") : "";
-            !studentId ? $("#studentUpdateStudent_idErr").html("required") : "";
-            
-            return;
-        }
-        
-        $("#studentUpdateFMsg").html("<i class='"+spinnerClass+"'></i> Updating Student.....");
-        
-        $.ajax({
-            method: "POST",
-            url: appRoot+"students/updatestudent",
-            data: {_sId:studentId, _upType:updateType, fees:studentUpdateFees, desc:studentUpdateDescription}
-        }).done(function(returnedData){
-            if(returnedData.status === 1){
-                $("#studentUpdateFMsg").html(returnedData.msg);
-                
-                //refresh students' list
-                lslt();
-                
-                //reset form
-                document.getElementById("updateStudentForm").reset();
-                
-                //dismiss modal after some secs
-                setTimeout(function(){
-                    $("#updateStudentModal").modal('hide');//hide modal
-                    $("#studentUpdateFMsg").html("");//remove msg
-                }, 1000);
-            }
-            
-            else{
-                $("#studentUpdateFMsg").html(returnedData.msg);
-                
-                $("#studentUpdateTypeErr").html(returnedData._upType);
-                $("#studentUpdateFeesErr").html(returnedData.fees);
-                $("#studentUpdateDescriptionErr").html(returnedData.desc);
-            }
-        }).fail(function(){
-            $("#studentUpdateFMsg").html("Unable to process your request at this time. Please check your internet connection and try again");
-        });
-    });
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //PREVENT AUTO-SUBMISSION BY THE BARCODE SCANNER
-    $("#studentStudent_id").keypress(function(e){
-        if(e.which === 13){
-            e.preventDefault();
-            
-            //change to next input by triggering the tab keyboard
-            $("#studentName").focus();
-        }
-    });
-    
+
+
     
     
     //TO DELETE A STUDENT (The studet will be marked as "deleted" instead of removing it totally from the db)

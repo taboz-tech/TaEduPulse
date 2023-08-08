@@ -105,28 +105,17 @@ class Students extends CI_Controller{
         $this->load->library('form_validation');
 
         $this->form_validation->set_error_delimiters('', '');
-        $postData = json_encode($_POST);
-
-        log_message('error', 'Data received for student add:'. $postData);
 
         
         $this->form_validation->set_rules('studentName', 'Student name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
-        log_message('error','here are done');
         $this->form_validation->set_rules('studentSurname', 'Student Surname', ['required', 'trim', 'max_length[40]'],['required' => 'The %s field is required.']);
-        log_message('error', 'done here also');
         $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[20]','is_unique[students.student_id]'],['required' => 'There is already a student with this student id.']);
-        log_message('error','done with studenet id ');
         $this->form_validation->set_rules('studentClass_name', 'Student Class_name', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
-        log_message('error','done with class name ');
         $this->form_validation->set_rules('studentGender', 'Student Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
-        log_message('error','done with studenet gender');
         $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
-        log_message('error','done with studenet parent phone ');
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
-        log_message('error','done with studenet address');
                 
         if($this->form_validation->run() !== FALSE){
-            log_message('error',"here we are taboz my guy lets push");
             $this->db->trans_start();//start transaction
             
             /**
@@ -178,7 +167,7 @@ class Students extends CI_Controller{
     
     
     /**
-     * Primarily used to check whether a student already has a particular random student id  being generated for a new item
+     * Primarily used to check whether a student already has a particular random student id  being generated for a new student
      * @param type $selColName
      * @param type $whereColName
      * @param type $colValue
@@ -253,15 +242,17 @@ class Students extends CI_Controller{
         $this->load->library('form_validation');
 
         $this->form_validation->set_error_delimiters('', '');
-        
+    
+
         $this->form_validation->set_rules('_sId', '', ['required', 'trim', 'numeric']);
         $this->form_validation->set_rules('studentName', 'Student Name', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentSurname', 'Student Surname', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentClass_name', 'Student Class_name', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentFees', 'Student Fees', ['required', 'trim', 'numeric'], ['required'=>'required']);
         $this->form_validation->set_rules('studentParent_name', 'Student Parent_name', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
-        $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[20]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
+        $this->form_validation->set_rules('studentParent_phone','Student Student_phone',['required','trim','max_length[15]'],['required'=>'required']);
 
         if($this->form_validation->run() !== FALSE){
             $studentId = set_value('_sId');
@@ -271,10 +262,11 @@ class Students extends CI_Controller{
             $studentFees = set_value('studentFees');
             $studentParent_name = set_value('studentParent_name');
             $studentAddress = set_value('studentAddress');
+            $studentParent_phone = set_value('studentParent_phone');
             $studentStudent_id = $this->input->post('studentStudent_id', TRUE);
-            
+
             //update item in db
-            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentFees,$studentParent_name,$studentAddress);
+            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress);
             
             $json['status'] = $updated ? 1 : 0;
             

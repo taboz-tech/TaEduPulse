@@ -141,9 +141,13 @@ class Student extends CI_Model{
     * @param type $studentParent_name
     * @param type $studentParent_phone
     * @param type $studentFees
+    * @param type $studentAddress
     */
-   public function edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_name, $studentParent_phone,$studentFees){
-       $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'class_name'=>$studentClass_name, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'fees'=>$studentFees];
+
+
+     
+   public function edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress){
+       $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'class_name'=>$studentClass_name, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'fees'=>$studentFees,'address'=>$studentAddress];
        
        $this->db->where('id', $studentId);
        $this->db->update('students', $data);

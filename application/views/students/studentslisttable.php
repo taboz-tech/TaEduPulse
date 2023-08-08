@@ -23,7 +23,6 @@
                         <th>ADDRESS</th>
                         <th>FEES</th>
                         <th>GENDER</th>
-                        <th>UPDATE FEES</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
                     </tr>
@@ -42,7 +41,6 @@
                         <td><span id="studentAddress-<?=$get->id?>"><?=$get->address?></td>
                         <td><span id="studentFees-<?=$get->id?>"><?=number_format($get->fees,2)?></td>
                         <td><span id="studentGender-<?=$get->id?>"><?=$get->gender?></td>
-                        <td><a class="pointer updateStudent" id="student-<?=$get->id?>">Update Student</a></td>
                         <td class="text-center text-primary">
                             <span class="editStudent" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
