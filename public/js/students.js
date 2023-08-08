@@ -408,7 +408,7 @@ $(document).ready(function(){
                 $("#studentUpdateFMsg").html(returnedData.msg);
                 
                 $("#studentUpdateTypeErr").html(returnedData._upType);
-                $("#studentUpdateFeesErr").html(returnedData.qty);
+                $("#studentUpdateFeesErr").html(returnedData.fees);
                 $("#studentUpdateDescriptionErr").html(returnedData.desc);
             }
         }).fail(function(){

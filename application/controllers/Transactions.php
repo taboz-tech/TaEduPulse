@@ -27,7 +27,7 @@ class Transactions extends CI_Controller{
     */
     
     public function index(){
-        $transData['studentss'] = $this->student->getActiveItems('name', 'ASC');//get items with at least one qty left, to be used when doing a new transaction
+        $transData['students'] = $this->student->getActiveStudents('name', 'ASC');//get students with a fees credit when doing a new transaction
         
         $data['pageContent'] = $this->load->view('transactions/transactions', $transData, TRUE);
         $data['pageTitle'] = "Transactions";
@@ -93,25 +93,22 @@ class Transactions extends CI_Controller{
     public function nso_(){
         $this->genlib->ajaxOnly();
         
-        $arrOfItemsDetails = json_decode($this->input->post('_aoi', TRUE));
+        $arrOfStudentsDetails = json_decode($this->input->post('_aoi', TRUE));
         $_mop = $this->input->post('_mop', TRUE);//mode of payment
         $_at = round($this->input->post('_at', TRUE), 2);//amount tendered
         $_cd = $this->input->post('_cd', TRUE);//change due
         $cumAmount = $this->input->post('_ca', TRUE);//cumulative amount
-        $vatPercentage = $this->input->post('vat', TRUE);//vat percentage
-        $discount_percentage = $this->input->post('discount', TRUE);//discount percentage
         $cust_name = $this->input->post('cn', TRUE);
         $cust_phone = $this->input->post('cp', TRUE);
-        $cust_email = $this->input->post('ce', TRUE);
         
         /*
-         * Loop through the arrOfItemsDetails and ensure each item's details has not been manipulated
-         * The unitPrice must match the item's unit price in db, the totPrice must match the unitPrice*qty
-         * The cumAmount must also match the total of all totPrice in the arr in addition to the amount of 
-         * VAT (based on the vat percentage) and minus the $discount_percentage (if available)
+         * Loop through the arrOfStudentsDetails and ensure each student's details has not been manipulated
+         * The Fees Debt must match the student's fees owed in db, the total Amount must match the amount paid nothing added
+         *
+         * 
          */
         
-        $allIsWell = $this->validateItemsDet($arrOfItemsDetails, $cumAmount, $_at, $vatPercentage, $discount_percentage);
+        $allIsWell = $this->validateStudentsDet($arrOfStudentsDetails, $cumAmount, $_at);
         
         if($allIsWell){//insert each sales order into db, generate receipt and return info to client
             
@@ -153,23 +150,21 @@ class Transactions extends CI_Controller{
     */
     
     /**
-     * Validates the details of items sent from client to prevent manipulation
-     * @param type $arrOfItemsInfo
+     * Validates the details of students sent from client to prevent manipulation
+     * @param type $arrOfStudentsInfo
      * @param type $cumAmountFromClient
      * @param type $amountTendered
-     * @param type $vatPercentage
-     * @param type $discount_percentage
      * @return boolean
      */
-    private function validateItemsDet($arrOfItemsInfo, $cumAmountFromClient, $amountTendered, $vatPercentage, $discount_percentage){
+    private function validateStudentsDet($arrOfStudentsInfo, $cumAmountFromClient, $amountTendered){
         $error = 0;
         
-        //loop through the item's info and validate each
+        //loop through the student's info and validate each
         //return error if at least one seems suspicious (i.e. fails validation)
-        foreach ($arrOfItemsInfo as $get){
-            $itemCode = $get->_iC;//use this to get the item's unit price, then multiply it with the qty sent from client
-            $qtyToBuy = $get->qty;
-            $unitPriceFromClient = $get->unitPrice;
+        foreach ($arrOfStudentsInfo as $get){
+            $studentStudent_id = $get->_iC;//use this to get the student's fees
+            $feesToPay = $get->fees;
+            $amountPaidFromClient = $get->amountPaid;
             $unitPriceInDb = $this->genmod->gettablecol('items', 'unitPrice', 'code', $itemCode);
             $totPriceFromClient = $get->totalPrice;
             

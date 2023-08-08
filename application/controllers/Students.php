@@ -39,6 +39,7 @@ class Students extends CI_Controller{
      * "lslt" = "load Students List Table"
      */
     public function lslt(){
+       
         $this->genlib->ajaxOnly();
         
         $this->load->helper('text');
@@ -50,6 +51,7 @@ class Students extends CI_Controller{
         
         //count the total number of items in db
         $totalStudents = $this->db->count_all('students');
+
     
         $this->load->library('pagination');
         
@@ -70,7 +72,6 @@ class Students extends CI_Controller{
         $data['range'] = $totalStudents > 0 ? "Showing " . ($start+1) . "-" . ($start + count($data['allStudents'])) . " of " . $totalStudents : "";
         $data['links'] = $this->pagination->create_links();//page links
         $data['sn'] = $start+1;
-        $data['cum_total'] = $this->student->getItemsCumTotal();
         
         $json['studentsListTable'] = $this->load->view('students/studentslisttable', $data, TRUE);//get view with populated items table
         
@@ -104,16 +105,28 @@ class Students extends CI_Controller{
         $this->load->library('form_validation');
 
         $this->form_validation->set_error_delimiters('', '');
+        $postData = json_encode($_POST);
+
+        log_message('error', 'Data received for student add:'. $postData);
+
         
         $this->form_validation->set_rules('studentName', 'Student name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
+        log_message('error','here are done');
         $this->form_validation->set_rules('studentSurname', 'Student Surname', ['required', 'trim', 'max_length[40]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('studentId', 'Student Id', ['required', 'trim', 'max_length[20]','is_unique[student_id.code]'],['required' => 'There is already a student with this student id.']);
+        log_message('error', 'done here also');
+        $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[20]','is_unique[students.student_id]'],['required' => 'There is already a student with this student id.']);
+        log_message('error','done with studenet id ');
         $this->form_validation->set_rules('studentClass_name', 'Student Class_name', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
+        log_message('error','done with class name ');
         $this->form_validation->set_rules('studentGender', 'Student Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
+        log_message('error','done with studenet gender');
         $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
+        log_message('error','done with studenet parent phone ');
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
+        log_message('error','done with studenet address');
                 
         if($this->form_validation->run() !== FALSE){
+            log_message('error',"here we are taboz my guy lets push");
             $this->db->trans_start();//start transaction
             
             /**

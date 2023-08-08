@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('');
 
                     <div class="col-sm-4 form-group-sm form-inline">
                         <label for="studentsListSortBy">Sort by</label>
-                        <select id="studentListSortBy" class="form-control">
+                        <select id="studentsListSortBy" class="form-control">
                             <option value="name-ASC">Student Name (A-Z)</option>
                             <option value="surname-ASC">Student Surname (Ascending)</option>
                             <option value="dateAdded-ASC">Date Added (Ascending)</option>
@@ -59,7 +59,6 @@ defined('BASEPATH') OR exit('');
             <!--Form to add/update an student-->
             <div class="col-sm-4 hidden" id='createNewStudentDiv'>
                 <div class="well">
-                    <button class="btn btn-info btn-xs pull-left" id="useBarcodeScanner">Use Scanner</button>
                     <button class="close cancelAddStudent">&times;</button><br>
                     <form name="addNewStudentForm" id="addNewStudentForm" role="form">
                         <div class="text-center errMsg" id='addCustErrMsg'></div>

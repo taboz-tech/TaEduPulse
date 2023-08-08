@@ -4,13 +4,11 @@
     <?= isset($range) && !empty($range) ? $range : ""; ?>
 </div>
 
-<div class='col-sm-6 text-right'><b>Items Total Worth/Price:</b> $<?=$cum_total ? number_format($cum_total, 2) : '0.00'?></div>
-
 <div class='col-xs-12'>
     <div class="panel panel-primary">
         <!-- Default panel contents -->
-        <div class="panel-heading">Items</div>
-        <?php if($allItems): ?>
+        <div class="panel-heading">Students</div>
+        <?php if($allStudents): ?>
         <div class="table table-responsive">
             <table class="table table-bordered table-striped table-hover" style="background-color: #f5f5f5">
                 <thead>
