@@ -1,4 +1,5 @@
 'use strict';
+var initialOwedFees = 0;
 
 $(document).ready(function(){
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
@@ -37,7 +38,23 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       
-    
+    $('#studentFees').on('input', function() {
+        var studentFeesValue = parseFloat($(this).val());
+        
+        var studentOwedFeesValue = isNaN(studentFeesValue) ? 0 : studentFeesValue;
+        
+        $('#studentOwed_fees').val(studentOwedFeesValue);
+    });
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+
+
     $(".cancelAddStudent").click(function(){
         //reset and hide the form
         document.getElementById("addNewStudentForm").reset();//reset the form
@@ -93,7 +110,7 @@ $(document).ready(function(){
     $("#addNewStudent").click(function(e){
         e.preventDefault();
         
-        changeInnerHTML(['studentNameErr', 'studentStudent_idErr', 'studentSurnameErr', 'studentClass_nameErr', 'addCustErrMsg','studentGenderErr', 'studentFeesErr', 'studentParent_nameErr', 'studentParent_phoneErr', 'studentAddressErr'], "");
+        changeInnerHTML(['studentNameErr', 'studentStudent_idErr', 'studentSurnameErr', 'studentClass_nameErr', 'addCustErrMsg','studentGenderErr', 'studentFeesErr', 'studentParent_nameErr', 'studentParent_phoneErr', 'studentAddressErr', 'studentOwed_feesErr'], "");
         
         var studentStudent_id = $("#studentStudent_id").val();
         var studentName = $("#studentName").val();
@@ -104,9 +121,10 @@ $(document).ready(function(){
         var studentParent_name = $("#studentParent_name").val();
         var studentParent_phone = $("#studentParent_phone").val();
         var studentAddress = $("#studentAddress").val();
+        var studentOwed_fees = $("#studentOwed_fees").val();
 
         
-        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees){
+        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees || !studentOwed_fees){
             !studentName ? $("#studentNameErr").text("required") : "";
             !studentStudent_id ? $("#studentStudent_idErr").text("required") : "";
             !studentSurname ? $("#studentSurnameErr").text("required") : "";
@@ -114,6 +132,7 @@ $(document).ready(function(){
             !studentParent_phone ? $("#studentParent_phoneErr").text("required") : "";
             !studentAddress ? $("#studentAddressErr").text("required") : "";
             !studentFees ? $("#studentFeesErr").text("required") : "";
+            !studentOwed_fees ? $("#studentOwed_feesErr").text("required") : "";
             
             
             $("#addCustErrMsg").text("One or more required fields are empty");
@@ -126,7 +145,7 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: appRoot+"students/add",
-            data:{studentStudent_id:studentStudent_id, studentName:studentName, studentSurname:studentSurname, studentClass_name:studentClass_name, studentGender:studentGender, studentFees:studentFees, studentParent_name:studentParent_name, studentParent_phone:studentParent_phone, studentAddress:studentAddress},
+            data:{studentStudent_id:studentStudent_id, studentName:studentName, studentSurname:studentSurname, studentClass_name:studentClass_name, studentGender:studentGender, studentFees:studentFees, studentParent_name:studentParent_name, studentParent_phone:studentParent_phone, studentAddress:studentAddress, studentOwed_fees:studentOwed_fees},
             
             success: function(returnedData){
                 if(returnedData.status === 1){
@@ -136,7 +155,7 @@ $(document).ready(function(){
                     //refresh the students list table
                     lslt();
                     
-                    //return focus to student code input to allow adding item with barcode scanner
+                    //return focus to student code input to allow adding student with barcode scanner
                     $("#studentStudent_id").focus();
                 }
                 
@@ -153,6 +172,7 @@ $(document).ready(function(){
                     $("#studentParent_nameErr").text(returnedData.studentParent_name);
                     $("#studentParent_phoneErr").text(returnedData.studentParent_phone);
                     $("#studentAddressErr").text(returnedData.studentAddress);
+                    $("#studentOwed_feesErr").text(returnedData.studentOwed_fees)
                     $("#addCustErrMsg").text(returnedData.msg);
                     
                 }
@@ -183,6 +203,27 @@ $(document).ready(function(){
         lslt();
     });
     
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    $("#enableOwedFeesEdit").prop("checked", false); // Set the checkbox to unchecked by default
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    // Checkbox event handler to toggle the owed fees field's editability
+    $("#enableOwedFeesEdit").on("change", function() {
+        updateOwedFeesEditability();
+    });
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -219,6 +260,8 @@ $(document).ready(function(){
     //triggers when a student's "edit" icon is clicked
     $("#studentsListTable").on('click', ".editStudent", function(e){
         e.preventDefault();
+        $("#studentOwed_feesEdit").prop("disabled", true);
+        $("#enableOwedFeesEdit").prop("checked", false);
         
         //get Student info
         var studentId = $(this).attr('id').split("-")[1];
@@ -230,6 +273,8 @@ $(document).ready(function(){
         var studentParent_phone = $("#studentParent_phone-" + studentId).html();
         var studentAddress = $("#studentAddress-" + studentId).html();
         var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
+        var studentOwed_fees = $("#studentOwed_fees-" + studentId).html();
+        
         
         //prefill form with info
         $("#studentIdEdit").val(studentId);
@@ -239,8 +284,9 @@ $(document).ready(function(){
         $("#studentAddressEdit").val(studentAddress);
         $("#studentStudent_idEdit").val(studentStudent_id);
         $("#studentParent_nameEdit").val(studentParent_name);
-        $("#studentParent_phoneEdit").val(studentParent_name);
+        $("#studentParent_phoneEdit").val(studentParent_phone);
         $("#studentFeesEdit").val(studentFees);
+        $("#studentOwed_feesEdit").val(studentOwed_fees);
         
         //remove all error messages that might exist
         $("#editStudentFMsg").html("");
@@ -253,6 +299,7 @@ $(document).ready(function(){
         $("#studentParent_nameEditErr").html("");
         $("#studentParent_phoneEditErr").html("");
         $("#studentFeesEditErr").html("");
+        $("#studentOwed_feesEditErr").html("");
         
         
         //launch modal
@@ -266,6 +313,11 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     $("#editStudentSubmit").click(function () {
+
+        // Create a variable to store owed fees value
+        var combinedOwedFees;
+        
+
         var studentId = $("#studentIdEdit").val();
         var studentName = $("#studentNameEdit").val();
         var studentSurname = $("#studentSurnameEdit").val();
@@ -275,6 +327,11 @@ $(document).ready(function(){
         var studentParent_phone = $("#studentParent_phoneEdit").val();
         var studentAddress = $("#studentAddressEdit").val();
         var studentFees = $("#studentFeesEdit").val();
+        var studentOwed_fees = $("#studentOwed_feesEdit").val();
+
+        console.log("Initial Owed Fees:", initialOwedFees);
+        console.log("Student Owed Fees from Form:", studentOwed_fees);
+
     
         // Clear previous error messages
         $(".error-message").html("");
@@ -285,6 +342,17 @@ $(document).ready(function(){
             if (!studentId) $("#editStudentFMsg").html("Unknown item");
             if (!studentName) $("#studentNameEditErr").html("Student name cannot be empty");
             return;
+        }
+
+        if ($("#enableOwedFeesEdit").prop("checked")) {
+        // Calculate the combined owed fees value (initial + owed fees from form)
+        var owedFeesFromForm = parseFloat(studentOwed_fees);
+        combinedOwedFees = initialOwedFees + owedFeesFromForm;
+        console.log("we are here")
+        } else {
+            // Store the owed fees value from the form
+            combinedOwedFees = parseFloat(studentOwed_fees);
+            console.log("weare below my guy")
         }
     
         $("#editStudentFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");
@@ -301,7 +369,8 @@ $(document).ready(function(){
                 studentParent_name: studentParent_name,
                 studentParent_phone: studentParent_phone,
                 studentAddress: studentAddress,
-                studentFees: studentFees
+                studentFees: studentFees,
+                studentOwed_fees: combinedOwedFees
             }
         }).done(function (returnedData) {
             if (returnedData.status === 1) {
@@ -425,6 +494,14 @@ function resetStudentSN(){
         $(this).html(parseInt(i)+1);
     });
 }
+function updateOwedFeesEditability() {
+    var isEnabled = $("#enableOwedFeesEdit").prop("checked");
+    $("#studentOwed_feesEdit").prop("disabled", !isEnabled);
 
+    if (isEnabled) {
+        // Get the displayed owed fees value from the input field
+        var displayedOwedFees = parseFloat($("#studentOwed_feesEdit").val());
 
-
+        initialOwedFees = displayedOwedFees;
+    }
+}

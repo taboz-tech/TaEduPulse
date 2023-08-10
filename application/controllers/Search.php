@@ -90,7 +90,7 @@ class Search extends CI_Controller{
     public function transSearch(){
         $data['allTransactions'] = $this->transaction->transsearch($this->value);
         $data['sn'] = 1;
-        
+
         $json['transTable'] = $data['allTransactions'] ? $this->load->view('transactions/transtable', $data, TRUE) : "No match found";
         
         //set final output

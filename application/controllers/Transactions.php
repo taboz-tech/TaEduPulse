@@ -28,6 +28,7 @@ class Transactions extends CI_Controller{
     
     public function index(){
         $transData['students'] = $this->student->getActiveStudents('name', 'ASC');//get students with a fees credit when doing a new transaction
+        // log_message('error', 'Student data: ' . print_r($transData['students'], true));
         
         $data['pageContent'] = $this->load->view('transactions/transactions', $transData, TRUE);
         $data['pageTitle'] = "Transactions";
@@ -48,6 +49,7 @@ class Transactions extends CI_Controller{
      */
     public function latr_(){
         //set the sort order
+       
         $orderBy = $this->input->get('orderBy', TRUE) ? $this->input->get('orderBy', TRUE) : "transId";
         
         $orderFormat = $this->input->get('orderFormat', TRUE) ? $this->input->get('orderFormat', TRUE) : "DESC";
@@ -61,20 +63,26 @@ class Transactions extends CI_Controller{
 	
         $limit = $this->input->get('limit', TRUE) ? $this->input->get('limit', TRUE) : 10;//show $limit per page
         $start = $pageNumber == 0 ? 0 : ($pageNumber - 1) * $limit;//start from 0 if pageNumber is 0, else start from the next iteration
-        
+
         //call setPaginationConfig($totalRows, $urlToCall, $limit, $attributes) in genlib to configure pagination
         $config = $this->genlib->setPaginationConfig($totalTransactions, "transactions/latr_", $limit, ['onclick'=>'return latr_(this.href);']);
         
         $this->pagination->initialize($config);//initialize the library class
         
-        //get all transactions from db
+        // Get all transactions from the database
         $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
-        $data['range'] = $totalTransactions > 0 ? ($start+1) . "-" . ($start + count($data['allTransactions'])) . " of " . $totalTransactions : "";
-        $data['links'] = $this->pagination->create_links();//page links
-        $data['sn'] = $start+1;
-        
-        $json['transTable'] = $this->load->view('transactions/transtable', $data, TRUE);//get view with populated transactions table
 
+        // Calculate and assign the 'range' value
+        $data['range'] = $totalTransactions > 0 ? ($start+1) . "-" . ($start + count($data['allTransactions'])) . " of " . $totalTransactions : "";
+
+        // Generate pagination links
+        $data['links'] = $this->pagination->create_links();
+        
+        // Calculate and assign the 'sn' value
+        $data['sn'] = $start + 1;
+        
+        $json['transTable'] = $this->load->view('transactions/transtable', $data, TRUE);
+    
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
     

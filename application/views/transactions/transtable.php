@@ -11,7 +11,8 @@
                 <tr>
                     <th>SN</th>
                     <th>Receipt No</th>
-                    <th>Total Items</th>
+                    <th>Student Name</th>
+                    <th>Student Surname</th>
                     <th>Total Amount</th>
                     <th>Amount Tendered</th>
                     <th>Change Due</th>
@@ -27,8 +28,9 @@
                 <tr>
                     <th><?= $sn ?>.</th>
                     <td><a class="pointer vtr" style="color:#b30d0d" title="Click to view receipt"><?= $get->ref ?></a></td>
-                    <td><?= $get->quantity ?></td>
-                    <td>$<?= number_format($get->totalPrice, 2) ?></td>
+                    <td><?= $get->studentName?></td>
+                    <td><?= $get->studentSurname?></td>
+                    <td>$<?= number_format($get->totalAmount, 2) ?></td>
                     <td>$<?= number_format($get->amountTendered, 2) ?></td>
                     <td>$<?= number_format($get->changeDue, 2) ?></td>
                     <td><?=  str_replace("_", " ", $get->modeOfPayment)?></td>

@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('');
 
-$current_items = [];
+$current_students = [];
 
-if(isset($items) && !empty($items)){    
-    foreach($items as $get){
-        $current_items[$get->code] = $get->name;
+if(isset($students) && !empty($students)){    
+    foreach($students as $get){
+        $current_students[$get->student_id] = $get->name;
     }
 }
 ?>
@@ -13,7 +13,7 @@ if(isset($items) && !empty($items)){
 <style href="<?=base_url('public/ext/datetimepicker/bootstrap-datepicker.min.css')?>" rel="stylesheet"></style>
 
 <script>
-    var currentItems = <?=json_encode($current_items)?>;
+    var currentStudents = <?=json_encode($current_students)?>;
 </script>
 
 <div class="pwell hidden-print">   
@@ -51,40 +51,24 @@ if(isset($items) && !empty($items)){
                                     <div id="appendClonedDivHere"></div>
                                     <!--End of cloned div here--->
                                     
-                                    <!--- Text to click to add another item to transaction-->
+                                    <!--- Text to click to add another Student to transaction-->
                                     <div class="row">
                                         <div class="col-sm-2 text-primary pointer">
-                                            <button class="btn btn-primary btn-sm" id="clickToClone"><i class="fa fa-plus"></i> Add item</button>
+                                            <button class="btn btn-primary btn-sm" id="clickToClone"><i class="fa fa-plus"></i> Add Student</button>
                                         </div>
                                         
                                         <br class="visible-xs">
                                         
                                         <div class="col-sm-2 form-group-sm">
-                                            <input type="text" id="barcodeText" class="form-control" placeholder="item code" autofocus>
-                                            <span class="help-block errMsg" id="itemCodeNotFoundMsg"></span>
+                                            <input type="text" id="barcodeText" class="form-control" placeholder="Student Id" autofocus>
+                                            <span class="help-block errMsg" id="studentNotFoundMsg"></span>
                                         </div>
                                     </div>
-                                    <!-- End of text to click to add another item to transaction-->
+                                    <!-- End of text to click to add another Student to transaction-->
                                     <br>
                                     
                                     <div class="row">
-                                        <div class="col-sm-3 form-group-sm">
-                                            <label for="vat">VAT(%)</label>
-                                            <input type="number" min="0" id="vat" class="form-control" value="0">
-                                        </div>
-                                        
-                                        <div class="col-sm-3 form-group-sm discount-wrapper <?php if ($this->session->admin_role !== "Super") echo 'disabled'; ?>">
-                                            <label for="discount">Discount(%)</label>
-                                            <input type="number" min="0" id="discount" class="form-control" value="0" <?php if ($this->session->admin_role !== "Super") echo 'disabled'; ?>>
-                                        </div>
-
-                                        
-                                        <div class="col-sm-3 form-group-sm discount-wrapper <?php if ($this->session->admin_role !== "Super") echo 'disabled'; ?>">
-                                            <label for="discount">Discount(value)</label>
-                                            <input type="number" min="0" id="discountValue" class="form-control" value="0" <?php if ($this->session->admin_role !== "Super") echo 'disabled'; ?>>
-                                        </div>
-
-                                        
+                                                                                
                                         <div class="col-sm-3 form-group-sm">
                                             <label for="modeOfPayment">Mode of Payment</label>
                                             <select class="form-control checkField" id="modeOfPayment">
@@ -151,9 +135,7 @@ if(isset($items) && !empty($items)){
 
                             <br>
                             <div class="row">
-                                <div class="col-sm-2 form-group-sm">
-                                    <button class="btn btn-primary btn-sm" id='useScanner'>Use Barcode Scanner</button>
-                                </div>
+                                
                                 <br class="visible-xs">
                                 <div class="col-sm-6"></div>
                                 <br class="visible-xs">
@@ -227,29 +209,29 @@ if(isset($items) && !empty($items)){
 
 <div class="row hidden" id="divToClone">
     <div class="col-sm-4 form-group-sm">
-        <label>Item</label>
-        <select class="form-control selectedItemDefault" onchange="selectedItem(this)"></select>
+        <label>Student</label>
+        <select class="form-control selectedStudentDefault" onchange="selectedStudent(this)"></select>
     </div>
 
-    <div class="col-sm-2 form-group-sm itemAvailQtyDiv">
-        <label>Available Quantity</label>
-        <span class="form-control itemAvailQty">0</span>
-    </div>
-
-    <div class="col-sm-2 form-group-sm">
-        <label>Unit Price</label>
-        <span class="form-control itemUnitPrice">0.00</span>
-    </div>
-
-    <div class="col-sm-1 form-group-sm itemTransQtyDiv">
-        <label>Quantity</label>
-        <input type="number" min="0" class="form-control itemTransQty" value="0">
-        <span class="help-block itemTransQtyErr errMsg"></span>
+    <div class="col-sm-2 form-group-sm studentOwedFeesDiv">
+        <label>Owed Fees</label>
+        <span class="form-control studentOwedFees">0</span>
     </div>
 
     <div class="col-sm-2 form-group-sm">
-        <label>Total Price</label>
-        <span class="form-control itemTotalPrice">0.00</span>
+        <label>Current Fees</label>
+        <span class="form-control studentCurrentFees">0.00</span>
+    </div>
+
+    <div class="col-sm-1 form-group-sm studentTransAmountDiv">
+        <label>Amount-Pay</label>
+        <input type="number" min="0" class="form-control studentTransAmount" value="0">
+        <span class="help-block studentTransAmountErr errMsg"></span>
+    </div>
+
+    <div class="col-sm-2 form-group-sm">
+        <label>Total Fees</label>
+        <span class="form-control studentTotalFees">0.00</span>
     </div>
     
     <br class="visible-xs">

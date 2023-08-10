@@ -4,7 +4,7 @@ var barCodeTextTimeOut;
 var cumTotalWithoutVATAndDiscount = 0;
 
 $(document).ready(function(){
-    $("#selItemDefault").select2();
+    $("#selStudentDefault").select2();
     
     
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
@@ -19,61 +19,61 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //when text/btn ("Add item") to clone the div to add an item is clicked
+    //when text/btn ("Add Student") to clone the div to add an item is clicked
     $("#clickToClone").on('click', function(e){
         e.preventDefault();
         
         var cloned = $("#divToClone").clone();
         
         //remove the id 'divToClone' from the cloned div
-        cloned.addClass('transItemList').removeClass('hidden').attr('id', '');
+        cloned.addClass('transStudentList').removeClass('hidden').attr('id', '');
         
         //reset the form values (in the cloned div) to default
-        cloned.find(".selectedItemDefault").addClass("selectedItem").val("");
-        cloned.find(".itemAvailQty").html("0");
-        cloned.find(".itemTransQty").val("0");
-        cloned.find(".itemTotalPrice").html("0.00");
+        cloned.find(".selectedStudentDefault").addClass("selectedStudent").val("");
+        cloned.find(".studentTransAmount").html("0");
+        cloned.find(".studentTotalFees").val("0");
+        cloned.find(".studentCurrentFees").html("0.00");
         
-        //loop through the currentItems variable to add the items to the select input
+        //loop through the currentStudents variable to add the students to the select input
 		return new Promise((resolve, reject)=>{
-			//if an item has been selected (i.e. added to the current transaction), do not add it to the list. This way, an item will appear just once.
-			//We start by forming an array of all selected items, then skip that item in the loop appending items to select dropdown
-			var selectedItemsArr = [];
+			//if a student has been selected (i.e. added to the current transaction), do not add it to the list. This way, a student will appear just once.
+			//We start by forming an array of all selected students, then skip that student in the loop appending students to select dropdown
+			var selectedStudentsArr = [];
 			
 			return new Promise((res, rej)=>{
-				$(".selectedItem").each(function(){
-					//push the selected value (which is the item code [a key in currentItems object]) to the array
-					$(this).val() ? selectedItemsArr.push($(this).val()) : "";
+				$(".selectedStudent").each(function(){
+					//push the selected value (which is the student_id [a key in currentStudents object]) to the array
+					$(this).val() ? selectedStudentsArr.push($(this).val()) : "";
 				});
 				
 				res();
 			}).then(()=>{
-				for(let key in currentItems){
-					//if the current key in the loop is in our 'selectedItemsArr' array
-					if(!inArray(key, selectedItemsArr)){
-						//if the item has not been selected, append it to the select list
-						cloned.find(".selectedItemDefault").append("<option value='"+key+"'>"+currentItems[key]+"</option>");
+				for(let key in currentStudents){
+					//if the current key in the loop is in our 'selectedStudentsArr' array
+					if(!inArray(key, selectedStudentsArr)){
+						//if the student has not been selected, append it to the select list
+						cloned.find(".selectedStudentDefault").append("<option value='"+key+"'>"+currentStudents[key]+"</option>");
 					}
 				}
 			
-				//prepend 'select item' to the select option
-				cloned.find(".selectedItemDefault").prepend("<option value='' selected>Select Item</option>");
+				//prepend 'select student' to the select option
+				cloned.find(".selectedStudentDefault").prepend("<option value='' selected>Select Student</option>");
 				
-				resolve(selectedItemsArr);
+				resolve(selectedStudentsArr);
 			});
-		}).then((selectedItemsArray)=>{
-			//If the input is from the barcode scanner, we need to check if the item has already been added to the list and just increment the qty instead of 
-			//re-adding it to the list, thus duplicating the item.
+		}).then((selectedStudentsArray)=>{
+			//If the input is from the barcode scanner, we need to check if the student has already been added to the list and just increment the qty instead of 
+			//re-adding it to the list, thus duplicating the student
 			if($("#barcodeText").val()){
-				//This means our clickToClone btn was triggered after an item was scanned by the barcode scanner
-				//Check the gotten selected items array if the item scanned has already been selected
-				if(inArray($("#barcodeText").val().trim(), selectedItemsArray)){
+				//This means our clickToClone btn was triggered after a student was scanned by the barcode scanner
+				//Check the gotten selected students array if the student scanned has already been selected
+				if(inArray($("#barcodeText").val().trim(), selectedStudentsArray)){
 					//increment it
-					$(".selectedItem").each(function(){
+					$(".selectedStudent").each(function(){
 						if($(this).val() === $("#barcodeText").val()){
-							var newVal = parseInt($(this).closest('div').siblings('.itemTransQtyDiv').find('.itemTransQty').val()) + 1;
+							var newVal = parseInt($(this).closest('div').siblings('.studentTransAmountDiv').find('.studentTransAmount').val()) + 1;
 			
-							$(this).closest('div').siblings('.itemTransQtyDiv').find('.itemTransQty').val(newVal);
+							$(this).closest('div').siblings('.studentTransAmountDiv').find('.studentTransAmount').val(newVal);
 							
 							//unset value in barcode input
 							$("#barcodeText").val('');
@@ -84,21 +84,21 @@ $(document).ready(function(){
 				}
 				
 				else{
-					//if it has not been selected previously, append it to the list and set it as the selected item
+					//if it has not been selected previously, append it to the list and set it as the selected student
 					//then append our cloned div to div with id 'appendClonedDivHere'
 					cloned.appendTo("#appendClonedDivHere");
 					
 					//add select2 to the 'select input'
-					cloned.find('.selectedItemDefault').select2();
+					cloned.find('.selectedStudentDefault').select2();
 					
-					//set it as the selected item
-					changeSelectedItemWithBarcodeText($("#barcodeText"), $("#barcodeText").val());
+					//set it as the selected student
+					changeSelectedStudentWithBarcodeText($("#barcodeText"), $("#barcodeText").val());
 				}
 			}
 			
 			else{//i.e. clickToClone clicked manually by user
 				//do not append if no item is selected in the last select list
-				if($(".selectedItem").length > 0 && (!$(".selectedItem").last().val())){
+				if($(".selectedStudent").length > 0 && (!$(".selectedStudent").last().val())){
 					//do nothing
 				}
 				
@@ -107,7 +107,7 @@ $(document).ready(function(){
 					cloned.appendTo("#appendClonedDivHere");
 					
 					//add select2 to the 'select input'
-					cloned.find('.selectedItemDefault').select2();
+					cloned.find('.selectedStudentDefault').select2();
 				}
 			}
 		}).catch(()=>{
@@ -124,11 +124,11 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
-    //WHEN USER CLICKS BTN TO REMOVE AN ITEM FROM THE TRANSACTION LIST
+    //WHEN USER CLICKS BTN TO REMOVE AN STUDENT FROM THE TRANSACTION LIST
     $("#appendClonedDivHere").on('click', '.retrit', function(e){
         e.preventDefault();
         
-        $(this).closest(".transItemList").remove();
+        $(this).closest(".transStudentList").remove();
         
         ceipacp();//recalculate price
         calchadue();//also recalculate change due
@@ -173,16 +173,16 @@ $(document).ready(function(){
         }
     });
 
-    $("#itemSearch").keyup(function(){
+    $("#studentSearch").keyup(function(){
         var value = $(this).val();
         
         if(value){
             $.ajax({
-                url: appRoot+"search/itemsearch",
+                url: appRoot+"search/studentsearch",
                 type: "get",
                 data: {v:value},
                 success: function(returnedData){
-                    $("#itemsListTable").html(returnedData.itemsListTable);
+                    $("#studentsListTable").html(returnedData.studentsListTable);
                 }
             });
         }
@@ -269,11 +269,11 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /*
-     * unset mode of payment each time ".itemTransQty" changes
+     * unset mode of payment each time ".studentTransAmount" changes
      * This will allow the user to be able to reselect the mode of payment, 
      * thus enabling us to recalculate change due based on amount tendered
      */
-    $("#appendClonedDivHere").on("change", ".itemTransQty", function(e){
+    $("#appendClonedDivHere").on("change", ".studentTransAmount", function(e){
         e.preventDefault();
 		
 		return new Promise((resolve, reject)=>{
@@ -315,33 +315,7 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //calcuate cumulative amount if the percentage of VAT is changed
-    $("#vat").change(ceipacp);
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //calcuate cumulative amount if the percentage of discount is changed
-    $("#discount").change(ceipacp);
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //calculate discount percentage when discount (value) is changed
-    $("#discountValue").change(function(){
-        var discountValue = $(this).val();
-
-        var discountPercentage = (discountValue/cumTotalWithoutVATAndDiscount) * 100;
-
-        //display the discount (%)
-        $("#discount").val(discountPercentage).change();
-    });
+  
 
     // Function to validate the phone number
     function validatePhoneNumber() {
@@ -635,7 +609,7 @@ $(document).ready(function(){
             $(this).html("<i class='fa fa-minus'></i> New Transaction");
             
             //remove error messages
-            $("#itemCodeNotFoundMsg").html("");
+            $("#studentCodeNotFoundMsg").html("");
         }
     });
     
@@ -874,14 +848,14 @@ function ceipacp(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Populates the available quantity and unit price of selected item to be sold
- * Auto set the quantity needed to 1
+ * Populates the student Owed Fees and Current Fees of selected Student to be sold
+ * Auto set the Amount to pay to current fees 
  * @param {type} selectedNode
  * @returns {undefined}
  */
-function selectedItem(selectedNode){
+function selectedStudent(selectedNode){
     if(selectedNode){
-        //get the elements of the selected item's avail qty and unit price
+        //get the elements of the selected student's owed fees and current fees 
         var itemAvailQtyElem = selectedNode.parentNode.parentNode.children[1].children[1];
         var itemUnitPriceElem = selectedNode.parentNode.parentNode.children[2].children[1];
         var qtyNeededElem = selectedNode.parentNode.parentNode.children[3].children[1];

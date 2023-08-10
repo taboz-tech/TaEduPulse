@@ -121,6 +121,15 @@ defined('BASEPATH') OR exit('');
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
+                                <label for="studentOwed_fees">Student Owed Fees</label>
+                                <input type="number" id="studentOwed_fees" name="studentOwed_fees" placeholder="Student Owed Fees" min="0"
+                                    class="form-control" onchange="checkField(this.value, 'studentOwed_feesErr')" readonly>
+                                <span class="help-block errMsg" id="studentOwed_feesErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
                                 <label for="studentParent_name">Student Parent_name</label>
                                 <input type="text" id="studentParent_name" name="studentParent_name" placeholder="Student Parent_name" maxlength="50"
                                     class="form-control" onchange="checkField(this.value, 'studentParent_nameErr')">
@@ -236,6 +245,17 @@ defined('BASEPATH') OR exit('');
                             <label for="studentFees">Student Fees</label>
                             <input type="text" id="studentFeesEdit" name="studentFeesPrice" placeholder="studentFees" class="form-control checkField">
                             <span class="help-block errMsg" id="studentFeesEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="enableOwedFeesEdit">Allow Edit</label>
+                            <input type="checkbox" id="enableOwedFeesEdit">
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentOwed_fees">Owed Fees</label>
+                            <input type="text" id="studentOwed_feesEdit" name="studentOwed_fees" placeholder="studentOwed_fees" class="form-control checkField">
+                            <span class="help-block errMsg" id="studentOwed_feesEditErr"></span>
                         </div>
                     </div>
                     

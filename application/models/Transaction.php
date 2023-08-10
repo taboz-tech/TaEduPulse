@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('');
  * Description of Transaction
  *
  * @author Tavonga <mafuratavonga@gmail.com>
- * @date 8th Jan., 2023
+ * @date 9th August0., 2023
  */
 class Transaction extends CI_Model {
 
@@ -34,8 +34,8 @@ class Transaction extends CI_Model {
         if ($this->db->platform() == "sqlite3") {
             $q = "SELECT transactions.ref, transactions.totalMoneySpent, transactions.modeOfPayment, transactions.staffId,
                 transactions.transDate, transactions.lastUpdated, transactions.amountTendered, transactions.changeDue,
-                admin.first_name || ' ' || admin.last_name AS 'staffName', SUM(transactions.quantity) AS 'quantity',
-                transactions.cust_name, transactions.cust_phone, transactions.cust_email, transactions.cancelled
+                admin.first_name || ' ' || admin.last_name AS 'staffName',
+                transactions.cust_name, transactions.cust_phone, transactions.cust_email, transactions.cancelled,transactions.studentName,transactions.studentSurname
                 FROM transactions
                 LEFT OUTER JOIN admin ON transactions.staffId = admin.id
                 GROUP BY ref
@@ -45,26 +45,36 @@ class Transaction extends CI_Model {
             $run_q = $this->db->query($q);
         }
         else {
-            $this->db->select('GROUP_CONCAT(DISTINCT transId) AS transId, GROUP_CONCAT(DISTINCT totalPrice) AS totalPrice, transactions.ref, GROUP_CONCAT(DISTINCT transactions.totalMoneySpent) AS totalMoneySpent, 
-                GROUP_CONCAT(DISTINCT transactions.modeOfPayment) AS modeOfPayment, GROUP_CONCAT(DISTINCT transactions.staffId) AS staffId, GROUP_CONCAT(DISTINCT transactions.transDate) AS transDate, 
-                GROUP_CONCAT(DISTINCT transactions.lastUpdated) AS lastUpdated, GROUP_CONCAT(DISTINCT transactions.amountTendered) AS amountTendered, GROUP_CONCAT(DISTINCT transactions.cancelled) AS cancelled,
-                GROUP_CONCAT(DISTINCT transactions.changeDue) AS changeDue, CONCAT_WS(" ", GROUP_CONCAT(DISTINCT admin.first_name), GROUP_CONCAT(DISTINCT admin.last_name)) as "staffName",
-                GROUP_CONCAT(DISTINCT transactions.cust_name) AS cust_name, GROUP_CONCAT(DISTINCT transactions.cust_phone) AS cust_phone, GROUP_CONCAT(DISTINCT transactions.cust_email) AS cust_email');
+            $this->db->select('GROUP_CONCAT(DISTINCT transId) AS transId, transactions.ref');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalMoneySpent) AS totalMoneySpent');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.modeOfPayment) AS modeOfPayment');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.staffId) AS staffId');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.transDate) AS transDate');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.lastUpdated) AS lastUpdated');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.amountTendered) AS amountTendered');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.cancelled) AS cancelled');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.changeDue) AS changeDue');
+            $this->db->select('CONCAT_WS(" ", GROUP_CONCAT(DISTINCT admin.first_name), GROUP_CONCAT(DISTINCT admin.last_name)) as "staffName"');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.cust_name) AS cust_name');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.cust_phone) AS cust_phone');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.cust_email) AS cust_email');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentName) AS studentName');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentSurname) AS studentSurname');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
             
-            $this->db->select_sum('transactions.quantity');
-            
+            // Additional fields for studentName and studentSurname
+    
             $this->db->join('admin', 'transactions.staffId = admin.id', 'LEFT');
             $this->db->limit($limit, $start);
             $this->db->group_by('ref');
             $this->db->order_by($orderBy, $orderFormat);
-
+    
             $run_q = $this->db->get('transactions');
         }
-
+    
         if ($run_q->num_rows() > 0) {
             return $run_q->result();
-        }
-        else {
+        } else {
             return FALSE;
         }
     }
@@ -157,26 +167,39 @@ class Transaction extends CI_Model {
      */
 
     public function transSearch($value) {
-        $this->db->select('transactions.ref, transactions.totalMoneySpent, transactions.modeOfPayment, transactions.staffId,
-                transactions.transDate, transactions.lastUpdated, transactions.amountTendered, transactions.changeDue,
-                CONCAT_WS(" ", admin.first_name, admin.last_name) as "staffName",
-                transactions.cust_name, transactions.cust_phone, transactions.cust_email');
-        $this->db->select_sum('transactions.quantity');
+        $this->db->select('GROUP_CONCAT(DISTINCT transId) AS transId, transactions.ref');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalMoneySpent) AS totalMoneySpent');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.modeOfPayment) AS modeOfPayment');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.staffId) AS staffId');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.transDate) AS transDate');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.lastUpdated) AS lastUpdated');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.amountTendered) AS amountTendered');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.cancelled) AS cancelled');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.changeDue) AS changeDue');
+        $this->db->select('CONCAT_WS(" ", GROUP_CONCAT(DISTINCT admin.first_name), GROUP_CONCAT(DISTINCT admin.last_name)) as "staffName"');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.cust_name) AS cust_name');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.cust_phone) AS cust_phone');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.cust_email) AS cust_email');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentName) AS studentName');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentSurname) AS studentSurname');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
+    
         $this->db->join('admin', 'transactions.staffId = admin.id', 'LEFT');
-        $this->db->like('ref', $value);
-        $this->db->or_like('itemName', $value);
-        $this->db->or_like('itemCode', $value);
+        $this->db->like('transactions.ref', $value);
+        $this->db->or_like('transactions.studentName', $value);
+        $this->db->or_like('transactions.studentSurname', $value);
         $this->db->group_by('ref');
 
         $run_q = $this->db->get('transactions');
 
         if ($run_q->num_rows() > 0) {
             return $run_q->result();
-        }
-        else {
+        } else {
             return FALSE;
         }
     }
+
+    
 
     /*
      * *******************************************************************************************************************************

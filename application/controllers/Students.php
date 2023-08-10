@@ -114,16 +114,18 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentGender', 'Student Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
-                
+        $this->form_validation->set_rules('studentOwed_fees', 'Student Owed Fees', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        
+
         if($this->form_validation->run() !== FALSE){
             $this->db->trans_start();//start transaction
             
             /**
              * insert info into db
-             * function header: add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees)
+             * function header: add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees,$studentOwed_fees)
              */
             $insertedId = $this->student->add(set_value('studentName'), set_value('studentSurname'), set_value('studentStudent_id'), 
-                    set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'));
+                    set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'),set_value('studentOwed_fees'));
             
             $studentName = set_value('studentName');
             $studentSurname = set_value('studentSurname');
@@ -253,6 +255,8 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentParent_phone','Student Student_phone',['required','trim','max_length[15]'],['required'=>'required']);
+        $this->form_validation->set_rules('studentOwed_fees', 'Student Owed Fees', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        
 
         if($this->form_validation->run() !== FALSE){
             $studentId = set_value('_sId');
@@ -264,9 +268,10 @@ class Students extends CI_Controller{
             $studentAddress = set_value('studentAddress');
             $studentParent_phone = set_value('studentParent_phone');
             $studentStudent_id = $this->input->post('studentStudent_id', TRUE);
+            $studentOwed_fees = set_value('studentOwed_fees');
 
             //update item in db
-            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress);
+            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress,$studentOwed_fees);
             
             $json['status'] = $updated ? 1 : 0;
             
