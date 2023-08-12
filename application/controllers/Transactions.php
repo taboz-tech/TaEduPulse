@@ -266,7 +266,7 @@ class Transactions extends CI_Controller{
                  */
                 $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term);
                 
-                $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalFees' => $totalFees, 'term' => $term];
+                $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalAmount' => $totalFees, 'term' => $term];
                 
                 // update student fees owed in db by removing the transAmount
                 // function header: decrementStudent($studentStudent_id, $amountToRemove)
@@ -326,6 +326,8 @@ class Transactions extends CI_Controller{
      */
     private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email){
         $data['allTransInfo'] = $allTransInfo;
+        log_message('error', "allTransInfo: " . print_r($data['allTransInfo'], true));
+
         $data['cumAmount'] = $cumAmount;
         $data['amountTendered'] = $_at;
         $data['changeDue'] = $_cd;

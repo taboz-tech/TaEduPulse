@@ -39,9 +39,9 @@ defined('BASEPATH') OR exit('');
         </div>
         <hr style='margin-top:2px; margin-bottom:0px'>
         <div class="col-xs-12 text-right">
-            <b>Amount: $<?=number_format($get['totalFees'], 2)?></b>
+            <b>Amount: $<?=number_format($get['totalAmount'], 2)?></b>
         </div>
-        <?php $init_total += $get['totalFees'];?>
+        <?php $init_total += $get['totalAmount'];?>
     <?php endforeach; ?>
     <hr style='margin-top:2px; margin-bottom:0px'>       
     <div class="row">
