@@ -818,7 +818,6 @@ function cespacp() {
  */
 function selectedStudent(selectedNode){
     if(selectedNode){
-        console.log(selectedNode.parentNode.parentNode.children);
         
         //get the elements of the selected student's owed fees and current fees 
         var studentOwedFeesElem = selectedNode.parentNode.parentNode.children[1].children[1];

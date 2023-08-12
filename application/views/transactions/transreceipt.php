@@ -28,8 +28,6 @@ defined('BASEPATH') OR exit('');
 		<div class="col-xs-4">Name</div>
         <div class="col-xs-4">Surname</div>
         <div class="col-xs-4">Month</div>
-		<div class="col-xs-4">Amount</div>
-		<div class="col-xs-4">Tot($)</div>
 	</div>
 	<hr style='margin-top:2px; margin-bottom:0px'>
     <?php $init_total = 0; ?>
@@ -38,8 +36,10 @@ defined('BASEPATH') OR exit('');
             <div class="col-xs-4"><?=ellipsize($get['studentName'], 10);?></div>
             <div class="col-xs-4"><?=ellipsize($get['studentSurname'], 10);?></div>
             <div class="col-xs-4"><?= $get['term'] ?></div>
-            <div class="col-xs-4"><?=number_format($get['transAmount'], 2)?></div>
-            <div class="col-xs-4"><?=number_format($get['totalFees'], 2)?></div>
+        </div>
+        <hr style='margin-top:2px; margin-bottom:0px'>
+        <div class="col-xs-12 text-right">
+            <b>Amount: $<?=number_format($get['totalFees'], 2)?></b>
         </div>
         <?php $init_total += $get['totalFees'];?>
     <?php endforeach; ?>
