@@ -61,6 +61,8 @@ class Transaction extends CI_Model {
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentName) AS studentName');
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentSurname) AS studentSurname');
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.description) AS description');
+            
             
             // Additional fields for studentName and studentSurname
     
@@ -110,12 +112,11 @@ class Transaction extends CI_Model {
      * @param {string} $ce Customer Email
      * @return boolean
      */
-    public function add($_iN, $_iC, $desc, $q, $_up, $_tp, $_tas, $_at, $_cd, $_mop, $_tt, $ref, $_va, $_vp, $da, $dp, $cn, $cp, $ce) {
-        $data = ['itemName' => $_iN, 'itemCode' => $_iC, 'description' => $desc, 'quantity' => $q, 'unitPrice' => $_up, 'totalPrice' => $_tp,
-            'amountTendered' => $_at, 'changeDue' => $_cd, 'modeOfPayment' => $_mop, 'transType' => $_tt,
-            'staffId' => $this->session->admin_id, 'totalMoneySpent' => $_tas, 'ref' => $ref, 'vatAmount' => $_va,
-            'vatPercentage' => $_vp, 'discount_amount'=>$da, 'discount_percentage'=>$dp, 'cust_name'=>$cn, 'cust_phone'=>$cp,
-            'cust_email'=>$ce];
+    public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term) {
+        $data = ['studentName' => $studentName, 'student_id' => $studentStudent_id, 'studentSurname' => $studentSurname, 'studentClass_name' => $studentClass_name, 'description' => $description, 'totalAmount' => $totalFees,
+            'amountTendered' => $_at, 'changeDue' => $_cd, 'modeOfPayment' => $_mop, 'transType' => $transType,
+            'staffId' => $this->session->admin_id, 'totalMoneySpent' => $cumAmount, 'ref' => $ref, 'cust_name'=>$cust_name,'paymentStatus'=>$paymentStatus,'term'=>$term, 'cust_phone'=>$cust_phone,
+            'cust_email'=>$cust_email];
 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" ?
@@ -183,6 +184,7 @@ class Transaction extends CI_Model {
         $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentName) AS studentName');
         $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentSurname) AS studentSurname');
         $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.description) AS description');
     
         $this->db->join('admin', 'transactions.staffId = admin.id', 'LEFT');
         $this->db->like('transactions.ref', $value);

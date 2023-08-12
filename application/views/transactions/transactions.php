@@ -61,7 +61,7 @@ if(isset($students) && !empty($students)){
                                         
                                         <div class="col-sm-2 form-group-sm">
                                             <input type="text" id="barcodeText" class="form-control" placeholder="Student Id" autofocus>
-                                            <span class="help-block errMsg" id="studentNotFoundMsg"></span>
+                                            <span class="help-block errMsg" id="studentStudent_idNotFoundMsg"></span>
                                         </div>
                                     </div>
                                     <!-- End of text to click to add another Student to transaction-->
@@ -129,6 +129,14 @@ if(isset($students) && !empty($students)){
                                             <label for="custEmail">Customer Email</label>
                                             <input type="email" id="custEmail" class="form-control" placeholder="E-mail Address">
                                         </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8 form-group-sm">
+                                                <label for="description">Description</label>
+                                                <textarea id="description" class="form-control" rows="4" placeholder="Enter a description"></textarea>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -218,30 +226,45 @@ if(isset($students) && !empty($students)){
         <span class="form-control studentOwedFees">0</span>
     </div>
 
-    <div class="col-sm-2 form-group-sm">
-        <label>Current Fees</label>
-        <span class="form-control studentCurrentFees">0.00</span>
-    </div>
-
-    <div class="col-sm-1 form-group-sm studentTransAmountDiv">
+    <div class="col-sm-2 form-group-sm studentTransAmountDiv">
         <label>Amount-Pay</label>
         <input type="number" min="0" class="form-control studentTransAmount" value="0">
         <span class="help-block studentTransAmountErr errMsg"></span>
     </div>
 
     <div class="col-sm-2 form-group-sm">
+        <label>Current Fees</label>
+        <span class="form-control studentCurrentFees">0.00</span>
+    </div>
+
+    <div class="col-sm-2 form-group-sm">
         <label>Total Fees</label>
         <span class="form-control studentTotalFees">0.00</span>
     </div>
-    
-    <br class="visible-xs">
+
+    <div class="col-sm-3 form-group-sm">
+        <label>Term</label>
+        <select class="form-control selectedTerm">
+            <option value="january">January</option>
+            <option value="february">February</option>
+            <option value="march">March</option>
+            <option value="april">April</option>
+            <option value="may">May</option>
+            <option value="june">June</option>
+            <option value="july">July</option>
+            <option value="august">August</option>
+            <option value="september">September</option>
+            <option value="october">October</option>
+            <option value="november">November</option>
+            <option value="december">December</option>
+        </select>
+    </div>
     
     <div class="col-sm-1">
         <button class="close retrit">&times;</button>
     </div>
-    
-    <br class="visible-xs">
 </div>
+
 
 
 <div class="modal fade" id='reportModal' data-backdrop='static' role='dialog'>

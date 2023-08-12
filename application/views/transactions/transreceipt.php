@@ -25,19 +25,23 @@ defined('BASEPATH') OR exit('');
     </div>
     
 	<div class="row" style='font-weight:bold'>
-		<div class="col-xs-4">Item</div>
-		<div class="col-xs-4">QtyxPrice</div>
+		<div class="col-xs-4">Name</div>
+        <div class="col-xs-4">Surname</div>
+        <div class="col-xs-4">Month</div>
+		<div class="col-xs-4">Amount</div>
 		<div class="col-xs-4">Tot($)</div>
 	</div>
 	<hr style='margin-top:2px; margin-bottom:0px'>
     <?php $init_total = 0; ?>
     <?php foreach($allTransInfo as $get):?>
         <div class="row">
-            <div class="col-xs-4"><?=ellipsize($get['itemName'], 10);?></div>
-            <div class="col-xs-4"><?=$get['quantity'] . "x" .number_format($get['unitPrice'], 2)?></div>
-            <div class="col-xs-4"><?=number_format($get['totalPrice'], 2)?></div>
+            <div class="col-xs-4"><?=ellipsize($get['studentName'], 10);?></div>
+            <div class="col-xs-4"><?=ellipsize($get['studentSurname'], 10);?></div>
+            <div class="col-xs-4"><?= $get['term'] ?></div>
+            <div class="col-xs-4"><?=number_format($get['transAmount'], 2)?></div>
+            <div class="col-xs-4"><?=number_format($get['totalFees'], 2)?></div>
         </div>
-        <?php $init_total += $get['totalPrice'];?>
+        <?php $init_total += $get['totalFees'];?>
     <?php endforeach; ?>
     <hr style='margin-top:2px; margin-bottom:0px'>       
     <div class="row">
@@ -45,21 +49,7 @@ defined('BASEPATH') OR exit('');
             <b>Total: $<?=isset($init_total) ? number_format($init_total, 2) : 0?></b>
         </div>
     </div>
-    <hr style='margin-top:2px; margin-bottom:0px'>      
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <b>Discount(<?=$discountPercentage?>%): $<?=isset($discountAmount) ? number_format($discountAmount, 2) : 0?></b>
-        </div>
-    </div>       
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <?php if($vatPercentage > 0): ?>
-            <b>VAT(<?=$vatPercentage?>%): $<?=isset($vatAmount) ? number_format($vatAmount, 2) : ""?></b>
-            <?php else: ?>
-            VAT inclusive
-            <?php endif; ?>
-        </div>
-    </div>      
+    <hr style='margin-top:2px; margin-bottom:0px'>            
     <div class="row">
         <div class="col-xs-12 text-right">
             <b>FINAL TOTAL: $<?=isset($cumAmount) ? number_format($cumAmount, 2) : ""?></b>

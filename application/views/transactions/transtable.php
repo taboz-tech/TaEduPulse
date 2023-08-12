@@ -17,6 +17,7 @@
                     <th>Amount Tendered</th>
                     <th>Change Due</th>
                     <th>Mode of Payment</th>
+                    <th>Description</th>
                     <th>Staff</th>
                     <th>Customer</th>
                     <th>Date</th>
@@ -34,6 +35,7 @@
                     <td>$<?= number_format($get->amountTendered, 2) ?></td>
                     <td>$<?= number_format($get->changeDue, 2) ?></td>
                     <td><?=  str_replace("_", " ", $get->modeOfPayment)?></td>
+                    <td><?=$get->description?></td>
                     <td><?=$get->staffName?></td>
                     <td><?=$get->cust_name?> - <?=$get->cust_phone?> - <?=$get->cust_email?></td>
                     <td><?= date('jS M, Y h:ia', strtotime($get->transDate)) ?></td>

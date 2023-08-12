@@ -108,7 +108,8 @@ class Transactions extends CI_Controller{
         $cumAmount = $this->input->post('_ca', TRUE);//cumulative amount
         $cust_name = $this->input->post('cn', TRUE);
         $cust_phone = $this->input->post('cp', TRUE);
-        
+        $cust_email = $this->input->post('ce', TRUE);
+        $description = $this->input->post('description', TRUE);
         /*
          * Loop through the arrOfStudentsDetails and ensure each student's details has not been manipulated
          * The Fees Debt must match the student's fees owed in db, the total Amount must match the amount paid nothing added
@@ -118,12 +119,12 @@ class Transactions extends CI_Controller{
         
         $allIsWell = $this->validateStudentsDet($arrOfStudentsDetails, $cumAmount, $_at);
         
+        
         if($allIsWell){//insert each sales order into db, generate receipt and return info to client
             
             //will insert info into db and return transaction's receipt
-            $returnedData = $this->insertTrToDb($arrOfItemsDetails, $_mop, $_at, $cumAmount, $_cd, $this->vat_amount, $vatPercentage, $this->discount_amount, 
-                    $discount_percentage, $cust_name, $cust_phone, $cust_email);
-            
+            $returnedData = $this->insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description);
+                    
             $json['status'] = $returnedData ? 1 : 0;
             $json['msg'] = $returnedData ? "Transaction successfully processed" : 
                     "Unable to process your request at this time. Pls try again later "
@@ -134,7 +135,7 @@ class Transactions extends CI_Controller{
             
             //add into eventlog
             //function header: addevent($event, $eventRowIdOrRef, $eventDesc, $eventTable, $staffId) in 'genmod'
-            $eventDesc = count($arrOfItemsDetails). " items totalling $". number_format($cumAmount, 2)
+            $eventDesc = count($arrOfStudentsDetails). " items totalling $". number_format($cumAmount, 2)
                     ." with reference number {$returnedData['transRef']} was purchased";
             
             $this->genmod->addevent("New Transaction", $returnedData['transRef'], $eventDesc, 'transactions', $this->session->admin_id);
@@ -164,59 +165,42 @@ class Transactions extends CI_Controller{
      * @param type $amountTendered
      * @return boolean
      */
+
     private function validateStudentsDet($arrOfStudentsInfo, $cumAmountFromClient, $amountTendered){
         $error = 0;
         
         //loop through the student's info and validate each
         //return error if at least one seems suspicious (i.e. fails validation)
         foreach ($arrOfStudentsInfo as $get){
-            $studentStudent_id = $get->_iC;//use this to get the student's fees
-            $feesToPay = $get->fees;
-            $amountPaidFromClient = $get->amountPaid;
-            $unitPriceInDb = $this->genmod->gettablecol('items', 'unitPrice', 'code', $itemCode);
-            $totPriceFromClient = $get->totalPrice;
+            $studentStudent_id = $get->_sI; //use this to get the student's fees
+            $feesToPay = $get->currentFees;
+            $feesToPayInDb = $this->genmod->gettablecol('students', 'fees', 'student_id', $studentStudent_id);
             
-            //ensure both unit price matches
-            $unitPriceInDb == $unitPriceFromClient ? "" : $error++;
+            //ensure both current fees match
+            if ($feesToPayInDb != $feesToPay) {
+                $error++;
+            }
             
-            $expectedTotPrice = round($qtyToBuy*$unitPriceInDb, 2);//calculate expected totPrice
+            $expectedTotFees = $get->transAmount; //calculate expected totFees
             
-            //ensure both matches
-            $expectedTotPrice == $totPriceFromClient ? "" : $error++;
+            //ensure both match
+            if ($expectedTotFees != $get->totalFees) {
+                $error++;
+            }
             
             //no need to validate others, just break out of the loop if one fails validation
-            if($error > 0){
+            if ($error > 0){
                 return FALSE;
             }
             
-            $this->total_before_discount += $expectedTotPrice;
+            // Update any other relevant logic here
+            
         }
-        
-        /**
-         * We need to save the total price before tax, tax amount, total price after tax, discount amount, eventual total
-         */
-        
-        $expectedCumAmount = $this->total_before_discount;
-        
-        //now calculate the discount amount (if there is discount) based on the discount percentage and subtract it(discount amount) 
-        //from $total_before_discount
-        if($discount_percentage){
-            $this->discount_amount = $this->getDiscountAmount($expectedCumAmount, $discount_percentage);
 
-            $expectedCumAmount = round($expectedCumAmount - $this->discount_amount, 2);
-        }
+        $expectedCumAmount = $cumAmountFromClient;
         
-        //add VAT amount to $expectedCumAmount is VAT percentage is set
-        if($vatPercentage){
-            //calculate vat amount using $vatPercentage and add it to $expectedTotPrice
-            $this->vat_amount = $this->getVatAmount($expectedCumAmount, $vatPercentage);
-
-            //now add the vat amount to expected total price
-            $expectedCumAmount = round($expectedCumAmount + $this->vat_amount, 2);
-        }        
-        
-        //check if cum amount also matches and ensure amount tendered is not less than $expectedCumAmount
-        if(($expectedCumAmount != $cumAmountFromClient) || ($expectedCumAmount > $amountTendered)){
+        // check if cum amount also matches and ensure amount tendered is not less than $expectedCumAmount
+        if (($expectedCumAmount != $cumAmountFromClient) || ($expectedCumAmount > $amountTendered)){
             return FALSE;
         }
         
@@ -224,7 +208,7 @@ class Transactions extends CI_Controller{
         $this->eventual_total = $expectedCumAmount;
         return TRUE;
     }
-    
+        
     /*
     ********************************************************************************************************************************
     ********************************************************************************************************************************
@@ -240,18 +224,16 @@ class Transactions extends CI_Controller{
      * @param type $_at
      * @param type $cumAmount
      * @param type $_cd
-     * @param type $vatAmount
-     * @param type $vatPercentage
-     * @param type $discount_amount
-     * @param type $discount_percentage
      * @param type $cust_name
      * @param type $cust_phone
      * @param type $cust_email
+     * @param type $description
+     * @param type $term
      * @return boolean
      */
-    private function insertTrToDb($arrOfItemsDetails, $_mop, $_at, $cumAmount, $_cd, $vatAmount, $vatPercentage, $discount_amount, $discount_percentage, $cust_name, $cust_phone, $cust_email){
-        $allTransInfo = [];//to hold info of all items' in transaction
-		
+    private function insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description){
+        $allTransInfo = [];//to hold info of all students' in transaction
+        
         //generate random string to use as transaction ref
         //keep regeneration the ref if generated ref exist in db
         do{
@@ -260,32 +242,43 @@ class Transactions extends CI_Controller{
         
         while($this->transaction->isRefExist($ref));
         
-        //loop through the items' details and insert them one by one
+		
+        //loop through the students' details and insert them one by one
         //start transaction
         $this->db->trans_start();
 
-        foreach($arrOfItemsDetails as $get){
-            $itemCode = $get->_iC;
-            $itemName = $this->genmod->getTableCol('items', 'name', 'code', $itemCode);
-            $qtySold = $get->qty;//qty selected for item in loop
-            $unitPrice = $get->unitPrice;//unit price of item in loop
-            $totalPrice = $get->totalPrice;//total price for item in loop
-
-            /*
-             * add transaction to db
-             * function header: add($_iN, $_iC, $desc, $q, $_up, $_tp, $_tas, $_at, $_cd, $_mop, $_tt, $ref, $_va, $_vp, $da, $dp, $cn, $cp, $ce)
-             */
-            $transId = $this->transaction->add($itemName, $itemCode, "", $qtySold, $unitPrice, $totalPrice, $cumAmount, $_at, $_cd, 
-                    $_mop, 1, $ref, $vatAmount, $vatPercentage, $discount_amount, $discount_percentage, $cust_name, $cust_phone, 
-                    $cust_email);
-            
-            $allTransInfo[$transId] = ['itemName'=>$itemName, 'quantity'=>$qtySold, 'unitPrice'=>$unitPrice, 'totalPrice'=>$totalPrice];
-            
-            //update item quantity in db by removing the quantity bought
-            //function header: decrementItem($itemId, $numberToRemove)
-            $this->item->decrementItem($itemCode, $qtySold);
+        foreach ($arrOfStudentsDetails as $get) {
+            try {
+                $studentStudent_id = $get->_sI;
+                $studentName = $this->genmod->getTableCol('students', 'name', 'student_id', $studentStudent_id);
+                $studentSurname = $this->genmod->getTableCol('students', 'surname', 'student_id', $studentStudent_id);
+                $studentClass_name = $this->genmod->getTableCol('students', 'class_name', 'student_id', $studentStudent_id);
+                $transAmount = $get->transAmount; // money being paid for a student in loop
+                $currentFees = $get->currentFees; // current fees of student in loop
+                $totalFees = $get->totalFees; // total fees for student in loop
+                $transType = 1;
+                $paymentStatus = 1;
+                $term = $get->term;
+                
+                /*
+                 * add transaction to db
+                 * function header: add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term)
+                 */
+                $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term);
+                
+                $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalFees' => $totalFees, 'term' => $term];
+                
+                // update student fees owed in db by removing the transAmount
+                // function header: decrementStudent($studentStudent_id, $amountToRemove)
+                $this->student->decrementStudent($studentStudent_id, $transAmount);
+                                
+            } catch (Exception $e) {
+                
+                // You might also want to handle the exception appropriately based on your application's needs.
+            }
         }
-
+        
+        
         $this->db->trans_complete();//end transaction
 
         //ensure there was no error
@@ -301,7 +294,7 @@ class Transactions extends CI_Controller{
             $dateInDb = $this->genmod->getTableCol('transactions', 'transDate', 'transId', $transId);
             
             //generate receipt to return
-            $dataToReturn['transReceipt'] = $this->genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $dateInDb, $_mop, $vatAmount, $vatPercentage, $discount_amount, $discount_percentage, $cust_name, $cust_phone, $cust_email);
+            $dataToReturn['transReceipt'] = $this->genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $dateInDb, $_mop, $cust_name, $cust_phone, $cust_email);
             $dataToReturn['transRef'] = $ref;
             
             return $dataToReturn;
@@ -319,24 +312,19 @@ class Transactions extends CI_Controller{
 
     /**
      * 
-     * @param type $allTransInfo
+     * @param array $allTransInfo
      * @param type $cumAmount
      * @param type $_at
      * @param type $_cd
      * @param type $ref
      * @param type $transDate
      * @param type $_mop
-     * @param type $vatAmount
-     * @param type $vatPercentage
-     * @param type $discount_amount
-     * @param type $discount_percentage
      * @param type $cust_name
      * @param type $cust_phone
      * @param type $cust_email
      * @return type
      */
-    private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $vatAmount, $vatPercentage, 
-        $discount_amount, $discount_percentage, $cust_name, $cust_phone, $cust_email){
+    private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email){
         $data['allTransInfo'] = $allTransInfo;
         $data['cumAmount'] = $cumAmount;
         $data['amountTendered'] = $_at;
@@ -344,10 +332,6 @@ class Transactions extends CI_Controller{
         $data['ref'] = $ref;
         $data['transDate'] = $transDate;
         $data['_mop'] = $_mop;
-        $data['vatAmount'] = $vatAmount;
-        $data['vatPercentage'] = $vatPercentage;
-        $data['discountAmount'] = $discount_amount;
-        $data['discountPercentage'] = $discount_percentage;
         $data['cust_name'] = $cust_name;
         $data['cust_phone'] = $cust_phone;
         $data['cust_email'] = $cust_email;
@@ -388,16 +372,12 @@ class Transactions extends CI_Controller{
             $changeDue = $transInfo[0]['changeDue'];
             $transDate = $transInfo[0]['transDate'];
             $modeOfPayment = $transInfo[0]['modeOfPayment'];
-            $vatAmount = $transInfo[0]['vatAmount'];
-            $vatPercentage = $transInfo[0]['vatPercentage'];
-            $discountAmount = $transInfo[0]['discount_amount'];
-            $discountPercentage = $transInfo[0]['discount_percentage'];
             $cust_name = $transInfo[0]['cust_name'];
             $cust_phone = $transInfo[0]['cust_phone'];
             $cust_email = $transInfo[0]['cust_email'];
             
             $json['transReceipt'] = $this->genTransReceipt($transInfo, $cumAmount, $amountTendered, $changeDue, $ref, 
-                $transDate, $modeOfPayment, $vatAmount, $vatPercentage, $discountAmount, $discountPercentage, $cust_name,
+                $transDate, $modeOfPayment,  $cust_name,
                 $cust_phone, $cust_email);
         }
         
@@ -408,46 +388,7 @@ class Transactions extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
     
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-    
-    /**
-     * Calculates the amount of VAT
-     * @param type $cumAmount the total amount to calculate the VAT from
-     * @param type $vatPercentage the percentage of VAT
-     * @return type
-     */
-    private function getVatAmount($cumAmount, $vatPercentage){
-        $vatAmount = ($vatPercentage/100) * $cumAmount;
 
-        return $vatAmount;
-    }
-    
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-    
-    /**
-     * Calculates the amount of Discount
-     * @param type $cum_amount the total amount to calculate the discount from
-     * @param type $discount_percentage the percentage of discount
-     * @return type
-     */
-    private function getDiscountAmount($cum_amount, $discount_percentage){
-        $discount_amount = ($discount_percentage/100) * $cum_amount;
-
-        return $discount_amount;
-    }
-    
     /*
     ****************************************************************************************************************************
     ****************************************************************************************************************************

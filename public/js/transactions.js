@@ -19,7 +19,7 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //when text/btn ("Add Student") to clone the div to add an item is clicked
+    //when text/btn ("Add Student") to clone the div to add a student is clicked
     $("#clickToClone").on('click', function(e){
         e.preventDefault();
         
@@ -97,7 +97,7 @@ $(document).ready(function(){
 			}
 			
 			else{//i.e. clickToClone clicked manually by user
-				//do not append if no item is selected in the last select list
+				//do not append if no students is selected in the last select list
 				if($(".selectedStudent").length > 0 && (!$(".selectedStudent").last().val())){
 					//do nothing
 				}
@@ -130,7 +130,7 @@ $(document).ready(function(){
         
         $(this).closest(".transStudentList").remove();
         
-        ceipacp();//recalculate price
+        cespacp();//recalculate price
         calchadue();//also recalculate change due
     });
     
@@ -146,6 +146,17 @@ $(document).ready(function(){
         latr_();
     });
     
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // remove phone error when keys are clicked 
+    $("#custPhone").keyup(function(){
+
+        changeInnerHTML(["custPhoneErr"], "");      
+    });
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -281,11 +292,11 @@ $(document).ready(function(){
 			
 			resolve();
 		}).then(()=>{
-			ceipacp();
+			cespacp();
 		}).catch();
 	    
 		//recalculate
-	    ceipacp();
+	    cespacp();
         
         $("#modeOfPayment").val("");
     });
@@ -361,119 +372,101 @@ $(document).ready(function(){
     
     //handles the submission of a new sales order
     $("#confirmSaleOrder").click(function(){
+
         //ensure all fields are properly filled
         var amountTendered = parseFloat($("#amountTendered").val());
         var changeDue = $("#changeDue").html();
         var modeOfPayment = $("#modeOfPayment").val();
         var cumAmount = parseFloat($("#cumAmount").html());
         var arrToSend = [];
-        var vatPercentage = $("#vat").val();
-        var discountPercentage = $("#discount").val();
+        var description = $("#description").val();
         var custName = $("#custName").val();
         var custPhone = $("#custPhone").val();
         var custEmail = $("#custEmail").val();
         
         // Add validation for custPhone
         var phonePattern = /^(07\d{8})$|^(\+263\d{9,14})$/;
-        
-        if(isNaN(amountTendered) || (amountTendered === '0.00') || !modeOfPayment || (amountTendered < cumAmount) || !phonePattern.test(custPhone)){
+    
+        if (isNaN(amountTendered) || (amountTendered === '0.00') || !modeOfPayment || (amountTendered < cumAmount) || !phonePattern.test(custPhone)) {
             isNaN(amountTendered) || (amountTendered === '0.00') ? $("#amountTenderedErr").html("required") : $("#amountTenderedErr").html("");
             !modeOfPayment ? $("#modeOfPaymentErr").html("Select mode of payment") : $("#modeOfPaymentErr").html("");
             amountTendered < cumAmount ? $("#amountTenderedErr").html("Amount cannot be less than "+cumAmount) : "";
             !phonePattern.test(custPhone) ? $("#custPhoneErr").html("Invalid phone number") : $("#custPhoneErr").html("");
-            
             return;
-        }
-        
-        else{
+        } else {
             //remove error messages if any
-            changeInnerHTML(["amountTenderedErr", "modeOfPaymentErr"], "");
+            changeInnerHTML(["amountTenderedErr", "modeOfPaymentErr", "custPhoneErr"], "");
             
-            //now get details of all items to be sold (itemCode, qty, unitPrice, totPrice)
-            var selectedItemNode = document.getElementsByClassName("selectedItem");//get all elem with class "selectedItem"
-            var selectedItemNodeLength = selectedItemNode.length;//get the number of elements with the class name
-            
+            //now get details of all students to be transacted (studentStudent_id, owedFees, currentFees, transAmount)
+            var selectedStudentNode = document.getElementsByClassName("selectedStudent");
+            var selectedStudentNodeLength = selectedStudentNode.length;
             var verifyCumAmount = 0;
-
-            for(var i = 0; i < selectedItemNodeLength; i++){
-                var itemCode = selectedItemNode[i].value;
-                
-                var availQtyNode = selectedItemNode[i].parentNode.parentNode.children[1].children[1];
-                var qtyNode = selectedItemNode[i].parentNode.parentNode.children[3].children[1];
-                var unitPriceNode = selectedItemNode[i].parentNode.parentNode.children[2].children[1];
-                var totalPriceNode = selectedItemNode[i].parentNode.parentNode.children[4].children[1];
+    
+            for (var i = 0; i < selectedStudentNodeLength; i++) {
+                var studentStudent_id = selectedStudentNode[i].value;
+                var owedFeesNode = selectedStudentNode[i].parentNode.parentNode.children[1].children[1];
+                var currentFeesNode = selectedStudentNode[i].parentNode.parentNode.children[3].children[1];
+                var transAmountNode = selectedStudentNode[i].parentNode.parentNode.children[2].children[1];
+                var totalFeesNode = selectedStudentNode[i].parentNode.parentNode.children[4].children[1];
+                var termNode  = selectedStudentNode[i].parentNode.parentNode.children[5].children[1];
+              
                 
                 //get values
-                var availQty = parseInt(availQtyNode.innerHTML);
-                var qty = parseInt(qtyNode.value);
-                var unitPrice = parseFloat(unitPriceNode.innerHTML);
-                var totalPrice = parseFloat(totalPriceNode.innerHTML);
-                var expectedTotPrice = +(unitPrice*qty).toFixed(2);
-                
+                var owedFees = parseFloat(owedFeesNode.innerHTML);
+                var currentFees = parseFloat(currentFeesNode.innerHTML);
+                var transAmount = parseFloat(transAmountNode.value);
+                var totalFees = parseFloat(totalFeesNode.innerHTML);
+                var term = termNode.value;
+                var expectedTotFees = transAmount;
+
+                // console.log("Owed Fees:", owedFees);
+                // console.log("Current Fees:", currentFees);
+                // console.log("Transaction Amount:", transAmount);
+                // console.log("Total Fees:", totalFees);
+                // console.log("term:" , term);
+                // console.log("Expected Total Fees:", expectedTotFees);
+
                 //validate data
-                if((qty === 0) || (availQty < qty) || (expectedTotPrice !== totalPrice)){
-                    totalPriceNode.style.backgroundColor = expectedTotPrice !== totalPrice ? "red" : "";
-                    qtyNode.style.backgroundColor = (qty === 0) || (availQty < qty) ? "red" : "";
-                    
+                if ((transAmount === 0) || (owedFees < transAmount) || (expectedTotFees !== totalFees)) {
+                    // console.log(expectedTotFees);
+                    // console.log(transAmount)
+                    // console.log(totalFees);
+                    totalFeesNode.style.backgroundColor = expectedTotFees !== totalFees ? "red" : "";
+                    transAmountNode.style.backgroundColor = (transAmount === 0) || (owedFees < transAmount) ? "red" : "";
                     return;
-                }
-
-                else{
+                } else {
                     //if all is well, remove all error bg color
-                    totalPriceNode.style.backgroundColor = "";
-                    qtyNode.style.backgroundColor = "";
+                    totalFeesNode.style.backgroundColor = "";
+                    transAmountNode.style.backgroundColor = "";
                     
+                    //then prepare data to add to array of students' info
+                    var studentInfo = {_sI:studentStudent_id, transAmount:transAmount, currentFees:currentFees, totalFees:totalFees,term:term};
                     
-                    //then prepare data to add to array of items' info
-                    var itemInfo = {_iC:itemCode, qty:qty, unitPrice:unitPrice, totalPrice:totalPrice};
+                    //add data to array
+                    arrToSend.push(studentInfo);
 
-                    arrToSend.push(itemInfo);//add data to array
-
-                    //if all is well, add totalPrice to calculate cumAmount
-                    verifyCumAmount = (parseFloat(verifyCumAmount) + parseFloat(totalPrice));
+                    //if all is well, add totalFees to calculate cumAmount
+                    verifyCumAmount = (parseFloat(verifyCumAmount) + parseFloat(totalFees));
                 }
             }
             
-            
-            return new Promise(function(resolve, reject){
-                //calculate discount amount using the discount percentage
-                var discountAmount = getDiscountAmount(verifyCumAmount);//get discount amount
-
-                //display discount amount in discount(value) field
-                $("#discountValue").val(discountAmount.toFixed(2));
-
-                //now update verifyCumAmount by subtracting the discount amount from it
-                verifyCumAmount = +(verifyCumAmount - discountAmount).toFixed(2);
+            // Compare verifyCumAmount with cumAmount
+            if (verifyCumAmount !== cumAmount) {
+                $("#cumAmount").css('backgroundColor', 'red');
+                return;
+            } else {
+                $("#cumAmount").css('backgroundColor', '');
                 
-                resolve();
-            }).then(function(){
-                //update verifyCumAmount by adding VAT
-                var vatAmount = getVatAmount(verifyCumAmount);//get vat amount
-
-                //now update verifyCumAmount by adding the amount of VAT to it
-                verifyCumAmount = +(verifyCumAmount + vatAmount).toFixed(2);
-            
-                //stop execution if cumAmount is wrong
-                if(verifyCumAmount !== cumAmount){
-                    $("#cumAmount").css('backgroundColor', 'red');
-                    return;
-                }
-
-                else{
-                    $("#cumAmount").css('backgroundColor', '');
-                }
-
-                var _aoi = JSON.stringify(arrToSend);//aoi = "All orders info"
-
+                //aoi = "All orders info"
+                var _aoi = JSON.stringify(arrToSend);
+    
                 displayFlashMsg("Processing transaction...", spinnerClass, "", "");
-
+                
                 //send details to server
                 $.ajax({
                     url: appRoot+"transactions/nso_",
                     method: "post",
-                    data: {_aoi:_aoi, _mop:modeOfPayment, _at:amountTendered, _cd:changeDue, _ca:cumAmount, vat:vatPercentage,
-                        discount:discountPercentage, cn:custName, ce:custEmail, cp:custPhone},
-
+                    data: {_aoi:_aoi, _mop:modeOfPayment, _at:amountTendered, _cd:changeDue, _ca:cumAmount, cn:custName, ce:custEmail, cp:custPhone, description:description},
                     success:function(returnedData){
                         if(returnedData.status === 1){
                             hideFlashMsg();
@@ -482,8 +475,8 @@ $(document).ready(function(){
                             resetSalesTransForm();
 
                             //display receipt
-                            $("#transReceipt").html(returnedData.transReceipt);//paste receipt
-                            $("#transReceiptModal").modal('show');//show modal
+                            $("#transReceipt").html(returnedData.transReceipt);
+                            $("#transReceiptModal").modal('show');
 
                             //refresh the transaction list table
                             latr_();
@@ -491,24 +484,20 @@ $(document).ready(function(){
                             //update total earned today
                             $("#totalEarnedToday").html(returnedData.totalEarnedToday);
 
-                            //remove all items list in transaction and leave just one
+                            //remove all students list in transaction and leave just one
                             resetTransList();
-                        }
-
-                        else{
+                        } else {
                             changeFlashMsgContent(returnedData.msg, "", "red", "");
                         }
                     },
-
                     error: function(){
                         checkBrowserOnline(true);
                     }
                 });
-            }).catch(function(){
-                console.log("Err");
-            });
+            }
         }
     });
+    
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -553,35 +542,35 @@ $(document).ready(function(){
         clearTimeout(barCodeTextTimeOut);
 
         var bText = $(this).val();
-        var allItems = [];
+        var allStudents = [];
 
         barCodeTextTimeOut = setTimeout(function(){
             if(bText){
-                for(let i in currentItems){
+                for(let i in currentStudents){
                     if(bText === i){
                         //remove any message that might have been previously displayed
-                        $("#itemCodeNotFoundMsg").html("");
+                        $("#studentStudent_idNotFoundMsg").html("");
     
-                        //if no select input has been added or the last select input has a value (i.e. an item has been selected)
-                        if(!$(".selectedItem").length || $(".selectedItem").last().val()){
-                            //add a new item by triggering the clickToClone btn. This will handle everything from 'appending a list of items' to 'auto-selecting
-                            //the corresponding item to the value detected by the scanner'
+                        //if no select input has been added or the last select input has a value (i.e. a student has been selected)
+                        if(!$(".selectedStudent").length || $(".selectedStudent").last().val()){
+                            //add a new student by triggering the clickToClone btn. This will handle everything from 'appending a list of students' to 'auto-selecting
+                            //the corresponding student to the value detected by the scanner'
                             $("#clickToClone").click();                   
                         }
     
                         //else if the last select input doesn't have a value
                         else{
-                            //just change the selected item to the corresponding code in var bText
-                            changeSelectedItemWithBarcodeText($(this), bText);
+                            //just change the selected student to the corresponding student_id in var bText
+                            changeSelectedStudentWithBarcodeText($(this), bText);
                         }
                         
                         break;
                     }
                     
-                    //if the value doesn't match the code of any item
+                    //if the value doesn't match the code of any student
                     else{
-                        //display message telling user item not found
-                        $("#itemCodeNotFoundMsg").css('color', 'red').html("Item not found. Item may not be registered.");
+                        //display message telling user student not found
+                        $("#studentStudent_idNotFoundMsg").css('color', 'red').html("Student not found. Student may not be registered.");
                     }
                 }
             }
@@ -626,7 +615,7 @@ $(document).ready(function(){
         $("#newTransDiv").toggleClass('collapse');
         
         //remove error messages
-        $("#itemCodeNotFoundMsg").html("");
+        $("#studentStudent_idNotFoundMsg").html("");
         
         //change main "new transaction" button back to default
         $("#showTransForm").html("<i class='fa fa-plus'></i> New Transaction");
@@ -762,84 +751,58 @@ function uptr_(transId){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * ceipacp = "Calculate each item's price and cumulative price"
- * This calculates the total price of each item selected for sale and also their cumulative amount
+ * cespacp = "Calculate each student's price and cumulative price"
+ * This calculates the total price of each student selected for sale and also their cumulative amount
  * @returns {undefined}
  */
-function ceipacp(){
+function cespacp() {
     var cumulativePrice = 0;
     
-    //loop through the items selected to calculate the total of each item
-    $(".transItemList").each(function(){
-        //current item's available quantity
-        var availQty = parseFloat($(this).find(".itemAvailQty").html());
+    // Loop through the students selected to calculate the total of each student
+    $(".transStudentList").each(function() {
+        // Current student's owed fees
+        var owedFees = parseFloat($(this).find(".studentOwedFees").html());
         
-        //current item's quantity to be sold
-        var transQty = parseInt($(this).find(".itemTransQty").val());
+        // Current student's fees to be paid
+        var transAmount = parseInt($(this).find(".studentTransAmount").val());
         
-        //if the qty needed is greater than the qty available
-        if(transQty > availQty){
-            //set the value back to the max available qty
-            $(this).find(".itemTransQty").val(availQty);
-            
-            //display msg telling user the qty left
-            $(this).find(".itemTransQtyErr").html("only "+ availQty + " left");
-            
-            ceipacp();//call itself in order to recalculate price
-        }
-        
-        
-        else{//if all is well
-            //remove err msg if any
-            $(this).find(".itemTransQtyErr").html("");
-            
-            //calculate the total price of current item
-            var itemTotalPrice = parseFloat(($(this).find(".itemUnitPrice").html()) * transQty);
-            
-            //round to two decimal places
-            itemTotalPrice = +(itemTotalPrice).toFixed(2);
-            
-            //display the total price
-            $(this).find(".itemTotalPrice").html(itemTotalPrice);
-            
-            //add current item's total price to the cumulative amount
-            cumulativePrice += itemTotalPrice;
+        // If the fees to be paid is greater than the owed fees
+        if (transAmount > owedFees) {
+            // Display message telling user the fees owed 
+            $(this).find(".studentTransAmountErr").html("only " + owedFees + " left");
 
-            //set the total amount before any addition or dedcution
-            cumTotalWithoutVATAndDiscount = cumulativePrice;
+            // Set the value back to the owed fees
+            $(this).find(".studentTransAmount").val(owedFees);
+            
+            cumulativePrice += owedFees;
+            // Display the cumulative amount
+            $("#cumAmount").html(cumulativePrice);
+
+            cespacp(); // Call itself in order to recalculate price
+        } else {
+            // If all is well, remove error message if any
+            $(this).find(".studentTransAmountErr").html("");
+            
+            // Calculate the total fees of current student
+            var studentTotalFees = parseFloat($(this).find(".studentTransAmount").val());
+
+            // Round to two decimal places
+            studentTotalFees = +(studentTotalFees).toFixed(2);
+
+            // Display the total fees
+            $(this).find(".studentTotalFees").html(studentTotalFees);
+
+            // Add current student's total fees to the cumulative amount
+            cumulativePrice += studentTotalFees;
         }
-        
-        //trigger the click event of "use barcode" btn to focus on the barcode input text
+
+        // Trigger the click event of "use barcode" btn to focus on the barcode input text
         $("#useScanner").click();
     });
-    
-    return new Promise(function(resolve, reject){
-        //calculate discount amount using the discount percentage
-        var discountAmount = getDiscountAmount(cumulativePrice);//get discount amount
-
-        //display discount amount in discount(value) field
-        $("#discountValue").val(discountAmount.toFixed(2));
-
-        //now update verifyCumAmount by subtracting the discount amount from it
-        cumulativePrice = +(cumulativePrice - discountAmount).toFixed(2);
-        
-        resolve();
-    }).then(function(){
-        //get vat amount
-        var vatAmount = getVatAmount(cumulativePrice);
-
-        //now update cumulativePrice by adding the amount of VAT to it
-        cumulativePrice = +(cumulativePrice + vatAmount).toFixed(2);
-        
-        //display the cumulative amount
-        $("#cumAmount").html(cumulativePrice);
-        
-        //update change due just in case amount tendered field is filled
-        calchadue();
-    }).catch(function(){
-        console.log("Err");
-    });
+    // Display the cumulative amount
+    $("#cumAmount").html(cumulativePrice);
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -855,28 +818,33 @@ function ceipacp(){
  */
 function selectedStudent(selectedNode){
     if(selectedNode){
-        //get the elements of the selected student's owed fees and current fees 
-        var itemAvailQtyElem = selectedNode.parentNode.parentNode.children[1].children[1];
-        var itemUnitPriceElem = selectedNode.parentNode.parentNode.children[2].children[1];
-        var qtyNeededElem = selectedNode.parentNode.parentNode.children[3].children[1];
-
-        var itemCode = selectedNode.value;
-		
-        //displayFlashMsg("Getting item info...", spinnerClass, "", "");
+        console.log(selectedNode.parentNode.parentNode.children);
         
-        //get item's available quantity and unitPrice
+        //get the elements of the selected student's owed fees and current fees 
+        var studentOwedFeesElem = selectedNode.parentNode.parentNode.children[1].children[1];
+        var studentCurrentFeesElem = selectedNode.parentNode.parentNode.children[3].children[1];
+        var studentTransAmountElem = selectedNode.parentNode.parentNode.children[2].children[1];
+        var studentTermElem = selectedNode.parentNode.parentNode.children[5].children[1];
+        
+        var studentStudent_id = selectedNode.value;
+        
+        //displayFlashMsg("Getting student info...", spinnerClass, "", "");
+        
+        //get student's available owed fees  and current fees 
         $.ajax({
-            url: appRoot+"items/gcoandqty",
+            url: appRoot+"students/getCurrentAndOwedFees",
             type: "get",
-            data: {_iC:itemCode},
+            data: {_iC:studentStudent_id},
             success: function(returnedData){
+                
                 if(returnedData.status === 1){
-                    itemAvailQtyElem.innerHTML = returnedData.availQty;
-                    itemUnitPriceElem.innerHTML = parseFloat(returnedData.unitPrice);
+                    studentOwedFeesElem.innerHTML = returnedData.studentOwed_fees;
+                    studentCurrentFeesElem.innerHTML = parseFloat(returnedData.studentFees).toFixed(2);
+                    studentTermElem.value = returnedData.term
                     
-                    qtyNeededElem.value = 1;
+                    studentTransAmountElem.value = returnedData.studentOwed_fees;
                     
-                    ceipacp();//recalculate since item has been changed/added
+                    cespacp();//recalculate since student has been changed/added
                     calchadue();//update change due as well in case amount tendered is not empty
 					
                     //hideFlashMsg();
@@ -886,13 +854,13 @@ function selectedStudent(selectedNode){
                 }
                 
                 else{
-                    itemAvailQtyElem.innerHTML = "0";
-                    itemUnitPriceElem.innerHTML = "0.00";
+                    studentOwedFeesElem.innerHTML = "0.00";
+                    studentCurrentFeesElem.innerHTML = "0.00";
                     
-                    ceipacp();//recalculate since item has been changed/added
+                    cespacp();//recalculate since student has been changed/added
                     calchadue();//update change due as well in case amount tendered is not empty
 					
-                    //changeFlashMsgContent("Item not found", "", "red", "");
+                    //changeFlashMsgContent("Student not found", "", "red", "");
                 }
             }
         });
@@ -938,12 +906,12 @@ function calchadue(){
 function resetSalesTransForm(){
     document.getElementById('salesTransForm').reset();
         
-    $(".itemUnitPrice, .itemTotalPrice, #cumAmount, #changeDue").html("0.00");
-    $(".itemAvailQty").html("0");
+    $(".studentCurrentFees, .studentTotalFees, #cumAmount, #changeDue").html("0.00");
+    $(".studentOwedFees").html("0.00");
     $("#amountTendered").prop('disabled', false);
     
     //remove error messages
-    $("#itemCodeNotFoundMsg").html("");
+    $("#studentStudent_idNotFoundMsg").html("");
 	
 	//remove all appended lists
 	$("#appendClonedDivHere").html("");
@@ -975,10 +943,10 @@ function ctr_(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function resetTransList(){
-    var tot = $(".transItemList").length;
+    var tot = $(".transStudentList").length;
     
-    $(".transItemList").each(function(){
-        if($(".transItemList").length > 1){
+    $(".transStudentList").each(function(){
+        if($(".transStudentList").length > 1){
             $(this).remove();
         }
         
@@ -1032,8 +1000,8 @@ function latr_(url){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function changeSelectedItemWithBarcodeText(barcodeTextElem, selectedItem){
-    $(".selectedItem").last().val(selectedItem).change();
+function changeSelectedStudentWithBarcodeText(barcodeTextElem, selectedStudent){
+    $(".selectedStudent").last().val(selectedStudent).change();
             
     //then remove the value from the input
     $(barcodeTextElem).val("");
@@ -1046,69 +1014,4 @@ function changeSelectedItemWithBarcodeText(barcodeTextElem, selectedItem){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function getVatAmount(cumAmount){
-    //update cumAmount by adding the amount VAT to it
-    var vatPercentage = $("#vat").val();//get vat percentage
 
-    //calculate the amount vat will be
-    var vatAmount = parseFloat((vatPercentage/100) * cumAmount);
-    
-    return vatAmount;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function getDiscountAmount(cumAmount){
-    //update cumAmount by subtracting discount amount from it
-    var discountPercentage = $("#discount").val();//get discount percentage
-
-    //calculate the discount amount
-    var discountAmount = parseFloat((discountPercentage/100) * cumAmount);
-    
-    return discountAmount;
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the discount-wrapper element
-    var discountWrapper = document.querySelector(".discount-wrapper");
-
-    // Check if the element has the "disabled" class
-    if (discountWrapper.classList.contains("disabled")) {
-        // Disable the input element
-        var discountInput = discountWrapper.querySelector("#discount");
-        discountInput.disabled = true;
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the discount-wrapper element
-    var discountWrapper = document.querySelector(".discount-wrapper");
-
-    // Check if the element has the "disabled" class
-    if (discountWrapper.classList.contains("disabled")) {
-        // Disable the input element
-        var discountInput = discountWrapper.querySelector("#discountValue");
-        discountInput.disabled = true;
-    }
-});
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
