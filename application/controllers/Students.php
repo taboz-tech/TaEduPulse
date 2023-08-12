@@ -195,14 +195,13 @@ class Students extends CI_Controller{
     /**
      * 
      */
-    public function gcoandqty(){
+    public function getCurrentAndOwedFees(){
         $json['status'] = 0;
         
-        $studentStudent_id = $this->input->get('_iC', TRUE);
+        $studentStudent_id = $this->input->get('_iC', TRUE); 
         
         if($studentStudent_id){
-            $student_info = $this->student->getItemInfo(['student_id'=>$studentStudent_id], ['name', 'surname', 'class_name', 'parent_name','parent_phone','address']);
-
+            $student_info = $this->student->getStudentInfo(['student_id'=>$studentStudent_id], ['name', 'surname', 'class_name', 'parent_name','parent_phone','address','owed_fees','fees','term']);
             if($student_info){
                 $json['studentName'] = $student_info->name;
                 $json['studentSurname'] = $student_info->surname;
@@ -210,7 +209,10 @@ class Students extends CI_Controller{
                 $json['studentParent_name'] = $student_info->parent_name;
                 $json['studentParent_phone'] = $student_info->parent_phone;
                 $json['studentAddress'] = $student_info->address;
+                $json['studentFees'] = $student_info->fees;
+                $json['studentOwed_fees'] = $student_info->owed_fees;
                 $json['status'] = 1;
+                $json['term'] = $student_info->term;
             }
         }
         
