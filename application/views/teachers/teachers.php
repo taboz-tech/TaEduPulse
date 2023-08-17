@@ -1,0 +1,219 @@
+<?php
+defined('BASEPATH') OR exit('');
+?>
+
+<div class="pwell hidden-print">   
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- sort and co row-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2 form-inline form-group-sm">
+                        <button class="btn btn-primary btn-sm" id='createTeacher'>Add New Teacher</button>
+                    </div>
+
+                    <div class="col-sm-3 form-inline form-group-sm">
+                        <label for="teachersListPerPage">Show</label>
+                        <select id="teachersListPerPage" class="form-control">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                        <label>per page</label>
+                    </div>
+
+                    <div class="col-sm-4 form-group-sm form-inline">
+                        <label for="teachersListSortBy">Sort by</label>
+                        <select id="teachersListSortBy" class="form-control">
+                            <option value="name-ASC">Teacher Name (A-Z)</option>
+                            <option value="surname-ASC">Teacher Surname (Ascending)</option>
+                            <option value="dateAdded-ASC">Date Added (Ascending)</option>
+                            <option value="name-DESC">Teacher Name (Z-A)</option>
+                            <option value="surname-DESC">Teacher Surname (Descending)</option>
+                            <option value="dateAdded-DESC">Date Added (Descending)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 form-inline form-group-sm">
+                        <label for='teacherSearch'><i class="fa fa-search"></i></label>
+                        <input type="search" id="teacherSearch" class="form-control" placeholder="Search Teachers">
+                    </div>
+                </div>
+            </div>
+            <!-- end of sort and co div-->
+        </div>
+    </div>
+    
+    <hr>
+    
+    <!-- row of adding new Teacher form and Teachers list table-->
+    <div class="row">
+        <div class="col-sm-12">
+            <!--Form to add/update a Teacher-->
+            <div class="col-sm-4 hidden" id='createNewTeacherDiv'>
+                <div class="well">
+                    <button class="close cancelAddTeacher">&times;</button><br>
+                    <form name="addNewTeacherForm" id="addNewTeacherForm" role="form">
+                        <div class="text-center errMsg" id='addCustErrMsg'></div>
+                        
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherName">Teacher Name</label>
+                                <input type="text" id="teacherName" name="teacherName" placeholder="Teacher Name" maxlength="30"
+                                    class="form-control" onchange="checkField(this.value, 'teacherNameErr')">
+                                <span class="help-block errMsg" id="teacherNameErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherSurname">Teacher Surname</label>
+                                <input type="text" id="teacherSurname" name="teacherSurname" placeholder="Teacher Surname" maxlength="40"
+                                    class="form-control"  onchange="checkField(this.value, 'teacherSurnameErr')">
+                                <span class="help-block errMsg" id="teacherSurnameErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherGender">Teacher Gender</label>
+                                <input type="text" id="teacherGender" name="teacherGender" placeholder="Teacher Gender" maxlength="30"
+                                    class="form-control" onchange="checkField(this.value, 'teacherGenderErr')">
+                                <span class="help-block errMsg" id="teacherGenderErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherPhone">Teacher Phone</label>
+                                <input type="text" id="teacherPhone" name="teacherPhone" placeholder="Teacher Phone" maxlength="15"
+                                    class="form-control" onchange="checkField(this.value, 'teacherPhoneErr')">
+                                <span class="help-block errMsg" id="teacherPhoneErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherAddress">Teacher Address</label>
+                                <input type="text" id="teacherAddress" name="teacherAddress" placeholder="Teacher Address" maxlength="80"
+                                    class="form-control" onchange="checkField(this.value, 'teacherAddressErr')">
+                                <span class="help-block errMsg" id="teacherAddressErr"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherSubject">Teacher Subject</label>
+                                <input type="text" id="teacherSubject" name="teacherSubject" placeholder="Teacher Subject" maxlength="100"
+                                    class="form-control" onchange="checkField(this.value, 'teacherSubjectErr')">
+                                <span class="help-block errMsg" id="teacherSubjectErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherDepartment">Teacher Department</label>
+                                <input type="text" id="teacherDepartment" name="teacherDepartment" placeholder="Teacher Department" maxlength="100"
+                                    class="form-control" onchange="checkField(this.value, 'teacherDepartmentErr')">
+                                <span class="help-block errMsg" id="teacherDepartmentErr"></span>
+                            </div>
+                        </div>
+                       
+                        <br>
+                        <div class="row text-center">
+                            <div class="col-sm-6 form-group-sm">
+                                <button class="btn btn-primary btn-sm" id="addNewTeacher">Add Teacher</button>
+                            </div>
+
+                            <div class="col-sm-6 form-group-sm">
+                                <button type="reset" id="cancelAddTeacher" class="btn btn-danger btn-sm cancelAddTeacher" form='addNewTeacherForm'>Cancel</button>
+                            </div>
+                        </div>
+                    </form><!-- end of form-->
+                </div>
+            </div>
+            
+            <!--- Teacher list div-->
+            <div class="col-sm-12" id="teachersListDiv">
+                <!-- Teacher list Table-->
+                <div class="row">
+                    <div class="col-sm-12" id="teachersListTable"></div>
+                </div>
+                <!--end of table-->
+            </div>
+            <!--- End of teacher list div-->
+
+        </div>
+    </div>
+    <!-- End of row of adding new teacher form and teachers list table-->
+</div>
+
+<!--modal to edit teachers-->
+<div id="editTeacherModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center">Edit Teacher</h4>
+                <div id="editTeacherFMsg" class="text-center"></div>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="row">
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherNameEdit">Teacher Name</label>
+                            <input type="text" id="teacherNameEdit" placeholder="Teacher Name" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherNameEditErr"></span>
+                        </div>
+                        
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherSurnameEdit">Teacher Surname</label>
+                            <input type="text" id="teacherSurnameEdit" placeholder="Teacher Surname" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherSurnameEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherSubjectEdit">Teacher Subject</label>
+                            <input type="text" id="teacherSubjectEdit" placeholder="Teacher Subject" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherSubjectEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherDepartmentEdit">Teacher Department</label>
+                            <input type="text" id="teacherDepartmentEdit" placeholder="Teacher Department" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherDepartmentEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherAddressEdit">Teacher Address</label>
+                            <input type="text" id="teacherAddressEdit" placeholder="Teacher Address" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherAddressEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherPhoneEdit">Teacher Phone</label>
+                            <input type="text" id="teacherPhoneEdit" placeholder="Teacher Phone" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherPhoneEditErr"></span>
+                        </div>
+                       
+                    </div>
+                    
+                    <input type="hidden" id="teacherIdEdit">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="editTeacherSubmit">Save</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of modal-->
+<script src="<?=base_url()?>public/js/teachers.js"></script>

@@ -27,6 +27,7 @@ $(document).ready(function(){
      * Toggle the form to add a new student
      */
     $("#createStudent").click(function() {
+        populateGradesSelect();
         $("#studentsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewStudentDiv").toggleClass('hidden');
         $("#studentName").focus();
@@ -71,7 +72,7 @@ $(document).ready(function(){
     
     //execute when 'auto-generate' checkbox is clicked while trying to add a new student
     $("#gen4me").click(function(){
-        //if checked, generate a unique item code for user. Else, clear field
+        //if checked, generate a unique student id for user. Else, clear field
         if($("#gen4me").prop("checked")){
             var codeExist = false;
             
@@ -81,7 +82,7 @@ $(document).ready(function(){
                 $("#studentStudent_id").val(rand);//paste the code in input
                 $("#studentStudent_idErr").text('');//remove the error message being displayed (if any)
                 
-                //check whether code exist for another item
+                //check whether code exist for another student
                 $.ajax({
                     type: 'get',
                     url: appRoot+"students/gettablecol/id/code/"+rand,
@@ -106,7 +107,7 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //handles the submission of adding new item
+    //handles the submission of adding new student
     $("#addNewStudent").click(function(e){
         e.preventDefault();
         
@@ -280,7 +281,6 @@ $(document).ready(function(){
         $("#studentIdEdit").val(studentId);
         $("#studentNameEdit").val(studentName);
         $("#studentSurnameEdit").val(studentSurname);
-        $("#studentClass_nameEdit").val(studentClass_name);
         $("#studentAddressEdit").val(studentAddress);
         $("#studentStudent_idEdit").val(studentStudent_id);
         $("#studentParent_nameEdit").val(studentParent_name);
@@ -300,6 +300,11 @@ $(document).ready(function(){
         $("#studentParent_phoneEditErr").html("");
         $("#studentFeesEditErr").html("");
         $("#studentOwed_feesEditErr").html("");
+
+        // Fetch and populate the student class select field
+        populateEditGradesSelect(appRoot + "students/getGradesForSelect/", studentClass_name);
+
+
         
         
         //launch modal
@@ -329,9 +334,6 @@ $(document).ready(function(){
         var studentFees = $("#studentFeesEdit").val();
         var studentOwed_fees = $("#studentOwed_feesEdit").val();
 
-        console.log("Initial Owed Fees:", initialOwedFees);
-        console.log("Student Owed Fees from Form:", studentOwed_fees);
-
     
         // Clear previous error messages
         $(".error-message").html("");
@@ -339,7 +341,7 @@ $(document).ready(function(){
         if (!studentStudent_id || !studentFees || !studentId || !studentName) {
             if (!studentStudent_id) $("#studentStudent_idErr").html("Student ID cannot be empty");
             if (!studentFees) $("#studentFeesEditErr").html("Student fees cannot be empty");
-            if (!studentId) $("#editStudentFMsg").html("Unknown item");
+            if (!studentId) $("#editStudentFMsg").html("Unknown Student");
             if (!studentName) $("#studentNameEditErr").html("Student name cannot be empty");
             return;
         }
@@ -396,6 +398,50 @@ $(document).ready(function(){
     
     
     
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // create the report of students and their owed fees as an excel 
+    $(document).ready(function() {
+        $("#generateReport").click(function(e) {
+            e.preventDefault();
+            
+            // Get the selected value from the percentageSelect dropdown
+            var feePartition = $("#percentageSelect").val();
+    
+            // Call the generateReport() function on the server with the selected feePartition
+            $.ajax({
+                url: appRoot + "students/generateReport",
+                type: 'POST',
+                data: { feePartition: feePartition }, // Pass the selected value to the server
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 1) {
+                        
+    
+                        // Provide a link to download the generated report
+                        var downloadLink = $('<a>')
+                            .attr('href', response.report_url)
+                            .attr('download', 'student_report.xlsx')
+                            .text('Download Report');
+                        $('#reportDownloadLink').empty().append(downloadLink);
+                    } else {
+                        // Error while generating the report
+                        alert('An error occurred while generating the report.');
+                    }
+                },
+                error: function() {
+                    console.log("Error occurred during AJAX call.");
+                }
+            });
+        });
+    });
+    
+    
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -494,6 +540,9 @@ function resetStudentSN(){
         $(this).html(parseInt(i)+1);
     });
 }
+
+
+
 function updateOwedFeesEditability() {
     var isEnabled = $("#enableOwedFeesEdit").prop("checked");
     $("#studentOwed_feesEdit").prop("disabled", !isEnabled);
@@ -505,3 +554,77 @@ function updateOwedFeesEditability() {
         initialOwedFees = displayedOwedFees;
     }
 }
+
+
+
+
+function populateGradesSelect(url) {
+    $.ajax({
+        url: url ? url : appRoot + "students/getGradesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var grades = response.grades;
+                var selectField = $('#studentClass_name');
+
+                // Clear existing options and add a default empty option
+                selectField.empty().append($('<option>', {
+                    value: '',
+                    text: 'Select Class'
+                }));
+
+                // Populate options
+                $.each(grades, function(index, grade) {
+                    selectField.append($('<option>', {
+                        value: grade.id,
+                        text: grade.name
+                    }));
+                });
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}
+
+
+// Function to populate the edit student class select field
+function populateEditGradesSelect(url, selectedGradeId) {
+
+    var selectField = $("#studentClass_nameEdit");
+
+    $.ajax({
+        url: url ? url : appRoot + "students/getGradesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var grades = response.grades;
+
+                selectField.empty();
+
+                $.each(grades, function(index, grade) {
+                    selectField.append($('<option>', {
+                        value: grade.id,
+                        text: grade.name,
+                        selected: grade.name === selectedGradeId
+                    }));
+                });
+
+
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}
+
+
+

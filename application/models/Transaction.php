@@ -91,25 +91,23 @@ class Transaction extends CI_Model {
 
     /**
      * 
-     * @param type $_iN item Name
-     * @param type $_iC item Code
-     * @param type $desc Desc
-     * @param type $q quantity bought
-     * @param type $_up unit price
-     * @param type $_tp total price
-     * @param type $_tas total amount spent
-     * @param type $_at amount tendered
-     * @param type $_cd change due
-     * @param type $_mop mode of payment
-     * @param type $_tt transaction type whether (sale{1} or return{2})
-     * @param type $ref
-     * @param float $_va VAT Amount
-     * @param float $_vp VAT Percentage
-     * @param float $da Discount Amount
-     * @param float $dp Discount Percentage
-     * @param {string} $cn Customer Name
-     * @param {string} $cp Customer Phone
-     * @param {string} $ce Customer Email
+     * @param string $studentName student Name
+     * @param string $studentStudent_id student studentId
+     * @param string $description Description
+     * @param string $studentSurname student Surname
+     * @param int $studentClass_name student Class_name
+     * @param float $totalFees total fees
+     * @param float $_at amount tendered
+     * @param float $_cd change due
+     * @param string $_mop mode of payment
+     * @param int $_tt transaction type whether (sale{1} or return{2})
+     * @param string $ref
+     * @param float $cumAmount cummulative amount
+     * @param int $paymentStatus payment status 
+     * @param string $term month paid for
+     * @param string $cn Customer Name
+     * @param string $cp Customer Phone
+     * @param string $ce Customer Email
      * @return boolean
      */
     public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term) {

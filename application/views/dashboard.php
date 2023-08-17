@@ -8,11 +8,11 @@ defined('BASEPATH') OR exit('');
             <div class="panel-body latestStuffsBody" style="background-color: #b71c1c">
                 <div class="pull-left"><i class="fa fa-archive"></i></div>
                 <div class="pull-right">
-                    <div><?=$totalItems?></div>
-                    <div class="latestStuffsText pull-right">Items in Stock</div>
+                    <div><?=$totalStudents?></div>
+                    <div class="latestStuffsText pull-right">Students Enrolled</div>
                 </div>
             </div>
-            <div class="panel-footer text-center" style="color:#b71c1c">Total Items in Stock</div>
+            <div class="panel-footer text-center" style="color:#b71c1c">Total Students In School</div>
         </div>
     </div>
     <div class="col-sm-3">
@@ -21,10 +21,10 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-left"><i class="fa fa-money"></i></div>
                 <div class="pull-right">
                     <div><?=$totalSalesToday?></div>
-                    <div class="latestStuffsText">Today's Total Sales</div>
+                    <div class="latestStuffsText">Today's Total Payments</div>
                 </div>
             </div>
-            <div class="panel-footer text-center" style="color:#5cb85c">Number of Items Sold Today</div>
+            <div class="panel-footer text-center" style="color:#5cb85c">Total Amount of Today's Payments</div>
         </div>
     </div>
     <div class="col-sm-3">
@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('');
             <div class="panel-body latestStuffsBody" style="background-color:#795548">
                 <div class="pull-left"><i class="fa fa-dollar"></i></div>
                 <div class="pull-right">
-                    <div> <?php $query = $this->db->query('SELECT SUM( totalPrice)as total FROM transactions')->row(); echo floatval($query->total);?></div>
+                    <div> <?php $query = $this->db->query('SELECT SUM( totalAmount)as total FROM transactions')->row(); echo floatval($query->total);?></div>
                     <div class="latestStuffsText pull-right">Total Earnings Till Date</div>
                 </div>
                 
@@ -61,30 +61,23 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-right">
                     <div>
                     <?php
-                        $query = $this->db->query('SELECT t.itemCode, t.quantity, t.totalMoneySpent, i.cost,
-                                                            t.quantity * i.cost AS totalCost,
-                                                            t.totalMoneySpent - (t.quantity * i.cost) AS profit
-                                                    FROM transactions AS t
-                                                    JOIN items AS i ON t.itemCode = i.code
-                                                    WHERE YEAR(t.transDate) = YEAR(CURDATE()) AND MONTH(t.transDate) = MONTH(CURDATE());
-                                                    ');
+                        $query = $this->db->query('SELECT totalMoneySpent, totalAmount FROM transactions');
                         $transactions = $query->result();
 
                         $totalProfit = 0;
 
                         foreach ($transactions as $transaction) {
-                            $quantity = $transaction->quantity;
                             $totalMoneySpent = $transaction->totalMoneySpent;
-                            $cost = $transaction->cost;
+                            $totalAmount = $transaction->totalAmount;
 
-                            $transactionCost = $quantity * $cost;
-                            $transactionProfit = $totalMoneySpent - $transactionCost;
+                            $transactionProfit = $totalAmount - $totalMoneySpent;
 
                             $totalProfit += $transactionProfit;
                         }
 
-                        echo number_format($totalProfit, 2);
+                        echo "Total Profit: " . number_format($totalProfit, 2) . "\n";
                     ?>
+
                     </div>
                     <div class="latestStuffsText pull-right">Month Profit </div>
                 </div>
@@ -101,30 +94,23 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-right">
                     <div>
                     <?php
-                        $query = $this->db->query('SELECT t.itemCode, t.quantity, t.totalMoneySpent, i.cost,
-                                                            t.quantity * i.cost AS totalCost,
-                                                            t.totalMoneySpent - (t.quantity * i.cost) AS profit
-                                                    FROM transactions AS t
-                                                    JOIN items AS i ON t.itemCode = i.code
-                                                    WHERE t.transDate >= CURDATE() AND t.transDate < CURDATE() + INTERVAL 1 DAY;
-                                                    ');
+                        $query = $this->db->query('SELECT totalMoneySpent, totalAmount FROM transactions WHERE transDate >= CURDATE() AND transDate < CURDATE() + INTERVAL 1 DAY;');
                         $transactions = $query->result();
 
                         $totalProfit = 0;
 
                         foreach ($transactions as $transaction) {
-                            $quantity = $transaction->quantity;
                             $totalMoneySpent = $transaction->totalMoneySpent;
-                            $cost = $transaction->cost;
+                            $totalAmount = $transaction->totalAmount;
 
-                            $transactionCost = $quantity * $cost;
-                            $transactionProfit = $totalMoneySpent - $transactionCost;
+                            $transactionProfit = $totalAmount - $totalMoneySpent;
 
                             $totalProfit += $transactionProfit;
                         }
 
-                        echo number_format($totalProfit, 2);
+                        echo "Total Profit for Today: " . number_format($totalProfit, 2) . "\n";
                     ?>
+
                     </div>
                     <div class="latestStuffsText pull-right">Today Profit </div>
                 </div>
@@ -141,7 +127,7 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-right">
                     <div>
                     <?php
-                        $query = $this->db->query('SELECT SUM(CASE WHEN quantity <> 0 THEN cost * quantity ELSE 0 END) AS totalCost FROM items;');
+                        $query = $this->db->query('SELECT SUM(CASE WHEN owed_fees <> 0 THEN owed_fees ELSE 0 END) AS totalCost FROM students;');
                         $result = $query->row(); 
                         $totalCost = $result->totalCost;
                         if ($totalCost !== null) {
@@ -166,7 +152,7 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-right">
                     <div>
                     <?php
-                        $query = $this->db->query('SELECT SUM(cost * quantity) AS totalCost FROM items
+                        $query = $this->db->query('SELECT SUM(owed_fees) AS totalCost FROM students
                                                     WHERE MONTH(dateAdded) = MONTH(CURDATE());
                                                 ');
                         $result = $query->row(); 
@@ -229,19 +215,19 @@ defined('BASEPATH') OR exit('');
     <div class="col-sm-3">
         <div class="panel panel-hash">
             <div class="panel-heading"><i class="fa fa-level-up"></i> HIGH IN DEMAND</div>
-            <?php if($topDemanded): ?>
+            <?php if($topPayersLastTwoMonths): ?>
             <table class="table table-striped table-responsive table-hover">
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Qty Sold</th>
+                        <th>Name</th>
+                        <th>Total Spent</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($topDemanded as $get):?>
+                <?php foreach($topPayersLastTwoMonths as $payer):?>
                     <tr>
-                        <td><?=$get->name?></td>
-                        <td><?=$get->totSold?></td>
+                        <td><?= $payer->name . ' ' . $payer->surname ?></td>
+                        <td><?= $payer->totalSpent ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -251,23 +237,25 @@ defined('BASEPATH') OR exit('');
             <?php endif; ?>
         </div>
     </div>
+
+
     
     <div class="col-sm-3">
         <div class="panel panel-hash">
-            <div class="panel-heading"><i class="fa fa-level-down"></i> LOW IN DEMAND</div>
-            <?php if($leastDemanded): ?>
+            <div class="panel-heading"><i class="fa fa-level-up"></i> HIGH IN DEMAND</div>
+            <?php if($leastPayersLastTwoMonths): ?>
             <table class="table table-striped table-responsive table-hover">
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Qty Sold</th>
+                        <th>Name</th>
+                        <th>Total Spent</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($leastDemanded as $get):?>
+                <?php foreach($leastPayersLastTwoMonths as $payer):?>
                     <tr>
-                        <td><?=$get->name?></td>
-                        <td><?=$get->totSold?></td>
+                        <td><?= $payer->name . ' ' . $payer->surname ?></td>
+                        <td><?= $payer->totalSpent ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -281,19 +269,19 @@ defined('BASEPATH') OR exit('');
     <div class="col-sm-3">
         <div class="panel panel-hash">
             <div class="panel-heading"><i class="fa fa-dollar"></i> HIGHEST EARNING</div>
-            <?php if($highestEarners): ?>
+            <?php if($highestSpenders): ?>
             <table class="table table-striped table-responsive table-hover">
                 <thead>
                     <tr>
-                        <th>Item</th>
+                        <th>Student</th>
                         <th>Total Earned</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($highestEarners as $get):?>
+                <?php foreach($highestSpenders as $get):?>
                     <tr>
-                        <td><?=$get->name?></td>
-                        <td>$<?=number_format($get->totEarned, 2)?></td>
+                        <td><?=$get->name . ' ' . $get->surname?></td>
+                        <td>$<?=number_format($get->totalSpent, 2)?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -306,20 +294,20 @@ defined('BASEPATH') OR exit('');
     
     <div class="col-sm-3">
         <div class="panel panel-hash">
-            <div class="panel-heading"><i class="fa fa-dollar"></i> LOWEST EARNING</div>
-            <?php if($lowestEarners): ?>
+            <div class="panel-heading"><i class="fa fa-dollar"></i> HIGHEST EARNING</div>
+            <?php if($highestSpenders): ?>
             <table class="table table-striped table-responsive table-hover">
                 <thead>
                     <tr>
-                        <th>Item</th>
+                        <th>Student</th>
                         <th>Total Earned</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($lowestEarners as $get):?>
+                <?php foreach($highestSpenders as $get):?>
                     <tr>
-                        <td><?=$get->name?></td>
-                        <td>$<?=number_format($get->totEarned, 2)?></td>
+                        <td><?=$get->name . ' ' . $get->surname?></td>
+                        <td>$<?=number_format($get->totalSpent, 2)?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -342,7 +330,6 @@ defined('BASEPATH') OR exit('');
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Qty Sold</th>
                             <th>Tot. Trans</th>
                             <th>Tot. Earned</th>
                         </tr>
@@ -359,7 +346,6 @@ defined('BASEPATH') OR exit('');
                                     date('l jS M, Y', strtotime($get->transactionDate));
                                 ?>
                             </td>
-                            <td><?=$get->qty_sold?></td>
                             <td><?=$get->tot_trans?></td>
                             <td>$<?=number_format($get->tot_earned, 2)?></td>
                         </tr>
@@ -383,7 +369,6 @@ defined('BASEPATH') OR exit('');
                     <thead>
                         <tr>
                             <th>Day</th>
-                            <th>Qty Sold</th>
                             <th>Tot. Trans</th>
                             <th>Tot. Earned</th>
                         </tr>
@@ -393,7 +378,6 @@ defined('BASEPATH') OR exit('');
                         <?php foreach($transByDays as $get): ?>
                         <tr>
                             <td><?=$get->day?>s</td>
-                            <td><?=$get->qty_sold?></td>
                             <td><?=$get->tot_trans?></td>
                             <td>$<?=number_format($get->tot_earned, 2)?></td>
                         </tr>
@@ -420,7 +404,6 @@ defined('BASEPATH') OR exit('');
                     <thead>
                         <tr>
                             <th>Month</th>
-                            <th>Qty Sold</th>
                             <th>Tot. Trans</th>
                             <th>Tot. Earned</th>
                         </tr>
@@ -430,7 +413,6 @@ defined('BASEPATH') OR exit('');
                         <?php foreach($transByMonths as $get): ?>
                         <tr>
                             <td><?=$get->month?></td>
-                            <td><?=$get->qty_sold?></td>
                             <td><?=$get->tot_trans?></td>
                             <td>$<?=number_format($get->tot_earned, 2)?></td>
                         </tr>
@@ -454,7 +436,6 @@ defined('BASEPATH') OR exit('');
                     <thead>
                         <tr>
                             <th>Year</th>
-                            <th>Qty Sold</th>
                             <th>Tot. Trans</th>
                             <th>Tot. Earned</th>
                         </tr>
@@ -464,7 +445,6 @@ defined('BASEPATH') OR exit('');
                         <?php foreach($transByYears as $get): ?>
                         <tr>
                             <td><?=$get->year?></td>
-                            <td><?=$get->qty_sold?></td>
                             <td><?=$get->tot_trans?></td>
                             <td>$<?=number_format($get->tot_earned, 2)?></td>
                         </tr>

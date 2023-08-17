@@ -28,7 +28,7 @@ class Transactions extends CI_Controller{
     
     public function index(){
         $transData['students'] = $this->student->getActiveStudents('name', 'ASC');//get students with a fees credit when doing a new transaction
-        // log_message('error', 'Student data: ' . print_r($transData['students'], true));
+        // ge('error', 'Student data: ' . print_r($transData['students'], true));
         
         $data['pageContent'] = $this->load->view('transactions/transactions', $transData, TRUE);
         $data['pageTitle'] = "Transactions";
@@ -70,10 +70,13 @@ class Transactions extends CI_Controller{
         $this->pagination->initialize($config);//initialize the library class
         
         // Get all transactions from the database
+        log_message('error','here we are before');
         $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
+        
 
         // Calculate and assign the 'range' value
         $data['range'] = $totalTransactions > 0 ? ($start+1) . "-" . ($start + count($data['allTransactions'])) . " of " . $totalTransactions : "";
+        log_message('error','here we are after');
 
         // Generate pagination links
         $data['links'] = $this->pagination->create_links();
@@ -135,8 +138,8 @@ class Transactions extends CI_Controller{
             
             //add into eventlog
             //function header: addevent($event, $eventRowIdOrRef, $eventDesc, $eventTable, $staffId) in 'genmod'
-            $eventDesc = count($arrOfStudentsDetails). " items totalling $". number_format($cumAmount, 2)
-                    ." with reference number {$returnedData['transRef']} was purchased";
+            $eventDesc = count($arrOfStudentsDetails). " fees totalling $". number_format($cumAmount, 2)
+                    ." with reference number {$returnedData['transRef']} was paid";
             
             $this->genmod->addevent("New Transaction", $returnedData['transRef'], $eventDesc, 'transactions', $this->session->admin_id);
        }
@@ -219,7 +222,7 @@ class Transactions extends CI_Controller{
     
     /**
      * 
-     * @param type $arrOfItemsDetails
+     * @param type $arrOfStudentsDetails
      * @param type $_mop
      * @param type $_at
      * @param type $cumAmount
@@ -326,7 +329,6 @@ class Transactions extends CI_Controller{
      */
     private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email){
         $data['allTransInfo'] = $allTransInfo;
-        log_message('error', "allTransInfo: " . print_r($data['allTransInfo'], true));
 
         $data['cumAmount'] = $cumAmount;
         $data['amountTendered'] = $_at;

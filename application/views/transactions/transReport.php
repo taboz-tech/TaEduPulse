@@ -60,7 +60,7 @@ $total_earned = 0;
                                     <tr>
                                         <th>SN</th>
                                         <th>Receipt No</th>
-                                        <th>Total Items</th>
+                                        <th>Total students</th>
                                         <th>Total Amount</th>
                                         <th>Amount Tendered</th>
                                         <th>Change Due</th>

@@ -47,6 +47,29 @@ defined('BASEPATH') OR exit('');
                     </div>
                 </div>
             </div>
+            <!-- Line breaker -->
+            <hr>
+            
+            <!-- Generate Report row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2 form-inline form-group-sm">
+                        <button class="btn btn-primary btn-sm" id="generateReport">Generate Report</button>
+                        <select id="percentageSelect">
+                            <option value="0">0%</option>
+                            <option value="25">25%</option>
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="100">100%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Element to display the report download link -->
+            <div id="reportDownloadLink"></div>
+
+
             <!-- end of sort and co div-->
         </div>
     </div>
@@ -56,6 +79,7 @@ defined('BASEPATH') OR exit('');
     <!-- row of adding new student form and studnets list table-->
     <div class="row">
         <div class="col-sm-12">
+
             <!--Form to add/update an student-->
             <div class="col-sm-4 hidden" id='createNewStudentDiv'>
                 <div class="well">
@@ -95,21 +119,26 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentClass_name">Student Class</label>
-                                <input type="text" id="studentClass_name" name="studentClass_name" placeholder="Student Class_name" maxlength="15"
-                                    class="form-control" onchange="checkField(this.value, 'studentClass_nameErr')">
+                                <select id="studentClass_name" name="studentClass_name" class="form-control" onchange="checkField(this.value, 'studentClass_nameErr')">
+                                    <option value="">Select Class</option> <!-- Add a default empty option -->
+                                </select>
                                 <span class="help-block errMsg" id="studentClass_nameErr"></span>
                             </div>
                         </div>
 
+
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentGender">Student Gender</label>
-                                <input type="text" id="studentGender" name="studentGender" placeholder="Student Gender" maxlength="10"
-                                    class="form-control" onchange="checkField(this.value, 'studentGenderErr')">
+                                <select id="studentGender" name="studentGender" class="form-control" onchange="checkField(this.value, 'studentGenderErr')">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
                                 <span class="help-block errMsg" id="studentGenderErr"></span>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentFees">Student Fees</label>
@@ -165,7 +194,7 @@ defined('BASEPATH') OR exit('');
                             </div>
 
                             <div class="col-sm-6 form-group-sm">
-                                <button type="reset" id="cancelAddStudent" class="btn btn-danger btn-sm cancelAddItem" form='addNewStudentForm'>Cancel</button>
+                                <button type="reset" id="cancelAddStudent" class="btn btn-danger btn-sm cancelAddStudent" form='addNewStudentForm'>Cancel</button>
                             </div>
                         </div>
                     </form><!-- end of form-->
@@ -212,10 +241,13 @@ defined('BASEPATH') OR exit('');
                         </div>
 
                         <div class="col-sm-4 form-group-sm">
-                            <label for="studentClass_nameEdit">Student Class_name</label>
-                            <input type="text" id="studentClass_nameEdit" placeholder="Student Class_name" autofocus class="form-control checkField">
+                            <label for="studentClass_nameEdit">Student Class</label>
+                            <select id="studentClass_nameEdit" class="form-control checkField">
+                                <option value="">Select Class</option>
+                            </select>
                             <span class="help-block errMsg" id="studentClass_nameEditErr"></span>
                         </div>
+
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="studentStudent_id"> Student Id</label>

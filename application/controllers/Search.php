@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income']);
         
         $this->load->helper('text');
         
@@ -121,6 +121,15 @@ class Search extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+    public function gradeSearch(){
+        $data['allgrades'] = $this->grade->gradesearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['gradesListTable'] = $data['allgrades'] ? $this->load->view('grades/gradeslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
     
     /*
     ********************************************************************************************************************************
@@ -129,4 +138,81 @@ class Search extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+    public function teacherSearch(){
+        $data['allTeachers'] = $this->teacher->teachersearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['teachersListTable'] = $data['allTeachers'] ? $this->load->view('teachers/teacherslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function costSearch(){
+        $data['allCosts'] = $this->cost->costsearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['costsListTable'] = $data['allCosts'] ? $this->load->view('costs/costslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function categorieSearch(){
+        $data['allCategories'] = $this->category->categoriesearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['categoriesListTable'] = $data['allCategories'] ? $this->load->view('categories/categorieslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function currencieSearch(){
+        $data['allCurrencies'] = $this->currency->currenciesearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['currenciesListTable'] = $data['allCurrencies'] ? $this->load->view('currencies/currencieslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function incomeSearch(){
+        $data['allIncomes'] = $this->income->incomesearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['incomesListTable'] = $data['allIncomes'] ? $this->load->view('incomes/incomeslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
 }

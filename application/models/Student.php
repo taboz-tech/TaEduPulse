@@ -18,20 +18,22 @@ class Student extends CI_Model{
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    public function getAll($orderBy, $orderFormat, $start=0, $limit=''){
+    public function getAll($orderBy, $orderFormat, $start = 0, $limit = '') { 
+        $this->db->select('students.*, grades.name AS class_name');
+        $this->db->from('students');
+        $this->db->join('grades', 'students.class_name = grades.id', 'left');
         $this->db->limit($limit, $start);
         $this->db->order_by($orderBy, $orderFormat);
         
-        $run_q = $this->db->get('students');
+        $run_q = $this->db->get();
         
-        if($run_q->num_rows() > 0){
+        if ($run_q->num_rows() > 0) {
             return $run_q->result();
-        }
-        
-        else{
+        } else {
             return FALSE;
         }
     }
+    
     
     /*
     ********************************************************************************************************************************
@@ -116,6 +118,38 @@ class Student extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+    public function getAllWithFees($orderBy, $orderFormat, $start = 0, $limit = '', $feePartition = '') { 
+        $this->db->select('students.*, grades.name AS class_name');
+        $this->db->from('students');
+        $this->db->join('grades', 'students.class_name = grades.id', 'left');
+        
+        if ($feePartition === '0') {
+            $this->db->where('students.owed_fees', 0);
+        } elseif ($feePartition === '25') {
+            $this->db->where('students.owed_fees >', 0);
+            $this->db->where('students.owed_fees <=', 'students.fees * 0.25', false);
+        } elseif ($feePartition === '50') {
+            $this->db->where('students.owed_fees >', 'students.fees * 0.25', false);
+            $this->db->where('students.owed_fees <=', 'students.fees * 0.5', false);
+        } elseif ($feePartition === '75') {
+            $this->db->where('students.owed_fees >', 'students.fees * 0.5', false);
+            $this->db->where('students.owed_fees <=', 'students.fees * 0.75', false);
+        } elseif ($feePartition === '100') {
+            $this->db->where('students.owed_fees >', 'students.fees * 0.75', false);
+        }
+        
+        $this->db->limit($limit, $start);
+        $this->db->order_by($orderBy, $orderFormat);
+        
+        $run_q = $this->db->get();
+        
+        if ($run_q->num_rows() > 0) {
+            return $run_q->result();
+        } else {
+            return FALSE;
+        }
+    }
+    
     
     /*
     ********************************************************************************************************************************

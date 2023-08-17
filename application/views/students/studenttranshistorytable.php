@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th>SN</th>
-                <th>ITEM CODE</th>
-                <th>ITEM NAME</th>
+                <th>Student Name</th>
+                <th>Student Id</th>
                 <th>DESCRIPTION</th>
                 <th>UNIT PRICE</th>
                 <th>QUANTITY IN STOCK</th>

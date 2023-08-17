@@ -70,10 +70,10 @@ defined('BASEPATH') OR exit('');
                             </a>
                         </li>
 
-                        <li class="<?= $pageTitle == 'Items' ? 'active' : '' ?>">
-                            <a href="<?= site_url('items') ?>">
+                        <li class="<?= $pageTitle == 'Students' ? 'active' : '' ?>">
+                            <a href="<?= site_url('students') ?>">
                                 <i class="fa fa-archive"></i>
-                                Manage Inventory
+                                Manage Students
                             </a>
                         </li>
                         
@@ -183,6 +183,49 @@ defined('BASEPATH') OR exit('');
                                 Transactions
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Grades' ? 'active' : '' ?>">
+                            <a href="<?= site_url('grades') ?>">
+                                <i class="fa fa-archive"></i>
+                                Grades
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Teachers' ? 'active' : '' ?>">
+                            <a href="<?= site_url('teachers') ?>">
+                                <i class="fa fa-archive"></i>
+                                Teachers
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Costs' ? 'active' : '' ?>">
+                            <a href="<?= site_url('costs') ?>">
+                                <i class="fa fa-archive"></i>
+                                Costs
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Categories' ? 'active' : '' ?>">
+                            <a href="<?= site_url('categories') ?>">
+                                <i class="fa fa-archive"></i>
+                                Categories
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Currencies' ? 'active' : '' ?>">
+                            <a href="<?= site_url('currencies') ?>">
+                                <i class="fa fa-archive"></i>
+                                Currencies
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Incomes' ? 'active' : '' ?>">
+                            <a href="<?= site_url('incomes') ?>">
+                                <i class="fa fa-archive"></i>
+                                Incomes
+                            </a>
+                        </li>
+                        
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
@@ -227,6 +270,21 @@ defined('BASEPATH') OR exit('');
                                 Transactions
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Grades' ? 'active' : '' ?>">
+                            <a href="<?= site_url('grades') ?>">
+                                <i class="fa fa-archive"></i>
+                                Grades
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Students' ? 'active' : '' ?>">
+                            <a href="<?= site_url('students') ?>">
+                                <i class="fa fa-archive"></i>
+                                Students
+                            </a>
+                        </li>
+
                         <?php endif; ?>
                         
                     </ul>

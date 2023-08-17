@@ -134,7 +134,16 @@ if(isset($students) && !empty($students)){
                                     <div class="row">
                                         <div class="col-sm-8 form-group-sm">
                                                 <label for="description">Description</label>
-                                                <textarea id="description" class="form-control" rows="4" placeholder="Enter a description"></textarea>
+                                                <textarea id="description" class="form-control" rows="3" placeholder="Enter a description"></textarea>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group-sm">
+                                            <label>Currency</label>
+                                            <select class="form-control " id= "currency">
+                                                <option value="USD">USD</option>
+                                                <option value="ZAR">ZAR</option>
+                                                <option value="ZWL">ZWL</option>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -309,7 +318,7 @@ if(isset($students) && !empty($students)){
     </div>
 </div>
 
-<!---End of copy of div to clone when adding more items to sales transaction---->
+<!---End of copy of div to clone when adding more students to sales transaction---->
 <script src="<?=base_url()?>public/js/transactions.js"></script>
 <script src="<?=base_url('public/ext/datetimepicker/bootstrap-datepicker.min.js')?>"></script>
 <script src="<?=base_url('public/ext/datetimepicker/jquery.timepicker.min.js')?>"></script>

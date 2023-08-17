@@ -1,4 +1,8 @@
 <?php
+require 'vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 defined('BASEPATH') OR exit('');
 
 /**
@@ -49,10 +53,9 @@ class Students extends CI_Controller{
         $orderFormat = $this->input->get('orderFormat', TRUE) ? $this->input->get('orderFormat', TRUE) : "ASC";
 
         
-        //count the total number of items in db
+        //count the total number of students in db
         $totalStudents = $this->db->count_all('students');
 
-    
         $this->load->library('pagination');
         
         $pageNumber = $this->uri->segment(3, 0);//set page number to zero if the page number is not set in the third segment of uri
@@ -67,13 +70,15 @@ class Students extends CI_Controller{
         
         $this->pagination->initialize($config);//initialize the library class
         
-        //get all items from db
+        //get all students from db
         $data['allStudents'] = $this->student->getAll($orderBy, $orderFormat, $start, $limit);
+        
         $data['range'] = $totalStudents > 0 ? "Showing " . ($start+1) . "-" . ($start + count($data['allStudents'])) . " of " . $totalStudents : "";
         $data['links'] = $this->pagination->create_links();//page links
         $data['sn'] = $start+1;
+       
         
-        $json['studentsListTable'] = $this->load->view('students/studentslisttable', $data, TRUE);//get view with populated items table
+        $json['studentsListTable'] = $this->load->view('students/studentslisttable', $data, TRUE);//get view with populated students table
         
 
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -228,7 +233,62 @@ class Students extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-    
+    // generate a spreadsheet with students fees owed and amount paid 
+    public function generateReport() {
+        // Load the Student model
+        $this->load->model('Student');
+
+        // Call the getAll function to retrieve student records
+        $orderBy = 'name'; // Replace with the column you want to order by
+        $orderFormat = 'asc'; // Replace with 'asc' or 'desc' based on your preference
+        $feePartition = $this->input->post('feePartition');
+
+        $students = $this->Student->getAllWithFees($orderBy, $orderFormat, 0, '', $feePartition);
+
+        // Create a new Excel instance
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set default column width
+        $defaultColumnWidth = 15;
+        $sheet->getDefaultColumnDimension()->setWidth($defaultColumnWidth);
+
+
+        // Set column headers
+        $columnHeaders = ['Name', 'Surname', 'Student ID', 'Fees', 'Owed Fees', 'Paid Amount'];
+        $columnIndex = 1;
+        foreach ($columnHeaders as $header) {
+            $sheet->setCellValueByColumnAndRow($columnIndex, 1, $header);
+            $columnIndex++;
+        }
+
+        // Set student data
+        $rowIndex = 2;
+        foreach ($students as $student) {
+            $paidAmount = $student->fees - $student->owed_fees; // Calculate the Paid Amount
+            $sheet->setCellValueByColumnAndRow(1, $rowIndex, $student->name);
+            $sheet->setCellValueByColumnAndRow(2, $rowIndex, $student->surname);
+            $sheet->setCellValueByColumnAndRow(3, $rowIndex, $student->student_id);
+            $sheet->setCellValueByColumnAndRow(4, $rowIndex, $student->fees);
+            $sheet->setCellValueByColumnAndRow(5, $rowIndex, $student->owed_fees);
+            $sheet->setCellValueByColumnAndRow(6, $rowIndex, $paidAmount); // Set the Paid Amount
+            $rowIndex++;
+        }
+
+
+        // Save the spreadsheet
+        $writer = new Xlsx($spreadsheet);
+        $filePath = 'reports/students_report.xlsx'; // Adjust the file path as needed
+        $writer->save($filePath);
+        $reportUrl = base_url() . 'reports/students_report.xlsx'; // Adjust the URL as needed
+        $response = array(
+            'status' => 1,
+            'message' => 'Student Excel report generated successfully!',
+            'report_url' => $reportUrl
+        );
+        echo json_encode($response);
+
+    }
     
    
    /*
@@ -272,7 +332,7 @@ class Students extends CI_Controller{
             $studentStudent_id = $this->input->post('studentStudent_id', TRUE);
             $studentOwed_fees = set_value('studentOwed_fees');
 
-            //update item in db
+            //update Student in db
             $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress,$studentOwed_fees);
             
             $json['status'] = $updated ? 1 : 0;
@@ -302,6 +362,28 @@ class Students extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+
+    public function getGradesForSelect(){
+        $this->genlib->ajaxOnly();
+    
+        $orderBy = 'name'; // Order grades by name
+        $orderFormat = 'ASC';
+    
+        $this->load->model(['grade']); // Load the Grade model
+    
+        // Call the getAll function from the Grade model to fetch grades
+        $grades = $this->grade->getAll($orderBy, $orderFormat);
+    
+        if ($grades !== FALSE) {
+            $json['status'] = 1;
+            $json['grades'] = $grades; // Return the list of grades
+        } else {
+            $json['status'] = 0;
+            $json['message'] = "No grades found.";
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
   
     /*
     ********************************************************************************************************************************
@@ -327,4 +409,9 @@ class Students extends CI_Controller{
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+      
+    
 }
+
+

@@ -30,11 +30,11 @@ class Dashboard extends CI_Controller{
      * 
      */
     public function index(){
-        $data['topDemanded'] = $this->analytic->topDemanded();
-        $data['leastDemanded'] = $this->analytic->leastDemanded();
-        $data['highestEarners'] = $this->analytic->highestEarners();
-        $data['lowestEarners'] = $this->analytic->lowestEarners();
-        $data['totalItems'] = $this->db->count_all('items');
+        $data['topPayersLastTwoMonths'] = $this->analytic->topPayersLastTwoMonths();
+        $data['leastPayersLastTwoMonths'] = $this->analytic->leastPayersLastTwoMonths();
+        $data['highestSpenders'] = $this->analytic->highestSpenders();
+        $data['lowestSpenders'] = $this->analytic->lowestSpenders();
+        $data['totalStudents'] = $this->db->count_all('students');
         $data['totalSalesToday'] = (int)$this->analytic->totalSalesToday();
         $data['totalTransactions'] = $this->transaction->totalTransactions();
         $data['dailyTransactions'] = $this->analytic->getDailyTrans();
@@ -80,7 +80,7 @@ class Dashboard extends CI_Controller{
                     $earningMonth = date("M", strtotime($get->transDate));
                     
                     if ($allMonth == $earningMonth) {
-                        $lastEarnings += $get->totalPrice;
+                        $lastEarnings += $get->totalAmount;
                         
                         $monthEarnings[$allMonth] = $lastEarnings;
                     } 
