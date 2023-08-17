@@ -17,6 +17,7 @@ $(document).ready(function(){
      * Toggle the form to add a new Cost
      */
     $("#createCost").click(function() {
+        populateCategoriesSelect();
         $("#costsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewCostDiv").toggleClass('hidden');
         $("#costName").focus();
@@ -181,7 +182,6 @@ $(document).ready(function(){
         $("#costIdEdit").val(costId);
         $("#costNameEdit").val(costName);
         $("#costAmountEdit").val(costAmount);
-        $("#costCategoryEdit").val(costCategory);
         $("#costDescriptionEdit").val(costDescription);
         $("#costCurrencyEdit").val(costCurrency);
         
@@ -193,6 +193,9 @@ $(document).ready(function(){
         $("#costCategoryEditErr").html("");
         $("#costDescriptionEditErr").html("");
         $("#costCurrencyEditErr").html("");
+
+        // Fetch and populate the grade teacher select field
+        populateEditCategoriesSelect(appRoot + "costs/getCategoriesForSelect/", costCategory);
         
         
         //launch modal
@@ -363,3 +366,71 @@ function resetCostSN(){
     });
 }
 
+
+function populateCategoriesSelect(url) {
+    $.ajax({
+        url: url ? url : appRoot + "costs/getCategoriesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var categories = response.categories;
+                var selectField = $('#costCategory');
+
+                // Clear existing options and add a default empty option
+                selectField.empty().append($('<option>', {
+                    value: '',
+                    text: 'Select Category'
+                }));
+
+                // Populate options
+                $.each(categories, function(index, category) {
+                    selectField.append($('<option>', {
+                        value: category.name,
+                        text: category.name 
+                    }));
+                });
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}
+
+
+// Function to populate the edit cost category select field
+function populateEditCategoriesSelect(url, selectedCategoryName) {
+
+    var selectField = $("#costCategoryEdit");
+
+    $.ajax({
+        url: url ? url : appRoot + "categories/getCategoriesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var categories = response.categories;
+
+                selectField.empty();
+
+                $.each(categories, function(index, category) {
+                    selectField.append($('<option>', {
+                        value: category.name,
+                        text: category.name,
+                        selected: category.name === selectedCategoryName
+                    }));
+                });
+
+
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}

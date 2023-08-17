@@ -226,4 +226,34 @@ class Costs extends CI_Controller{
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+
+    public function getCategoriesForSelect(){
+        $this->genlib->ajaxOnly();
+    
+        $orderBy = 'name'; // Order Teachers by name
+        $orderFormat = 'ASC';
+    
+        $this->load->model(['category']); // Load the Teacher model
+    
+        // Call the getAll function from the Teacher model to fetch Teachers
+        $categories = $this->category->getAll($orderBy, $orderFormat);
+    
+        if ($categories !== FALSE) {
+            $json['status'] = 1;
+            $json['categories'] = $categories; // Return the list of Teachers
+        } else {
+            $json['status'] = 0;
+            $json['message'] = "No Categories found.";
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
 }

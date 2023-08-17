@@ -83,11 +83,13 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="costCategory">Cost Category</label>
-                                <input type="text" id="costCategory" name="costCategory" placeholder="Cost Category" maxlength="30"
-                                    class="form-control" onchange="checkField(this.value, 'costCategoryErr')">
+                                <select id="costCategory" name="costCategory" class="form-control" onchange="checkField(this.value, 'costCategoryErr')">
+                                    <option value="">Select Category</option> <!-- Add a default empty option -->
+                                </select>
                                 <span class="help-block errMsg" id="costCategoryErr"></span>
                             </div>
                         </div>
+
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
@@ -163,7 +165,9 @@ defined('BASEPATH') OR exit('');
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="costCategoryEdit">Cost Category</label>
-                            <input type="text" id="costCategoryEdit" placeholder="Cost Category" autofocus class="form-control checkField">
+                            <select id="costCategoryEdit" class="form-control checkField">
+                                <option value="">Select Category</option>
+                            </select>
                             <span class="help-block errMsg" id="costCategoryEditErr"></span>
                         </div>
 
