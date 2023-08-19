@@ -103,8 +103,9 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="costCurrency">Cost Currency</label>
-                                <input type="text" id="costCurrency" name="costCurrency" placeholder="Cost Currency" maxlength="15"
-                                    class="form-control" onchange="checkField(this.value, 'costCurrencyErr')">
+                                <select id="costCurrency" name="costCurrency" class="form-control" onchange="checkField(this.value, 'costCurrencyErr')">
+                                    <option value="">Select Currency</option> <!-- Add a default empty option -->
+                                </select>
                                 <span class="help-block errMsg" id="costCurrencyErr"></span>
                             </div>
                         </div>
@@ -179,7 +180,9 @@ defined('BASEPATH') OR exit('');
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="costCurrencyEdit">Cost Currency</label>
-                            <input type="text" id="costCurrencyEdit" placeholder="Cost Currency" autofocus class="form-control checkField">
+                            <select id="costCurrencyEdit" class="form-control checkField">
+                                <option value="">Select Currency</option>
+                            </select>
                             <span class="help-block errMsg" id="costCurrencyEditErr"></span>
                         </div>
                        

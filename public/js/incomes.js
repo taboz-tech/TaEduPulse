@@ -17,6 +17,7 @@ $(document).ready(function(){
      * Toggle the form to add a new Income
      */
     $("#createIncome").click(function() {
+        populateCurrenciesSelect();
         $("#incomesListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewIncomeDiv").toggleClass('hidden');
         $("#incomeName").focus();
@@ -163,6 +164,7 @@ $(document).ready(function(){
     //triggers when a income's "edit" icon is clicked
     $("#incomesListTable").on('click', ".editIncome", function(e){
         e.preventDefault();
+        console.log("clicked")
 
 
         //get income info
@@ -178,7 +180,6 @@ $(document).ready(function(){
         $("#incomeNameEdit").val(incomeName);
         $("#incomeAmountEdit").val(incomeAmount);
         $("#incomeDescriptionEdit").val(incomeDescription);
-        $("#incomeCurrencyEdit").val(incomeCurrency);
         
         //remove all error messages that might exist
         $("#editIncomeFMsg").html("");
@@ -187,10 +188,79 @@ $(document).ready(function(){
         $("#incomeAmountEditErr").html("");
         $("#incomeDescriptionEditErr").html("");
         $("#incomeCurrencyEditErr").html("");
+
+        populateEditCurrenciesSelect(appRoot + "costs/getCurrenciesForSelect/", incomeCurrency);
+      
         
         
         //launch modal
         $("#editIncomeModal").modal('show');
+    });
+    
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //triggers when a income's "check" icon is clicked
+    $("#incomesListTable").on('click', ".updateFees", function(e){
+        e.preventDefault();
+    
+        var incomeId = $(this).attr('id').split("-")[1];
+        var incomeName = $("#incomeName-" + incomeId).html();
+        var incomeAmount = $("#incomeAmount-" + incomeId).html();
+        var incomeCurrency = $("#incomeCurrency-" + incomeId).html();
+    
+        // Set modal content
+        $("#modalIncomeId").val(incomeId);
+        $("#modalIncomeName").text(incomeName);
+        $("#modalIncomeAmount").text(incomeAmount);
+        $("#modalIncomeCurrency").text(incomeCurrency);
+    
+        //launch modal
+        $("#feesIncomeModal").modal('show');
+    
+    });
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    $("#feesAllowButton").click(function () {
+        var incomeId = $("#modalIncomeId").val();
+        var incomeName = $("#modalIncomeName").text();
+        var incomeAmount = $("#modalIncomeAmount").text();
+        var incomeCurrency = $("#modalIncomeCurrency").text();
+
+        // Perform the AJAX request
+        $.ajax({
+            type: 'POST',
+            url: appRoot+"students/bulkUpdateFees", 
+            data: {
+                newFees: incomeAmount,
+                feesToAdd: incomeAmount,
+                incomeName: incomeName,
+                incomeCurrency: incomeCurrency
+            },
+            dataType: 'json',
+            success: function(response) {
+                console.log(response)
+                if (response.status === 1) {
+                    alert(response.message);
+                    // Reload or update the page as needed
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred while processing the request.');
+            }
+        });
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -352,6 +422,73 @@ function lilt(url) {
 function resetIncomeSN(){
     $(".incomeSN").each(function(i){
         $(this).html(parseInt(i)+1);
+    });
+}
+
+function populateCurrenciesSelect(url) {
+    $.ajax({
+        url: url ? url : appRoot + "incomes/getCurrenciesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var currencies = response.currencies; // Updated variable name
+                var selectField = $('#incomeCurrency');
+
+                selectField.empty().append($('<option>', {
+                    value: '',
+                    text: 'Select Currency'
+                }));
+
+                $.each(currencies, function(index, currency) { // Updated variable name
+                    selectField.append($('<option>', {
+                        value: currency.name,
+                        text: currency.name 
+                    }));
+                });
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}
+
+
+
+
+function populateEditCurrenciesSelect(url, selectedCurrencyName) {
+
+    var selectField = $("#incomeCurrencyEdit");
+
+    $.ajax({
+        url: url ? url : appRoot + "incomes/getCurrenciesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var currencies = response.currencies;
+
+                selectField.empty();
+
+                $.each(currencies, function(index, currency) {
+                    selectField.append($('<option>', {
+                        value: currency.name,
+                        text: currency.name,
+                        selected: currency.name === selectedCurrencyName
+                    }));
+                });
+
+
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
     });
 }
 

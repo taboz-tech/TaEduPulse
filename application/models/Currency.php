@@ -163,6 +163,10 @@ class Currency extends CI_Model{
     ********************************************************************************************************************************
     */
 
+    public function getAllCurrencies() {
+        return $this->db->get('currencies')->result();
+    }
+
 }
 
 

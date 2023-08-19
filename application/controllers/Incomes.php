@@ -196,8 +196,6 @@ class Incomes extends CI_Controller{
     }
 
 
-
-
    /*
     ********************************************************************************************************************************
     ********************************************************************************************************************************
@@ -222,4 +220,35 @@ class Incomes extends CI_Controller{
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+
+    public function getCurrenciesForSelect(){
+        $this->genlib->ajaxOnly();
+    
+        $orderBy = 'name'; // Order Currencies  by name
+        $orderFormat = 'ASC';
+    
+        $this->load->model(['currency']); // Load the Currencies model
+    
+        // Call the getAll function from the Currency model to fetch Currencies 
+        $currencies = $this->currency->getAll($orderBy, $orderFormat);
+    
+        if ($currencies !== FALSE) {
+            $json['status'] = 1;
+            $json['currencies'] = $currencies; // Return the list of Currencies 
+        } else {
+            $json['status'] = 0;
+            $json['message'] = "No Currencies found.";
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
 }

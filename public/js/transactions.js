@@ -141,10 +141,56 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $("#currency").change(function(){
-        displayFlashMsg("Please wait...", spinnerClass, "", "");
-        
+        var selectedCurrency = parseFloat($(this).val());
+    
+        var selectedStudentNodes = document.getElementsByClassName("selectedStudent");
+        var selectedStudentNodeLength = selectedStudentNodes.length;
+    
+        for (var i = 0; i < selectedStudentNodeLength; i++) {
+            var studentStudent_id = selectedStudentNodes[i].value;
+            var owedFeesNode = selectedStudentNodes[i].parentNode.parentNode.children[1].children[1];
+            var currentFeesNode = selectedStudentNodes[i].parentNode.parentNode.children[3].children[1];
+            var transAmountNode = selectedStudentNodes[i].parentNode.parentNode.querySelector(".studentTransAmount");
+            var totalFeesNode = selectedStudentNodes[i].parentNode.parentNode.children[4].children[1];
+    
+            (function(student_id, owedNode, currentFeesNode, transAmountNode, totalFeesNode) {
+                $.ajax({
+                    url: appRoot + "students/getCurrentAndOwedFees",  
+                    method: 'GET', 
+                    data: {
+                        _iC: student_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 1) {
+                            var studentOwedFees = response.studentOwed_fees;
+                            var studentFees = response.studentFees;
+    
+                            var owedFees = parseFloat(studentOwedFees);
+                            var currentFees = parseFloat(studentFees);
+                            
+                            var newOwedFees = owedFees * selectedCurrency;
+                            var newCurrentFees = currentFees * selectedCurrency;
+    
+                            owedNode.textContent = newOwedFees.toFixed(2);
+                            currentFeesNode.textContent = newCurrentFees.toFixed(2);
+                            
+                            transAmountNode.value = (0).toFixed(2);
+                            totalFeesNode.textContent = (0).toFixed(2);
+                        } else {
+                            // Handle the case where the student information couldn't be retrieved
+                        }
+                    },
+                    error: function() {
+                        // Handle errors here
+                    }
+                });
+            })(studentStudent_id, owedFeesNode, currentFeesNode, transAmountNode, totalFeesNode);
+        }
+    
     });
-
+    
+    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,6 +440,7 @@ $(document).ready(function(){
         var custName = $("#custName").val();
         var custPhone = $("#custPhone").val();
         var custEmail = $("#custEmail").val();
+        var currency = $("#currency").val();
         
         // Add validation for custPhone
         var phonePattern = /^(07\d{8})$|^(\+263\d{9,14})$/;
@@ -430,18 +477,10 @@ $(document).ready(function(){
                 var term = termNode.value;
                 var expectedTotFees = transAmount;
 
-                // console.log("Owed Fees:", owedFees);
-                // console.log("Current Fees:", currentFees);
-                // console.log("Transaction Amount:", transAmount);
-                // console.log("Total Fees:", totalFees);
-                // console.log("term:" , term);
-                // console.log("Expected Total Fees:", expectedTotFees);
-
+               
                 //validate data
                 if ((transAmount === 0) || (owedFees < transAmount) || (expectedTotFees !== totalFees)) {
-                    // console.log(expectedTotFees);
-                    // console.log(transAmount)
-                    // console.log(totalFees);
+                    
                     totalFeesNode.style.backgroundColor = expectedTotFees !== totalFees ? "red" : "";
                     transAmountNode.style.backgroundColor = (transAmount === 0) || (owedFees < transAmount) ? "red" : "";
                     return;
@@ -451,7 +490,7 @@ $(document).ready(function(){
                     transAmountNode.style.backgroundColor = "";
                     
                     //then prepare data to add to array of students' info
-                    var studentInfo = {_sI:studentStudent_id, transAmount:transAmount, currentFees:currentFees, totalFees:totalFees,term:term};
+                    var studentInfo = {_sI:studentStudent_id, transAmount:transAmount, currentFees:currentFees, totalFees:totalFees,term:term, currency:currency};
                     
                     //add data to array
                     arrToSend.push(studentInfo);
@@ -472,39 +511,65 @@ $(document).ready(function(){
                 var _aoi = JSON.stringify(arrToSend);
     
                 displayFlashMsg("Processing transaction...", spinnerClass, "", "");
-                
-                //send details to server
+
                 $.ajax({
-                    url: appRoot+"transactions/nso_",
-                    method: "post",
-                    data: {_aoi:_aoi, _mop:modeOfPayment, _at:amountTendered, _cd:changeDue, _ca:cumAmount, cn:custName, ce:custEmail, cp:custPhone, description:description},
-                    success:function(returnedData){
-                        if(returnedData.status === 1){
-                            hideFlashMsg();
+                    url: appRoot + "transactions/getCurrenciesForSelect/",
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 1) {
+                            var selectedCurrency = null;
 
-                            //reset the form
-                            resetSalesTransForm();
+                            for (var i = 0; i < response.currencies.length; i++) {
+                                if (response.currencies[i].rate === currency) {
+                                    currency = response.currencies[i].name;
+                                    break;
+                                }
+                            }
+                            
+                            //send details to server
+                            $.ajax({
+                                url: appRoot+"transactions/nso_",
+                                method: "post",
+                                data: {_aoi:_aoi, _mop:modeOfPayment, _at:amountTendered, _cd:changeDue, _ca:cumAmount, cn:custName, ce:custEmail, cp:custPhone, description:description, currency:currency},
+                                success:function(returnedData){
+                                    if(returnedData.status === 1){
+                                        hideFlashMsg();
 
-                            //display receipt
-                            $("#transReceipt").html(returnedData.transReceipt);
-                            $("#transReceiptModal").modal('show');
+                                        //reset the form
+                                        resetSalesTransForm();
 
-                            //refresh the transaction list table
-                            latr_();
+                                        //display receipt
+                                        $("#transReceipt").html(returnedData.transReceipt);
+                                        $("#transReceiptModal").modal('show');
 
-                            //update total earned today
-                            $("#totalEarnedToday").html(returnedData.totalEarnedToday);
+                                        //refresh the transaction list table
+                                        latr_();
 
-                            //remove all students list in transaction and leave just one
-                            resetTransList();
+                                        //update total earned today
+                                        $("#totalEarnedToday").html(returnedData.totalEarnedToday);
+
+                                        //remove all students list in transaction and leave just one
+                                        resetTransList();
+                                    } else {
+                                        changeFlashMsgContent(returnedData.msg, "", "red", "");
+                                    }
+                                },
+                                error: function(){
+                                    checkBrowserOnline(true);
+                                }
+                            });
+                            
                         } else {
-                            changeFlashMsgContent(returnedData.msg, "", "red", "");
+                            console.log(response.message);
                         }
                     },
-                    error: function(){
-                        checkBrowserOnline(true);
+                    error: function(xhr, status, error) {
+                        console.log('AJAX Error: ' + error);
                     }
                 });
+                
+                
             }
         }
     });
@@ -599,6 +664,7 @@ $(document).ready(function(){
     
     //TO SHOW/HIDE THE TRANSACTION FORM
     $("#showTransForm").click(function(){
+        populateCurrenciesSelect();
         $("#newTransDiv").toggleClass('collapse');
         
         if($("#newTransDiv").hasClass('collapse')){
@@ -1024,4 +1090,35 @@ function changeSelectedStudentWithBarcodeText(barcodeTextElem, selectedStudent){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function populateCurrenciesSelect(url) {
+    $.ajax({
+        url: url ? url : appRoot + "transactions/getCurrenciesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+                var currencies = response.currencies;
+                var selectField = $('#currency');
+
+                selectField.empty();
+                $.each(currencies, function(index, currency) {
+                    selectField.append($('<option>', {
+                        value: currency.rate,
+                        text: currency.name 
+                    }));
+                });
+
+                // Set the default selected currency to the first one in the response
+                if (currencies.length > 0) {
+                    selectField.val(currencies[0].rate);
+                }
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}
 

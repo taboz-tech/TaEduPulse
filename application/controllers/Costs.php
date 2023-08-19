@@ -238,20 +238,50 @@ class Costs extends CI_Controller{
     public function getCategoriesForSelect(){
         $this->genlib->ajaxOnly();
     
-        $orderBy = 'name'; // Order Teachers by name
+        $orderBy = 'name'; // Order Categoriess by name
         $orderFormat = 'ASC';
     
-        $this->load->model(['category']); // Load the Teacher model
+        $this->load->model(['category']); // Load the Categories model
     
-        // Call the getAll function from the Teacher model to fetch Teachers
+        // Call the getAll function from the Categories model to fetch Categoriess
         $categories = $this->category->getAll($orderBy, $orderFormat);
     
         if ($categories !== FALSE) {
             $json['status'] = 1;
-            $json['categories'] = $categories; // Return the list of Teachers
+            $json['categories'] = $categories; // Return the list of Categoriess
         } else {
             $json['status'] = 0;
             $json['message'] = "No Categories found.";
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+
+    public function getCurrenciesForSelect(){
+        $this->genlib->ajaxOnly();
+    
+        $orderBy = 'name'; // Order Categories by name
+        $orderFormat = 'ASC';
+    
+        $this->load->model(['currency']); // Load the Categorie model
+    
+        // Call the getAll function from the Categorie model to fetch Categories
+        $currencies = $this->currency->getAll($orderBy, $orderFormat);
+    
+        if ($currencies !== FALSE) {
+            $json['status'] = 1;
+            $json['currencies'] = $currencies; // Return the list of Categories
+        } else {
+            $json['status'] = 0;
+            $json['message'] = "No Currencies found.";
         }
     
         $this->output->set_content_type('application/json')->set_output(json_encode($json));

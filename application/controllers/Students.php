@@ -410,6 +410,47 @@ class Students extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+
+    /**
+     * Update fees and owed fees for all students
+     */
+    public function bulkUpdateFees() {
+        $this->genlib->ajaxOnly();
+    
+        $newFees = $this->input->post('newFees', TRUE); // Get the new fees value
+        $feesToAdd = $this->input->post('feesToAdd', TRUE); // Get the amount to add to owed fees
+    
+        if (!empty($newFees) && is_numeric($newFees) && !empty($feesToAdd) && is_numeric($feesToAdd)) {
+            $this->load->model('student');
+            $updated = $this->student->updateFees($newFees, $feesToAdd);
+    
+            if ($updated) {
+                // Add event to log
+                $desc = "Bulk update of fees and owed fees for all students. New Fees: {$newFees}, Fees to Add: {$feesToAdd}";
+                $this->genmod->addevent("Bulk Fees Update", 0, $desc, 'students', $this->session->admin_id);
+    
+                $json['status'] = 1;
+                $json['message'] = 'Fees and owed fees updated successfully for all students.';
+            } else {
+                $json['status'] = 0;
+                $json['message'] = 'Failed to update fees and owed fees.';
+            }
+        } else {
+            $json['status'] = 0;
+            $json['message'] = 'Invalid input values.';
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+    
+
       
     
 }

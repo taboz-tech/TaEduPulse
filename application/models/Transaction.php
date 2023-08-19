@@ -62,6 +62,7 @@ class Transaction extends CI_Model {
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentSurname) AS studentSurname');
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.description) AS description');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.currency) AS currency');
             
             
             // Additional fields for studentName and studentSurname
@@ -110,11 +111,11 @@ class Transaction extends CI_Model {
      * @param string $ce Customer Email
      * @return boolean
      */
-    public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term) {
+    public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term,$currency) {
         $data = ['studentName' => $studentName, 'student_id' => $studentStudent_id, 'studentSurname' => $studentSurname, 'studentClass_name' => $studentClass_name, 'description' => $description, 'totalAmount' => $totalFees,
             'amountTendered' => $_at, 'changeDue' => $_cd, 'modeOfPayment' => $_mop, 'transType' => $transType,
             'staffId' => $this->session->admin_id, 'totalMoneySpent' => $cumAmount, 'ref' => $ref, 'cust_name'=>$cust_name,'paymentStatus'=>$paymentStatus,'term'=>$term, 'cust_phone'=>$cust_phone,
-            'cust_email'=>$cust_email];
+            'cust_email'=>$cust_email,'currency'=>$currency];
 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" ?

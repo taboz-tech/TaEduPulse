@@ -70,13 +70,14 @@ class Transactions extends CI_Controller{
         $this->pagination->initialize($config);//initialize the library class
         
         // Get all transactions from the database
-        log_message('error','here we are before');
-        $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
         
+        $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
+        // log_message('error', 'Contents of $data[\'allTransactions\']: ' . print_r($data['allTransactions'], true));
+
 
         // Calculate and assign the 'range' value
         $data['range'] = $totalTransactions > 0 ? ($start+1) . "-" . ($start + count($data['allTransactions'])) . " of " . $totalTransactions : "";
-        log_message('error','here we are after');
+        
 
         // Generate pagination links
         $data['links'] = $this->pagination->create_links();
@@ -113,20 +114,28 @@ class Transactions extends CI_Controller{
         $cust_phone = $this->input->post('cp', TRUE);
         $cust_email = $this->input->post('ce', TRUE);
         $description = $this->input->post('description', TRUE);
+        $currency = $this->input->post('currency',TRUE);
         /*
          * Loop through the arrOfStudentsDetails and ensure each student's details has not been manipulated
          * The Fees Debt must match the student's fees owed in db, the total Amount must match the amount paid nothing added
          *
          * 
          */
+
+        // Load the Currency model
+        $this->load->model('currency');
+
+        // Fetch all currencies' information
+        $currencies = $this->currency->getAllCurrencies();
+
         
-        $allIsWell = $this->validateStudentsDet($arrOfStudentsDetails, $cumAmount, $_at);
+        $allIsWell = $this->validateStudentsDet($arrOfStudentsDetails, $cumAmount, $_at, $currencies);
         
         
         if($allIsWell){//insert each sales order into db, generate receipt and return info to client
             
             //will insert info into db and return transaction's receipt
-            $returnedData = $this->insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description);
+            $returnedData = $this->insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description,$currency);
                     
             $json['status'] = $returnedData ? 1 : 0;
             $json['msg'] = $returnedData ? "Transaction successfully processed" : 
@@ -169,48 +178,46 @@ class Transactions extends CI_Controller{
      * @return boolean
      */
 
-    private function validateStudentsDet($arrOfStudentsInfo, $cumAmountFromClient, $amountTendered){
+
+     private function validateStudentsDet($arrOfStudentsInfo, $cumAmountFromClient, $amountTendered) {
         $error = 0;
-        
-        //loop through the student's info and validate each
-        //return error if at least one seems suspicious (i.e. fails validation)
-        foreach ($arrOfStudentsInfo as $get){
-            $studentStudent_id = $get->_sI; //use this to get the student's fees
+    
+        foreach ($arrOfStudentsInfo as $get) {
+            $studentStudent_id = $get->_sI;
             $feesToPay = $get->currentFees;
-            $feesToPayInDb = $this->genmod->gettablecol('students', 'fees', 'student_id', $studentStudent_id);
-            
-            //ensure both current fees match
-            if ($feesToPayInDb != $feesToPay) {
+            $currencyRate = $get->currency; // Assuming rate is provided in the array
+    
+            // Calculate fees from the database using the currency rate
+            $feesToPayInDb = $this->genmod->gettablecol('students', 'fees', 'student_id', $studentStudent_id) * $currencyRate;
+    
+            if (abs($feesToPayInDb - $feesToPay) > 0.001) { // Adding a small tolerance for floating-point precision
                 $error++;
             }
-            
-            $expectedTotFees = $get->transAmount; //calculate expected totFees
-            
-            //ensure both match
+    
+            $expectedTotFees = $get->transAmount;
+    
             if ($expectedTotFees != $get->totalFees) {
                 $error++;
             }
-            
-            //no need to validate others, just break out of the loop if one fails validation
-            if ($error > 0){
+    
+            if ($error > 0) {
                 return FALSE;
             }
-            
+    
             // Update any other relevant logic here
-            
         }
-
+    
         $expectedCumAmount = $cumAmountFromClient;
-        
-        // check if cum amount also matches and ensure amount tendered is not less than $expectedCumAmount
-        if (($expectedCumAmount != $cumAmountFromClient) || ($expectedCumAmount > $amountTendered)){
+    
+        if (($expectedCumAmount != $cumAmountFromClient) || ($expectedCumAmount > $amountTendered)) {
             return FALSE;
         }
-        
-        //if code execution reaches here, it means all is well
+    
         $this->eventual_total = $expectedCumAmount;
         return TRUE;
     }
+    
+   
         
     /*
     ********************************************************************************************************************************
@@ -232,9 +239,10 @@ class Transactions extends CI_Controller{
      * @param type $cust_email
      * @param type $description
      * @param type $term
+     * @param type $currency
      * @return boolean
      */
-    private function insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description){
+    private function insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description,$currency){
         $allTransInfo = [];//to hold info of all students' in transaction
         
         //generate random string to use as transaction ref
@@ -267,13 +275,20 @@ class Transactions extends CI_Controller{
                  * add transaction to db
                  * function header: add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term)
                  */
-                $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term);
+                $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term,$currency);
                 
-                $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalAmount' => $totalFees, 'term' => $term];
+                $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalAmount' => $totalFees, 'term' => $term,'currency'=>$currency];
+                // log_message('error', 'Contents of $allTransInfo[' . $transId .']: ' . print_r($allTransInfo[$transId], true));
                 
+                // Load the Currency model
+                $this->load->model('currency');
+
+                // Fetch all currencies' information
+                $currencies = $this->currency->getAllCurrencies();
+
                 // update student fees owed in db by removing the transAmount
                 // function header: decrementStudent($studentStudent_id, $amountToRemove)
-                $this->student->decrementStudent($studentStudent_id, $transAmount);
+                $this->student->decrementStudent($studentStudent_id, $transAmount, $currencies,$currency);
                                 
             } catch (Exception $e) {
                 
@@ -297,7 +312,8 @@ class Transactions extends CI_Controller{
             $dateInDb = $this->genmod->getTableCol('transactions', 'transDate', 'transId', $transId);
             
             //generate receipt to return
-            $dataToReturn['transReceipt'] = $this->genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $dateInDb, $_mop, $cust_name, $cust_phone, $cust_email);
+            $dataToReturn['transReceipt'] = $this->genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $dateInDb, $_mop, $cust_name, $cust_phone, $cust_email, $currency);
+
             $dataToReturn['transRef'] = $ref;
             
             return $dataToReturn;
@@ -327,7 +343,7 @@ class Transactions extends CI_Controller{
      * @param type $cust_email
      * @return type
      */
-    private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email){
+    private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email,$currency){
         $data['allTransInfo'] = $allTransInfo;
 
         $data['cumAmount'] = $cumAmount;
@@ -339,6 +355,7 @@ class Transactions extends CI_Controller{
         $data['cust_name'] = $cust_name;
         $data['cust_phone'] = $cust_phone;
         $data['cust_email'] = $cust_email;
+        $data['currency'] = $currency;
         
         //generate and return receipt
         $transReceipt = $this->load->view('transactions/transreceipt', $data, TRUE);
@@ -379,10 +396,11 @@ class Transactions extends CI_Controller{
             $cust_name = $transInfo[0]['cust_name'];
             $cust_phone = $transInfo[0]['cust_phone'];
             $cust_email = $transInfo[0]['cust_email'];
+            $currency = $transInfo[0]['currency'];
             
             $json['transReceipt'] = $this->genTransReceipt($transInfo, $cumAmount, $amountTendered, $changeDue, $ref, 
                 $transDate, $modeOfPayment,  $cust_name,
-                $cust_phone, $cust_email);
+                $cust_phone, $cust_email,$currency);
         }
         
         else{
@@ -409,5 +427,43 @@ class Transactions extends CI_Controller{
         $data['allTransactions'] = $this->transaction->getDateRange($from_date, $to_date);
         
         $this->load->view('transactions/transReport', $data);
+    }
+    /*
+    ****************************************************************************************************************************
+    ****************************************************************************************************************************
+    ****************************************************************************************************************************
+    ****************************************************************************************************************************
+    ****************************************************************************************************************************
+    */
+
+    public function getCurrenciesForSelect(){
+        $this->genlib->ajaxOnly();
+    
+        $orderBy = 'name'; // Order Currencies  by name
+        $orderFormat = 'ASC';
+    
+        $this->load->model(['currency']); // Load the Currencies model
+    
+        // Call the getAll function from the Currency model to fetch Currencies 
+        $currencies = $this->currency->getAll($orderBy, $orderFormat);
+    
+        if ($currencies !== FALSE) {
+            $json['status'] = 1;
+            $json['currencies'] = $currencies; // Return the list of Currencies 
+        } else {
+            $json['status'] = 0;
+            $json['message'] = "No Currencies found.";
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    private function getCurrencyRateByName($currencyName, $currencies) {
+        foreach ($currencies as $currency) {
+            if ($currency->name === $currencyName) {
+                return $currency->rate;
+            }
+        }
+        return 1.0; // Default rate if currency is not found (assumes USD as base)
     }
 }

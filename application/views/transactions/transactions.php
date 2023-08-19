@@ -132,19 +132,22 @@ if(isset($students) && !empty($students)){
                                         
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-8 form-group-sm">
+                                        <div class="col-sm-4 form-group-sm">
                                                 <label for="description">Description</label>
                                                 <textarea id="description" class="form-control" rows="3" placeholder="Enter a description"></textarea>
                                         </div>
 
-                                        <div class="col-sm-3 form-group-sm">
-                                            <label>Currency</label>
-                                            <select class="form-control " id= "currency">
-                                                <option value="USD">USD</option>
-                                                <option value="ZAR">ZAR</option>
-                                                <option value="ZWL">ZWL</option>
+                                        
+                                        <div class="col-sm-4 form-group-sm">
+                                            <label for="currency">Transaction Currency</label>
+                                            <select id="currency" name="currency" class="form-control" onchange="checkField(this.value, 'currencyErr')">
+                                                <option value="">Select Currency</option> <!-- Add a default empty option -->
                                             </select>
+                                            <span class="help-block errMsg" id="currencyErr"></span>
                                         </div>
+                                      
+
+                                        
 
                                     </div>
                                 </div>
@@ -225,33 +228,33 @@ if(isset($students) && !empty($students)){
 
 
 <div class="row hidden" id="divToClone">
-    <div class="col-sm-4 form-group-sm">
+    <div class="col-sm-2 form-group-sm">
         <label>Student</label>
         <select class="form-control selectedStudentDefault" onchange="selectedStudent(this)"></select>
     </div>
 
-    <div class="col-sm-2 form-group-sm studentOwedFeesDiv">
+    <div class="col-sm-1 form-group-sm studentOwedFeesDiv">
         <label>Owed Fees</label>
         <span class="form-control studentOwedFees">0</span>
     </div>
 
-    <div class="col-sm-2 form-group-sm studentTransAmountDiv">
+    <div class="col-sm-1 form-group-sm studentTransAmountDiv">
         <label>Amount-Pay</label>
         <input type="number" min="0" class="form-control studentTransAmount" value="0">
         <span class="help-block studentTransAmountErr errMsg"></span>
     </div>
 
-    <div class="col-sm-2 form-group-sm">
+    <div class="col-sm-1 form-group-sm">
         <label>Current Fees</label>
         <span class="form-control studentCurrentFees">0.00</span>
     </div>
 
-    <div class="col-sm-2 form-group-sm">
+    <div class="col-sm-1 form-group-sm">
         <label>Total Fees</label>
         <span class="form-control studentTotalFees">0.00</span>
     </div>
 
-    <div class="col-sm-3 form-group-sm">
+    <div class="col-sm-2 form-group-sm">
         <label>Term</label>
         <select class="form-control selectedTerm">
             <option value="january">January</option>

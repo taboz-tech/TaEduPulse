@@ -350,11 +350,9 @@ $(document).ready(function(){
         // Calculate the combined owed fees value (initial + owed fees from form)
         var owedFeesFromForm = parseFloat(studentOwed_fees);
         combinedOwedFees = initialOwedFees + owedFeesFromForm;
-        console.log("we are here")
         } else {
             // Store the owed fees value from the form
             combinedOwedFees = parseFloat(studentOwed_fees);
-            console.log("weare below my guy")
         }
     
         $("#editStudentFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");

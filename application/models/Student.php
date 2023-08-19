@@ -158,6 +158,25 @@ class Student extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+
+    /**
+     * Bulk update fees and owed fees for all students
+     * @param float $newFees The new value for fees for all students
+     * @param float $feesToAdd The amount to add to the current owed fees for all students
+     * @return bool TRUE on success, FALSE on failure
+     */
+    public function updateFees($newFees, $feesToAdd) {
+        $this->db->set('fees', $newFees);
+        $this->db->set('owed_fees', 'owed_fees + ' . $feesToAdd, FALSE);
+        $this->db->update('students');
+        
+        if ($this->db->affected_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
    
    /*
     ********************************************************************************************************************************
@@ -261,19 +280,41 @@ class Student extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-    public function decrementStudent($studentStudent_id, $numberToRemove){
-        $q = "UPDATE students SET owed_fees = owed_fees - ? WHERE student_id = ?";
-        
-        $this->db->query($q, [$numberToRemove, $studentStudent_id]);
-        
-        if($this->db->affected_rows() > 0){
-            return TRUE;
+
+    public function decrementStudent($studentStudent_id, $amountToRemove, $currencies, $currency) {
+        log_message('error', 'the currency is: ' . $currency);
+        log_message('error', 'the currencies are: ' . print_r($currencies, TRUE));
+    
+        // Determine the currency rate using currency name
+        $currencyRate = 1.0; // Default value if currency is not found
+    
+        foreach ($currencies as $currencyInfo) {
+            if ($currencyInfo->name === $currency) {
+                $currencyRate = $currencyInfo->rate;
+                break;
+            }
         }
-        
-        else{
+    
+        log_message('error', 'the currency rate is: ' . $currencyRate);
+        log_message('error', 'the Amount to remove is: ' . $amountToRemove);
+
+    
+        // Convert the given amount to USD using the currency rate
+        $amountInUSD = $amountToRemove / $currencyRate;
+    
+        log_message('error', 'amount to remove in USD: ' . $amountInUSD);
+    
+        $q = "UPDATE students SET owed_fees = owed_fees - ? WHERE student_id = ?";
+    
+        $this->db->query($q, [$amountInUSD, $studentStudent_id]);
+    
+        if ($this->db->affected_rows() > 0) {
+            return TRUE;
+        } else {
             return FALSE;
         }
     }
+    
 }
 
 

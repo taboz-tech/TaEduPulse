@@ -18,6 +18,7 @@
                     <th>Change Due</th>
                     <th>Mode of Payment</th>
                     <th>Description</th>
+                    <th>Currency</th>
                     <th>Staff</th>
                     <th>Customer</th>
                     <th>Date</th>
@@ -31,11 +32,12 @@
                     <td><a class="pointer vtr" style="color:#b30d0d" title="Click to view receipt"><?= $get->ref ?></a></td>
                     <td><?= $get->studentName?></td>
                     <td><?= $get->studentSurname?></td>
-                    <td>$<?= number_format($get->totalAmount, 2) ?></td>
+                    <td>$<?= number_format($get->totalMoneySpent, 2) ?></td>
                     <td>$<?= number_format($get->amountTendered, 2) ?></td>
                     <td>$<?= number_format($get->changeDue, 2) ?></td>
                     <td><?=  str_replace("_", " ", $get->modeOfPayment)?></td>
                     <td><?=$get->description?></td>
+                    <td><?=$get->currency?></td>
                     <td><?=$get->staffName?></td>
                     <td><?=$get->cust_name?> - <?=$get->cust_phone?> - <?=$get->cust_email?></td>
                     <td><?= date('jS M, Y h:ia', strtotime($get->transDate)) ?></td>

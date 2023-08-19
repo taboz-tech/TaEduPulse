@@ -88,8 +88,9 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="incomeCurrency">Income Currency</label>
-                                <input type="text" id="incomeCurrency" name="incomeCurrency" placeholder="Income Currency" maxlength="15"
-                                    class="form-control" onchange="checkField(this.value, 'incomeCurrencyErr')">
+                                <select id="incomeCurrency" name="incomeCurrency" class="form-control" onchange="checkField(this.value, 'incomeCurrencyErr')">
+                                    <option value="">Select Currency</option> <!-- Add a default empty option -->
+                                </select>
                                 <span class="help-block errMsg" id="incomeCurrencyErr"></span>
                             </div>
                         </div>
@@ -156,7 +157,9 @@ defined('BASEPATH') OR exit('');
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="incomeCurrencyEdit">Income Currency</label>
-                            <input type="text" id="incomeCurrencyEdit" placeholder="Income Currency" autofocus class="form-control checkField">
+                            <select id="incomeCurrencyEdit" class="form-control checkField">
+                                <option value="">Select Currency</option>
+                            </select>
                             <span class="help-block errMsg" id="incomeCurrencyEditErr"></span>
                         </div>
                        
@@ -172,5 +175,49 @@ defined('BASEPATH') OR exit('');
         </div>
     </div>
 </div>
+<!--end of modal-->
+
+<!--modal to update fees-->
+<div id="feesIncomeModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center"><strong>Fees Information</strong></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="row text-center">
+                        <div class="col-sm-12">
+                            <strong>Name:</strong> <span id="modalIncomeName"></span>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-sm-12">
+                            <strong>Amount:</strong> <span id="modalIncomeAmount"></span>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-sm-12">
+                            <strong>Currency:</strong> <span id="modalIncomeCurrency"></span>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-sm-12">
+                            <input type="hidden" id="modalIncomeId">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p class="text-center"><strong>You are about to add this fees to all student balances.</strong></p>
+                <button id="feesAllowButton" class="btn btn-primary" data-dismiss="modal">Allow</button>
+                <button id="feesCancelButton" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!--end of modal-->
 <script src="<?=base_url()?>public/js/incomes.js"></script>
