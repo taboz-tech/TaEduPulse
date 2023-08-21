@@ -282,9 +282,7 @@ class Student extends CI_Model{
     */
 
     public function decrementStudent($studentStudent_id, $amountToRemove, $currencies, $currency) {
-        log_message('error', 'the currency is: ' . $currency);
-        log_message('error', 'the currencies are: ' . print_r($currencies, TRUE));
-    
+        
         // Determine the currency rate using currency name
         $currencyRate = 1.0; // Default value if currency is not found
     
@@ -294,11 +292,7 @@ class Student extends CI_Model{
                 break;
             }
         }
-    
-        log_message('error', 'the currency rate is: ' . $currencyRate);
-        log_message('error', 'the Amount to remove is: ' . $amountToRemove);
 
-    
         // Convert the given amount to USD using the currency rate
         $amountInUSD = $amountToRemove / $currencyRate;
     
@@ -314,6 +308,27 @@ class Student extends CI_Model{
             return FALSE;
         }
     }
+
+     /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+
+    public function incrementStudent($studentStudent_id, $amountToAdd) {
+        $q = "UPDATE students SET owed_fees = owed_fees + ? WHERE student_id = ?";
+    
+        $this->db->query($q, [$amountToAdd, $studentStudent_id]);
+    
+        if ($this->db->affected_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
     
 }
 

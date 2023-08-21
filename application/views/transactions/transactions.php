@@ -26,13 +26,13 @@ if(isset($students) && !empty($students)){
                         <button class='btn btn-primary btn-sm' id='showTransForm'><i class="fa fa-plus"></i> New Transaction </button>
                     </span>
                 </div>
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                     <span class="pointer text-primary">
                         <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#reportModal'>
                             <i class="fa fa-newspaper-o"></i> Generate Report 
                         </button>
                     </span>
-                </div>
+                </div> -->
             </div>
             <br>
             <!--- End of row to create new transaction-->
@@ -320,6 +320,35 @@ if(isset($students) && !empty($students)){
         </div>
     </div>
 </div>
+
+<div id="refundModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center">Process Refund</h4>
+                <div id="refundMessage" class="text-center"></div>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <input type="hidden" id="transactionId" value="">
+                    <!-- Add the hidden input field for transaction ID -->
+                    <div class="form-group">
+                        <label for="refundAmount">Refund Amount</label>
+                        <input type="text" id="refundAmount" placeholder="Refund Amount" class="form-control">
+                        <span class="help-block" id="refundAmountErr"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="processRefundSubmit">Process Refund</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!---End of copy of div to clone when adding more students to sales transaction---->
 <script src="<?=base_url()?>public/js/transactions.js"></script>

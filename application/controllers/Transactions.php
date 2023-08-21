@@ -72,7 +72,7 @@ class Transactions extends CI_Controller{
         // Get all transactions from the database
         
         $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
-        // log_message('error', 'Contents of $data[\'allTransactions\']: ' . print_r($data['allTransactions'], true));
+        //  log_message('error', 'Contents of $data[\'allTransactions\']: ' . print_r($data['allTransactions'], true));
 
 
         // Calculate and assign the 'range' value
@@ -458,12 +458,80 @@ class Transactions extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
-    private function getCurrencyRateByName($currencyName, $currencies) {
-        foreach ($currencies as $currency) {
-            if ($currency->name === $currencyName) {
-                return $currency->rate;
+    
+    public function refundTransaction() {
+        $this->genlib->ajaxOnly();
+    
+        $refundAmount = $this->input->post('refundAmount');
+        $transactionIdString = $this->input->post('transactionId'); // Comma-separated string of transaction IDs
+        log_message('error','this is the transId'.$transactionIdString);
+        $transactionIds = explode(',', $transactionIdString); // Convert the string to an array
+        log_message('error','we are here now');
+    
+        $successCount = 0; // Count of successfully refunded transactions
+    
+        foreach ($transactionIds as $transactionId) {
+    
+            $transaction = $this->transaction->getTrans($transactionId);
+    
+    
+            if (!$transaction) {
+                continue; // Move to the next transaction if not found
+            }
+    
+            // Check if the transaction has already been refunded
+            if (isset($transaction[0]['refundDate'])) {
+                continue;                
+            } 
+    
+            // Perform the refund process
+            // Use the provided refundAmount instead of fetching from transaction
+            $result = $this->transaction->updateRefundAmount($transactionId, $refundAmount);
+    
+            if ($result) {
+                $successCount++;
+    
+                // Retrieve the transaction details to get the 'ref'
+                $transactionDetails = $this->transaction->getTrans($transactionId);
+                if ($transactionDetails) {
+                    $transactionRef = $transactionDetails[0]['ref'];
+    
+                    // Add event log for the refund
+                    $eventDesc = "Refund processed for transaction with ref: " . $transactionRef;
+                    $this->genmod->addevent("Refund Processed", $transactionRef, $eventDesc, 'transactions', $this->session->admin_id);
+                }
+            }
+    
+            // Add student fees logic here
+            if (isset($transaction[0]['student_id'])) {
+                $studentId = $transaction[0]['student_id'];
+
+
+                $this->load->model('student');
+
+                $this->student->incrementStudent($studentId,$refundAmount);
+
+
+                log_message('error', 'Student ID: ' . $studentId);
+                log_message('error', 'Fee Amount: ' . $refundAmount);
+            
+    
+                // Add your logic to update the student's fees with the refunded amount
+                // For example:
+                // $this->student_model->addFees($studentId, $feeAmount);
             }
         }
-        return 1.0; // Default rate if currency is not found (assumes USD as base)
+    
+        $json['status'] = ($successCount > 0) ? 1 : 0;
+        $json['message'] = ($successCount > 0) ? "Refunds processed successfully." : "No refunds processed.";
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
+    
+    
+    
+
+    
+    
 }

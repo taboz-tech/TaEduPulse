@@ -235,6 +235,7 @@ class Students extends CI_Controller{
     */
     // generate a spreadsheet with students fees owed and amount paid 
     public function generateReport() {
+        log_message('error','we are here');
         // Load the Student model
         $this->load->model('Student');
 

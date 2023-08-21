@@ -115,6 +115,12 @@ defined('BASEPATH') OR exit('');
                                 Database Management
                             </a>
                         </li>
+                        <li class="<?= $pageTitle == 'Finances' ? 'active' : '' ?>">
+                            <a href="<?= site_url('finances') ?>">
+                                <i class="fa fa-database"></i>
+                                Finances
+                            </a>
+                        </li>
                         
                         <li class="<?= $pageTitle == 'Administrators' ? 'active' : '' ?>">
                             <a href="<?= site_url('administrators') ?>">
@@ -225,7 +231,14 @@ defined('BASEPATH') OR exit('');
                                 Incomes
                             </a>
                         </li>
+
                         
+                        <li class="<?= $pageTitle == 'Finances' ? 'active' : '' ?>">
+                            <a href="<?= site_url('finances') ?>">
+                                <i class="fa fa-database"></i>
+                                Finances
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">

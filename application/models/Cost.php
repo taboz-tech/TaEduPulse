@@ -169,6 +169,51 @@ class Cost extends CI_Model{
     ********************************************************************************************************************************
     */
 
+    public function totalCostZar() {
+        $q = "SELECT SUM(amount) as 'totalCostZAR' FROM costs where currency = 'ZAR'";
+
+        $run_q = $this->db->query($q);
+
+        if ($run_q->num_rows() > 0) {
+            foreach ($run_q->result() as $get) {
+                return $get->totalCostZAR;
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    public function totalCostUsd() {
+        $q = "SELECT SUM(amount) as 'totalCostUSD' FROM costs where currency = 'Usd'";
+
+        $run_q = $this->db->query($q);
+
+        if ($run_q->num_rows() > 0) {
+            foreach ($run_q->result() as $get) {
+                return $get->totalCostUSD;
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    public function totalCostZwl() {
+        $q = "SELECT SUM(amount) as 'totalCostZWL' FROM costs where currency = 'ZWL'";
+
+        $run_q = $this->db->query($q);
+
+        if ($run_q->num_rows() > 0) {
+            foreach ($run_q->result() as $get) {
+                return $get->totalCostZWL;
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
 }
 
 

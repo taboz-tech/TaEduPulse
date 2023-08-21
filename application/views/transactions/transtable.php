@@ -23,6 +23,8 @@
                     <th>Customer</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Refund</th>
+                    <th>ACTION</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +44,16 @@
                     <td><?=$get->cust_name?> - <?=$get->cust_phone?> - <?=$get->cust_email?></td>
                     <td><?= date('jS M, Y h:ia', strtotime($get->transDate)) ?></td>
                     <td><?=$get->cancelled ? 'Cancelled' : 'Completed'?></td>
+                    <td class="text-center">
+                        <?php if ($get->refundAmount !== null && $get->refundAmount != 0): ?>
+                            <span class="text-success"><i class="fa fa-check"></i></span>
+                        <?php else: ?>
+                            <span class="text-danger"><i class="fa fa-times"></i></span>
+                        <?php endif; ?>
+                    </td>
+                    <td class="text-center text-primary">
+                            <span class="refundTrans" id="refund-<?=$get->transId?>"><i class="fa fa-undo"></i> </span>
+                        </td>
                 </tr>
                 <?php $sn++; ?>
                 <?php endforeach; ?>

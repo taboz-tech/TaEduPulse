@@ -32,11 +32,16 @@ class Transaction extends CI_Model {
      */
     public function getAll($orderBy, $orderFormat, $start, $limit) {
         if ($this->db->platform() == "sqlite3") {
-            $q = "SELECT transactions.ref, transactions.totalMoneySpent, transactions.modeOfPayment, transactions.staffId,
-                transactions.transDate, transactions.lastUpdated, transactions.amountTendered, transactions.changeDue,
-                admin.first_name || ' ' || admin.last_name AS 'staffName',
-                transactions.cust_name, transactions.cust_phone, transactions.cust_email, transactions.cancelled,transactions.studentName,transactions.studentSurname
-                FROM transactions
+            $q = "SELECT transactions.transId, transactions.ref, transactions.studentName, transactions.studentSurname,
+                transactions.student_id, transactions.studentClass_name, transactions.description,
+                transactions.totalAmount, transactions.totalMoneySpent, transactions.amountTendered,
+                transactions.changeDue, transactions.modeOfPayment, transactions.currency,
+                transactions.cust_name, transactions.cust_phone, transactions.cust_email,
+                transactions.transType, transactions.staffId, transactions.transDate,
+                transactions.lastUpdated, transactions.cancelled, transactions.paymentStatus,
+                transactions.term, transactions.latePenalty, transactions.refundDate,
+                transactions.refundAmount,
+                admin.first_name || ' ' || admin.last_name AS 'staffName'      FROM transactions
                 LEFT OUTER JOIN admin ON transactions.staffId = admin.id
                 GROUP BY ref
                 ORDER BY {$orderBy} {$orderFormat}
@@ -63,6 +68,7 @@ class Transaction extends CI_Model {
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.description) AS description');
             $this->db->select('GROUP_CONCAT(DISTINCT transactions.currency) AS currency');
+            $this->db->select('GROUP_CONCAT(DISTINCT transactions.refundAmount) AS refundAmount');
             
             
             // Additional fields for studentName and studentSurname
@@ -356,4 +362,88 @@ class Transaction extends CI_Model {
         
         return $run_q->num_rows() ? $run_q->result() : FALSE;
     }
+
+    /**
+     * Get all transactions with a particular transId
+     * @param type $ref
+     * @return boolean
+     */
+    public function getTrans($transId) {
+        $q = "SELECT * FROM transactions WHERE transId = ?";
+
+        $run_q = $this->db->query($q, [$transId]);
+
+        if ($run_q->num_rows() > 0) {
+            return $run_q->result_array();
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * Update the refund amount and date for a transaction
+     * @param int $transactionId Transaction ID
+     * @param float $refundAmount Refund amount
+     * @return boolean
+     */
+    public function updateRefundAmount($transactionId, $refundAmount) {
+        $data = array(
+            'refundAmount' => $refundAmount,
+            'refundDate' => date('Y-m-d H:i:s') // Set the refund date to the current date and time
+        );
+
+        $this->db->where('transId', $transactionId);
+        $this->db->update('transactions', $data);
+
+        return $this->db->affected_rows() > 0;
+    }
+    
+    public function totalEarnedZwl() {
+        log_message('error','ew are here  in the model');
+        $q = "SELECT SUM(totalAmount) as 'totalEarnedZWL' FROM transactions where currency = 'ZWL'";
+
+        $run_q = $this->db->query($q);
+
+        if ($run_q->num_rows() > 0) {
+            foreach ($run_q->result() as $get) {
+                return $get->totalEarnedZWL;
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    public function totalEarnedUsd() {
+        $q = "SELECT SUM(totalAmount) as 'totalEarnedUSD' FROM transactions where currency = 'USD'";
+
+        $run_q = $this->db->query($q);
+
+        if ($run_q->num_rows() > 0) {
+            foreach ($run_q->result() as $get) {
+                return $get->totalEarnedUSD;
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    public function totalEarnedZar() {
+        $q = "SELECT SUM(totalAmount) as 'totalEarnedZAR' FROM transactions where currency = 'ZAR'";
+
+        $run_q = $this->db->query($q);
+
+        if ($run_q->num_rows() > 0) {
+            foreach ($run_q->result() as $get) {
+                return $get->totalEarnedZAR;
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+
 }
