@@ -26,32 +26,23 @@ class Test extends CI_Controller {
     }
 
     public function generateReport() {
-        log_message('error','ew are here ');
         // Load the Student model
         $this->load->model(['transaction']);
-        log_message('error','ew are here  after');
 
 
         $totalEarnedZwl = $this->transaction->totalEarnedZwl();
-        log_message('error','this is the total earned in ZWL'.print_r($totalEarnedZwl,TRUE));
 
         $totalEarnedUsd = $this->transaction->totalEarnedUsd();
-        log_message('error','this is the total earned in Usd'.print_r($totalEarnedUsd,TRUE));
 
         $totalEarnedZar = $this->transaction->totalEarnedZar();
-        log_message('error','this is the total earned in Zar'.print_r($totalEarnedZar,TRUE));
 
-        log_message('error','taboz');
         $this->load->model(['cost']);
 
         $totalCostZwl = $this->cost->totalCostZwl();
-        log_message('error','this is the total cost in ZWL :    '.$totalCostZwl);
 
         $totalCostUsd = $this->cost->totalCostUsd();
-        log_message('error','this is the total cost in Usd'.print_r($totalCostUsd,TRUE));
 
         $totalCostZar = $this->cost->totalCostZar();
-        log_message('error','this is the total cost in Zar'.print_r($totalCostZar,TRUE));
 
 
         $this->load->model(['currency']);
@@ -64,7 +55,6 @@ class Test extends CI_Controller {
                 break;
             }
         }
-        log_message('error', 'rher currency rate for zwl: '.$currencyRateZWL);
 
         $currencyRateZAR = 0;
         foreach ($currencies as $currencyInfo) {
@@ -74,7 +64,6 @@ class Test extends CI_Controller {
             }
         }
 
-        log_message('error', 'rher currency rate for ZAR: '.$currencyRateZAR);
 
 
         $totalFees = $totalEarnedUsd + ($totalEarnedZar/$currencyRateZAR) +($totalEarnedZwl/$currencyRateZWL);
@@ -99,7 +88,6 @@ class Test extends CI_Controller {
             $columnIndex++;
         }
 
-        log_message('error',' we rae here taboz');
         $rowIndex = 2;
         $sheet->setCellValueByColumnAndRow(1, $rowIndex, 'FEES ZWL');
         $sheet->setCellValueByColumnAndRow(2, $rowIndex, 'INFLOW');
@@ -143,9 +131,20 @@ class Test extends CI_Controller {
       
         // Save the spreadsheet
         $writer = new Xlsx($spreadsheet);
-        $filePath = 'reports/transaction_report.xlsx'; // Adjust the file path as needed
+
+        $currentDate = date("Y-m-d"); // Get today's date in "YYYY-MM-DD" format
+        $fileName = 'transaction_report_' . $currentDate . '.xlsx'; // Add today's date to the file name
+
+        $filePath = 'reports/' . $fileName; // Adjust the file path as needed
+
+        // Check if a report for today already exists
+        if (file_exists($filePath)) {
+            unlink($filePath); // Delete the existing report file
+        }
+
         $writer->save($filePath);
-        $reportUrl = base_url() . 'reports/transaction_report.xlsx'; // Adjust the URL as needed
+
+        $reportUrl = base_url() . 'reports/' . $fileName; // Adjust the URL as needed
         $response = array(
             'status' => 1,
             'message' => 'Transaction Excel report generated successfully!',

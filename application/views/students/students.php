@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('');
     
     <hr>
     
-    <!-- row of adding new student form and studnets list table-->
+    <!-- row of adding new student form and students list table-->
     <div class="row">
         <div class="col-sm-12">
 
@@ -141,6 +141,16 @@ defined('BASEPATH') OR exit('');
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
+                                <label for="studentHealthy_status">Student Healthy Status</label>
+                                <input type="text" id="studentHealthy_status" name="studentHealthy_status" placeholder="Student Healthy Status" maxlength="40"
+                                    class="form-control"  onchange="checkField(this.value, 'studentHealthy_statusErr')">
+                                <span class="help-block errMsg" id="studentHealthy_statusErr"></span>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
                                 <label for="studentFees">Student Fees</label>
                                 <input type="number" id="studentFees" name="studentFees" placeholder="Student Fees" min="0"
                                     class="form-control" onchange="checkField(this.value, 'studentFeesErr')">
@@ -163,6 +173,15 @@ defined('BASEPATH') OR exit('');
                                 <input type="text" id="studentParent_name" name="studentParent_name" placeholder="Student Parent_name" maxlength="50"
                                     class="form-control" onchange="checkField(this.value, 'studentParent_nameErr')">
                                 <span class="help-block errMsg" id="studentParent_nameErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="studentRelationship">Student Relationship</label>
+                                <input type="text" id="studentRelationship" name="studentRelationship" placeholder="Student Relationship" maxlength="40"
+                                    class="form-control"  onchange="checkField(this.value, 'studentRelationshipErr')">
+                                <span class="help-block errMsg" id="studentRelationshipErr"></span>
                             </div>
                         </div>
 
@@ -262,10 +281,23 @@ defined('BASEPATH') OR exit('');
                         </div>
 
                         <div class="col-sm-4 form-group-sm">
+                            <label for="studentHealthy_statusEdit">Student Healthy Status</label>
+                            <input type="text" id="studentHealthy_statusEdit" placeholder="Student Healthy Status" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentHealthy_statusEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
                             <label for="studentParent_nameEdit">Student Parent_name</label>
                             <input type="text" id="studentParent_nameEdit" placeholder="Student Parent_name" autofocus class="form-control checkField">
                             <span class="help-block errMsg" id="studentParent_nameEditErr"></span>
                         </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentRelationshipEdit">Student Relationship</label>
+                            <input type="text" id="studentRelationshipEdit" placeholder="Student Relationship" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="studentRelationshipEditErr"></span>
+                        </div>
+
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="studentParent_phoneEdit">Student Parent_phone</label>

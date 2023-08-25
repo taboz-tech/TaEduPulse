@@ -111,7 +111,7 @@ $(document).ready(function(){
     $("#addNewStudent").click(function(e){
         e.preventDefault();
         
-        changeInnerHTML(['studentNameErr', 'studentStudent_idErr', 'studentSurnameErr', 'studentClass_nameErr', 'addCustErrMsg','studentGenderErr', 'studentFeesErr', 'studentParent_nameErr', 'studentParent_phoneErr', 'studentAddressErr', 'studentOwed_feesErr'], "");
+        changeInnerHTML(['studentNameErr', 'studentStudent_idErr', 'studentSurnameErr', 'studentClass_nameErr', 'addCustErrMsg','studentGenderErr', 'studentFeesErr', 'studentParent_nameErr', 'studentParent_phoneErr', 'studentAddressErr', 'studentOwed_feesErr', 'studentHealthy_statusErr', 'studentRelationshipErr'], "");
         
         var studentStudent_id = $("#studentStudent_id").val();
         var studentName = $("#studentName").val();
@@ -123,9 +123,11 @@ $(document).ready(function(){
         var studentParent_phone = $("#studentParent_phone").val();
         var studentAddress = $("#studentAddress").val();
         var studentOwed_fees = $("#studentOwed_fees").val();
+        var studentHealthy_status = $("#studentHealthy_status").val();
+        var studentRelationship = $("#studentRelationship").val();
 
         
-        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees || !studentOwed_fees){
+        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees || !studentOwed_fees || !studentRelationship){
             !studentName ? $("#studentNameErr").text("required") : "";
             !studentStudent_id ? $("#studentStudent_idErr").text("required") : "";
             !studentSurname ? $("#studentSurnameErr").text("required") : "";
@@ -134,6 +136,7 @@ $(document).ready(function(){
             !studentAddress ? $("#studentAddressErr").text("required") : "";
             !studentFees ? $("#studentFeesErr").text("required") : "";
             !studentOwed_fees ? $("#studentOwed_feesErr").text("required") : "";
+            !studentRelationship ? $("#studentRelatioshipErr").text("required") : ""
             
             
             $("#addCustErrMsg").text("One or more required fields are empty");
@@ -146,7 +149,13 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: appRoot+"students/add",
-            data:{studentStudent_id:studentStudent_id, studentName:studentName, studentSurname:studentSurname, studentClass_name:studentClass_name, studentGender:studentGender, studentFees:studentFees, studentParent_name:studentParent_name, studentParent_phone:studentParent_phone, studentAddress:studentAddress, studentOwed_fees:studentOwed_fees},
+            data:{studentStudent_id:studentStudent_id, studentName:studentName, 
+                studentSurname:studentSurname, studentClass_name:studentClass_name,
+                studentGender:studentGender, studentFees:studentFees,
+                studentParent_name:studentParent_name, studentParent_phone:studentParent_phone, 
+                studentAddress:studentAddress, studentOwed_fees:studentOwed_fees,
+                studentHealthy_status:studentHealthy_status, studentRelationship:studentRelationship
+            },
             
             success: function(returnedData){
                 if(returnedData.status === 1){
@@ -275,7 +284,9 @@ $(document).ready(function(){
         var studentAddress = $("#studentAddress-" + studentId).html();
         var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
         var studentOwed_fees = $("#studentOwed_fees-" + studentId).html();
-        
+        var studentHealthy_status = $("#studentHealthy_status-" + studentId).html();
+        var studentRelationship = $("#studentRelationship-" + studentId).html();
+
         
         //prefill form with info
         $("#studentIdEdit").val(studentId);
@@ -287,6 +298,8 @@ $(document).ready(function(){
         $("#studentParent_phoneEdit").val(studentParent_phone);
         $("#studentFeesEdit").val(studentFees);
         $("#studentOwed_feesEdit").val(studentOwed_fees);
+        $("#studentHealthy_statusEdit").val(studentHealthy_status);
+        $("#studentRelationshipEdit").val(studentRelationship);
         
         //remove all error messages that might exist
         $("#editStudentFMsg").html("");
@@ -300,6 +313,8 @@ $(document).ready(function(){
         $("#studentParent_phoneEditErr").html("");
         $("#studentFeesEditErr").html("");
         $("#studentOwed_feesEditErr").html("");
+        $("#studentHealthy_statusEditErr").html("");
+        $("#studentRelationshipEditErr").html("");
 
         // Fetch and populate the student class select field
         populateEditGradesSelect(appRoot + "students/getGradesForSelect/", studentClass_name);
@@ -333,6 +348,8 @@ $(document).ready(function(){
         var studentAddress = $("#studentAddressEdit").val();
         var studentFees = $("#studentFeesEdit").val();
         var studentOwed_fees = $("#studentOwed_feesEdit").val();
+        var studentHealthy_status = $("#studentHealthy_statusEdit");
+        var studentRelationship = $("#studentRelationship");
 
     
         // Clear previous error messages
@@ -370,7 +387,9 @@ $(document).ready(function(){
                 studentParent_phone: studentParent_phone,
                 studentAddress: studentAddress,
                 studentFees: studentFees,
-                studentOwed_fees: combinedOwedFees
+                studentOwed_fees: combinedOwedFees,
+                studentHealthy_status:studentHealthy_status,
+                studentRelationship:studentRelationship
             }
         }).done(function (returnedData) {
             if (returnedData.status === 1) {

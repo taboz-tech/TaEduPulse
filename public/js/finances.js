@@ -15,13 +15,16 @@ $(document).ready(function(){
                 type: 'POST',
                 dataType: 'json',
                 success: function(response) {
+                    console.log(response);
                     if (response.status === 1) {
+                        // Extract the file name from the report_url
+                        var reportUrlParts = response.report_url.split('/');
+                        var fileName = reportUrlParts[reportUrlParts.length - 1];
                         
-    
                         // Provide a link to download the generated report
                         var downloadLink = $('<a>')
                             .attr('href', response.report_url)
-                            .attr('download', 'student_report.xlsx')
+                            .attr('download', fileName) // Use the extracted file name
                             .text('Download Report');
                         $('#transreportDownloadLink').empty().append(downloadLink);
                     } else {
@@ -35,6 +38,7 @@ $(document).ready(function(){
             });
         });
     });
+    
     
     
 

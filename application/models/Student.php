@@ -56,10 +56,12 @@ class Student extends CI_Model{
      * @param type $studentAddress
      * @param type $studentFees
      * @param type $studentOwed_fees
+     * @param type $studentHealthy_status
+     * @param type $studentRelationship
      * @return boolean
      */
-    public function add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees,$studentOwed_fees){
-        $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'student_id'=>$studentStudent_id, 'class_name'=>$studentClass_name, 'gender'=>$studentGender, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'address'=>$studentAddress, 'fees'=>$studentFees,'owed_fees'=>$studentOwed_fees];
+    public function add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees,$studentOwed_fees,$studentHealthy_status,$studentRelationship){
+        $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'student_id'=>$studentStudent_id, 'class_name'=>$studentClass_name, 'gender'=>$studentGender, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'address'=>$studentAddress, 'fees'=>$studentFees,'owed_fees'=>$studentOwed_fees, 'healthyStatus'=>$studentHealthy_status, 'relationship'=>$studentRelationship];
                 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" 
@@ -197,12 +199,14 @@ class Student extends CI_Model{
     * @param type $studentFees
     * @param type $studentAddress
     * @param type $studentOwed_fees
+    * @param type $studentHealthy_status
+    * @param type $studentRelationship
     */
 
 
      
-   public function edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress,$studentOwed_fees){
-       $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'class_name'=>$studentClass_name, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'fees'=>$studentFees,'address'=>$studentAddress,'owed_fees'=>$studentOwed_fees];
+   public function edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress,$studentOwed_fees, $studentHealthy_status, $studentRelationship){
+       $data = ['name'=>$studentName, 'surname'=>$studentSurname, 'class_name'=>$studentClass_name, 'parent_name'=>$studentParent_name, 'parent_phone'=>$studentParent_phone, 'fees'=>$studentFees,'address'=>$studentAddress,'owed_fees'=>$studentOwed_fees, 'healthyStatus'=>$studentHealthy_status, 'relationship'=>$studentRelationship];
        
        $this->db->where('id', $studentId);
        $this->db->update('students', $data);

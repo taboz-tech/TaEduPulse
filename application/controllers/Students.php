@@ -130,13 +130,14 @@ class Students extends CI_Controller{
              * function header: add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name,$studentParent_phone,$studentAddress,$studentFees,$studentOwed_fees)
              */
             $insertedId = $this->student->add(set_value('studentName'), set_value('studentSurname'), set_value('studentStudent_id'), 
-                    set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'),set_value('studentOwed_fees'));
+                    set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'),set_value('studentOwed_fees'),set_value('studentHealthy_status'), set_value('studentRelationship'));
             
             $studentName = set_value('studentName');
             $studentSurname = set_value('studentSurname');
             $studentStudent_id = set_value('studentStudent_id');
             $studentParent_name= set_value('studentParent_name');
             $studentAddress = set_value('studentAddress');
+            
             
             //insert into eventlog
             //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
@@ -332,9 +333,11 @@ class Students extends CI_Controller{
             $studentParent_phone = set_value('studentParent_phone');
             $studentStudent_id = $this->input->post('studentStudent_id', TRUE);
             $studentOwed_fees = set_value('studentOwed_fees');
+            $studentHealthy_status = set_value('studentHealthy_status');
+            $studentRelationship = set_value('studentRelationship');
 
             //update Student in db
-            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress,$studentOwed_fees);
+            $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name,$studentParent_phone,$studentFees,$studentParent_name,$studentAddress,$studentOwed_fees,$studentHealthy_status,$studentRelationship);
             
             $json['status'] = $updated ? 1 : 0;
             
