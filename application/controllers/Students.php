@@ -72,7 +72,6 @@ class Students extends CI_Controller{
         
         //get all students from db
         $data['allStudents'] = $this->student->getAll($orderBy, $orderFormat, $start, $limit);
-        
         $data['range'] = $totalStudents > 0 ? "Showing " . ($start+1) . "-" . ($start + count($data['allStudents'])) . " of " . $totalStudents : "";
         $data['links'] = $this->pagination->create_links();//page links
         $data['sn'] = $start+1;

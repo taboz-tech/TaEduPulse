@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record']);
         
         $this->load->helper('text');
         
@@ -97,6 +97,16 @@ class Search extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
     
+    public function reportSearch() {
+        $data['allReports'] = $this->record->searchReportFiles($this->value);
+        $data['sn'] = 1;
+        
+        // Load the view to display the search results
+        $json['reportsListTable'] = $data['allReports'] ? $this->load->view('records/recordslisttable', $data, TRUE) : "No match found";
+        
+        // Set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
     
     /*
     ********************************************************************************************************************************

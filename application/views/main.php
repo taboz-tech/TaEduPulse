@@ -239,6 +239,13 @@ defined('BASEPATH') OR exit('');
                                 Finances
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Records' ? 'active' : '' ?>">
+                            <a href="<?= site_url('records') ?>">
+                                <i class="fa fa-database"></i>
+                                Reports
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
