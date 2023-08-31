@@ -164,13 +164,28 @@ class Teacher extends CI_Model{
         return $run_q->num_rows() ? $run_q->row() : FALSE;
     }
     
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
+    /**
+     * Get active employees based on their status.
+     *
+     * @param string $orderBy Column to order by
+     * @param string $orderFormat Order format (ASC or DESC)
+     * @return array|boolean Returns an array of active employees or FALSE if no results are found
+     */
+    public function getActiveTeachers($orderBy, $orderFormat) {
+        $this->db->order_by($orderBy, $orderFormat);
+
+        // Assuming 'status' is the BOOLEAN field that determines the employee's active/inactive status
+        $this->db->where('status', TRUE); // TRUE represents 'active'
+
+        $run_q = $this->db->get('teachers');
+
+        if ($run_q->num_rows() > 0) {
+            return $run_q->result();
+        } else {
+            return FALSE;
+        }
+    }
+
 
 }
 
