@@ -3,6 +3,44 @@ var initialOwedFees = 0;
 
 $(document).ready(function(){
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
+
+    // To load all classes in the class select
+$.ajax({
+    url: appRoot + "students/getGradesForSelect/",
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+        if (response.status === 1) {
+            var grades = response.grades;
+            var classDropdown = $('#classDropdown'); // Reference to the select element
+
+            // Check if classDropdown is a valid element before manipulation
+            if (classDropdown.length > 0) {
+                $.each(grades, function (index, grade) {
+                    // Validate grade object properties before using them
+                    if (grade && grade.id && grade.name) {
+                        // Check if the option with the same value already exists
+                        if (classDropdown.find('option[value="' + grade.id + '"]').length === 0) {
+                            classDropdown.append($('<option>', {
+                                value: grade.id,
+                                text: grade.name
+                            }));
+                        }
+                    }
+                });
+            } else {
+                console.log('classDropdown is not defined or valid.');
+            }
+        } else {
+            console.log('AJAX request failed with message: ' + response.message);
+        }
+    },
+    error: function (xhr, status, error) {
+        console.log('AJAX Error: ' + error);
+        console.log('Error Response: ' + xhr.responseText); // Include more details for debugging
+    }
+});
+
 	
     //load all Students once the page is ready
     lslt();
@@ -16,6 +54,7 @@ $(document).ready(function(){
         $("#studentStudent_id").focus();
     });
     
+   
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,14 +62,19 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    /**
+   /**
      * Toggle the form to add a new student
      */
     $("#createStudent").click(function() {
         populateGradesSelect();
+        fetchLastStudentId();
+        fetchFeesIncome();
         $("#studentsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewStudentDiv").toggleClass('hidden');
         $("#studentName").focus();
+
+       
+
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,15 +83,11 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       
-    $('#studentFees').on('input', function() {
-        var studentFeesValue = parseFloat($(this).val());
-        
-        var studentOwedFeesValue = isNaN(studentFeesValue) ? 0 : studentFeesValue;
-        
-        $('#studentOwed_fees').val(studentOwedFeesValue);
+
+    $("#classDropdown").change(function () {
+        var selectedClass = $(this).val(); // Get the selected option's value
+        lslt();
     });
-
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,6 +204,8 @@ $(document).ready(function(){
                     
                     //refresh the students list table
                     lslt();
+                    //update the student id
+                    fetchLastStudentId();
                     
                     //return focus to student code input to allow adding student with barcode scanner
                     $("#studentStudent_id").focus();
@@ -242,24 +284,23 @@ $(document).ready(function(){
     
     $("#studentSearch").keyup(function(){
         var value = $(this).val();
-        
-        if(value){
+        var selectedClass = $("#classDropdown").val(); // Get the selected class value
+        if (value) {
             $.ajax({
-                url: appRoot+"search/studentsearch",
+                url: appRoot + "search/studentsearch",
                 type: "get",
-                data: {v:value},
+                data: { v: value, selectedClass: selectedClass }, // Include selectedClass in the data
                 success: function(returnedData){
                     $("#studentsListTable").html(returnedData.studentsListTable);
                 }
             });
-        }
-        
-        else{
-            //reload the table if all text in search box has been cleared
+        } else {
+            // Reload the table if all text in the search box has been cleared
             displayFlashMsg("Loading page...", spinnerClass, "", "");
             lslt();
         }
     });
+    
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -422,40 +463,45 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // create the report of students and their owed fees as an excel 
-    $(document).ready(function() {
-        $("#generateReport").click(function(e) {
-            e.preventDefault();
-            
-            // Get the selected value from the percentageSelect dropdown
-            var feePartition = $("#percentageSelect").val();
+    $("#generateReport").click(function(e) {
+        e.preventDefault();
+        
+        // Get the selected value from the percentageSelect dropdown
+        var feePartition = $("#percentageSelect").val();
     
-            // Call the generateReport() function on the server with the selected feePartition
-            $.ajax({
-                url: appRoot + "students/generateReport",
-                type: 'POST',
-                data: { feePartition: feePartition }, // Pass the selected value to the server
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 1) {
-                        
+        // Get the selected class from the classDropdown
+        var selectedClass = $("#classDropdown").val();
     
-                        // Provide a link to download the generated report
-                        var downloadLink = $('<a>')
-                            .attr('href', response.report_url)
-                            .attr('download', 'student_report.xlsx')
-                            .text('Download Report');
-                        $('#reportDownloadLink').empty().append(downloadLink);
-                    } else {
-                        // Error while generating the report
-                        alert('An error occurred while generating the report.');
-                    }
-                },
-                error: function() {
-                    console.log("Error occurred during AJAX call.");
+        // Call the generateReport() function on the server with the selected feePartition
+        $.ajax({
+            url: appRoot + "students/generateReport",
+            type: 'POST',
+            data: { feePartition: feePartition, selectedClass: selectedClass },
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                if (response.status === 1) {
+                    // Provide a link to download the generated report
+                    var downloadLink = $('<a>')
+                        .attr('href', response.report_url)
+                        .attr('download', 'student_report.xlsx')
+                        .text('Download Report');
+                    $('#reportDownloadLink').empty().append(downloadLink);
+                } else if (response.status === 0) {
+                    // Handle the case where no students were found
+                    $('#reportDownloadLink').empty().text('No students found with the selected criteria.');
+                } else {
+                    // Error while generating the report
+                    alert('An error occurred while generating the report.');
                 }
-            });
+            },
+            error: function() {
+                console.log("Error occurred during AJAX call.");
+            }
         });
     });
+    
+   
     
     
 
@@ -528,6 +574,7 @@ function lslt(url) {
     var orderBy = $("#studentsListSortBy").val().split("-")[0];
     var orderFormat = $("#studentsListSortBy").val().split("-")[1];
     var limit = $("#studentsListPerPage").val();
+    var selectedClass = $("#classDropdown").val(); 
 
     $.ajax({
         type: 'get',
@@ -535,7 +582,8 @@ function lslt(url) {
         data: {
             orderBy: orderBy,
             orderFormat: orderFormat,
-            limit: limit
+            limit: limit,
+            selectedClass: selectedClass
         },
 
         success: function (returnedData) {
@@ -643,5 +691,59 @@ function populateEditGradesSelect(url, selectedGradeId) {
     });
 }
 
+// function to create the student id for the currrent month
+function fetchLastStudentId() {
+    $.ajax({
+        type: 'GET',
+        url: appRoot + "students/lastStudentIdForMonth",
+        success: function (response) {
+            if (response.status === 1) {
+                // Set the new student ID to the input field
+                $('#studentStudent_id').val(response.newStudentId);
+                
+            } else {
+                // Handle the case when an error occurs or no student ID is found
+                alert('An error occurred while fetching the last student ID.');
+            }
+        },
+        error: function () {
+            // Handle any errors that occur during the AJAX request
+            alert('An error occurred while fetching the last student ID.');
+        }
+    });
+}
 
+// Function to fetch the "Fees" income amount
+function fetchFeesIncome() {
+    $.ajax({
+        url: appRoot + "incomes/getIncomes",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1) {
+            
+                var fees = parseFloat(response.feesAmount);
+                var regFees = parseFloat(response.regFeeAmount);
+
+                // Check if parsing was successful
+                if (!isNaN(fees) && !isNaN(regFees)) {
+                    fees = fees.toFixed(2); // Format fees to have two decimal places
+                    regFees = regFees.toFixed(2); // Format regFees to have two decimal places
+
+                    var owedFees = (parseFloat(fees) + parseFloat(regFees)).toFixed(2); 
+                }
+                
+                $('#studentFees').val(fees);
+                $('#studentRegFees').val(regFees);
+                $('#studentOwed_fees').val(owedFees)
+                
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+        }
+    });
+}
 

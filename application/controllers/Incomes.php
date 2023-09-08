@@ -251,4 +251,56 @@ class Incomes extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
+    /**
+     * Fetches information about the "Fees" and "Reg_fee" incomes and returns their amounts as a JSON response.
+     *
+     * This method retrieves income data for the income types with the names "Fees" and "Reg_fee" from the database
+     * and returns their amounts as a JSON response. It uses the 'income' model to query the database and retrieve
+     * the necessary information.
+     *
+     * @throws Exception If any of the incomes is not found, an exception is thrown with a detailed message.
+     *
+     * @return void
+     */
+    public function getIncomes() {
+        try {
+            // Define where clauses for "Fees" and "Reg_fee" incomes
+            $feesWhereClause = ['name' => 'Fees'];
+            $regFeeWhereClause = ['name' => 'Reg_fee'];
+        
+            // Define the fields to fetch, which should include 'amount'
+            $fieldsToFetch = ['amount'];
+
+            
+            // Use your 'income' model to fetch the income information for "Fees"
+            $feesIncomeInfo = $this->income->getIncomeInfo($feesWhereClause, $fieldsToFetch);
+
+            // Use your 'income' model to fetch the income information for "Reg_fee"
+            $regFeeIncomeInfo = $this->income->getIncomeInfo($regFeeWhereClause, $fieldsToFetch);
+
+            if ($feesIncomeInfo !== FALSE && $regFeeIncomeInfo !== FALSE) {
+                $response = [
+                    'status' => 1,
+                    'feesAmount' => $feesIncomeInfo->amount,
+                    'regFeeAmount' => $regFeeIncomeInfo->amount
+                ];
+            } else {
+                throw new Exception('One or more incomes not found');
+            }
+
+            // Return the response as JSON
+            $this->output->set_content_type('application/json')->set_output(json_encode($response));
+        } catch (Exception $e) {
+            $errorResponse = [
+                'status' => 0,
+                'message' => $e->getMessage()
+            ];
+
+            // Return the error response as JSON
+            $this->output->set_content_type('application/json')->set_output(json_encode($errorResponse));
+        }
+    }
+
+
+
 }

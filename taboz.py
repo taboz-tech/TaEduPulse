@@ -13,4 +13,17 @@
 # address = 23 Main Street Apartment 4 Harare
 # address = 567 Park Road Bulawayo
 # fees = 80
-# fees = 80
+# fees = 
+
+
+
+
+
+
+# teacher name
+# teacher Surname
+# teacher address
+# teacher department
+# start date
+# paid date
+# check number

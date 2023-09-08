@@ -37,6 +37,38 @@ $(document).ready(function(){
                 }
             });
         });
+        // Function to generate the budget
+        $("#generateBudgetBtn").click(function(e) {
+            e.preventDefault();
+            
+            // Call the generateBudget() function on the server
+            $.ajax({
+                url: appRoot + "test/generateBudget", // Adjust the URL as needed
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    if (response.status === 1) {
+                        // Extract the file name from the budget_url
+                        var budgetUrlParts = response.budget_url.split('/');
+                        var fileName = budgetUrlParts[budgetUrlParts.length - 1];
+                        
+                        // Provide a link to download the generated budget
+                        var downloadLink = $('<a>')
+                            .attr('href', response.budget_url)
+                            .attr('download', fileName) // Use the extracted file name
+                            .text('Download Budget');
+                        $('#budgetDownloadLink').empty().append(downloadLink);
+                    } else {
+                        // Error while generating the budget
+                        alert('An error occurred while generating the budget.');
+                    }
+                },
+                error: function() {
+                    console.log("Error occurred during the AJAX call for generating the budget.");
+                }
+            });
+        });
     });
     
     

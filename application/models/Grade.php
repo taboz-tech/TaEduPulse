@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('');
 
 /**
- * model for Grades
+ * Model for managing grades.
  *
  * @author Tavonga <mafuratavonga@gmail.com>
  * @date 08 August, 2023
@@ -17,7 +17,17 @@ class Grade extends CI_Model{
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+    /**
+     * Get all grades with optional sorting and pagination.
+     *
+     * @param string $orderBy     The column to sort by.
+     * @param string $orderFormat The sorting order (e.g., 'ASC' or 'DESC').
+     * @param int    $start       The starting index for pagination.
+     * @param int    $limit       The maximum number of results to retrieve.
+     *
+     * @return array|null An array of grade objects or NULL if no results are found.
+     */
+
     public function getAll($orderBy, $orderFormat, $start = 0, $limit = ''){ 
         $this->db->select('grades.*, GROUP_CONCAT(DISTINCT teachers.name, " ", teachers.surname) AS teacher_id');
         $this->db->from('grades');
@@ -43,10 +53,12 @@ class Grade extends CI_Model{
     
     
     /**
-     * 
-     * @param type $gradeName
-     * @param type $gradeTeacher_id
-     * @return boolean
+     * Add a new grade to the database.
+     *
+     * @param string $gradeName       The name of the grade.
+     * @param int    $gradeTeacher_id The ID of the teacher associated with the grade.
+     *
+     * @return int|bool The newly inserted grade ID or FALSE on failure.
      */
     public function add($gradeName,$gradeTeacher_id){
         $data = ['name'=>$gradeName, 'teacher_id'=>$gradeTeacher_id];
@@ -78,24 +90,22 @@ class Grade extends CI_Model{
     */
     
     /**
-     * 
-     * @param type $value
-     * @return boolean
+     * Search for grades by name or teacher ID.
+     *
+     * @param string $value The search query.
+     *
+     * @return array|bool An array of matching grade objects or FALSE if no matches are found.
      */
+
     public function gradesearch($value){
-        $q = "SELECT * FROM grades 
-            WHERE 
-            name LIKE '%".$this->db->escape_like_str($value)."%'
-            || 
-            teacher_id LIKE '%".$this->db->escape_like_str($value)."%'";
-        
-        $run_q = $this->db->query($q, [$value, $value]);
-        
+        $this->db->like('name', $value);  // Perform a case-insensitive search on the 'name' column.
+        $this->db->or_like('teacher_id', $value); // Perform a case-insensitive search on the 'teacher_id' column.
+    
+        $run_q = $this->db->get('grades');
+    
         if($run_q->num_rows() > 0){
             return $run_q->result();
-        }
-        
-        else{
+        } else {
             return FALSE;
         }
     }
@@ -109,45 +119,28 @@ class Grade extends CI_Model{
     ********************************************************************************************************************************
     */
     
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
+    
    
-   /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
-   
-   /**
-    * 
-    * @param type $gradeId
-    * @param type $gradeName
-    * @param type $gradeTeacher_id
-    */
-   public function edit($gradeId, $gradeName, $gradeTeacher_id){
-       $data = ['name'=>$gradeName, 'teacher_id'=>$gradeTeacher_id];
-       
-       $this->db->where('id', $gradeId);
-       $this->db->update('grades', $data);
-       
-       return TRUE;
-   }
-   
-   /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
+    /**
+     * Edit an existing grade's information.
+     *
+     * @param int    $gradeId         The ID of the grade to edit.
+     * @param string $gradeName       The new name for the grade.
+     * @param int    $gradeTeacher_id The new teacher ID associated with the grade.
+     *
+     * @return bool TRUE on successful update, otherwise FALSE.
+     */
 
+    public function edit($gradeId, $gradeName, $gradeTeacher_id){
+    $data = ['name'=>$gradeName, 'teacher_id'=>$gradeTeacher_id];
+
+    $this->db->where('id', $gradeId);
+    $this->db->update('grades', $data);
+
+    return TRUE;
+    }
+   
+   
     /*
     ********************************************************************************************************************************
     ********************************************************************************************************************************
@@ -157,11 +150,14 @@ class Grade extends CI_Model{
     */
 
     /**
-     * array $where_clause
-     * array $fields_to_fetch
-     * 
-     * return array | FALSE
+     * Get specific grade information based on a given condition.
+     *
+     * @param array $where_clause    An associative array representing the condition.
+     * @param array $fields_to_fetch An array of fields to retrieve.
+     *
+     * @return object|bool The grade information as an object or FALSE if no match is found.
      */
+
     public function getGradeInfo($where_clause, $fields_to_fetch){
         $this->db->select($fields_to_fetch);
         
@@ -179,6 +175,26 @@ class Grade extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+
+    /**
+     * Get the grade name by ID.
+     *
+     * @param int $gradeId The ID of the grade.
+     * @return string|bool The grade name or FALSE if not found.
+     */
+    
+    public function getGradeNameById($gradeId){
+        $this->db->select('name');
+        $this->db->where('id', $gradeId);
+        $query = $this->db->get('grades');
+        
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->name;
+        } else {
+            return FALSE;
+        }
+    }
 
    
 }

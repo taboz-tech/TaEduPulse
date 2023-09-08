@@ -53,18 +53,29 @@ defined('BASEPATH') OR exit('');
             <!-- Generate Report row -->
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="col-sm-2 form-inline form-group-sm">
-                        <button class="btn btn-primary btn-sm" id="generateReport">Generate Report</button>
-                        <select id="percentageSelect">
-                            <option value="0">0%</option>
-                            <option value="25">25%</option>
-                            <option value="50">50%</option>
-                            <option value="75">75%</option>
-                            <option value="100">100%</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-sm-2 form-inline form-group-sm">
+                            <button class="btn btn-primary btn-sm" id="generateReport">Generate Report</button>
+                            <select id="percentageSelect">
+                                <option value="0">0%</option>
+                                <option value="25">0-25%</option>
+                                <option value="50">25-50%</option>
+                                <option value="75">50-75%</option>
+                                <option value="100">75-100%</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-inline form-group-sm">
+                            <label for="classDropdown">Select Class</label>
+                            <select id="classDropdown" class="form-control">
+                                <option value="" selected>Select Class</option>
+                                <!-- Options will be added dynamically here -->
+                            </select>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
 
             <!-- Element to display the report download link -->
             <div id="reportDownloadLink"></div>
@@ -93,7 +104,7 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentStudent_id">Student ID</label>
                                 <input type="text" id="studentStudent_id" name="studentStudent_id" placeholder="Student Id" maxlength="15"
-                                    class="form-control" onchange="checkField(this.value, 'studentStudent_idErr')" autofocus>
+                                    class="form-control" readonly >
                                 <!--<span class="help-block"><input type="checkbox" id="gen4me"> auto-generate</span>-->
                                 <span class="help-block errMsg" id="studentStudent_idErr"></span>
                             </div>
@@ -143,7 +154,7 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentHealthy_status">Student Healthy Status</label>
                                 <input type="text" id="studentHealthy_status" name="studentHealthy_status" placeholder="Student Healthy Status" maxlength="40"
-                                    class="form-control"  onchange="checkField(this.value, 'studentHealthy_statusErr')">
+                                    class="form-control" value="None" onchange="checkField(this.value, 'studentHealthy_statusErr')">
                                 <span class="help-block errMsg" id="studentHealthy_statusErr"></span>
                             </div>
                         </div>
@@ -153,8 +164,17 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentFees">Student Fees</label>
                                 <input type="number" id="studentFees" name="studentFees" placeholder="Student Fees" min="0"
-                                    class="form-control" onchange="checkField(this.value, 'studentFeesErr')">
+                                    class="form-control" readonly>
                                 <span class="help-block errMsg" id="studentFeesErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="studentRegFees">Student Reg Fees</label>
+                                <input type="number" id="studentRegFees" name="studentRegFees" placeholder="Student Reg Fees" min="0"
+                                    class="form-control" readonly>
+                                <span class="help-block errMsg" id="studentRegFeesErr"></span>
                             </div>
                         </div>
 
