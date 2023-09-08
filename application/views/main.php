@@ -246,6 +246,13 @@ defined('BASEPATH') OR exit('');
                                 Reports
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Payslips' ? 'active' : '' ?>">
+                            <a href="<?= site_url('payslips') ?>">
+                                <i class="fa fa-database"></i>
+                                Payroll
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
