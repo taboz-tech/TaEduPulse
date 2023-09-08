@@ -7,14 +7,14 @@ defined('BASEPATH') OR exit('');
  * @author Tavonga <mafuratavonga@gmail.com>
  * @date 13 August, 2023
  */
-class Teachers extends CI_Controller{
+class Staffs extends CI_Controller{
     
     public function __construct(){
         parent::__construct();
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['teacher']);
+        $this->load->model(['staff']);
     }
     
     /**

@@ -59,14 +59,17 @@ $(document).ready(function(){
         var teacherPhone = $("#teacherPhone").val();
         var teacherAddress = $("#teacherAddress").val();
         var teacherDepartment = $("#teacherDepartment").val();
+        var teacherNational_id = $("#teacherNational_id").val();
+        var teacherProfession = $("#teacherProfession").val();
 
         
-        if(!teacherName || !teacherSurname || !teacherGender || !teacherAddress || !teacherSubject){
+        if(!teacherName || !teacherSurname || !teacherGender || !teacherAddress || !teacherSubject || !teacherNational_id){
             !teacherName ? $("#teacherNameErr").text("required") : "";
             !teacherSurname ? $("#teacherSurnameErr").text("required") : "";
             !teacherGender ? $("#teacherGenderErr").text("required") : "";
             !teacherAddress ? $("#teacherAddressErr").text("required") : "";
             !teacherSubject ? $("#teacherSubjectErr").text("required") : "";
+            !teacherNational_id ? $("#teacherNational_idErr").text("required") : "";
             
             
             $("#addCustErrMsg").text("One or more required fields are empty");
@@ -79,7 +82,7 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: appRoot+"teachers/add",
-            data:{teacherName:teacherName, teacherSurname:teacherSurname, teacherGender:teacherGender, teacherSubject:teacherSubject, teacherPhone:teacherPhone, teacherAddress:teacherAddress,teacherDepartment:teacherDepartment},
+            data:{teacherName:teacherName, teacherSurname:teacherSurname, teacherGender:teacherGender, teacherSubject:teacherSubject, teacherPhone:teacherPhone, teacherAddress:teacherAddress,teacherDepartment:teacherDepartment, teacherNational_id:teacherNational_id,teacherProfession:teacherProfession},
             
             success: function(returnedData){
                 if(returnedData.status === 1){
@@ -104,6 +107,9 @@ $(document).ready(function(){
                     $("#teacherPhoneErr").text(returnedData.teacherPhone);
                     $("#teacherAddressErr").text(returnedData.teacherAddress);
                     $("#teacherDepartmentErr").text(returnedData.teacherDepartment);
+                    $("#teacherNational_idErr").text(returnedData.teacherNational_id);
+                    $("#teacherProfessionErr").text(returnedData.teacherProfession);
+                    
 
                     $("#addCustErrMsg").text(returnedData.msg);
                     
@@ -181,7 +187,8 @@ $(document).ready(function(){
         var teacherAddress = $("#teacherAddress-" + teacherId).html();
         var teacherSubject = $("#teacherSubject-" + teacherId).html();
         var teacherDepartment = $("#teacherDepartment-" + teacherId).html();
-        
+        var teacherNational_id = $("#teacherNational_id-" + teacherId).html();
+        var teacherProfession = $("#teacherProfession-" + teacherId).html();       
         
         
         //prefill form with info
@@ -192,6 +199,8 @@ $(document).ready(function(){
         $("#teacherPhoneEdit").val(teacherPhone);
         $("#teacherSubjectEdit").val(teacherSubject);
         $("#teacherDepartmentEdit").val(teacherDepartment);
+        $("#teacherNational_idEdit").val(teacherNational_id);
+        $("#teacherProfessionEdit").val(teacherProfession);
         
         
         //remove all error messages that might exist
@@ -203,6 +212,8 @@ $(document).ready(function(){
         $("#teacherAddressEditErr").html("");
         $("#teacherDepartmentEditErr").html("");
         $("#teacherPhoneEditErr").html("");
+        $("#teacherNational_idEditErr").html("");
+        $("#teacherProfessionEditErr").html("");
         
         
         //launch modal
@@ -224,16 +235,21 @@ $(document).ready(function(){
         var teacherAddress = $("#teacherAddressEdit").val();
         var teacherSubject = $("#teacherSubjectEdit").val();
         var teacherDepartment = $("#teacherDepartmentEdit").val();
+        var teacherNational_id = $("#teacherNational_idEdit").val();
+        var teacherProfession = $("#teacherProfessionEdit").val();
+
 
     
         // Clear previous error messages
         $(".error-message").html("");
                 
-        if (!teacherSurname || !teacherSubject || !teacherId || !teacherName) {
+        if (!teacherSurname || !teacherSubject || !teacherId || !teacherName || !teacherNational_id || !teacherDepartment) {
             if (!teacherSurname) $("#teacherSurnameErr").html("Surname cannot be empty");
             if (!teacherSubject) $("#teacherSubjectEditErr").html("Teacher Subject cannot be empty");
             if (!teacherId) $("#editTeacherFMsg").html("Unknown Teacher");
             if (!teacherName) $("#teacherNameEditErr").html("Teacher name cannot be empty");
+            if (!teacherNational_id) $("#teacherNational_idEditErr").html("Teacher National Id cannot be empty");
+            if (!teacherDepartment) $("#teacherDepartmentEditErr").html("Teacher Department cannot be empty");
             return;
         }
 
@@ -250,9 +266,12 @@ $(document).ready(function(){
                 teacherSubject: teacherSubject,
                 teacherPhone: teacherPhone,
                 teacherAddress: teacherAddress,
-                teacherDepartment:teacherDepartment
+                teacherDepartment:teacherDepartment,
+                teacherNational_id:teacherNational_id,
+                teacherProfession:teacherProfession
             }
         }).done(function (returnedData) {
+            console.log(returnedData)
 
             if (returnedData.status === 1) {
                 $("#editTeacherFMsg").css('color', 'green').html("Teacher successfully updated");
@@ -331,6 +350,19 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Add a blur event listener for the National ID input
+    $("#teacherNational_id").on("blur", function () {
+        var nationalID = $(this).val();
+        var isValid = validateZimbabweanID(nationalID);
+
+        if (isValid) {
+            // Clear any previous error message
+            $("#teacherNational_idErr").text("");
+        } else {
+            // Display an error message
+            $("#teacherNational_idErr").text("Invalid National ID format");
+        }
+    });
 });
 
 
@@ -375,3 +407,9 @@ function resetTeacherSN(){
     });
 }
 
+function validateZimbabweanID(id) {
+    // Define the regex pattern for Zimbabwean National ID
+    var pattern = /^\d{2}\d{6}[A-Z]\d{2}$/;
+    // Check if the input matches the pattern
+    return pattern.test(id);
+}

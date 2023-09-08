@@ -91,6 +91,24 @@ defined('BASEPATH') OR exit('');
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
+                                <label for="teacherNational_id">National ID</label>
+                                <input type="text" id="teacherNational_id" name="teacherNational_id" placeholder="77093552M77" maxlength="20"
+                                    class="form-control" onchange="checkField(this.value, 'teacherNational_idErr')">
+                                <span class="help-block errMsg" id="teacherNational_idErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="teacherProfession">Profession</label>
+                                <input type="text" id="teacherProfession" name="teacherProfession" placeholder="Profession" maxlength="50"
+                                    class="form-control" onchange="checkField(this.value, 'teacherProfessionErr')">
+                                <span class="help-block errMsg" id="teacherProfessionErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
                                 <label for="teacherPhone">Teacher Phone</label>
                                 <input type="text" id="teacherPhone" name="teacherPhone" placeholder="Teacher Phone" maxlength="15"
                                     class="form-control" onchange="checkField(this.value, 'teacherPhoneErr')">
@@ -177,6 +195,18 @@ defined('BASEPATH') OR exit('');
                             <label for="teacherSurnameEdit">Teacher Surname</label>
                             <input type="text" id="teacherSurnameEdit" placeholder="Teacher Surname" autofocus class="form-control checkField">
                             <span class="help-block errMsg" id="teacherSurnameEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherNational_idEdit">National ID</label>
+                            <input type="text" id="teacherNational_idEdit" placeholder="77093552M77" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherNational_idEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="teacherProfessionEdit">Teacher Profession</label>
+                            <input type="text" id="teacherProfessionEdit" placeholder="Teacher Profession" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="teacherProfessionEditErr"></span>
                         </div>
 
                         <div class="col-sm-4 form-group-sm">

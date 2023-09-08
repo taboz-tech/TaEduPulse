@@ -51,7 +51,6 @@ defined('BASEPATH') OR exit('');
             <!--Form to add/update a Grade-->
             <div class="col-sm-4 hidden" id='createNewGradeDiv'>
                 <div class="well">
-                    <button class="btn btn-info btn-xs pull-left" id="useBarcodeScanner">Use Scanner</button>
                     <button class="close cancelAddGrade">&times;</button><br>
                     <form name="addNewGradeForm" id="addNewGradeForm" role="form">
                         <div class="text-center errMsg" id='addCustErrMsg'></div>

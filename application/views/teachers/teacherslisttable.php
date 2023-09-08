@@ -17,6 +17,8 @@
                         <th>NAME</th>
                         <th>SURNAME</th>
                         <th>GENDER</th>
+                        <th>NATIONAL ID</th>
+                        <th>PROFESSION</th>
                         <th>PHONE</th>
                         <th>ADDRESS</th>
                         <th>SUBJECT</th>
@@ -34,6 +36,8 @@
                         <td><span id="teacherName-<?=$get->id?>"><?=$get->name?></span></td>
                         <td><span id="teacherSurname-<?=$get->id?>"><?=$get->surname?></td>
                         <td><span id="teacherGender-<?=$get->id?>"><?=$get->gender?></td>
+                        <td><span id="teacherNational_id-<?=$get->id?>"><?=$get->national_id?></td>
+                        <td><span id="teacherProfession-<?=$get->id?>"><?=$get->profession?></td>
                         <td><span id="teacherPhone-<?=$get->id?>"><?=$get->phone?></td>
                         <td><span id="teacherAddress-<?=$get->id?>"><?=$get->address?></td>
                         <td><span id="teacherSubject-<?=$get->id?>"><?=$get->subject?></td>

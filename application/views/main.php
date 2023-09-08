@@ -253,6 +253,13 @@ defined('BASEPATH') OR exit('');
                                 Payroll
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Staff' ? 'active' : '' ?>">
+                            <a href="<?= site_url('staffs') ?>">
+                                <i class="fa fa-database"></i>
+                                Staff
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">

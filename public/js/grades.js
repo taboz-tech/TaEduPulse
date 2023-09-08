@@ -340,7 +340,7 @@ function populateTeachersSelect(url) {
                 // Clear existing options and add a default empty option
                 selectField.empty().append($('<option>', {
                     value: '',
-                    text: 'Select Class'
+                    text: 'Select Teacher'
                 }));
 
                 // Populate options

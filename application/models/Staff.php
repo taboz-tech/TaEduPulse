@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('');
  * @author Tavonga <mafuratavonga@gmail.com>
  * @date 8 August, 2023
  */
-class Teacher extends CI_Model{
+class Staff extends CI_Model{
     public function __construct(){
         parent::__construct();
     }
