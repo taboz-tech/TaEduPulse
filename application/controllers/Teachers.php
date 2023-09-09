@@ -122,7 +122,7 @@ class Teachers extends CI_Controller{
             $teacherSurname = set_value('teacherSurname');
             $teacherNational_id = set_value('teacherNational_id');
             $teacherAddress= set_value('teacherAddress');
-            $teacherSubject = set_value('teacheraddress');
+            $teacherSubject = set_value('teacherSubject');
             
             //insert into eventlog
             //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
@@ -185,7 +185,7 @@ class Teachers extends CI_Controller{
             $teacherPhone = set_value('teacherPhone');
             $teacherDepartment = set_value('teacherDepartment');
             $teacherNational_id = set_value('teacherNational_id');
-            $teacherProfession = set_radio('teacherProfession');
+            $teacherProfession = set_value('teacherProfession');
 
             log_message("error","the nation".$teacherNational_id);
             log_message("error","the professionis: ".$teacherProfession);
