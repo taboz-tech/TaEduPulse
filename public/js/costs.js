@@ -99,14 +99,16 @@ $(document).ready(function(){
                 else{
                     hideFlashMsg();
                     
-                    //display all errors
-                    $("#costNameErr").text(returnedData.costName);
-                    $("#costAmountErr").text(returnedData.costAmount);
-                    $("#costCategoryErr").text(returnedData.costCategory);
-                    $("#costDescriptionErr").text(returnedData.costDescription);
-                    $("#costCurrencyErr").text(returnedData.costCurrency);
-                    $("#addCustErrMsg").text(returnedData.msg);
-                    
+                    // Display validation errors
+                    if (returnedData.errors) {
+                        $("#costNameErr").text(returnedData.errors.costName);
+                        $("#costAmountErr").text(returnedData.errors.costAmount);
+                        $("#costCategoryErr").text(returnedData.errors.costCategory);
+                        $("#costDescriptionErr").text(returnedData.errors.costDescription);
+                        $("#costCurrencyErr").text(returnedData.errors.costCurrency);
+                    } else {
+                        $("#addCustErrMsg").text(returnedData.msg);
+                    }
                 }
             },
 

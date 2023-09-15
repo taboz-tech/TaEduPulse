@@ -94,56 +94,65 @@ class Costs extends CI_Controller{
         $this->genlib->ajaxOnly();
         
         $this->load->library('form_validation');
-
+    
         $this->form_validation->set_error_delimiters('', '');
-
-        
-        $this->form_validation->set_rules('costName', 'Cost Name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('costAmount', 'Cost Amount', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
-        $this->form_validation->set_rules('costCategory', 'Cost Category', ['required', 'trim', 'max_length[20]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('costDescription', 'Cost Description', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('costCurrency', 'Cost Currency', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
-       
-        if($this->form_validation->run() !== FALSE){
-            $this->db->trans_start();//start transaction
-            
-            /**
-             * insert info into db
-             * function header: add($costName, $costAmount, $costCategory, $costDescription, $costCurrency)
-             */
-
-            $insertedId = $this->cost->add(set_value('costName'), set_value('costAmount'), set_value('costCategory'), 
-                    set_value('costDescription'), set_value('costCurrency'), set_value('costStatus'), set_value('costBalance'), set_value('costPaid'));
-            
-            $costName = set_value('costName');
-            $costAmount = set_value('costAmount');
-            $costCategory= set_value('costCategory');
-            $costCurrency = set_value('costCurrency');
-            
-            //insert into eventlog
-            //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Addition of {$costName} as a new Cost with  Amount '{$costAmount}',Currency '{$costCurrency}' and Category '{$costCategory}'to the Costs.";
-            
-            $insertedId ? $this->genmod->addevent("Creation of new Cost", $insertedId, $desc, "costs", $this->session->admin_id) : "";
-            
-            $this->db->trans_complete();
-            
-            $json = $this->db->trans_status() !== FALSE ? 
-                    ['status'=>1, 'msg'=>"Cost successfully added"] 
-                    : 
-                    ['status'=>0, 'msg'=>"Oops! Unexpected server error! Please contact administrator for help. Sorry for the embarrassment"];
+    
+        try {
+            // Validation rules
+            $this->form_validation->set_rules('costName', 'Cost Name', ['required', 'trim', 'max_length[30]', 'is_unique[costs.name]'], ['required' => 'The %s field is required.', 'is_unique' => 'A cost with this name already exists.']);
+            $this->form_validation->set_rules('costAmount', 'Cost Amount', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.', 'greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+            $this->form_validation->set_rules('costCategory', 'Cost Category', ['required', 'trim', 'max_length[20]'], ['required' => 'The %s field is required.']);
+            $this->form_validation->set_rules('costDescription', 'Cost Description', ['required', 'trim', 'max_length[50]'], ['required' => 'The %s field is required.']);
+            $this->form_validation->set_rules('costCurrency', 'Cost Currency', ['required', 'trim', 'max_length[15]'], ['required' => 'The %s field is required.']);
+    
+            if ($this->form_validation->run() === FALSE) {
+                // Validation failed
+                $json = [
+                    'status' => 0,
+                    'msg' => 'Validation error',
+                    'errors' => [
+                        'costName' => form_error('costName'),
+                        'costAmount' => form_error('costAmount'),
+                        'costCategory' => form_error('costCategory'),
+                        'costDescription' => form_error('costDescription'),
+                        'costCurrency' => form_error('costCurrency'),
+                    ]
+                ];
+            } else {
+                // Validation passed, proceed to insert
+                $this->db->trans_start(); // Start transaction
+    
+                $costName = set_value('costName');
+                $costAmount = set_value('costAmount');
+                $costCategory = set_value('costCategory');
+                $costCurrency = set_value('costCurrency');
+    
+                // Insert info into the database
+                $insertedId = $this->cost->add($costName, $costAmount, $costCategory, set_value('costDescription'), $costCurrency, set_value('costStatus'), set_value('costBalance'), set_value('costPaid'));
+    
+                // Insert into event log
+                $desc = "Addition of {$costName} as a new Cost with Amount '{$costAmount}', Currency '{$costCurrency}' and Category '{$costCategory}' to the Costs.";
+                $insertedId ? $this->genmod->addevent("Creation of new Cost", $insertedId, $desc, "costs", $this->session->admin_id) : "";
+    
+                $this->db->trans_complete();
+    
+                if ($this->db->trans_status() !== FALSE) {
+                    // Transaction successful
+                    $json = ['status' => 1, 'msg' => 'Cost successfully added'];
+                } else {
+                    // Transaction failed
+                    $json = ['status' => 0, 'msg' => 'Oops! Unexpected server error! Please contact administrator for help. Sorry for the embarrassment'];
+                }
+            }
+        } catch (Exception $e) {
+            // Log any exceptions
+            log_message('error', 'Exception: ' . $e->getMessage());
+            $json = ['status' => 0, 'msg' => 'An unexpected error occurred. Please contact the administrator.'];
         }
-        
-        else{
-            //return all error messages
-            $json = $this->form_validation->error_array();//get an array of all errors
-            
-            $json['msg'] = "One or more required fields are empty or not correctly filled";
-            $json['status'] = 0;
-        }
-                    
+    
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
     
    /*
     ********************************************************************************************************************************
