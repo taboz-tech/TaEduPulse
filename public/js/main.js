@@ -14,6 +14,12 @@ $(document).ready(function(){
     $("#transListTable").on('click', '.vtr', function(){
         vtr_(this);
     });
+
+
+    //to view Payslip receipt
+    $("#payslipsListTable").on('click', '.vpp', function(){
+        vpp_(this);
+    });
     
     
     //To validate form fields
@@ -458,6 +464,8 @@ function vtr_(elem){
 
 
 
+
+
 /**
  * drm = "Dismiss receipt modal"
  * @returns {undefined}
@@ -684,4 +692,37 @@ function arrayUnique(array){
     }
     
     return newArray;
+}
+
+/**
+ * vpp_ = "View Payroll Payslip"
+ * @param {type} elem
+ * @returns {undefined}
+ */
+function vpp_(elem){
+    var ref = elem.innerHTML;
+    
+    if(ref){
+        //show the loading icon
+        $("#payrollPayslip").html("<i class='fa fa-spinner faa-spin animated'></i> Loading Payslip");
+        
+        //show modal
+        $("#payrollPayslipModal").modal('show');
+        
+        //make server request
+        $.ajax({
+            url: appRoot+"payrolls/vpp_",
+            type: "post",
+            data: {ref:ref},
+            success: function(returnedData){
+                if(returnedData.status === 1){
+                    $("#payrollPayslip").html(returnedData.payrollPayslip);
+                }
+                
+                else{
+                    $("#payrollPayslip").html("Payslip not found");
+                }
+            }
+        });
+    }
 }
