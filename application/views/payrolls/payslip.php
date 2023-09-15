@@ -5,7 +5,7 @@
     <div id="payslipToPrint">
         <div class="row">
             <div class="col-xs-12 text-center text-uppercase">
-                <center style="margin-bottom:5px"><img src="<?= base_url() ?>public/images/company_logo.png" alt="Company Logo" class="img-responsive" width="45px"></center>
+                <center style='margin-bottom:5px'><img src="<?=base_url()?>public/images/receipt_logo2.png" alt="logo" class="img-responsive" width="45px"></center>
                 <b>Your Company Name</b>
                 <div>Contact Info: Phone, Email, Address</div>
             </div>

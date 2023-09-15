@@ -296,16 +296,18 @@ class Payrolls extends CI_Controller{
             $pto_balance = $this->genmod->getTableCol('payrolls', 'pto_balance', 'ref', $ref);
             $other_allowances = $this->genmod->getTableCol('payrolls', 'other_allowances','ref',$ref);
             $pto_name = "Paid Time Off";
-            $other_allowances_name = "Other Allowances";
-            $income_Tax_name = "Income Name";
+            $other_allowances_name = "Allowances";
+            $income_Tax_name = "Income Tax";
             $staffHealthy_insurance_name = "Health Insurance";
+            $basic_salary_name = "Basic Salary";
 
             // Create separate arrays for earnings
             $pto_earnings = ['name' => $pto_name, 'amount' => $pto_balance];
             $other_allowances_earnings = ['name' => $other_allowances_name, 'amount' => $other_allowances];
+            $basic_salary = ['name' =>$basic_salary_name, 'amount' => $staffSalary ];
 
             // Assign these arrays to the "earnings" key in $allPayrollInfo
-            $allPayrollInfo['earnings'] = [$pto_earnings, $other_allowances_earnings];
+            $allPayrollInfo['earnings'] = [$pto_earnings, $other_allowances_earnings,$basic_salary];
 
             // Create separate arrays for deductions
             $income_tax_deduction = ['name' => $income_Tax_name, 'amount' => $staffIncome_tax];
@@ -355,7 +357,6 @@ class Payrolls extends CI_Controller{
 
     private function genPayrollPayslip($allPayrollInfo,$currentMonth,$ref,$staffName,$staffSurname,$staffStaff_id,$staffAddress,$staffIncome_tax,$staffEmail,$tax_identification_number,$staffPhone){
         $data['allPayrollInfo'] = $allPayrollInfo;
-
         $data['currentMonth'] = $currentMonth;
         $data['staffName'] = $staffName;
         $data['staffSurname'] = $staffSurname;
@@ -412,16 +413,18 @@ class Payrolls extends CI_Controller{
             $other_allowances = $payrollInfo[0]['other_allowances'];
             $tax_withholding = $payrollInfo[0]['tax_withholding'];
             $health_insurance = $payrollInfo[0]['health_insurance'];
+            $basic_salary = $payrollInfo[0]['gross_salary'];
 
             // Create separate arrays for earnings and deductions
             $earnings = [
                 ['name' => 'PTO Earnings', 'amount' => $pto_balance],
-                ['name' => 'Other Allowances', 'amount' => $other_allowances]
+                ['name' => 'Allowances', 'amount' => $other_allowances],
+                ['name' => 'Basic Salary', 'amount' => $basic_salary]
             ];
 
             $deductions = [
-                ['name' => 'Income Tax Deduction', 'amount' => $tax_withholding],
-                ['name' => 'Health Insurance Deduction', 'amount' => $health_insurance]
+                ['name' => 'Income Tax ', 'amount' => $tax_withholding],
+                ['name' => 'Health Insurance', 'amount' => $health_insurance]
             ];
 
             // Assign the earnings and deductions arrays to the "earnings" and "deductions" keys in $allPayrollInfo
