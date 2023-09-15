@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll']);
         
         $this->load->helper('text');
         
@@ -58,13 +58,7 @@ class Search extends CI_Controller{
     
     
     
-    /*
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    ********************************************************************************************************************************
-    */
+    
     
     
     public function studentSearch(){
@@ -224,6 +218,43 @@ class Search extends CI_Controller{
         $data['sn'] = 1;
         
         $json['incomesListTable'] = $data['allIncomes'] ? $this->load->view('incomes/incomeslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+     /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function staffSearch(){
+        $data['allStaffs'] = $this->staff->staffsearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['staffsListTable'] = $data['allStaffs'] ? $this->load->view('staffs/staffslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+     /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function payslipSearch(){
+        
+        $data['allPayslips'] = $this->payroll->payslipSearch($this->value);
+        log_message("error","the aray of Payslips is: ".print_r($data['allPayslips'],TRUE));
+        
+        $data['sn'] = 1;
+        
+        $json['payslipsListTable'] = $data['allPayslips'] ? $this->load->view('payrolls/payrollstable', $data, TRUE) : "No match found";
         
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
