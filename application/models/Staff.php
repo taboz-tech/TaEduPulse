@@ -2,10 +2,10 @@
 defined('BASEPATH') OR exit('');
 
 /**
- * model for Teachers
+ * model for Staff
  *
  * @author Tavonga <mafuratavonga@gmail.com>
- * @date 8 August, 2023
+ * @date 9 September, 2023
  */
 class Staff extends CI_Model{
     public function __construct(){
@@ -22,7 +22,7 @@ class Staff extends CI_Model{
         $this->db->limit($limit, $start);
         $this->db->order_by($orderBy, $orderFormat);
         
-        $run_q = $this->db->get('teachers');
+        $run_q = $this->db->get('staffs');
         
         if($run_q->num_rows() > 0){
             return $run_q->result();
@@ -44,19 +44,22 @@ class Staff extends CI_Model{
     
     /**
      * 
-     * @param string $teacherName
-     * @param string $teacherSurname
-     * @param string $teacherGender
-     * @param string $teacherSubject
-     * @param string $teacherPhone
-     * @param string $teacherAddress
-     * @param string $teacherDepartment
-     * @param string $teacherNational_id
-     * @param string $teacherProfession
+     * @param string $staffName
+     * @param string $staffSurname
+     * @param string $staffGender
+     * @param string $staffStaff_id
+     * @param string $staffPhone
+     * @param string $staffAddress
+     * @param string $staffDepartment
+     * @param string $staffNational_id
+     * @param string $staffEmail
+     * @param string $staffDob
+     * @param string $staffJob_tittle
+     * @param decimal $staffSalary
      * @return boolean
      */
-    public function add($teacherName, $teacherSurname, $teacherGender, $teacherSubject, $teacherPhone,$teacherAddress,$teacherDepartment,$teacherNational_id,$teacherProfession){
-        $data = ['name'=>$teacherName, 'surname'=>$teacherSurname, 'gender'=>$teacherGender, 'subject'=>$teacherSubject, 'phone'=>$teacherPhone, 'address'=>$teacherAddress, 'department'=>$teacherDepartment,'national_id'=>$teacherNational_id,'profession'=>$teacherProfession];
+    public function add($staffName, $staffSurname, $staffGender, $staffStaff_id, $staffPhone,$staffAddress,$staffDepartment,$staffNational_id,$staffEmail,$staffDob,$staffJob_tittle,$staffSalary){
+        $data = ['name'=>$staffName, 'surname'=>$staffSurname, 'gender'=>$staffGender, 'staff_id'=>$staffStaff_id, 'phone'=>$staffPhone, 'address'=>$staffAddress, 'department'=>$staffDepartment,'national_id'=>$staffNational_id,'email'=>$staffEmail,'dob'=>$staffDob, 'job_tittle'=>$staffJob_tittle, 'basic_salary'=>$staffSalary];
                 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" 
@@ -65,7 +68,7 @@ class Staff extends CI_Model{
                 : 
         $this->db->set('dateAdded', "NOW()", FALSE);
         
-        $this->db->insert('teachers', $data);
+        $this->db->insert('staffs', $data);
         
         if($this->db->insert_id()){
             return $this->db->insert_id();
@@ -89,20 +92,20 @@ class Staff extends CI_Model{
      * @param type $value
      * @return boolean
      */
-    public function teachersearch($value){
-        $q = "SELECT * FROM teachers 
+    public function staffsearch($value){
+        $q = "SELECT * FROM staffs 
             WHERE 
             name LIKE '%".$this->db->escape_like_str($value)."%'
-            || 
-            surname LIKE '%".$this->db->escape_like_str($value)."%'";
+            OR 
+            surname LIKE '%".$this->db->escape_like_str($value)."%'
+            OR
+            staff_id LIKE '%".$this->db->escape_like_str($value)."%'";
         
-        $run_q = $this->db->query($q, [$value, $value]);
+        $run_q = $this->db->query($q, [$value, $value, $value]);
         
         if($run_q->num_rows() > 0){
             return $run_q->result();
-        }
-        
-        else{
+        } else {
             return FALSE;
         }
     }
@@ -121,24 +124,27 @@ class Staff extends CI_Model{
    
    /**
     * 
-    * @param int $teacherId
-    * @param string $teacherName
-    * @param string $teacherSurname
-    * @param string $teacherPhone
-    * @param string $teacherAddress
-    * @param string $teacherSubject
-    * @param string $teacherDepartment
-    * @param string $teacherNational_id
-    * @param string $teacherProfession
+    * @param int $staffId
+    * @param string $staffName
+    * @param string $staffSurname
+    * @param string $staffPhone
+    * @param string $staffAddress
+    * @param string $staffEmail
+    * @param string $staffDepartment
+    * @param string $staffNational_id
+    * @param string $staffGender
+    * @param date $staffDob
+    * @param string $staffJob_tittle
+    * @param decimal $staffSalary
     */
 
 
      
-   public function edit($teacherId, $teacherName, $teacherSurname, $teacherPhone, $teacherAddress,$teacherSubject,$teacherDepartment,$teacherNational_id,$teacherProfession){
-       $data = ['name'=>$teacherName, 'surname'=>$teacherSurname, 'phone'=>$teacherPhone, 'address'=>$teacherAddress,'subject'=>$teacherSubject,'department'=>$teacherDepartment, 'national_id'=>$teacherNational_id,'profession'=>$teacherProfession];
+   public function edit($staffId, $staffName, $staffSurname, $staffPhone, $staffAddress,$staffEmail,$staffDepartment,$staffNational_id,$staffGender,$staffDob,$staffJob_tittle,$staffSalary){
+       $data = ['name'=>$staffName, 'surname'=>$staffSurname, 'phone'=>$staffPhone, 'address'=>$staffAddress,'email'=>$staffEmail,'department'=>$staffDepartment, 'national_id'=>$staffNational_id,'gender'=>$staffGender,'dob'=>$staffDob,'job_tittle'=>$staffJob_tittle, 'basic_salary'=>$staffSalary];
        
-       $this->db->where('id', $teacherId);
-       $this->db->update('teachers', $data);
+       $this->db->where('id', $staffId);
+       $this->db->update('staffs', $data);
        
        return TRUE;
    }
@@ -158,12 +164,12 @@ class Staff extends CI_Model{
      * 
      * return array | FALSE
      */
-    public function getTeacherInfo($where_clause, $fields_to_fetch){
+    public function getStaffInfo($where_clause, $fields_to_fetch){
         $this->db->select($fields_to_fetch);
         
         $this->db->where($where_clause);
 
-        $run_q = $this->db->get('teachers');
+        $run_q = $this->db->get('staffs');
         
         return $run_q->num_rows() ? $run_q->row() : FALSE;
     }
@@ -175,20 +181,48 @@ class Staff extends CI_Model{
      * @param string $orderFormat Order format (ASC or DESC)
      * @return array|boolean Returns an array of active employees or FALSE if no results are found
      */
-    public function getActiveTeachers($orderBy, $orderFormat) {
+    public function getActiveStaffs($orderBy, $orderFormat) {
         $this->db->order_by($orderBy, $orderFormat);
-
-        // Assuming 'status' is the BOOLEAN field that determines the employee's active/inactive status
-        $this->db->where('status', TRUE); // TRUE represents 'active'
-
-        $run_q = $this->db->get('teachers');
-
+    
+        // Assuming 'status' is a BOOLEAN field with 1 for active and 0 for inactive
+        $this->db->where('status', 1); // 1 represents 'active'
+    
+        $run_q = $this->db->get('staffs');
+    
         if ($run_q->num_rows() > 0) {
             return $run_q->result();
         } else {
             return FALSE;
         }
     }
+
+     /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    
+   /**
+    * 
+    * @param type $staff_id
+    * @param type $new_status New account status
+    * @return boolean
+    */ 
+    public function suspend($staff_id, $new_status){       
+        $this->db->where('id', $staff_id);
+        $this->db->update('staffs', ['status'=>$new_status]);
+
+        if($this->db->affected_rows()){
+            return TRUE;
+        }
+
+        else{
+            return FALSE;
+        }
+    }
+    
 
 
 }
