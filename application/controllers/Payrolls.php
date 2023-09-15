@@ -110,7 +110,7 @@ class Payrolls extends CI_Controller{
         $staffOvertime =  $this->input->post('staffOvertime', TRUE);
         $staffHealthy_insurance =  $this->input->post('staffHealthy_insurance', TRUE);
         $currentMonth =  $this->input->post('currentMonth', TRUE);
-        log_message("error","the current month is: ".$currentMonth);
+        
         
         $allIsWell = $this->validateStaffsDet($staffStaff_id,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth);
         $response = json_decode($allIsWell, True);
@@ -368,7 +368,6 @@ class Payrolls extends CI_Controller{
         $data['tax_identification_number'] = $tax_identification_number;
         //generate and return payslip
         $payrollPayslip = $this->load->view('payrolls/payslip', $data, TRUE);
-        // log_message("error","the payslip is: ".$payrollPayslip);
         return $payrollPayslip;
     }
 

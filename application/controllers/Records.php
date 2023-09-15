@@ -50,7 +50,6 @@ class Records extends CI_Controller{
 
         // Get a list of report files
         $data['allReports'] = $this->Record->getReportFiles($orderFormat, $start, $limit);
-        log_message('error','the reports we have'.print_r($data['allReports'],True));
 
         $data['range'] = $totalReports > 0 ? "Showing " . ($start + 1) . "-" . ($start + count($data['allReports'])) . " of " . $totalReports : "";
         $data['links'] = $this->pagination->create_links(); // Page links

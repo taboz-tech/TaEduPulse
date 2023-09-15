@@ -72,7 +72,6 @@ class Transactions extends CI_Controller{
         // Get all transactions from the database
         
         $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
-        //  log_message('error', 'Contents of $data[\'allTransactions\']: ' . print_r($data['allTransactions'], true));
 
 
         // Calculate and assign the 'range' value
@@ -278,7 +277,6 @@ class Transactions extends CI_Controller{
                 $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term,$currency);
                 
                 $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalAmount' => $totalFees, 'term' => $term,'currency'=>$currency];
-                // log_message('error', 'Contents of $allTransInfo[' . $transId .']: ' . print_r($allTransInfo[$transId], true));
                 
                 // Load the Currency model
                 $this->load->model('currency');
@@ -464,9 +462,7 @@ class Transactions extends CI_Controller{
     
         $refundAmount = $this->input->post('refundAmount');
         $transactionIdString = $this->input->post('transactionId'); // Comma-separated string of transaction IDs
-        log_message('error','this is the transId'.$transactionIdString);
         $transactionIds = explode(',', $transactionIdString); // Convert the string to an array
-        log_message('error','we are here now');
     
         $successCount = 0; // Count of successfully refunded transactions
     
@@ -512,8 +508,6 @@ class Transactions extends CI_Controller{
                 $this->student->incrementStudent($studentId,$refundAmount);
 
 
-                log_message('error', 'Student ID: ' . $studentId);
-                log_message('error', 'Fee Amount: ' . $refundAmount);
             
     
                 // Add your logic to update the student's fees with the refunded amount

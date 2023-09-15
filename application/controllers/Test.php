@@ -155,7 +155,6 @@ class Test extends CI_Controller {
     }
 
     public function generateBudget() {
-        log_message("error","we rae here");
         // Create a new Excel instance
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

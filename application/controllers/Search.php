@@ -250,8 +250,6 @@ class Search extends CI_Controller{
     public function payslipSearch(){
         
         $data['allPayslips'] = $this->payroll->payslipSearch($this->value);
-        log_message("error","the aray of Payslips is: ".print_r($data['allPayslips'],TRUE));
-        
         $data['sn'] = 1;
         
         $json['payslipsListTable'] = $data['allPayslips'] ? $this->load->view('payrolls/payrollstable', $data, TRUE) : "No match found";

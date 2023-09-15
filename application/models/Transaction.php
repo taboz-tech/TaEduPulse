@@ -400,7 +400,6 @@ class Transaction extends CI_Model {
     }
     
     public function totalEarnedZwl() {
-        log_message('error','ew are here  in the model');
         $q = "SELECT SUM(totalAmount) as 'totalEarnedZWL' FROM transactions where currency = 'ZWL'";
 
         $run_q = $this->db->query($q);

@@ -187,9 +187,6 @@ class Teachers extends CI_Controller{
             $teacherNational_id = set_value('teacherNational_id');
             $teacherProfession = set_value('teacherProfession');
 
-            log_message("error","the nation".$teacherNational_id);
-            log_message("error","the professionis: ".$teacherProfession);
-
            
             //update Teacher in db
             $updated = $this->teacher->edit($teacherId, $teacherName, $teacherSurname, $teacherPhone,$teacherAddress,$teacherSubject,$teacherDepartment,$teacherNational_id,$teacherProfession);

@@ -167,7 +167,7 @@ class Payroll extends CI_Model {
      */
     public function payslipSearch($value) {
         try {
-            log_message("error", "the value is: " . $value);
+           
             $this->db->select('*, CONCAT(admin.first_name, " ", admin.last_name) as personnel_name');
             $this->db->select('(tax_withholding + health_insurance) as deductions', FALSE);
             $this->db->select('(pto_balance + other_allowances) as bonuses', FALSE);
@@ -186,9 +186,7 @@ class Payroll extends CI_Model {
     
             $query = $this->db->get();
     
-            // Log the SQL query
-            log_message('error', 'SQL Query: ' . $this->db->last_query());
-    
+            
             if ($query === false) {
                 // Handle the database error here
                 throw new Exception('Database query failed.');
