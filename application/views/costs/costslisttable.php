@@ -19,6 +19,10 @@
                         <th>CATEGORY</th>
                         <th>DESCRIPTION</th>
                         <th>CURRENCY</th>
+                        <th>BALANCE</th>
+                        <th>PAID</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
                     </tr>
@@ -33,6 +37,12 @@
                         <td><span id="costCategory-<?=$get->id?>"><?=$get->category?></td>
                         <td><span id="costDescription-<?=$get->id?>"><?=$get->description?></td>
                         <td><span id="costCurrency-<?=$get->id?>"><?=$get->currency?></td>
+                        <td><span id="costBalance-<?=$get->id?>"><?=$get->balance?></td>
+                        <td><span id="costPaid-<?=$get->id?>"><?=$get->paid?></td>
+                        <td class="text-center <?= $get->status ? 'text-success' : 'text-danger' ?>"> <?= $get->status ? 'Paid' : 'Pending' ?> </td>
+                        <td class="text-center text-primary">
+                            <span class="payCost" id="pay-<?=$get->id?>"><i class="fa fa-undo"></i> </span>
+                        </td>
                         <td class="text-center text-primary">
                             <span class="editCost" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
