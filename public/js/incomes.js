@@ -366,6 +366,7 @@ $(document).ready(function(){
                     }
 
                     else{
+                        changeFlashMsgContent(rd.error, "text-danger", 'red', 3000);
 
                     }
                 }).fail(function(){

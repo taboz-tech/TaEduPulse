@@ -204,22 +204,35 @@ class Incomes extends CI_Controller{
     ********************************************************************************************************************************
     */
     
-    
     public function delete(){
         $this->genlib->ajaxOnly();
         
         $json['status'] = 0;
         $incomeId = $this->input->post('i', TRUE);
         
-        if($incomeId){
-            $this->db->where('id', $incomeId)->delete('incomes');
+        // Add conditions to prevent deletion of specific incomes by name
+        $incomesToPreserve = ['Fees', 'Reg_fee']; // Names of Incomes to be preserved
+        
+        // Retrieve the income name based on the ID
+        $incomeInfo = $this->income->getIncomeInfo(['id' => $incomeId], ['name']);
+        
+        if ($incomeId && $incomeInfo) {
+            $incomeName = $incomeInfo->name;
             
-            $json['status'] = 1;
+            // Check if the income name is in the list of incomes to be preserved
+            if (in_array($incomeName, $incomesToPreserve)) {
+                $json['error'] = "Income '$incomeName' cannot be deleted.";
+            } else {
+                // Delete the income if it's not in the list of incomes to be preserved
+                $this->db->where('id', $incomeId)->delete('incomes');
+                $json['status'] = 1;
+            }
         }
         
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 
     /*
     ********************************************************************************************************************************
