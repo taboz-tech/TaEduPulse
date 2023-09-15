@@ -83,8 +83,11 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="teacherGender">Teacher Gender</label>
-                                <input type="text" id="teacherGender" name="teacherGender" placeholder="Teacher Gender" maxlength="30"
-                                    class="form-control" onchange="checkField(this.value, 'teacherGenderErr')">
+                                <select id="teacherGender" name="teacherGender" class="form-control" onchange="checkField(this.value, 'teacherGenderErr')">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                                 <span class="help-block errMsg" id="teacherGenderErr"></span>
                             </div>
                         </div>

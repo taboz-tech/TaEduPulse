@@ -285,7 +285,7 @@ $(document).ready(function(){
                 $("#editTeacherFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
     
                 if (returnedData.teacherName) $("#teacherNameEditErr").html(returnedData.teacherName);
-                if (returnedData.teacherSurname) $("#teacherSurnameErr").html(returnedData.teacherSurname);
+                if (returnedData.teacherSurname) $("#teacherSurnameEditErr").html(returnedData.teacherSurname);
             }
         }).fail(function () {
             $("#editTeacherFMsg").css('color', 'red').html("Unable to process your request at this time. Please check your internet connection and try again");
