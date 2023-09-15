@@ -143,8 +143,8 @@ defined('BASEPATH') OR exit('');
                                 <label for="studentGender">Student Gender</label>
                                 <select id="studentGender" name="studentGender" class="form-control" onchange="checkField(this.value, 'studentGenderErr')">
                                     <option value="" disabled selected>Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
                                 <span class="help-block errMsg" id="studentGenderErr"></span>
                             </div>
