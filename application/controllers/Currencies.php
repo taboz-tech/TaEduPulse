@@ -198,20 +198,33 @@ class Currencies extends CI_Controller{
     ********************************************************************************************************************************
     */
     
-    
     public function delete(){
         $this->genlib->ajaxOnly();
         
         $json['status'] = 0;
         $currencieId = $this->input->post('i', TRUE);
         
-        if($currencieId){
-            $this->db->where('id', $currencieId)->delete('currencies');
+        // Add conditions to prevent deletion of specific currencies by name
+        $currenciesToPreserve = ['ZAR', 'ZWL', 'RTGS', 'USD']; // Names of currencies to be preserved
+        
+        // Retrieve the currency name based on the ID
+        $currencyInfo = $this->currency->getCurrencieInfo(['id' => $currencieId], ['name']);
+        
+        if ($currencieId && $currencyInfo) {
+            $currencyName = $currencyInfo->name;
             
-            $json['status'] = 1;
+            // Check if the currency name is in the list of currencies to be preserved
+            if (in_array($currencyName, $currenciesToPreserve)) {
+                $json['error'] = "Currency '$currencyName' cannot be deleted.";
+            } else {
+                // Delete the currency if it's not in the list of currencies to be preserved
+                $this->db->where('id', $currencieId)->delete('currencies');
+                $json['status'] = 1;
+            }
         }
         
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 }
