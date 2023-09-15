@@ -49,10 +49,14 @@ class Cost extends CI_Model{
      * @param string $costCategory
      * @param string $costDescription
      * @param string $costCurrency
+     * @param boolean $costStatus
+     * @param decimal $costBalance
+     * @param decimal $costPaid
      * @return boolean
      */
-    public function add($costName, $costAmount, $costCategory, $costDescription, $costCurrency){
-        $data = ['name'=>$costName, 'amount'=>$costAmount, 'category'=>$costCategory, 'description'=>$costDescription, 'currency'=>$costCurrency];
+    public function add($costName, $costAmount, $costCategory, $costDescription, $costCurrency,$costStatus,$costBalance,$costPaid){
+        $data = ['name'=>$costName, 'amount'=>$costAmount, 'category'=>$costCategory, 'balance'=>$costBalance,
+         'description'=>$costDescription, 'currency'=>$costCurrency , 'status'=>$costStatus, 'paid'=>$costPaid];
                 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" 
@@ -127,8 +131,8 @@ class Cost extends CI_Model{
 
 
      
-   public function edit($costId, $costName, $costAmount, $costCategory, $costDescription,$costCurrency){
-       $data = ['name'=>$costName, 'amount'=>$costAmount, 'category'=>$costCategory, 'description'=>$costDescription,'currency'=>$costCurrency];
+   public function edit($costId, $costName, $costAmount, $costCategory, $costDescription,$costCurrency,$newBalance){
+       $data = ['name'=>$costName, 'amount'=>$costAmount, 'category'=>$costCategory, 'description'=>$costDescription,'currency'=>$costCurrency, 'balance'=>$newBalance];
        
        $this->db->where('id', $costId);
        $this->db->update('costs', $data);
@@ -214,6 +218,39 @@ class Cost extends CI_Model{
         }
     }
 
+    public function payCost($costId, $paymentAmount) {
+        try {
+            // Get the current cost information
+            $costInfo = $this->getCostInfo(['id' => $costId], ['paid', 'balance', 'status']);
+    
+            if (!$costInfo) {
+                throw new Exception('Cost not found');
+            }
+    
+            $currentPaid = $costInfo->paid;
+            $currentBalance = $costInfo->balance;
+    
+            // Calculate the new balance
+            $newBalance = $currentBalance - $paymentAmount;
+    
+            // Update the amount paid and balance
+            $data = ['paid' => $currentPaid + $paymentAmount, 'balance' => $newBalance];
+    
+            // If the new balance is 0, set the status to 1
+            if ($newBalance == 0) {
+                $data['status'] = 1;
+            }
+    
+            $this->db->where('id', $costId);
+            $this->db->update('costs', $data);
+    
+            return true;
+        } catch (Exception $e) {
+            log_message('error', 'An error occurred: ' . $e->getMessage());
+            return false;
+        }
+    }
+    
 }
 
 

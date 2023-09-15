@@ -59,6 +59,9 @@ $(document).ready(function(){
         var costCategory = $("#costCategory").val();
         var costDescription = $("#costDescription").val();
         var costCurrency = $("#costCurrency").val();
+        const costStatus = 0;
+        const costBalance = $("#costAmount").val();
+        const costPaid = 0.00; 
 
         
         if(!costName || !costAmount || !costCategory || !costCurrency || !costDescription){
@@ -79,7 +82,7 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: appRoot+"costs/add",
-            data:{costName:costName, costAmount:costAmount, costCategory:costCategory, costDescription:costDescription, costCurrency:costCurrency},
+            data:{costName:costName, costAmount:costAmount, costCategory:costCategory, costDescription:costDescription, costCurrency:costCurrency, costStatus:costStatus, costBalance:costBalance,costPaid:costPaid},
             
             success: function(returnedData){
                 if(returnedData.status === 1){
@@ -323,6 +326,120 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+     // Triggered when the pay icon is clicked
+    $("#costsListTable").on('click', ".payCost", function(e){
+        e.preventDefault();
+        $("#enablePaymentAmount").prop("checked", false);
+
+        var costId = $(this).attr('id').split('-')[1];
+        var costBalance = parseFloat($("#costBalance-" + costId).text()); // Parse the balance as a float
+
+        // Open the refund modal
+        $('#paymentModal').modal('show');
+
+        $('#costId').val(costId);
+        $('#costAmountPaying').val(costBalance.toFixed(2)); // Set the payment amount with 2 decimal places
+
+        // Check if costBalance is zero and make the modal non-editable
+        if (costBalance === 0) {
+            $('#paymentAmount').prop('readonly', true);
+            $('#enablePaymentAmount').prop('disabled', true);
+            $('#processPaymentSubmit').prop('disabled', true);
+            $("#paymentMessage").css('font-weight', '1500').css('color', 'green').html("PAID!");
+
+
+        } else {
+            $('#paymentAmount').prop('readonly', false);
+            $('#enablePaymentAmount').prop('disabled', false);
+            $('#processPaymentSubmit').prop('disabled', false);
+            $('#paymentMessage').html(''); // Remove the watermark message
+        }
+    });
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+    $("#enablePaymentAmount").prop("checked", false); // Set the checkbox to unchecked by default
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    // Checkbox event handler to toggle the amount field's editability
+    $("#enablePaymentAmount").on("change", function() {
+        var isEnabled = $(this).prop("checked");
+        if (isEnabled) {
+            // Get the displayed cost amount value
+            var costAmount = parseFloat($("#costAmountPaying").val()).toFixed(2);
+
+            // Set the cost amount in the hidden field
+            $("#paymentAmount").val(costAmount);
+
+            // Disable the payment amount field
+            $("#paymentAmount").prop("disabled", true);
+        } else {
+            // Enable the payment amount field
+            $("#paymentAmount").prop("disabled", false);
+
+            // Clear the hidden field value
+            $("#paymentAmount").val("");
+        }
+    });
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+    $("#processPaymentSubmit").click(function () {
+        
+        var paymentAmount = parseFloat($('#paymentAmount').val());
+        var costAmount = parseFloat($('#costAmountPaying').val());
+        var costId = $('#costId').val();
+        var decision = paymentAmount <= costAmount;
+        console.log(paymentAmount + " <= " + costAmount + " = " + decision);
+    
+        if (decision) {
+            console.log("taboz");
+            $.ajax({
+                type: "POST",
+                url: appRoot + "costs/payCost",
+                data: { paymentAmount: paymentAmount, costId: costId },
+                success: function (returnedData) {
+                    console.log(returnedData);
+                    if (returnedData.status === 1) {
+                        // Payment was successful, display the success message
+                        $("#paymentMessage").css('font-weight', 'bold').css('color', 'green').html("Payment was successful!");
+    
+                        // Hide any previous error messages
+                        $("#paymentAmountErr").css('display', 'none');
+    
+                        // Close the modal after 3 seconds (2000 milliseconds)
+                        setTimeout(function () {
+                            $('#paymentModal').modal('hide');
+                        }, 2000);
+                    } else {
+                        // Handle the error case
+                    }
+                },
+                error: function () {
+                    alert("ERROR!");
+                }
+            });
+        } else {
+            $("#paymentAmountErr").css('color', 'red').html("You can not pay " + paymentAmount + " whilst the balance is " + costAmount);
+        }
+    });
+    
+    
 });
 
 

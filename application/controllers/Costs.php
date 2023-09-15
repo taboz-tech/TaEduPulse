@@ -113,7 +113,7 @@ class Costs extends CI_Controller{
              */
 
             $insertedId = $this->cost->add(set_value('costName'), set_value('costAmount'), set_value('costCategory'), 
-                    set_value('costDescription'), set_value('costCurrency'));
+                    set_value('costDescription'), set_value('costCurrency'), set_value('costStatus'), set_value('costBalance'), set_value('costPaid'));
             
             $costName = set_value('costName');
             $costAmount = set_value('costAmount');
@@ -178,9 +178,16 @@ class Costs extends CI_Controller{
             $costDescription = set_value('costDescription');
             $costCurrency = set_value('costCurrency');
 
+            $oldAmount = $this->genmod->gettablecol('costs', 'amount', 'id', $costId);
+            $oldBalance = $this->genmod->gettablecol('costs', 'balance', 'id', $costId);
+            $change = $costAmount - $oldAmount;
+            $newBalance = $oldBalance + $change;
+    
+    
+
            
             //update Cost in db
-            $updated = $this->cost->edit($costId, $costName, $costAmount, $costCategory,$costDescription,$costCurrency);
+            $updated = $this->cost->edit($costId, $costName, $costAmount, $costCategory,$costDescription,$costCurrency,$newBalance);
             
             $json['status'] = $updated ? 1 : 0;
             
@@ -286,4 +293,50 @@ class Costs extends CI_Controller{
     
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+    /*
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    ********************************************************************************************************************************
+    */
+    public function payCost(){
+        $this->genlib->ajaxOnly();
+    
+        $costId = $this->input->post('costId', TRUE);
+        $paymentAmount = $this->input->post('paymentAmount', TRUE);
+        
+        $costName = $this->genmod->getTableCol('costs', 'name', 'id', $costId);
+        
+        try {
+            // Attempt to pay the cost
+            $paid = $this->cost->payCost($costId, $paymentAmount);
+    
+            if ($paid) {
+                // Payment was successful
+                $json['status'] = 1;
+    
+                // Log the successful payment
+                $desc = "Cost with Name '$costName' was paid by amount '$paymentAmount'";
+                $this->genmod->addevent("Cost Update", $costId, $desc, 'costs', $this->session->admin_id);
+            } else {
+                // Payment failed
+                $json['status'] = 0;
+            }
+        } catch (Exception $e) {
+            // Handle the exception
+            log_message('error', 'Payment Error: ' . $e->getMessage()); // Log the error
+    
+            // Provide an error response to JavaScript
+            $json['status'] = 0;
+            $json['error'] = 'An error occurred while processing the payment.';
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+
+    }
+    
+
+    
 }

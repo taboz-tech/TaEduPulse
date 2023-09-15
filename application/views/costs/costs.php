@@ -199,4 +199,39 @@ defined('BASEPATH') OR exit('');
     </div>
 </div>
 <!--end of modal-->
+
+<div id="paymentModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center">Payment Cost</h4>
+                <div id="paymentMessage" class="text-center" style="font-weight: bold !important; color: green !important;"></div>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <input type="hidden" id="costId" value="">
+                    <input type="hidden" id="costAmountPaying" value="">
+
+                    <div class="form-group">
+                        <label for="paymentAmount">Payment Amount</label>
+                        <input type="text" id="paymentAmount" placeholder="Payment Amount" class="form-control">
+                        <span class="help-block" id="paymentAmountErr"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enablePaymentAmount">Full Payment</label>
+                        <input type="checkbox" id="enablePaymentAmount">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="processPaymentSubmit">Pay Cost</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="<?=base_url()?>public/js/costs.js"></script>
