@@ -247,8 +247,8 @@ defined('BASEPATH') OR exit('');
                             </a>
                         </li>
 
-                        <li class="<?= $pageTitle == 'Payslips' ? 'active' : '' ?>">
-                            <a href="<?= site_url('payslips') ?>">
+                        <li class="<?= $pageTitle == 'Payrolls' ? 'active' : '' ?>">
+                            <a href="<?= site_url('payrolls') ?>">
                                 <i class="fa fa-database"></i>
                                 Payroll
                             </a>
@@ -369,6 +369,20 @@ defined('BASEPATH') OR exit('');
         </div>
         <!-- End of modal-->
 		
+        <!-- Modal to display Payslip when a Payslip ref is clicked on the payslip list table -->
+        <div class="modal fade" role='dialog' data-backdrop='static' id="payrollPayslipModal">
+            <div class="modal-dialog modal-lg"> <!-- Change modal-lg for a larger modal -->
+                <div class="modal-content">
+                    <div class="modal-header hidden-print">
+                        <button class="close" data-dismiss='modal'>&times;</button>
+                        <h4 class="text-center">Payroll Payslip</h4>
+                    </div>
+                    <div class="modal-body" id='payrollPayslip'></div>
+                </div>
+            </div>
+        </div>
+        <!-- End of modal -->
+
 		
         <!--Login Modal-->
         <div class="modal fade" role='dialog' data-backdrop='static' id='logInModal'>
