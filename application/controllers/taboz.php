@@ -2,19 +2,19 @@
 defined('BASEPATH') OR exit('');
 require_once 'functions.php';
 /**
- * Description of Payslips
+ * Description of Transactions
  *
  * @author Tavonga <mafuratavonga@gmail.com>
- * @date 31st Dec, 2022
+ * @date 10th September 2023
  */
-class Payslips extends CI_Controller{
+class Payrolls extends CI_Controller{
     
     public function __construct(){
         parent::__construct();
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['payslip', 'teacher']);
+        $this->load->model(['payroll', 'staff']);
     }
     
     /*
@@ -26,9 +26,10 @@ class Payslips extends CI_Controller{
     */
     
     public function index(){
+        $payrollsData['staffs'] = $this->staff->getActiveStaffs('name', 'ASC');//get active staff members
         
-        $data['pageContent'] = $this->load->view('payslips/payslips', '', TRUE);
-        $data['pageTitle'] = "Payslips";
+        $data['pageContent'] = $this->load->view('payrolls/payrolls', $payrollsData, TRUE);
+        $data['pageTitle'] = "Payrolls";
         
         $this->load->view('main', $data);
     }
@@ -42,17 +43,17 @@ class Payslips extends CI_Controller{
     */
     
     /**
-     * latr_ = "Load All Transactions"
+     * lapr_ = "Load All Payrolls"
      */
-    public function latr_(){
+    public function lapr_(){
         //set the sort order
        
-        $orderBy = $this->input->get('orderBy', TRUE) ? $this->input->get('orderBy', TRUE) : "transId";
+        $orderBy = $this->input->get('orderBy', TRUE) ? $this->input->get('orderBy', TRUE) : "id";
         
         $orderFormat = $this->input->get('orderFormat', TRUE) ? $this->input->get('orderFormat', TRUE) : "DESC";
-        
+
         //count the total number of transaction group (grouping by the ref) in db
-        $totalTransactions = $this->transaction->totalTransactions();
+        $totalPayslips = $this->payroll->totalPayrolls();
         
         $this->load->library('pagination');
         
@@ -62,18 +63,16 @@ class Payslips extends CI_Controller{
         $start = $pageNumber == 0 ? 0 : ($pageNumber - 1) * $limit;//start from 0 if pageNumber is 0, else start from the next iteration
 
         //call setPaginationConfig($totalRows, $urlToCall, $limit, $attributes) in genlib to configure pagination
-        $config = $this->genlib->setPaginationConfig($totalTransactions, "transactions/latr_", $limit, ['onclick'=>'return latr_(this.href);']);
+        $config = $this->genlib->setPaginationConfig($totalPayslips, "payrolls/lapr_", $limit, ['onclick'=>'return lapr_(this.href);']);
         
         $this->pagination->initialize($config);//initialize the library class
         
-        // Get all transactions from the database
+        // Get all Payrolls from the database
         
-        $data['allTransactions'] = $this->transaction->getAll($orderBy, $orderFormat, $start, $limit);
-        //  log_message('error', 'Contents of $data[\'allTransactions\']: ' . print_r($data['allTransactions'], true));
-
-
+        $data['allPayslips'] = $this->payroll->getAll($orderBy, $orderFormat, $start, $limit);
+        
         // Calculate and assign the 'range' value
-        $data['range'] = $totalTransactions > 0 ? ($start+1) . "-" . ($start + count($data['allTransactions'])) . " of " . $totalTransactions : "";
+        $data['range'] = $totalPayslips > 0 ? ($start+1) . "-" . ($start + count($data['allPayslips'])) . " of " . $totalPayslips : "";
         
 
         // Generate pagination links
@@ -82,7 +81,7 @@ class Payslips extends CI_Controller{
         // Calculate and assign the 'sn' value
         $data['sn'] = $start + 1;
         
-        $json['transTable'] = $this->load->view('transactions/transtable', $data, TRUE);
+        $json['payslipsListTable'] = $this->load->view('payrolls/payrollstable', $data, TRUE);
     
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
@@ -97,43 +96,34 @@ class Payslips extends CI_Controller{
     
     
     /**
-     * nso_ = "New Sales Order"
+     * np_ = "New Payroll"
      */
-    public function nso_(){
+    public function np_(){
         $this->genlib->ajaxOnly();
-        
-        $arrOfStudentsDetails = json_decode($this->input->post('_aoi', TRUE));
-        $_mop = $this->input->post('_mop', TRUE);//mode of payment
-        $_at = round($this->input->post('_at', TRUE), 2);//amount tendered
-        $_cd = $this->input->post('_cd', TRUE);//change due
-        $cumAmount = $this->input->post('_ca', TRUE);//cumulative amount
-        $cust_name = $this->input->post('cn', TRUE);
-        $cust_phone = $this->input->post('cp', TRUE);
-        $cust_email = $this->input->post('ce', TRUE);
-        $description = $this->input->post('description', TRUE);
-        $currency = $this->input->post('currency',TRUE);
-        /*
-         * Loop through the arrOfStudentsDetails and ensure each student's details has not been manipulated
-         * The Fees Debt must match the student's fees owed in db, the total Amount must match the amount paid nothing added
-         *
-         * 
-         */
 
-        // Load the Currency model
-        $this->load->model('currency');
 
-        // Fetch all currencies' information
-        $currencies = $this->currency->getAllCurrencies();
-
-        
-        $allIsWell = $this->validateStudentsDet($arrOfStudentsDetails, $cumAmount, $_at, $currencies);
-        
-        
-        if($allIsWell){//insert each sales order into db, generate receipt and return info to client
+        $staffName = $this->input->post('sName');
+        $staffSurname = $this->input->post('staffSurname',TRUE);
+        $staffStaff_id =  $this->input->post('sId', TRUE);
+        $staffDepartment = $this->input->post('staffDepartment',TRUE);
+        $staffNational_id = $this->input->post('staffNational_id',TRUE);
+        $staffJob_tittle = $this->input->post('staffJob_tittle',TRUE);
+        $staffSalary = $this->input->post('staffSalary',TRUE);
+        $staffIncome_tax = $this->input->post('staffIncome_tax',TRUE);
+        $staffOvertime = $this->input->post('staffOvertime',TRUE);
+        $staffHealthy_insurance = $this->input->post('staffHealthy_insurance',TRUE);
+        $currentMonth = $this->input->post('currentMonth',TRUE);
+        log_message("error","we are here with Name: ",$staffStaff_id);
             
-            //will insert info into db and return transaction's receipt
-            $returnedData = $this->insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description,$currency);
-                    
+      
+        $allIsWell = $this->validateStaffsDet($staffStaff_id,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth);
+        
+        $response = json_decode($allIsWell, true);
+        if ($response['status'] === 1){//insert each payroll into db, generate payslip and return info to client
+            log_message("error","we are here with STAFF ID: ",$staffStaff_id);
+            
+            //will insert info into db and return payslip
+            $returnedData = $this->insertTrToDb($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth);    
             $json['status'] = $returnedData ? 1 : 0;
             $json['msg'] = $returnedData ? "Transaction successfully processed" : 
                     "Unable to process your request at this time. Pls try again later "
@@ -153,6 +143,7 @@ class Payslips extends CI_Controller{
         else{//return error msg
             $json['status'] = 0;
             $json['msg'] = "Transaction could not be processed. Please ensure there are no errors. Thanks";
+            $json['errors'] = $response['errors']; // Include the validation errors
         }
         
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -168,51 +159,63 @@ class Payslips extends CI_Controller{
     */
     
     /**
-     * Validates the details of students sent from client to prevent manipulation
-     * @param type $arrOfStudentsInfo
-     * @param type $cumAmountFromClient
-     * @param type $amountTendered
+     * Validates the details of staff sent from client to prevent manipulation
+     * @param type $arrOfStaffsInfo
+     * @param type $payment Month
      * @return boolean
      */
 
 
-     private function validateStudentsDet($arrOfStudentsInfo, $cumAmountFromClient, $amountTendered) {
-        $error = 0;
+     private function validateStaffsDet($staffStaff_id, $staffSalary, $staffIncome_tax, $staffOvertime, $staffHealthy_insurance, $currentMonth) {
+        $errors = array();
     
-        foreach ($arrOfStudentsInfo as $get) {
-            $studentStudent_id = $get->_sI;
-            $feesToPay = $get->currentFees;
-            $currencyRate = $get->currency; // Assuming rate is provided in the array
+        // Take salary from the db
+        $salaryInDb = $this->genmod->gettablecol('staffs', 'basic_salary', 'staff_id', $staffStaff_id);
     
-            // Calculate fees from the database using the currency rate
-            $feesToPayInDb = $this->genmod->gettablecol('students', 'fees', 'student_id', $studentStudent_id) * $currencyRate;
-    
-            if (abs($feesToPayInDb - $feesToPay) > 0.001) { // Adding a small tolerance for floating-point precision
-                $error++;
-            }
-    
-            $expectedTotFees = $get->transAmount;
-    
-            if ($expectedTotFees != $get->totalFees) {
-                $error++;
-            }
-    
-            if ($error > 0) {
-                return FALSE;
-            }
-    
-            // Update any other relevant logic here
+        if ($staffSalary != $salaryInDb) {
+            $errors['salary'] = "Salary validation failed";
         }
     
-        $expectedCumAmount = $cumAmountFromClient;
+        // Take overtime from the db
+        $overtimeInDb = $this->genmod->gettablecol('staffs', 'overtime', 'staff_id', $staffStaff_id);
     
-        if (($expectedCumAmount != $cumAmountFromClient) || ($expectedCumAmount > $amountTendered)) {
-            return FALSE;
+        if ($staffOvertime != $overtimeInDb) {
+            $errors['overtime'] = "Overtime validation failed";
         }
     
-        $this->eventual_total = $expectedCumAmount;
-        return TRUE;
+        // Take income_tax from the db
+        $income_taxInDb = $this->genmod->gettablecol('staffs', 'income_tax', 'staff_id', $staffStaff_id);
+    
+        if ($staffIncome_tax != $income_taxInDb) {
+            $errors['income_tax'] = "Income tax validation failed";
+        }
+    
+        // Take healthy insurance from the db
+        $healthy_insuranceInDb = $this->genmod->gettablecol('staffs', 'healthy_insurance', 'staff_id', $staffStaff_id);
+    
+        if ($staffHealthy_insurance != $healthy_insuranceInDb) {
+            $errors['healthy_insurance'] = "Healthy insurance validation failed";
+        }
+    
+        $currentMonthIn = date('F');
+    
+        if ($currentMonth != $currentMonthIn) {
+            $errors['current_month'] = "Month validation failed";
+        }
+    
+        $response = array();
+        
+        if (!empty($errors)) {
+            $response['status'] = 0;
+            $response['errors'] = $errors;
+        } else {
+            $response['status'] = 1;
+            $response['message'] = "Validation successful";
+        }
+    
+        return json_encode($response);
     }
+    
     
    
         
@@ -239,58 +242,42 @@ class Payslips extends CI_Controller{
      * @param type $currency
      * @return boolean
      */
-    private function insertTrToDb($arrOfStudentsDetails, $_mop, $_at, $cumAmount, $_cd, $cust_name, $cust_phone, $cust_email,$description,$currency){
-        $allTransInfo = [];//to hold info of all students' in transaction
+    private function insertTrToDb($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth){
         
-        //generate random string to use as transaction ref
+        //generate random string to use as Payslip ref
         //keep regeneration the ref if generated ref exist in db
-        do{
-            $ref = strtoupper(generateRandomCode('numeric', 6, 10, ""));
-        }
+        do {
+            $random_number = generateRandomCode('numeric', 5, 5, "");
+            $ref = 'PSL' . $random_number;
+            
+        } while ($this->payroll->isRefExist($ref));
+
+        $staffAddress = $this->genmod->getTableCol('staffs', 'address', 'staff_id', $staffStaff_id);
+        $staffPhone = $this->genmod->getTableCol('staffs', 'phone', 'staff_id', $staffStaff_id);
+        $staffEmail = $this->genmod->getTableCol('staffs', 'email', 'staff_id', $staffStaff_id);
+        $paymentMethod ="Bank Transfer";
+        $payroll_start_date = date('F,j;Y',$currentMonth);
+        log_message("error","the start date is: ".$payroll_start_date);
         
-        while($this->transaction->isRefExist($ref));
         
 		
-        //loop through the students' details and insert them one by one
+        
         //start transaction
         $this->db->trans_start();
 
-        foreach ($arrOfStudentsDetails as $get) {
-            try {
-                $studentStudent_id = $get->_sI;
-                $studentName = $this->genmod->getTableCol('students', 'name', 'student_id', $studentStudent_id);
-                $studentSurname = $this->genmod->getTableCol('students', 'surname', 'student_id', $studentStudent_id);
-                $studentClass_name = $this->genmod->getTableCol('students', 'class_name', 'student_id', $studentStudent_id);
-                $transAmount = $get->transAmount; // money being paid for a student in loop
-                $currentFees = $get->currentFees; // current fees of student in loop
-                $totalFees = $get->totalFees; // total fees for student in loop
-                $transType = 1;
-                $paymentStatus = 1;
-                $term = $get->term;
-                
-                /*
-                 * add transaction to db
-                 * function header: add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term)
-                 */
-                $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term,$currency);
-                
-                $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalAmount' => $totalFees, 'term' => $term,'currency'=>$currency];
-                // log_message('error', 'Contents of $allTransInfo[' . $transId .']: ' . print_r($allTransInfo[$transId], true));
-                
-                // Load the Currency model
-                $this->load->model('currency');
-
-                // Fetch all currencies' information
-                $currencies = $this->currency->getAllCurrencies();
-
-                // update student fees owed in db by removing the transAmount
-                // function header: decrementStudent($studentStudent_id, $amountToRemove)
-                $this->student->decrementStudent($studentStudent_id, $transAmount, $currencies,$currency);
-                                
-            } catch (Exception $e) {
-                
-                // You might also want to handle the exception appropriately based on your application's needs.
-            }
+        try {
+            
+            
+            /*
+                * add transaction to db
+                * function header: add($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone)
+                */
+            $payrollId = $this->payroll->add($ref,$staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone,$paymentMethod);
+            
+                           
+        } catch (Exception $e) {
+            
+            // You might also want to handle the exception appropriately based on your application's needs.
         }
         
         
@@ -526,7 +513,42 @@ class Payslips extends CI_Controller{
     }
     
     
-    
+    public function gsi(){
+        $this->genlib->ajaxOnly();
+
+        $staffStaff_id =  $this->input->post('sId', TRUE);
+
+        if ($staffStaff_id) {
+            $staff_info = $this->staff->getStaffInfo(['staff_id' => $staffStaff_id], ['name', 'surname', 'national_id',  'job_tittle', 'basic_salary', 'address', 'gender', 'email', 'phone', 'income_tax', 'overtime','healthy_insurance', 'department','staff_id']);
+            if ($staff_info) {
+                // Populate the JSON response with staff details
+                $json = array(
+                    'status' => 1,
+                    'name' => $staff_info->name,
+                    'surname' => $staff_info->surname,
+                    'national_id' => $staff_info->national_id,
+                    'job_tittle' => $staff_info->job_tittle,
+                    'basic_salary' => $staff_info->basic_salary,
+                    'address' => $staff_info->address,
+                    'gender' => $staff_info->gender,
+                    'email' => $staff_info->email,
+                    'phone' => $staff_info->phone,
+                    'income_tax' => $staff_info->income_tax,
+                    'overtime' => $staff_info->overtime,
+                    'healthy_insurance' => $staff_info->healthy_insurance,
+                    'staff_id'=>$staff_info->staff_id,
+                    'department'=>$staff_info->department
+                );
+            } else {
+                $json['error'] = 'Staff information not found for the given staff Id.';
+            }
+        } else {
+            $json['error'] = 'Staff Id parameter is missing or empty.';
+        }
+            
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+
+    }
     
 
     
