@@ -197,20 +197,37 @@ class Categories extends CI_Controller{
     ********************************************************************************************************************************
     */
     
-    
     public function delete(){
+
         $this->genlib->ajaxOnly();
-        
+
         $json['status'] = 0;
-        $categorieId = $this->input->post('i', TRUE);
-        
-        if($categorieId){
-            $this->db->where('id', $categorieId)->delete('categories');
-            
-            $json['status'] = 1;
+        $categoryId = $this->input->post('i', TRUE);
+
+        if ($categoryId) {
+           
+            $categoryInfo = $this->category->getCategorieInfo(['id' => $categoryId], ['name']);
+
+            if ($categoryInfo !== false) {
+                $categoryName = $categoryInfo->name;
+
+                // Check if the category name is "Salary" (case-insensitive)
+                if (strcasecmp($categoryName, 'Salary') == 0) {
+                    $json['message'] = 'You cannot delete the "'.$categoryName.'" category.';
+                } else {
+                    // Delete the category if it's not "Salary"
+                    $this->db->where('id', $categoryId)->delete('categories');
+                    $json['status'] = 1;
+                }
+            } else {
+                // Handle the case where the category with the provided ID does not exist
+                $json['message'] = 'Category not found.';
+            }
         }
-        
-        //set final output
+
+        // Set the final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+    
 }

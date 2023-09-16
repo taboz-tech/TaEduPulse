@@ -146,6 +146,7 @@ class Category extends CI_Model{
      * return array | FALSE
      */
     public function getCategorieInfo($where_clause, $fields_to_fetch){
+       
         $this->db->select($fields_to_fetch);
         
         $this->db->where($where_clause);
@@ -162,6 +163,7 @@ class Category extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+    
 
 }
 

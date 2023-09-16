@@ -279,7 +279,7 @@ $(document).ready(function(){
                     }
 
                     else{
-
+                        changeFlashMsgContent(rd.message, '', 'red', 2000);
                     }
                 }).fail(function(){
                     console.log('Req Failed');
