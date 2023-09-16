@@ -243,7 +243,6 @@ $(document).ready(function(){
                 teacherSurname: teacherSurname,
                 _tId: teacherId,
                 teacherSubject: teacherSubject,
-                teacherAddress: teacherAddress,
                 teacherDepartment:teacherDepartment,
                 teacherProfession:teacherProfession
             }
