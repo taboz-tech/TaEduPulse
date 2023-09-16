@@ -313,6 +313,7 @@ $(document).ready(function(){
                     }
 
                     else{
+                        changeFlashMsgContent(rd.error, '', 'red', 2000);
 
                     }
                 }).fail(function(){

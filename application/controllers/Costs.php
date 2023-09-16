@@ -227,22 +227,44 @@ class Costs extends CI_Controller{
     */
     
     
-    public function delete(){
+    public function delete() {
         $this->genlib->ajaxOnly();
         
         $json['status'] = 0;
         $costId = $this->input->post('i', TRUE);
         
-        if($costId){
-            $this->db->where('id', $costId)->delete('costs');
-            
-            $json['status'] = 1;
+        if ($costId) {
+            try {
+                // Get the name of the cost before deleting it
+                $cost = $this->cost->getCostInfo(['id' => $costId], ['name']);
+                
+                if (!$cost) {
+                    throw new Exception('Cost not found');
+                }
+                
+                $costName = $cost->name;
+                
+                // Check if the cost name does not contain "salary" (case-insensitive)
+                if (stripos($costName, 'salary') === false) {
+                    
+                    $this->db->where('id', $costId)->delete('costs');
+                    $json['status'] = 1;
+
+                } else {
+                    // Cost contains "salary," inform the user it's a system cost
+                    $json['error'] = 'You cannot delete system costs.';
+                }
+            } catch (Exception $e) {
+                // Handle any exceptions here, such as logging the error
+                log_message('error', 'An error occurred: ' . $e->getMessage());
+                $json['error'] = 'An error occurred while deleting the cost.';
+            }
         }
         
-        //set final output
+        // Set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
-
+    
     /*
     ********************************************************************************************************************************
     ********************************************************************************************************************************
