@@ -98,16 +98,7 @@ class Grade extends CI_Model{
      */
     public function gradesearch($value) {
         try {
-            // Log the search value
-            log_message('error', 'Search Value: ' . $value);
-    
-            // Check and initialize the database connection
-            if (!$this->db->initialize()) {
-                // Log a message or handle the connection issue here
-                log_message('error', 'Database connection failed.');
-                return array();
-            }
-    
+            
             // Build the SQL query manually
             $sql = "SELECT grades.*, GROUP_CONCAT(DISTINCT teachers.name, ' ', teachers.surname) AS teacher_id ";
             $sql .= "FROM grades ";
@@ -116,9 +107,7 @@ class Grade extends CI_Model{
             $sql .= "OR CONCAT(teachers.name, ' ', teachers.surname) LIKE '%" . $this->db->escape_like_str($value) . "%' ";
             $sql .= "GROUP BY grades.id";
     
-            // Log the generated SQL query
-            log_message('error', 'Generated SQL query: ' . $sql);
-    
+            
             $query = $this->db->query($sql);
     
             if ($query === false) {
