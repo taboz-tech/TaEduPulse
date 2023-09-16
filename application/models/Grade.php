@@ -96,19 +96,48 @@ class Grade extends CI_Model{
      *
      * @return array|bool An array of matching grade objects or FALSE if no matches are found.
      */
-
-    public function gradesearch($value){
-        $this->db->like('name', $value);  // Perform a case-insensitive search on the 'name' column.
-        $this->db->or_like('teacher_id', $value); // Perform a case-insensitive search on the 'teacher_id' column.
+    public function gradesearch($value) {
+        try {
+            // Log the search value
+            log_message('error', 'Search Value: ' . $value);
     
-        $run_q = $this->db->get('grades');
+            // Check and initialize the database connection
+            if (!$this->db->initialize()) {
+                // Log a message or handle the connection issue here
+                log_message('error', 'Database connection failed.');
+                return array();
+            }
     
-        if($run_q->num_rows() > 0){
-            return $run_q->result();
-        } else {
-            return FALSE;
+            // Build the SQL query manually
+            $sql = "SELECT grades.*, GROUP_CONCAT(DISTINCT teachers.name, ' ', teachers.surname) AS teacher_id ";
+            $sql .= "FROM grades ";
+            $sql .= "LEFT JOIN teachers ON grades.teacher_id = teachers.id ";
+            $sql .= "WHERE grades.name LIKE '%" . $this->db->escape_like_str($value) . "%' ";
+            $sql .= "OR CONCAT(teachers.name, ' ', teachers.surname) LIKE '%" . $this->db->escape_like_str($value) . "%' ";
+            $sql .= "GROUP BY grades.id";
+    
+            // Log the generated SQL query
+            log_message('error', 'Generated SQL query: ' . $sql);
+    
+            $query = $this->db->query($sql);
+    
+            if ($query === false) {
+                // Log the database error
+                log_message('error', 'Database error: ' . $this->db->error());
+                return array();
+            }
+    
+            return $query->result();
+        } catch (Exception $e) {
+            // Log any exceptions that occur
+            log_message('error', 'Exception: ' . $e->getMessage());
+            return array();
         }
     }
+    
+    
+    
+    
     
     
     /*
