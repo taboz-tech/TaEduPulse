@@ -65,6 +65,12 @@ $(document).ready(function(){
             
             return;
         }
+
+        // Check if the rate is 0
+        if (parseFloat(currencieRate) === 0) {
+            $("#currencieRateErr").text("Rate must not be zero");
+            return;
+        }
         
         displayFlashMsg("Adding Currency '"+currencieName+"'", "fa fa-spinner faa-spin animated", '', '');
         
@@ -198,13 +204,18 @@ $(document).ready(function(){
         $(".error-message").html("");
                 
         if (!currencieRate || !currencieId || !currencieName) {
-            if (!currencieRate) $("#currencieRateErr").html("Rate cannot be empty");
+            if (!currencieRate) $("#currencieRateEditErr").html("Rate cannot be empty");
             if (!currencieId) $("#editCurrencieFMsg").html("Unknown Currencie");
             if (!currencieName) $("#currencieNameEditErr").html("Currency name cannot be empty");
             return;
         }
 
-    
+        // Check if the rate is 0
+        if (parseFloat(currencieRate) === 0) {
+            $("#currencieRateEditErr").html("Rate must not be zero");
+            return;
+        }
+
         $("#editCurrencieFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");
     
         $.ajax({
@@ -229,7 +240,7 @@ $(document).ready(function(){
                 $("#editCurrencieFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
     
                 if (returnedData.currencieName) $("#currencieNameEditErr").html(returnedData.currencieName);
-                if (returnedData.currencieRate) $("#currencieRateErr").html(returnedData.currencieRate);
+                if (returnedData.currencieRate) $("#currencieRateEditErr").html(returnedData.currencieRate);
             }
         }).fail(function () {
             $("#editCurrencieFMsg").css('color', 'red').html("Unable to process your request at this time. Please check your internet connection and try again");

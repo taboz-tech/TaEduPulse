@@ -94,12 +94,15 @@ class Currencies extends CI_Controller{
         $this->genlib->ajaxOnly();
         
         $this->load->library('form_validation');
-
+    
         $this->form_validation->set_error_delimiters('', '');
-
+    
         
         $this->form_validation->set_rules('currencieName', 'Currencie Name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('currencieRate', 'Currencie Rate', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        $this->form_validation->set_rules('currencieRate', 'Currencie Rate', ['numeric', 'greater_than[0]'], [
+            'numeric' => 'The %s field must be a valid number.',
+            'greater_than' => 'The %s field must be greater than 0.'
+        ]);
        
         if($this->form_validation->run() !== FALSE){
             $this->db->trans_start();//start transaction
@@ -108,7 +111,7 @@ class Currencies extends CI_Controller{
              * insert info into db
              * function header: add($currencieName, $currencieRate)
              */
-
+    
             $insertedId = $this->currency->add(set_value('currencieName'), set_value('currencieRate'));
             
             $currencieName = set_value('currencieName');
@@ -116,7 +119,7 @@ class Currencies extends CI_Controller{
             
             //insert into eventlog
             //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Addition of {$currencieName} with Rate {$currencieRate}as a new Currency to the Currecies.";
+            $desc = "Addition of {$currencieName} with Rate {$currencieRate} as a new Currency to the Currencies.";
             
             $insertedId ? $this->genmod->addevent("Creation of new Currency", $insertedId, $desc, "currencies", $this->session->admin_id) : "";
             
@@ -152,40 +155,43 @@ class Currencies extends CI_Controller{
         $this->genlib->ajaxOnly();
         
         $this->load->library('form_validation');
-
+    
         $this->form_validation->set_error_delimiters('', '');
     
-
         $this->form_validation->set_rules('_cId', '', ['required', 'trim', 'numeric']);
         $this->form_validation->set_rules('currencieName', 'Currencie Name', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
-        $this->form_validation->set_rules('currencieRate', 'Currencie Rate', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
-        
-
+        $this->form_validation->set_rules('currencieRate', 'Currencie Rate', ['numeric', 'greater_than[0]'], [
+            'numeric' => 'The %s field must be a valid number.',
+            'greater_than' => 'The %s field must be greater than 0.'
+        ]);
+    
         if($this->form_validation->run() !== FALSE){
             $currencieId = set_value('_cId');
             $currencieName = set_value('currencieName');
             $currencieRate = set_value('currencieRate');
-
-            
-            //update Currency in db
-            $updated = $this->currency->edit($currencieId, $currencieName, $currencieRate);
-                        
-            $json['status'] = $updated ? 1 : 0;
-            
-            //add event to log
-            //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Details of Currency with  Name '$currencieName' was updated";
-            
-            $this->genmod->addevent("Currency Update", $currencieId, $desc, 'currencies', $this->session->admin_id);
-        }
-        
-        else{
+    
+            // Check if the rate is not equal to 0
+            if ($currencieRate == 0) {
+                $this->form_validation->set_message('greater_than', 'The Currencie Rate must be greater than 0.');
+                $json['status'] = 0;
+                $json['error'] = form_error('currencieRate'); // Get the custom error message for currencieRate
+            } else {
+                // Update Currency in db
+                $updated = $this->currency->edit($currencieId, $currencieName, $currencieRate);
+    
+                $json['status'] = $updated ? 1 : 0;
+            }
+        } else {
             $json['status'] = 0;
-            $json = $this->form_validation->error_array();
+            $json['errors'] = [
+                'currencieName' => form_error('currencieName'),
+                'currencieRate' => form_error('currencieRate')
+            ];
         }
-        
+    
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 
 
 
