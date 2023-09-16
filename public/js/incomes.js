@@ -204,71 +204,6 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //triggers when a income's "check" icon is clicked
-    $("#incomesListTable").on('click', ".updateFees", function(e){
-        e.preventDefault();
-    
-        var incomeId = $(this).attr('id').split("-")[1];
-        var incomeName = $("#incomeName-" + incomeId).html();
-        var incomeAmount = $("#incomeAmount-" + incomeId).html();
-        var incomeCurrency = $("#incomeCurrency-" + incomeId).html();
-    
-        // Set modal content
-        $("#modalIncomeId").val(incomeId);
-        $("#modalIncomeName").text(incomeName);
-        $("#modalIncomeAmount").text(incomeAmount);
-        $("#modalIncomeCurrency").text(incomeCurrency);
-    
-        //launch modal
-        $("#feesIncomeModal").modal('show');
-    
-    });
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    $("#feesAllowButton").click(function () {
-        var incomeId = $("#modalIncomeId").val();
-        var incomeName = $("#modalIncomeName").text();
-        var incomeAmount = $("#modalIncomeAmount").text();
-        var incomeCurrency = $("#modalIncomeCurrency").text();
-
-        // Perform the AJAX request
-        $.ajax({
-            type: 'POST',
-            url: appRoot+"students/bulkUpdateFees", 
-            data: {
-                newFees: incomeAmount,
-                feesToAdd: incomeAmount,
-                incomeName: incomeName,
-                incomeCurrency: incomeCurrency
-            },
-            dataType: 'json',
-            success: function(response) {
-                console.log(response)
-                if (response.status === 1) {
-                    alert(response.message);
-                    // Reload or update the page as needed
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function() {
-                alert('An error occurred while processing the request.');
-            }
-        });
-    });
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     $("#editIncomeSubmit").click(function () {
 
         var incomeId = $("#incomeIdEdit").val();
@@ -286,6 +221,12 @@ $(document).ready(function(){
             if (!incomeCurrency) $("#incomeCurrencyEditErr").html("Income Currency cannot be empty");
             if (!incomeId) $("#editincomeFMsg").html("Unknown Income");
             if (!incomeName) $("#incomeNameEditErr").html("Income name cannot be empty");
+            return;
+        }
+
+        // Check if incomeAmount is not empty and not equal to zero
+        if (!incomeAmount || parseFloat(incomeAmount) === 0) {
+            $("#incomeAmountEditErr").html("Amount must be a valid number greater than zero");
             return;
         }
 
@@ -332,7 +273,77 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //triggers when a income's "money" icon is clicked
+    $("#incomesListTable").on('click', ".updateFees", function(e){
+        e.preventDefault();
+    
+        var incomeId = $(this).attr('id').split("-")[1];
+        var incomeName = $("#incomeName-" + incomeId).html();
+    
+        if (incomeName === "Fees") {
+            var incomeAmount = $("#incomeAmount-" + incomeId).html();
+            var incomeCurrency = $("#incomeCurrency-" + incomeId).html();
+    
+            // Set modal content
+            $("#modalIncomeId").val(incomeId);
+            $("#modalIncomeName").text(incomeName);
+            $("#modalIncomeAmount").text(incomeAmount);
+            $("#modalIncomeCurrency").text(incomeCurrency);
+        
+            //launch modal
+            $("#feesIncomeModal").modal('show');
 
+        } else {
+            // Display a flash message for other income names
+            displayFlashMsg("Invalid Operation", "fa fa-exclamation-circle", "red", 3000);
+            
+        }
+    });
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    $("#feesAllowButton").click(function () {
+        var incomeId = $("#modalIncomeId").val();
+        var incomeName = $("#modalIncomeName").text();
+        var incomeAmount = $("#modalIncomeAmount").text();
+        var incomeCurrency = $("#modalIncomeCurrency").text();
+
+        // Perform the AJAX request
+        $.ajax({
+            type: 'POST',
+            url: appRoot+"students/bulkUpdateFees", 
+            data: {
+                newFees: incomeAmount,
+                feesToAdd: incomeAmount,
+                incomeName: incomeName,
+                incomeCurrency: incomeCurrency
+            },
+            dataType: 'json',
+            success: function(response) {
+                console.log(response)
+                if (response.status === 1) {
+                    alert(response.message);
+                    // Reload or update the page as needed
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred while processing the request.');
+            }
+        });
+    });
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     //TO DELETE A Income (The Income will be marked as "deleted" instead of removing it totally from the db)
