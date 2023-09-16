@@ -48,15 +48,12 @@ class Teacher extends CI_Model{
      * @param string $teacherSurname
      * @param string $teacherGender
      * @param string $teacherSubject
-     * @param string $teacherPhone
-     * @param string $teacherAddress
      * @param string $teacherDepartment
-     * @param string $teacherNational_id
      * @param string $teacherProfession
      * @return boolean
      */
-    public function add($teacherName, $teacherSurname, $teacherGender, $teacherSubject, $teacherPhone,$teacherAddress,$teacherDepartment,$teacherNational_id,$teacherProfession){
-        $data = ['name'=>$teacherName, 'surname'=>$teacherSurname, 'gender'=>$teacherGender, 'subject'=>$teacherSubject, 'phone'=>$teacherPhone, 'address'=>$teacherAddress, 'department'=>$teacherDepartment,'national_id'=>$teacherNational_id,'profession'=>$teacherProfession];
+    public function add($teacherName, $teacherSurname, $teacherGender, $teacherSubject, $teacherDepartment,$teacherProfession){
+        $data = ['name'=>$teacherName, 'surname'=>$teacherSurname, 'gender'=>$teacherGender, 'subject'=>$teacherSubject, 'department'=>$teacherDepartment,'profession'=>$teacherProfession];
                 
         //set the datetime based on the db driver in use
         $this->db->platform() == "sqlite3" 
@@ -124,18 +121,15 @@ class Teacher extends CI_Model{
     * @param int $teacherId
     * @param string $teacherName
     * @param string $teacherSurname
-    * @param string $teacherPhone
-    * @param string $teacherAddress
     * @param string $teacherSubject
     * @param string $teacherDepartment
-    * @param string $teacherNational_id
     * @param string $teacherProfession
     */
 
 
      
-   public function edit($teacherId, $teacherName, $teacherSurname, $teacherPhone, $teacherAddress,$teacherSubject,$teacherDepartment,$teacherNational_id,$teacherProfession){
-       $data = ['name'=>$teacherName, 'surname'=>$teacherSurname, 'phone'=>$teacherPhone, 'address'=>$teacherAddress,'subject'=>$teacherSubject,'department'=>$teacherDepartment, 'national_id'=>$teacherNational_id,'profession'=>$teacherProfession];
+   public function edit($teacherId, $teacherName, $teacherSurname,$teacherSubject,$teacherDepartment,$teacherProfession){
+       $data = ['name'=>$teacherName, 'surname'=>$teacherSurname,'subject'=>$teacherSubject,'department'=>$teacherDepartment, 'profession'=>$teacherProfession];
        
        $this->db->where('id', $teacherId);
        $this->db->update('teachers', $data);
@@ -190,6 +184,14 @@ class Teacher extends CI_Model{
         }
     }
 
+    public function staffExists($teacherName, $teacherSurname) {
+        $this->db->where('name', $teacherName);
+        $this->db->where('surname', $teacherSurname);
+        $run_q = $this->db->get('staffs');
+    
+        return $run_q->num_rows() > 0 ? true : false;
+    }
+    
 
 }
 

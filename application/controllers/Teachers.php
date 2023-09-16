@@ -88,66 +88,72 @@ class Teachers extends CI_Controller{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
-       
-    
-    public function add(){
+    public function add() {
+        
         $this->genlib->ajaxOnly();
-        
         $this->load->library('form_validation');
-
         $this->form_validation->set_error_delimiters('', '');
-
-        
+    
         $this->form_validation->set_rules('teacherName', 'Teacher Name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('teacherSurname', 'Teacher Surname', ['required', 'trim', 'max_length[40]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('teacherGender', 'Teacher Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('teacherPhone', 'Teacher Phone', ['required', 'trim', 'max_length[15]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('teacherAddress', 'Teacher Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('teacherSubject', 'Teacher Subject',['required', 'trim', 'max_length[100]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('teacherDepartment', 'Teacher Department', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
-        $this->form_validation->set_rules('teacherNational_id','National ID','required|regex_match[/^\d{2}\d{6}[A-Z]\d{2}$/]',['required' => 'The %s field is required.','regex_match' => 'Invalid National ID format. It should consist of two digits, followed by six digits, a single uppercase letter, and two digits.']);
+        
+    
+        if ($this->form_validation->run() !== FALSE) {
 
-        if($this->form_validation->run() !== FALSE){
-            $this->db->trans_start();//start transaction
-            
-            /**
-             * insert info into db
-             * function header: add($teacherName, $teacherSurname, $teacherGender, $teacherSubject, $teacherPhone,$teacherAddress,$teacherDepartment)
-             */
-
-            $insertedId = $this->teacher->add(set_value('teacherName'), set_value('teacherSurname'), set_value('teacherGender'), 
-                    set_value('teacherSubject'), set_value('teacherPhone'),set_value('teacherAddress'),set_value('teacherDepartment'),set_value('teacherNational_id'),set_value('teacherProfession'));
-            
+            // Check if the staff member with the provided name and surname exists
             $teacherName = set_value('teacherName');
             $teacherSurname = set_value('teacherSurname');
-            $teacherNational_id = set_value('teacherNational_id');
-            $teacherAddress= set_value('teacherAddress');
-            $teacherSubject = set_value('teacherSubject');
-            
-            //insert into eventlog
-            //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Addition of {$teacherName} {$teacherSurname} as a new Teacher with  Address '{$teacherAddress}',National ID '{$teacherNational_id}' and Subject '{$teacherSubject}'to the Teachers.";
-            
-            $insertedId ? $this->genmod->addevent("Creation of new Teacher", $insertedId, $desc, "teachers", $this->session->admin_id) : "";
-            
-            $this->db->trans_complete();
-            
-            $json = $this->db->trans_status() !== FALSE ? 
-                    ['status'=>1, 'msg'=>"Teacher successfully added"] 
-                    : 
-                    ['status'=>0, 'msg'=>"Oops! Unexpected server error! Please contact administrator for help. Sorry for the embarrassment"];
-        }
-        
-        else{
-            //return all error messages
-            $json = $this->form_validation->error_array();//get an array of all errors
-            
+            if ($this->teacher->staffExists($teacherName, $teacherSurname)) {
+                
+                // The staff member exists, so you can proceed to add the teacher
+                $this->db->trans_start(); // Start transaction
+    
+                /**
+                 * Insert info into db
+                 * Function header: add($teacherName, $teacherSurname, $teacherGender, $teacherSubject, $teacherDepartment)
+                 */
+    
+                $insertedId = $this->teacher->add(
+                    set_value('teacherName'),
+                    set_value('teacherSurname'),
+                    set_value('teacherGender'),
+                    set_value('teacherSubject'),
+                    set_value('teacherDepartment'),
+                    set_value('teacherProfession')
+                );
+
+                $teacherSubject = set_value('teacherSubject');
+                
+    
+                // Insert into eventlog
+                // Function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
+                $desc = "Addition of {$teacherName} {$teacherSurname} as a new Teacher for '{$teacherSubject}'to the Teachers.";
+    
+                $insertedId ? $this->genmod->addevent("Creation of new Teacher", $insertedId, $desc, "teachers", $this->session->admin_id) : "";
+    
+                $this->db->trans_complete();
+    
+                $json = $this->db->trans_status() !== FALSE ?
+                    ['status' => 1, 'msg' => "Teacher successfully added"]
+                    :
+                    ['status' => 0, 'msg' => "Oops! Unexpected server error! Please contact the administrator for help. Sorry for the inconvenience"];
+            } else {
+                // The staff member does not exist, so prompt the user to create a staff member first
+                $json = ['status' => 0, 'msg' => "Please create a staff member with the name '$teacherName' and surname '$teacherSurname' before adding a teacher."];
+            }
+        } else {
+            // Form validation failed
+            $json = $this->form_validation->error_array();
             $json['msg'] = "One or more required fields are empty or not correctly filled";
             $json['status'] = 0;
         }
-                    
+    
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
     
    /*
     ********************************************************************************************************************************
@@ -170,10 +176,7 @@ class Teachers extends CI_Controller{
         $this->form_validation->set_rules('teacherName', 'Teacher Name', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
         $this->form_validation->set_rules('teacherSurname', 'Teacher Surname', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
         $this->form_validation->set_rules('teacherSubject', 'Teacher Subject', ['required', 'trim', 'max_length[100]'], ['required'=>'required']);
-        $this->form_validation->set_rules('teacherAddress', 'Teacher Address', ['required', 'trim', 'max_length[80]'], ['required'=>'required']);
-        $this->form_validation->set_rules('teacherPhone','Teacher Phone',['required','trim','max_length[15]'],['required'=>'required']);
         $this->form_validation->set_rules('teacherDepartment', 'Teacher Department', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
-        $this->form_validation->set_rules('teacherNational_id','National ID','required|regex_match[/^\d{2}\d{6}[A-Z]\d{2}$/]',['required' => 'The %s field is required.','regex_match' => 'Invalid National ID format. It should consist of two digits, followed by six digits, a single uppercase letter, and two digits.']);
         
 
         if($this->form_validation->run() !== FALSE){
@@ -181,15 +184,12 @@ class Teachers extends CI_Controller{
             $teacherName = set_value('teacherName');
             $teacherSurname = set_value('teacherSurname');
             $teacherSubject = set_value('teacherSubject');
-            $teacherAddress = set_value('teacherAddress');
-            $teacherPhone = set_value('teacherPhone');
             $teacherDepartment = set_value('teacherDepartment');
-            $teacherNational_id = set_value('teacherNational_id');
             $teacherProfession = set_value('teacherProfession');
 
            
             //update Teacher in db
-            $updated = $this->teacher->edit($teacherId, $teacherName, $teacherSurname, $teacherPhone,$teacherAddress,$teacherSubject,$teacherDepartment,$teacherNational_id,$teacherProfession);
+            $updated = $this->teacher->edit($teacherId, $teacherName, $teacherSurname,$teacherSubject,$teacherDepartment,$teacherProfession);
             
             $json['status'] = $updated ? 1 : 0;
             
