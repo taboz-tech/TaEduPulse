@@ -20,7 +20,7 @@
                         <th>CURRENCY</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
-                        <th>ACTION</th>
+                        <th>PUSH INCOME</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +37,7 @@
                         </td>
                         <td class="text-center"><i class="fa fa-trash text-danger delIncome pointer"></i></td>
                         <td class="text-center text-primary">
-                            <span class="updateFees" id="update-<?=$get->id?>"><i class="fa fa-check" aria-hidden="true"></i></span>
+                            <span class="updateFees" id="update-<?=$get->id?>"><i class="fa fa-money" aria-hidden="true"></i></span>
                         </td>
                     </tr>
                     <?php $sn++; ?>

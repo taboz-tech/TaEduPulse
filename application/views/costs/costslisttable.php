@@ -22,7 +22,7 @@
                         <th>BALANCE</th>
                         <th>PAID</th>
                         <th>STATUS</th>
-                        <th>ACTION</th>
+                        <th>PAY</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
                     </tr>
@@ -41,7 +41,7 @@
                         <td><span id="costPaid-<?=$get->id?>"><?=$get->paid?></td>
                         <td class="text-center <?= $get->status ? 'text-success' : 'text-danger' ?>"> <?= $get->status ? 'Paid' : 'Pending' ?> </td>
                         <td class="text-center text-primary">
-                            <span class="payCost" id="pay-<?=$get->id?>"><i class="fa fa-undo"></i> </span>
+                            <span class="payCost" id="pay-<?=$get->id?>"><i class="fa fa-money"></i> </span>
                         </td>
                         <td class="text-center text-primary">
                             <span class="editCost" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
