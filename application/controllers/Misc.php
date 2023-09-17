@@ -62,17 +62,7 @@ class Misc extends CI_Controller{
         $this->load->view('main', $data);
     }
 
-    public function finances(){
-        $this->genlib->checkLogin();
-        
-        $this->genlib->superOnly();
-        
-        $data['pageContent'] = $this->load->view('finances', '', TRUE);
-        $data['pageTitle'] = "Finances";
-        
-        $this->load->view('main', $data);
-    }
-    
+   
     
     public function dldb(){
         $this->genlib->checkLogin();
