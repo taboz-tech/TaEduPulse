@@ -373,7 +373,6 @@ class Students extends CI_Controller{
             $sheet->getStyle('A4:H4')->applyFromArray($borderStyle);
             $sheet->getStyle('A5:H5')->applyFromArray($borderStyle);
             $sheet->getStyle('A6:H6')->applyFromArray($borderStyle);
-            $sheet->getStyle('A17:H17')->applyFromArray($borderStyle);
 
 
             
