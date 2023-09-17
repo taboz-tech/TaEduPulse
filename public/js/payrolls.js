@@ -4,7 +4,7 @@ $(document).ready(function(){
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
 	
     //load all Staff once the page is ready
-    lplt();
+    lapr_();
     
     // Initialize Select2 on the select element
     $('#staffSelect').select2({
@@ -138,7 +138,7 @@ $(document).ready(function(){
                     $("#payrollPayslipModal").modal('show');
                     
                     //refresh the Payslip list table
-                    lplt();
+                    lapr_();
                     
                     //return focus to Staff name input
                     $("#staffOvertime").focus();
@@ -183,7 +183,7 @@ $(document).ready(function(){
     //reload staff list table when events occur
     $("#payslipsListPerPage, #payslipsListSortBy").change(function(){
         displayFlashMsg("Please wait...", spinnerClass, "", "");
-        lplt();
+        lapr_();
     });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,7 +221,7 @@ $(document).ready(function(){
         else{
             //reload the table if all text in search box has been cleared
             displayFlashMsg("Loading page...", spinnerClass, "", "");
-            lplt();
+            lapr_();
         }
     });
 
@@ -348,7 +348,7 @@ $(document).ready(function(){
                                 
                                 $("#employeeListModal").modal('hide');
                                 //refresh the Payslip list table
-                                lplt();
+                                lapr_();
 
                             } else {
                                 // Handle failure here
@@ -388,11 +388,11 @@ $(document).ready(function(){
 
 
 /**
- * "lplt" = "load Payslip List Table"
+ * "lapr_" = "load Payslip List Table"
  * @param {type} url
  * @returns {undefined}
  */
-function lplt(url) {
+function lapr_(url) {
 
     var orderBy = $("#payslipsListSortBy").val().split("-")[0];
     var orderFormat = $("#payslipsListSortBy").val().split("-")[1];
