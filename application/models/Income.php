@@ -166,6 +166,25 @@ class Income extends CI_Model{
     ********************************************************************************************************************************
     ********************************************************************************************************************************
     */
+    public function getIncomesForMonth($month, $year) {
+
+        $this->db->select('name, amount, currency');
+        $this->db->where('name !=', 'Fees');
+        $this->db->where('name !=', 'Reg_fee');
+        $this->db->where('MONTH(dateAdded)', $month);
+        $this->db->where('YEAR(dateAdded)', $year);
+        $this->db->order_by('currency', 'asc');
+    
+        $query = $this->db->get('incomes');
+    
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return FALSE;
+        }
+    }
+    
+    
 
 }
 

@@ -443,6 +443,50 @@ class Transaction extends CI_Model {
             return FALSE;
         }
     }
-
+    
+    public function getIncomeByCurrencyForMonth($month, $year) {
+        try {
+            // Define the start and end date for the specified month
+            $startDate = "{$year}-{$month}-01";
+            $endDate = date('Y-m-t', strtotime($startDate));
+    
+            // Get all currencies
+            $currencies = $this->db->get('currencies')->result();
+    
+            // Initialize income data array with 0 for each currency
+            $incomeData = [];
+            foreach ($currencies as $currency) {
+                $incomeData[$currency->name] = 0;
+            }
+    
+            // Calculate total income for the specified month by currency
+            $this->db->select('currency');
+            $this->db->select_sum('totalAmount', 'totalIncome');
+            $this->db->where('transDate >=', $startDate);
+            $this->db->where('transDate <=', $endDate);
+            $this->db->where('refundDate IS NULL', null, false); // Exclude transactions with refund date
+            $this->db->group_by('currency');
+            $incomeQuery = $this->db->get('transactions');
+    
+            if (!$incomeQuery) {
+                // Handle the database error
+                throw new Exception('Database Error: ' . $this->db->error()['message']);
+            }
+    
+            // Update the income data array with actual totals
+            foreach ($incomeQuery->result() as $row) {
+                $incomeData[$row->currency] = $row->totalIncome;
+            }
+            return $incomeData; // Return only the income data
+        } catch (Exception $e) {
+            log_message('error', 'Error: ' . $e->getMessage());
+            return FALSE; // Or handle the error in your own way
+        }
+    }
+    
+    
+    
+    
+    
 
 }

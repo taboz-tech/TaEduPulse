@@ -251,6 +251,17 @@ class Cost extends CI_Model{
         }
     }
     
+    public function getAllCostsAndCurrencies() {
+        // Select all costs and their currencies
+        $this->db->select('name, amount, currency');
+        $query = $this->db->get('costs');
+    
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array(); // Return an empty array if no costs are found
+        }
+    }
 }
 
 
