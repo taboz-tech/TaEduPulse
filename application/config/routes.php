@@ -55,4 +55,3 @@ $route['translate_uri_dashes'] = FALSE;
 $route["access/css"]["GET"] = "misc/check_session_status";
 $route['access/login']['POST'] = "home/login";
 $route['dbmanagement'] = "misc/dbmanagement";
-$route['finances'] ="misc/finances";
