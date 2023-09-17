@@ -258,4 +258,37 @@ class Search extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
+    public function recordSearch(){
+        $searchTerm = $this->input->get('v', TRUE);
+        
+        // Call the searchReportFiles method from the Record model to get matching records
+        $matchingRecords = $this->record->searchReportFiles($searchTerm);
+    
+        // Create a response array to hold the search results
+        $response = [];
+    
+        // Check if any matching records were found
+        if (!empty($matchingRecords)) {
+            // Loop through the matching records and build the response array
+            foreach ($matchingRecords as $record) {
+                $fileName = pathinfo($record, PATHINFO_FILENAME);
+                $recordExtension = pathinfo($record, PATHINFO_EXTENSION);
+                $recordPath = base_url() . 'reports/' . urlencode($fileName . '.' . $recordExtension); // Adjust the path here
+    
+                // Add each matching record to the response array
+                $response[] = [
+                    'file_name' => $fileName,
+                    'download_link' => $recordPath,
+                ];
+            }
+        } else {
+            // If no matching records were found, include a message in the response
+            $response['message'] = "No matching records found.";
+        }
+    
+        // Set the final output as JSON
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+    
+    
 }

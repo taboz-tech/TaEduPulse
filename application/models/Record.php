@@ -72,12 +72,28 @@ class Record extends CI_Model {
      */
     public function searchReportFiles($searchTerm) {
         $reportsPath = '/var/www/html/Cliffs_Internation/reports/';
-
+    
         // Get a list of report files matching the search term
         $matchingReportFiles = array_filter(glob($reportsPath . '*' . $searchTerm . '*', GLOB_BRACE), 'is_file');
-
-
-        return $matchingReportFiles;
+    
+        // Initialize an array to store matching reports
+        $matchingReports = [];
+    
+        // Generate download links for each matching report file
+        foreach ($matchingReportFiles as $report) {
+            $fileName = pathinfo($report, PATHINFO_FILENAME);
+            $recordExtension = pathinfo($report, PATHINFO_EXTENSION);
+            $recordPath = base_url() . 'reports/' . urlencode($fileName . '.' . $recordExtension); // Adjust the path here
+    
+            // Add each matching record to the response array
+            $matchingReports[] = [
+                'file_name' => $fileName,
+                'download_link' => $recordPath,
+            ];
+        }
+    
+        return $matchingReports;
     }
+    
 
 }

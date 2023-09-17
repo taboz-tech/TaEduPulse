@@ -27,7 +27,7 @@ $(document).ready(function () {
         
             if (value) {
                 $.ajax({
-                    url: appRoot + "search/reportsearch",
+                    url: appRoot + "search/reportSearch",
                     type: "get",
                     data: { v: value },
                     success: function (returnedData) {
@@ -53,7 +53,7 @@ function lrlt(url) {
 
     $.ajax({
         type: 'get',
-        url: url ? url : appRoot + "records/lrlt",
+        url: url ? url : appRoot + "records/lrlt/",
         data: {
             limit: limit,
             orderFormat: orderFormat,
