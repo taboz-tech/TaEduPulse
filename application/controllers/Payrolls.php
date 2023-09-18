@@ -46,6 +46,7 @@ class Payrolls extends CI_Controller{
      * lapr_ = "Load All Payrolls"
      */
     public function lapr_(){
+        $this->genlib->ajaxOnly();
         //set the sort order
        
         $orderBy = $this->input->get('orderBy', TRUE) ? $this->input->get('orderBy', TRUE) : "dateAdded";
