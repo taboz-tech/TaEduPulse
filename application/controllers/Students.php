@@ -260,7 +260,7 @@ class Students extends CI_Controller{
     
         if ($studentStudent_id) {
             // Call the 'getStudentInfo' method from the 'student' model to retrieve student details
-            $student_info = $this->student->getStudentInfo(['student_id' => $studentStudent_id], ['name', 'surname', 'class_name', 'parent_name', 'parent_phone', 'address', 'owed_fees', 'fees', 'term']);
+            $student_info = $this->student->getStudentInfo(['student_id' => $studentStudent_id], ['name', 'surname', 'class_name', 'parent_name', 'parent_phone', 'address', 'owed_fees', 'fees']);
             if ($student_info) {
                 // Populate the JSON response with student details
                 $json = array(
@@ -273,7 +273,6 @@ class Students extends CI_Controller{
                     'studentAddress' => $student_info->address,
                     'studentFees' => $student_info->fees,
                     'studentOwed_fees' => $student_info->owed_fees,
-                    'term' => $student_info->term
                 );
             } else {
                 $json['error'] = 'Student information not found for the given student ID.';

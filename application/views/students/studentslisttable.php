@@ -44,7 +44,11 @@
                         <td><span id="studentParent_phone-<?=$get->id?>"><?=$get->parent_phone?></td>
                         <td><span id="studentAddress-<?=$get->id?>"><?=$get->address?></td>
                         <td><span id="studentFees-<?=$get->id?>"><?=number_format($get->fees,2)?></td>
-                        <td><span id="studentOwed_fees-<?=$get->id?>"><?=number_format($get->owed_fees,2)?></td>
+                        <td class="<?= ($get->owed_fees < 0) ? 'bg-success' : '' ?>">
+                            <span id="studentOwed_fees-<?=$get->id?>">
+                                <?= ($get->owed_fees < 0) ? '<i class="fa fa-check"></i>' : '' ?> <?= number_format($get->owed_fees, 2) ?>
+                            </span>
+                        </td>
                         <td><span id="studentGender-<?=$get->id?>"><?=$get->gender?></td>
                         <td><span id="studentHealthy_status-<?=$get->id?>"><?=$get->healthyStatus?></td>
                         <td class="text-center text-primary">
