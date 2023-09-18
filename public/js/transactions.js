@@ -479,10 +479,11 @@ $(document).ready(function(){
 
                
                 //validate data
-                if ((transAmount === 0) || (owedFees < transAmount) || (expectedTotFees !== totalFees)) {
+                if ((transAmount === 0) || (expectedTotFees !== totalFees)) {
                     
+                    console.log("we are here because of "+(transAmount === 0) + "and"+(expectedTotFees !== totalFees));
                     totalFeesNode.style.backgroundColor = expectedTotFees !== totalFees ? "red" : "";
-                    transAmountNode.style.backgroundColor = (transAmount === 0) || (owedFees < transAmount) ? "red" : "";
+                    transAmountNode.style.backgroundColor = (transAmount === 0)  ? "red" : "";
                     return;
                 } else {
                     //if all is well, remove all error bg color
@@ -502,6 +503,7 @@ $(document).ready(function(){
             
             // Compare verifyCumAmount with cumAmount
             if (verifyCumAmount !== cumAmount) {
+                
                 $("#cumAmount").css('backgroundColor', 'red');
                 return;
             } else {
@@ -898,48 +900,67 @@ function cespacp() {
     var cumulativePrice = 0;
     
     // Loop through the students selected to calculate the total of each student
-    $(".transStudentList").each(function() {
+    $(".transStudentList").each(function () {
         // Current student's owed fees
         var owedFees = parseFloat($(this).find(".studentOwedFees").html());
-        
+    
         // Current student's fees to be paid
-        var transAmount = parseInt($(this).find(".studentTransAmount").val());
-        
-        // If the fees to be paid is greater than the owed fees
+        var transAmount = parseFloat($(this).find(".studentTransAmount").val());
+    
         if (transAmount > owedFees) {
-            // Display message telling user the fees owed 
-            $(this).find(".studentTransAmountErr").html("only " + owedFees + " left");
-
-            // Set the value back to the owed fees
-            $(this).find(".studentTransAmount").val(owedFees);
-            
-            cumulativePrice += owedFees;
-            // Display the cumulative amount
-            $("#cumAmount").html(cumulativePrice);
-
-            cespacp(); // Call itself in order to recalculate price
+            // Display a confirmation dialog
+            var confirmPrepayment = confirm(
+                "The fees to be paid is greater than the owed fees. Do you want to proceed with prepayment?"
+            );
+    
+            if (confirmPrepayment) {
+                // If all is well, remove error message if any
+                $(this).find(".studentTransAmountErr").html("");
+    
+                // Calculate the total fees of the current student
+                var studentTotalFees = transAmount;
+    
+                // Round to two decimal places
+                studentTotalFees = parseFloat(studentTotalFees.toFixed(2));
+    
+                // Display the total fees
+                $(this).find(".studentTotalFees").html(studentTotalFees);
+    
+                // User chooses to proceed with prepayment, no need to change the value
+                cumulativePrice += studentTotalFees; // Add the full transAmount
+            } else {
+                // User chooses not to proceed with prepayment, set the value back to owed fees
+                $(this).find(".studentTransAmount").val(owedFees);
+    
+                // Display the total fees
+                $(this).find(".studentTotalFees").html(owedFees);
+    
+                cumulativePrice += owedFees; // Add the owed fees
+            }
         } else {
             // If all is well, remove error message if any
             $(this).find(".studentTransAmountErr").html("");
-            
-            // Calculate the total fees of current student
-            var studentTotalFees = parseFloat($(this).find(".studentTransAmount").val());
-
+    
+            // Calculate the total fees of the current student
+            var studentTotalFees = transAmount;
+    
             // Round to two decimal places
-            studentTotalFees = +(studentTotalFees).toFixed(2);
-
+            studentTotalFees = parseFloat(studentTotalFees.toFixed(2));
+    
             // Display the total fees
             $(this).find(".studentTotalFees").html(studentTotalFees);
-
+    
             // Add current student's total fees to the cumulative amount
             cumulativePrice += studentTotalFees;
         }
-
+    
         // Trigger the click event of "use barcode" btn to focus on the barcode input text
         $("#useScanner").click();
     });
-    // Display the cumulative amount
-    $("#cumAmount").html(cumulativePrice);
+    
+    // Display the cumulative amount with two decimal places
+    $("#cumAmount").html(cumulativePrice.toFixed(2));
+    
 }
 
 
@@ -978,7 +999,6 @@ function selectedStudent(selectedNode){
                 if(returnedData.status === 1){
                     studentOwedFeesElem.innerHTML = returnedData.studentOwed_fees;
                     studentCurrentFeesElem.innerHTML = parseFloat(returnedData.studentFees).toFixed(2);
-                    studentTermElem.value = returnedData.term
                     
                     studentTransAmountElem.value = returnedData.studentOwed_fees;
                     

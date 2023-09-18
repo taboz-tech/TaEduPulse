@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('');
 	<div class="row" style='font-weight:bold'>
 		<div class="col-xs-4">Name</div>
         <div class="col-xs-4">Surname</div>
-        <div class="col-xs-4">Month</div>
+        <div class="col-xs-4">Term</div>
 	</div>
 	<hr style='margin-top:2px; margin-bottom:0px'>
     <?php $init_total = 0; ?>
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('');
 
     <div class="row">
         <div class="col-xs-12">
-            <b>Currency: $<?=isset($currency) ? $currency : ""?></b>
+            <b>Currency: <?=isset($currency) ? $currency : ""?></b>
         </div>
     </div>
     <hr style='margin-top:5px; margin-bottom:0px'>

@@ -3,11 +3,13 @@ defined('BASEPATH') OR exit('');
 
 $current_students = [];
 
-if(isset($students) && !empty($students)){    
-    foreach($students as $get){
-        $current_students[$get->student_id] = $get->name;
+if(isset($students) && !empty($students)) {    
+    foreach($students as $get) {
+        $full_name = $get->name . ' ' . $get->surname;
+        $current_students[$get->student_id] = $full_name;
     }
 }
+
 ?>
 
 <style href="<?=base_url('public/ext/datetimepicker/bootstrap-datepicker.min.css')?>" rel="stylesheet"></style>
@@ -233,23 +235,23 @@ if(isset($students) && !empty($students)){
         <select class="form-control selectedStudentDefault" onchange="selectedStudent(this)"></select>
     </div>
 
-    <div class="col-sm-1 form-group-sm studentOwedFeesDiv">
+    <div class="col-sm-2 form-group-sm studentOwedFeesDiv">
         <label>Owed Fees</label>
         <span class="form-control studentOwedFees">0</span>
     </div>
 
-    <div class="col-sm-1 form-group-sm studentTransAmountDiv">
+    <div class="col-sm-2 form-group-sm studentTransAmountDiv">
         <label>Amount-Pay</label>
         <input type="number" min="0" class="form-control studentTransAmount" value="0">
         <span class="help-block studentTransAmountErr errMsg"></span>
     </div>
 
-    <div class="col-sm-1 form-group-sm">
-        <label>Current Fees</label>
+    <div class="col-sm-2 form-group-sm">
+        <label>Fees</label>
         <span class="form-control studentCurrentFees">0.00</span>
     </div>
 
-    <div class="col-sm-1 form-group-sm">
+    <div class="col-sm-2 form-group-sm">
         <label>Total Fees</label>
         <span class="form-control studentTotalFees">0.00</span>
     </div>
@@ -257,22 +259,15 @@ if(isset($students) && !empty($students)){
     <div class="col-sm-2 form-group-sm">
         <label>Term</label>
         <select class="form-control selectedTerm">
-            <option value="january">January</option>
-            <option value="february">February</option>
-            <option value="march">March</option>
-            <option value="april">April</option>
-            <option value="may">May</option>
-            <option value="june">June</option>
-            <option value="july">July</option>
-            <option value="august">August</option>
-            <option value="september">September</option>
-            <option value="october">October</option>
-            <option value="november">November</option>
-            <option value="december">December</option>
+            <option value="">Select Term</option>
+            <option value="First">First</option>
+            <option value="Second">Second</option>
+            <option value="Third">Third</option>
         </select>
     </div>
+
     
-    <div class="col-sm-1">
+    <div class="col-sm-0">
         <button class="close retrit">&times;</button>
     </div>
 </div>
