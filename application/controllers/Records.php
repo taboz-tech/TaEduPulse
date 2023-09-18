@@ -13,7 +13,7 @@ class Records extends CI_Controller{
         $this->genlib->checkLogin();
 
         // Load the Record model
-        $this->load->model('Record');
+        $this->load->model('record');
     }
     
     public function index(){
@@ -23,16 +23,16 @@ class Records extends CI_Controller{
         $this->load->view('main', $data);
     }
 
-    public function lrlt() {
+    public function lrlt_() {
+
         $this->genlib->ajaxOnly();
-        
         $this->load->helper('text');
         
         // Set the sort order
         $orderFormat = $this->input->get('orderFormat', TRUE) ? $this->input->get('orderFormat', TRUE) : "ASC";
 
 
-        $totalReports =  $this->Record->countReportFiles();
+        $totalReports =  $this->record->countReportFiles();
         
 
         $this->load->library('pagination');
@@ -44,12 +44,12 @@ class Records extends CI_Controller{
         $start = $pageNumber == 0 ? 0 : ($pageNumber - 1) * $limit; // Start from 0 if pageNumber is 0, else start from the next iteration
 
         // Call setPaginationConfig($totalRows, $urlToCall, $limit, $attributes) in genlib to configure pagination
-        $config = $this->genlib->setPaginationConfig($totalReports, "records/lrlt", $limit, ['onclick' => 'return lrlt(this.href);']);
+        $config = $this->genlib->setPaginationConfig($totalReports, "records/lrlt_", $limit, ['onclick'=>'return lrlt_(this.href);']);
        
         $this->pagination->initialize($config); // Initialize the pagination library
 
         // Get a list of report files
-        $data['allReports'] = $this->Record->getReportFiles($orderFormat, $start, $limit);
+        $data['allReports'] = $this->record->getReportFiles($orderFormat, $start, $limit);
 
         $data['range'] = $totalReports > 0 ? "Showing " . ($start + 1) . "-" . ($start + count($data['allReports'])) . " of " . $totalReports : "";
         $data['links'] = $this->pagination->create_links(); // Page links
@@ -57,7 +57,16 @@ class Records extends CI_Controller{
         
         $json['reportsListTable'] = $this->load->view('records/recordslisttable', $data, TRUE); // Get view with populated reports table
         
+        // Log the JSON response before sending
+        // log_message('error', 'JSON Response: ' . json_encode($json));
+
+        // // Log HTTP headers before sending the JSON response
+        // $headers = headers_list();
+        // log_message('error', 'HTTP Headers: ' . json_encode($headers));
+
+
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
+       
     }
     
     
