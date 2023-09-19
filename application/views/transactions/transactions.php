@@ -327,7 +327,9 @@ if(isset($students) && !empty($students)) {
             <div class="modal-body">
                 <form role="form">
                     <input type="hidden" id="transactionId" value="">
-                    <!-- Add the hidden input field for transaction ID -->
+                    <input type="hidden" id="transAmount" value="">
+                    <input type="hidden" id="availableRefund" value="">
+                    
                     <div class="form-group">
                         <label for="refundAmount">Refund Amount</label>
                         <input type="text" id="refundAmount" placeholder="Refund Amount" class="form-control">
