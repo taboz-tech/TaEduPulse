@@ -744,14 +744,43 @@ $(document).ready(function(){
         // Extract the transaction ID from the clicked element
         var transId = $(this).attr('id').split('-')[1];
         var transIdArr = transId.split(',').map(Number);
-        console.log("clicked transId:", transIdArr);
+        var isRefundable = $(this).closest('tr').find('.refund-action').data('refundable');
 
-        // Open the refund modal
-        $('#refundModal').modal('show');
+        // Get the totalMoneySpent value from the row
+        var totalMoneySpent = parseFloat($(this).closest('tr').find('td:eq(3)').text().replace('$', ''));
+        console.log("totalMoneySpent:", totalMoneySpent); // Log the value
 
-        // Populate the transaction ID in the modal
-        $('#transactionId').val(transId);
+        if (isRefundable === true) {
+            // Make an AJAX request to get the refund amount
+            $.ajax({
+                type: "POST",
+                url: "transactions/RefundAmount/",
+                data: { transactionId: transId },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 1) {
+                        $('#availableRefund').val(response.refundAmount);
+
+                        // Show the modal
+                        $('#refundModal').modal('show');
+                        $('#transactionId').val(transId);
+                        $('#transAmount').val(totalMoneySpent);
+                    } else {
+                        alert("Unable to fetch refund amount.");
+                    }
+                },
+                error: function() {
+                    alert("An error occurred while fetching refund amount.");
+                }
+            });
+        } else {
+            alert("Refund is not possible for this transaction.");
+        }
     });
+
+
+
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -761,36 +790,39 @@ $(document).ready(function(){
  
     $("#processRefundSubmit").click(function(){
         // Get the refund amount entered by the user
-        var refundAmount = $('#refundAmount').val();
+        var refundAmount = parseFloat($('#refundAmount').val());
         var transactionId = $('#transactionId').val();
-        console.log(transactionId);
-        console.log(refundAmount);
-
-        $.ajax({
-            type: "POST",
-            url: appRoot+"transactions/refundTransaction",
-            data: {refundAmount:refundAmount,transactionId:transactionId},
-            success: function(returnedData){
-                console.log(returnedData);
-                if(returnedData.status === 1){
-                    $("#transReceipt").html(returnedData.transReceipt);
-                }
-                
-                else{
-                    
-                }
-            },
-            error: function(){
-                alert("ERROR!");
-            }
-        });
+        var availableRefund = parseFloat($('#availableRefund').val());
+        var transAmount = parseFloat($('#transAmount').val());
     
-        // You can perform validation and processing of the refund amount here
-        // For example, check if the refund amount is valid and process the refund
+        // Check if refundAmount is a valid number and if the sum of refundAmount and availableRefund is not greater than transAmount
+        if (!isNaN(refundAmount) && refundAmount + availableRefund <= transAmount) {
+            $.ajax({
+                type: "POST",
+                url: appRoot + "transactions/refundTransaction",
+                data: { refundAmount: refundAmount, transactionId: transactionId },
+                success: function (returnedData) {
+                    console.log(returnedData);
+                    if (returnedData.status === 1) {
+                        $("#transReceipt").html(returnedData.transReceipt);
+                    } else {
+                        // Handle the error case
+                        console.error("Refund processing failed.");
+                    }
+                },
+                error: function () {
+                    alert("ERROR!");
+                }
+            });
     
-        // Once the refund processing is done, you can close the modal
-        $('#refundModal').modal('hide');
+            // Once the refund processing is done, you can close the modal
+            $('#refundModal').modal('hide');
+        } else {
+            // Display an error message for invalid refund amount or exceeding the transaction amount
+            $("#refundAmountErr").text("Please enter a valid refund amount that doesn't exceed the transaction amount.");
+        }
     });
+    
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
