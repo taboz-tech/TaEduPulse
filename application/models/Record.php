@@ -13,7 +13,7 @@ class Record extends CI_Model {
      * @return int Number of report files
      */
     public function countReportFiles() {
-        $reportsPath = '/var/www/html/Cliffs_Internation/reports/';
+        $reportsPath = '/var/www/html/TabnEduPulse/reports/';
         
         // Get a list of all report files
         $reportFiles = glob($reportsPath . '*', GLOB_BRACE);
@@ -31,7 +31,7 @@ class Record extends CI_Model {
      * @return array List of report files with download links
      */
     public function getReportFiles($orderFormat, $start, $limit) {
-        $reportsPath = '/var/www/html/Cliffs_Internation/reports/';
+        $reportsPath = '/var/www/html/TabnEduPulse/reports/';
     
         // Get a list of report files matching a pattern
         $reportFiles = glob($reportsPath . '*', GLOB_BRACE);
@@ -71,7 +71,7 @@ class Record extends CI_Model {
      * @return array List of report files matching the search term
      */
     public function searchReportFiles($searchTerm) {
-        $reportsPath = '/var/www/html/Cliffs_Internation/reports/';
+        $reportsPath = '/var/www/html/TabnEduPulse/reports/';
     
         // Get a list of report files matching the search term
         $matchingReportFiles = array_filter(glob($reportsPath . '*' . $searchTerm . '*', GLOB_BRACE), 'is_file');
