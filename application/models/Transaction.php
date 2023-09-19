@@ -269,28 +269,54 @@ class Transaction extends CI_Model {
      * *******************************************************************************************************************************
      */
 
-    /**
-     * Calculates the total amount earned today
-     * @return boolean
-     */
-    public function totalEarnedToday() {
-        $q = "SELECT GROUP_CONCAT(DISTINCT totalMoneySpent) AS totalMoneySpent FROM transactions WHERE DATE(transDate) = CURRENT_DATE GROUP BY ref";
-
-        $run_q = $this->db->query($q);
-
-        if ($run_q->num_rows()) {
-            $totalEarnedToday = 0;
-
-            foreach ($run_q->result() as $get) {
-                $totalEarnedToday += $get->totalMoneySpent;
+     public function totalEarnedToday() {
+        // Query to get all transactions for today, along with their currencies
+        $transactionsQuery = "SELECT transId, totalMoneySpent, currency
+                            FROM transactions
+                            WHERE DATE(transDate) = CURRENT_DATE";
+    
+        $transactionsResult = $this->db->query($transactionsQuery);
+    
+        if ($transactionsResult->num_rows() > 0) {
+            $totalEarnedTodayInUSD = 0;
+    
+            foreach ($transactionsResult->result() as $transaction) {
+                // Check if there is a refund for this transaction and subtract it
+                $refundQuery = "SELECT SUM(refundAmount) AS totalRefund
+                                FROM transactions
+                                WHERE transId = ?";
+    
+                $refundResult = $this->db->query($refundQuery, array($transaction->transId));
+    
+                if ($refundResult->num_rows() === 1) {
+                    $refundAmount = $refundResult->row()->totalRefund;
+                    $transaction->totalMoneySpent -= $refundAmount; // Subtract refund amount
+    
+                    // Fetch the exchange rate for the transaction's currency
+                    $currencyRateQuery = "SELECT rate FROM currencies WHERE name = ?";
+                    $currencyRateResult = $this->db->query($currencyRateQuery, array($transaction->currency));
+    
+                    if ($currencyRateResult->num_rows() === 1) {
+                        $exchangeRate = $currencyRateResult->row()->rate;
+    
+                        // Convert the transaction amount to USD using its currency's exchange rate
+                        $convertedAmountUSD = $transaction->totalMoneySpent / $exchangeRate;
+    
+                        $totalEarnedTodayInUSD += $convertedAmountUSD;
+                    } else {
+                        return FALSE; // Currency not found in the database
+                    }
+                } else {
+                    return FALSE; // Error in refund query
+                }
             }
-
-            return $totalEarnedToday;
-        }
-        else {
-            return FALSE;
+    
+            return $totalEarnedTodayInUSD;
+        } else {
+            return 0; // No transactions today
         }
     }
+    
 
     /*
      * *******************************************************************************************************************************
@@ -484,8 +510,51 @@ class Transaction extends CI_Model {
         }
     }
     
-    
-    
+    /**
+     * Get refund amount by transaction ID
+     * @param int $transId Transaction ID
+     * @return float|boolean Refund amount if found, FALSE otherwise
+     */
+    public function getRefundAmount($transId) {
+        $this->db->select('refundAmount');
+        $this->db->where('transId', $transId);
+        $query = $this->db->get('transactions');
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->refundAmount;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * Selects the total number of transactions done today
+     * @return int Total number of transactions today
+     */
+    public function totalTransactionsToday()
+    {
+        if ($this->db->platform() == "sqlite3") {
+            // SQLite doesn't support CURRENT_DATE directly, so we'll use a workaround
+            $query = "SELECT count(DISTINCT REF) as 'totalTrans' 
+                    FROM transactions 
+                    WHERE DATE(transDate) = DATE('now', 'localtime')";
+        } else {
+            $query = "SELECT count(DISTINCT REF) as 'totalTrans' 
+                    FROM transactions 
+                    WHERE DATE(transactions.transDate) = CURRENT_DATE";
+        }
+
+        $result = $this->db->query($query);
+
+        if ($result->num_rows() > 0) {
+            $row = $result->row();
+            return $row->totalTrans;
+        } else {
+            return 0; // Return 0 when there are no transactions today
+        }
+    }
+
     
     
 
