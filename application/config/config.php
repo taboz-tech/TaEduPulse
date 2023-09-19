@@ -23,22 +23,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$host = $_SERVER['HTTP_HOST'];//e.g practa.ng || www.practa.ng || localhost
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''; // Check if HTTP_HOST is defined
 $protocol = is_https() ? "https://" : "http://";
-        
-if(is_cli()){
+
+if (is_cli()) {
     $config['base_url'] = "";
+} else if (stristr($host, "localhost") !== FALSE || stristr($host, "192.168.") !== FALSE || stristr($host, "127.0.0.") !== FALSE) {
+    $config['base_url'] = $protocol . $host . "/Cliffs_Internation/";
+} else {
+    $allowed = ['www.1410inc.xyz', '1410inc.xyz'];
+
+    $config['base_url'] = in_array($host, $allowed) ? $protocol . $host . "/Cliffs_Internation/" : "http://".$_SERVER['HTTP_HOST']."/";
 }
 
-else if(stristr($host, "localhost") !== FALSE || (stristr($host, "192.168.") !== FALSE)|| (stristr($host, "127.0.0.") !== FALSE)){
-    $config['base_url'] =  $protocol.$host."/Cliffs_Internation/";
-}
-
-else{
-    $allowed = ['www.1410inc.xyz', '1410inc.xyz'];//input all allowed urls here e.g. Tavongasanni.com, www.practa.ng, smartagapp.com
-
-    $config['base_url'] = in_array($host, $allowed) ? $protocol.$host."/Cliffs_Internation/" : "http://".$_SERVER['HTTP_HOST']."/";
-}
 
 /*
 |--------------------------------------------------------------------------
