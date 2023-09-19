@@ -571,12 +571,13 @@ class Students extends CI_Controller{
      * It validates and processes the submitted form data and updates the student's information.
      * Additionally, it logs the event of the student's details being updated.
      */
-    public function edit(){
+    public function edit() {
         $this->genlib->ajaxOnly();
         
         $this->load->library('form_validation');
-
         $this->form_validation->set_error_delimiters('', '');
+        $studentOwed_fees = set_value('studentOwed_fees');
+        log_message("error","the owed fees is: ".$studentOwed_fees);
     
         // Define form validation rules
         $this->form_validation->set_rules('_sId', '', ['required', 'trim', 'numeric']);
@@ -589,55 +590,58 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentParent_phone','Student Student_phone',['required','trim','max_length[15]'],['required'=>'required']);
         $this->form_validation->set_rules('studentOwed_fees', 'Student Owed Fees', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
-        
+    
         // Initialize an array to store detailed error messages
         $errorMessages = [];
-
+    
         try {
             // Check if form validation is successful
             if ($this->form_validation->run() !== FALSE) {
-
-                // Extract form data
                 $studentId = set_value('_sId');
                 $studentName = set_value('studentName');
-                // Extract data for other fields...
-
+                $studentId = set_value('_sId');
+                $studentName = set_value('studentName');
+                $studentSurname = set_value('studentSurname');
+                $studentClass_name = set_value('studentClass_name');
+                $studentParent_phone = set_value('studentParent_phone');
+                $studentFees = set_value('studentFees');
+                $studentAddress = set_value('studentAddress');
+                $studentParent_name = set_value('studentParent_name');
+                $studentOwed_fees = set_value('studentOwed_fees');
+                $studentHealthy_status = set_value('studentHealthy_status');
+                $studentRelationship = set_value('studentRelationship');
+                log_message("error","the owed fees is: ".$studentOwed_fees);
                 // Update student in the database
                 $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_phone, $studentFees, $studentParent_name, $studentAddress, $studentOwed_fees, $studentHealthy_status, $studentRelationship);
 
                 if (!$updated) {
                     throw new Exception("Unable to update the student record. Please try again later or contact the administrator.");
                 }
-
-                // Add an event log entry
-                $desc = "Details of student with Student ID '$studentStudent_id' was updated";
-                $this->genmod->addevent("Student Update", $studentId, $desc, 'students', $this->session->admin_id);
-
+    
                 // Set status to 1 if everything is successful
                 $json['status'] = 1;
             } else {
                 // Form validation failed, throw an exception with validation errors
                 $validationErrors = $this->form_validation->error_array();
-
+    
                 // Convert form validation errors to detailed error messages
                 foreach ($validationErrors as $field => $message) {
-                    $errorMessages[] = "Field '{$field}': {$message}";
+                    $errorMessages[$field] = $message;
                 }
-
+    
                 throw new Exception("Form validation failed.");
             }
         } catch (Exception $e) {
             // Handle exceptions and set status to 0
             $json['status'] = 0;
-            $errorMessages[] = $e->getMessage();
+            $json['errors'] = $errorMessages; // Include detailed error messages
         }
-
-        // Include detailed error messages in the JSON response
-        $json['errors'] = $errorMessages;
-
+        log_message("error","the ereor".print_r($json,TRUE));
+    
         // Set response content type and output JSON response
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 
 
 
