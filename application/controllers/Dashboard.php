@@ -35,12 +35,13 @@ class Dashboard extends CI_Controller{
         $data['highestSpenders'] = $this->analytic->highestSpenders();
         $data['lowestSpenders'] = $this->analytic->lowestSpenders();
         $data['totalStudents'] = $this->db->count_all('students');
-        $data['totalSalesToday'] = (int)$this->analytic->totalSalesToday();
-        $data['totalTransactions'] = $this->transaction->totalTransactions();
+        $data['totalSalesToday'] = number_format($this->analytic->totalSalesToday(), 2);
+        $data['totalTransactions'] = $this->transaction->totalTransactionsToday();
         $data['dailyTransactions'] = $this->analytic->getDailyTrans();
         $data['transByDays'] = $this->analytic->getTransByDays();
         $data['transByMonths'] = $this->analytic->getTransByMonths();
         $data['transByYears'] = $this->analytic->getTransByYears();
+        $data['totalSalesMonth'] = number_format($this->analytic->totalSalesThisMonth(), 2);
         
         $values['pageContent'] = $this->load->view('dashboard', $data, TRUE);
         

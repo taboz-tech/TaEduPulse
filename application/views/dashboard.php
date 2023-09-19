@@ -21,10 +21,10 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-left"><i class="fa fa-money"></i></div>
                 <div class="pull-right">
                     <div><?=$totalSalesToday?></div>
-                    <div class="latestStuffsText">Today's Total Payments</div>
+                    <div class="latestStuffsText">Total Amount</div>
                 </div>
             </div>
-            <div class="panel-footer text-center" style="color:#5cb85c">Total Amount of Today's Payments</div>
+            <div class="panel-footer text-center" style="color:#5cb85c">Total Amount Today</div>
         </div>
     </div>
     <div class="col-sm-3">
@@ -36,23 +36,23 @@ defined('BASEPATH') OR exit('');
                     <div class="latestStuffsText pull-right">Total Transactions</div>
                 </div>
             </div>
-            <div class="panel-footer text-center" style="color:#607d8b">All-Time Total Transactions</div>
+            <div class="panel-footer text-center" style="color:#607d8b">Today Total Transactions</div>
         </div>
     </div>
-
+    
     <div class="col-sm-3">
         <div class="panel panel-info">
-            <div class="panel-body latestStuffsBody" style="background-color:#795548">
-                <div class="pull-left"><i class="fa fa-dollar"></i></div>
+            <div class="panel-body latestStuffsBody" style="background-color: #607d8b">
+                <div class="pull-left"><i class="fa fa-exchange"></i></div>
                 <div class="pull-right">
-                    <div> <?php $query = $this->db->query('SELECT SUM( totalAmount)as total FROM transactions')->row(); echo floatval($query->total);?></div>
-                    <div class="latestStuffsText pull-right">Total Earnings Till Date</div>
+                    <div><?=$totalSalesMonth?></div>
+                    <div class="latestStuffsText pull-right">Monthly Sales</div>
                 </div>
-                
             </div>
-            <div class="panel-footer text-center" style="color#795548">All-Time Total Earnings</div>
+            <div class="panel-footer text-center" style="color:#607d8b">Total Monthl Sales</div>
         </div>
     </div>
+    
 </div>
 
 
