@@ -15,7 +15,7 @@ class Transactions extends CI_Controller{
         
         $this->genlib->checkLogin();
         
-        $this->load->model(['transaction', 'student']);
+        $this->load->model(['transaction', 'student','currency']);
     }
     
     /*
@@ -142,8 +142,8 @@ class Transactions extends CI_Controller{
                     . "or contact technical department for assistance";
             $json['transReceipt'] = $returnedData['transReceipt'];
             
-            $json['totalEarnedToday'] = number_format($this->transaction->totalEarnedToday());
-            
+            $json['totalEarnedToday'] = number_format($this->transaction->totalEarnedToday(), 2);
+
             //add into eventlog
             //function header: addevent($event, $eventRowIdOrRef, $eventDesc, $eventTable, $staffId) in 'genmod'
             $eventDesc = count($arrOfStudentsDetails). " fees totalling $". number_format($cumAmount, 2)
@@ -467,22 +467,30 @@ class Transactions extends CI_Controller{
         $successCount = 0; // Count of successfully refunded transactions
     
         foreach ($transactionIds as $transactionId) {
-    
             $transaction = $this->transaction->getTrans($transactionId);
-    
     
             if (!$transaction) {
                 continue; // Move to the next transaction if not found
             }
     
-            // Check if the transaction has already been refunded
-            if (isset($transaction[0]['refundDate'])) {
-                continue;                
-            } 
+            // Get the transaction currency
+            $transactionCurrency = $transaction[0]['currency'];
     
-            // Perform the refund process
-            // Use the provided refundAmount instead of fetching from transaction
-            $result = $this->transaction->updateRefundAmount($transactionId, $refundAmount);
+            // Query the currencies table to get the exchange rate for the transaction currency
+            $currencyInfo = $this->currency->getCurrencieInfo(array('name' => $transactionCurrency), array('rate'));
+    
+            if ($currencyInfo) {
+                $exchangeRate = $currencyInfo->rate;
+    
+                // Calculate the refund amount in USD
+                $refundAmountUSD = $refundAmount / $exchangeRate;
+            } else {
+                // Handle the case where the currency information is not found
+                $refundAmountUSD = $refundAmount;
+            }
+    
+            // Perform the refund process using $refundAmountUSD
+            $result = $this->transaction->updateRefundAmount($transactionId, $refundAmountUSD);
     
             if ($result) {
                 $successCount++;
@@ -501,18 +509,10 @@ class Transactions extends CI_Controller{
             // Add student fees logic here
             if (isset($transaction[0]['student_id'])) {
                 $studentId = $transaction[0]['student_id'];
-
-
-                $this->load->model('student');
-
-                $this->student->incrementStudent($studentId,$refundAmount);
-
-
-            
     
-                // Add your logic to update the student's fees with the refunded amount
-                // For example:
-                // $this->student_model->addFees($studentId, $feeAmount);
+                $this->load->model('student');
+    
+                $this->student->incrementStudent($studentId, $refundAmountUSD);
             }
         }
     
@@ -524,8 +524,35 @@ class Transactions extends CI_Controller{
     
     
     
+    public function RefundAmount() {
+        $this->genlib->ajaxOnly();
     
-
+        $transId = $this->input->post('transactionId', TRUE);
+    
+        $json = array();
+    
+        if (!empty($transId)) {
+            $refundAmount = $this->transaction->getRefundAmount($transId);
+    
+            if ($refundAmount !== false) {
+                // Check if refundAmount is null and set it to zero if needed
+                if ($refundAmount === null) {
+                    $refundAmount = 0;
+                }
+    
+                $json['status'] = 1;
+                $json['refundAmount'] = $refundAmount;
+            } else {
+                $json['status'] = 0;
+            }
+        } else {
+            $json['status'] = -1;
+        }
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+    
+    
     
     
 }
