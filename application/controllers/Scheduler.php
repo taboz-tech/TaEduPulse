@@ -31,8 +31,8 @@ class Scheduler extends CI_Controller {
                 // Set the status as 0 (inactive)
                 $status = 0;
     
-                // Set the category as 'Salaries' or the appropriate category you want
-                $costCategory = 'Salaries';
+                // Set the category as 'Salary' or the appropriate category you want
+                $costCategory = 'Salary';
     
                 // Set the description
                 $description = 'Monthly Salaries Cost';
@@ -52,8 +52,6 @@ class Scheduler extends CI_Controller {
     
                 log_message('info', 'Salaries cost created for ' . $currentMonthYear);
             }
-        }else{
-            log_message("error","its running at 5555555");
         }
     }
     
