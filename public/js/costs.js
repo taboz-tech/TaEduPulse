@@ -429,6 +429,7 @@ $(document).ready(function(){
                         setTimeout(function () {
                             $('#paymentModal').modal('hide');
                         }, 2000);
+                        lclt()
                     } else {
                         // Handle the error case
                     }
