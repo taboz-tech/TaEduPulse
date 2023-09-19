@@ -423,12 +423,15 @@ class Analytic extends CI_Model{
         }
 
         $result = $this->db->query($query);
-
-        if ($result->num_rows() > 0) {
-            $row = $result->row();
+        if (!$result) {
+            // Handle SQL query errors
+            return 0.00;
+        }
+        $row = $result->row();
+        if (isset($row->totalAmountToday) && $row->totalAmountToday !== null) {
             return $row->totalAmountToday;
         } else {
-            return 0.00; // Return 0.00 when there are no transactions
+            return 0.00; // Return 0.00 when there are no transactions or totalAmountToday is NULL
         }
     }
 
