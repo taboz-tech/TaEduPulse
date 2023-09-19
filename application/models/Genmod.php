@@ -181,33 +181,35 @@ class Genmod extends CI_Model{
     */
     
     /**
-     * 
-     * @param type $year
-     * @return boolean
+     * Get earnings for a specific year, considering currency conversion and refunds
+     * @param string $year Year to fetch earnings for
+     * @return array|boolean Array of objects with transDate and totalAmount fields for the specified year
      */
-    public function getYearEarnings($year=""){
+    public function getYearEarnings($year = "")
+    {
         $year_to_fetch = $year ? $year : date('Y');
-		
-        if($this->db->platform() == "sqlite3"){
-			$q = "SELECT transDate, totalAmount FROM transactions WHERE strftime('%Y', transDate) = '{$year_to_fetch}'";
-			
-			$run_q = $this->db->query($q);
-		}
-		
-		else{
-			$this->db->select('transDate, totalAmount');
-			$this->db->where(['YEAR(transDate)'=>$year_to_fetch]);
-			$run_q = $this->db->get('transactions');
-		}
-        
-        if($run_q->num_rows()){
-            return $run_q->result();
+
+        if ($this->db->platform() == "sqlite3") {
+            $q = "SELECT transDate, (totalAmount - IFNULL(refundAmount, 0)) as 'totalAmount' 
+                FROM transactions 
+                WHERE strftime('%Y', transDate) = '{$year_to_fetch}'";
+
+            $run_q = $this->db->query($q);
+        } else {
+            // Calculate the sum of (totalAmount - refundAmount) converted to USD
+            $this->db->select('transDate, (totalAmount - IFNULL(refundAmount, 0)) / c.rate as totalAmount');
+            $this->db->where(['YEAR(transDate)' => $year_to_fetch]);
+            $this->db->join('currencies c', 'c.name = transactions.currency', 'left'); // Join with currencies table
+            $run_q = $this->db->get('transactions');
         }
-        
-        else{
+
+        if ($run_q->num_rows()) {
+            return $run_q->result();
+        } else {
             return FALSE;
         }
     }
+
     
     
     
