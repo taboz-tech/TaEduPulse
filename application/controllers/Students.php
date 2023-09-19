@@ -520,21 +520,27 @@ class Students extends CI_Controller{
             // Adjust the row height for the summary section
             $sheet->getRowDimension($rowIndex - 1)->setRowHeight(20);
 
-            // Save the spreadsheet
+            $currentDate = date('Y-m-d'); 
+
+            $filename = 'students_report_' . $currentDate . '.xlsx'; 
+
+            // Save the spreadsheet with the updated filename
+            $filePath = 'reports/' . $filename; 
             $writer = new Xlsx($spreadsheet);
-            $filePath = 'reports/students_report.xlsx'; // Adjust the file path as needed
             $writer->save($filePath);
-    
+
             if (!file_exists($filePath)) {
                 throw new Exception('Failed to save the Excel report.');
             }
-    
-            $reportUrl = base_url() . 'reports/students_report.xlsx'; // Adjust the URL as needed
+
+            $reportUrl = base_url() . 'reports/' . $filename; 
+
             $response = [
                 'status' => 1,
                 'message' => 'Student Excel report generated successfully!',
                 'report_url' => $reportUrl,
             ];
+                
     
             // Send the response as JSON
             echo json_encode($response);
@@ -577,7 +583,6 @@ class Students extends CI_Controller{
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
         $studentOwed_fees = set_value('studentOwed_fees');
-        log_message("error","the owed fees is: ".$studentOwed_fees);
     
         // Define form validation rules
         $this->form_validation->set_rules('_sId', '', ['required', 'trim', 'numeric']);
@@ -610,7 +615,6 @@ class Students extends CI_Controller{
                 $studentOwed_fees = set_value('studentOwed_fees');
                 $studentHealthy_status = set_value('studentHealthy_status');
                 $studentRelationship = set_value('studentRelationship');
-                log_message("error","the owed fees is: ".$studentOwed_fees);
                 // Update student in the database
                 $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_phone, $studentFees, $studentParent_name, $studentAddress, $studentOwed_fees, $studentHealthy_status, $studentRelationship);
 
@@ -636,7 +640,6 @@ class Students extends CI_Controller{
             $json['status'] = 0;
             $json['errors'] = $errorMessages; // Include detailed error messages
         }
-        log_message("error","the ereor".print_r($json,TRUE));
     
         // Set response content type and output JSON response
         $this->output->set_content_type('application/json')->set_output(json_encode($json));

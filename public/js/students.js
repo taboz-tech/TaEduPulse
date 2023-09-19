@@ -5,41 +5,41 @@ $(document).ready(function(){
     checkDocumentVisibility(checkLogin);//check document visibility in order to confirm user's log in status
 
     // To load all classes in the class select
-$.ajax({
-    url: appRoot + "students/getGradesForSelect/",
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-        if (response.status === 1) {
-            var grades = response.grades;
-            var classDropdown = $('#classDropdown'); // Reference to the select element
+    $.ajax({
+        url: appRoot + "students/getGradesForSelect/",
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status === 1) {
+                var grades = response.grades;
+                var classDropdown = $('#classDropdown'); // Reference to the select element
 
-            // Check if classDropdown is a valid element before manipulation
-            if (classDropdown.length > 0) {
-                $.each(grades, function (index, grade) {
-                    // Validate grade object properties before using them
-                    if (grade && grade.id && grade.name) {
-                        // Check if the option with the same value already exists
-                        if (classDropdown.find('option[value="' + grade.id + '"]').length === 0) {
-                            classDropdown.append($('<option>', {
-                                value: grade.id,
-                                text: grade.name
-                            }));
+                // Check if classDropdown is a valid element before manipulation
+                if (classDropdown.length > 0) {
+                    $.each(grades, function (index, grade) {
+                        // Validate grade object properties before using them
+                        if (grade && grade.id && grade.name) {
+                            // Check if the option with the same value already exists
+                            if (classDropdown.find('option[value="' + grade.id + '"]').length === 0) {
+                                classDropdown.append($('<option>', {
+                                    value: grade.id,
+                                    text: grade.name
+                                }));
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    console.log('classDropdown is not defined or valid.');
+                }
             } else {
-                console.log('classDropdown is not defined or valid.');
+                console.log('AJAX request failed with message: ' + response.message);
             }
-        } else {
-            console.log('AJAX request failed with message: ' + response.message);
+        },
+        error: function (xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+            console.log('Error Response: ' + xhr.responseText); // Include more details for debugging
         }
-    },
-    error: function (xhr, status, error) {
-        console.log('AJAX Error: ' + error);
-        console.log('Error Response: ' + xhr.responseText); // Include more details for debugging
-    }
-});
+    });
 
 	
     //load all Students once the page is ready
@@ -323,11 +323,15 @@ $.ajax({
         var studentParent_name = $("#studentParent_name-" + studentId).html();
         var studentParent_phone = $("#studentParent_phone-" + studentId).html();
         var studentAddress = $("#studentAddress-" + studentId).html();
-        var studentFees = $("#studentFees-" + studentId).html().replace(",", "");
-        var studentOwed_fees = $("#studentOwed_fees-" + studentId).html();
         var studentHealthy_status = $("#studentHealthy_status-" + studentId).html();
         var studentRelationship = $("#studentRelationship-" + studentId).html();
+        var studentFees = parseFloat($("#studentFees-" + studentId).html().replace(",", "")).toFixed(2);
+        var studentOwed_fees = parseFloat($("#studentOwed_fees-" + studentId).html().replace(",", "")).toFixed(2);
 
+        if (isNaN(studentOwed_fees)) {
+            studentOwed_fees = 0;
+        }
+        
         
         //prefill form with info
         $("#studentIdEdit").val(studentId);
@@ -374,11 +378,9 @@ $.ajax({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     $("#editStudentSubmit").click(function () {
-
         // Create a variable to store owed fees value
         var combinedOwedFees;
         
-
         var studentId = $("#studentIdEdit").val();
         var studentName = $("#studentNameEdit").val();
         var studentSurname = $("#studentSurnameEdit").val();
@@ -389,31 +391,38 @@ $.ajax({
         var studentAddress = $("#studentAddressEdit").val();
         var studentFees = $("#studentFeesEdit").val();
         var studentOwed_fees = $("#studentOwed_feesEdit").val();
-        var studentHealthy_status = $("#studentHealthy_statusEdit");
-        var studentRelationship = $("#studentRelationship");
-
-    
+        var studentHealthy_status = $("#studentHealthy_statusEdit").val();
+        var studentRelationship = $("#studentRelationshipEdit").val();
+        
         // Clear previous error messages
-        $(".error-message").html("");
-                
+        $(".errMsg").html("");
+        $("#editStudentFMsg").html(""); // Clear the general error message
+        
+        // Validate required fields
         if (!studentStudent_id || !studentFees || !studentId || !studentName) {
-            if (!studentStudent_id) $("#studentStudent_idErr").html("Student ID cannot be empty");
+            if (!studentStudent_id) $("#studentStudent_idEditErr").html("Student ID cannot be empty");
             if (!studentFees) $("#studentFeesEditErr").html("Student fees cannot be empty");
             if (!studentId) $("#editStudentFMsg").html("Unknown Student");
             if (!studentName) $("#studentNameEditErr").html("Student name cannot be empty");
             return;
         }
-
+    
         if ($("#enableOwedFeesEdit").prop("checked")) {
-        // Calculate the combined owed fees value (initial + owed fees from form)
-        var owedFeesFromForm = parseFloat(studentOwed_fees);
-        combinedOwedFees = initialOwedFees + owedFeesFromForm;
+            // Calculate the combined owed fees value (initial + owed fees from form)
+            var owedFeesFromForm = parseFloat(studentOwed_fees);
+           
+            // Check if initialOwedFees is a valid number, if not, set it to 0
+            if (isNaN(initialOwedFees) || initialOwedFees === null || initialOwedFees === undefined) {
+                initialOwedFees = 0;
+            }
+            combinedOwedFees = initialOwedFees + owedFeesFromForm;
         } else {
             // Store the owed fees value from the form
             combinedOwedFees = parseFloat(studentOwed_fees);
         }
     
-        $("#editStudentFMsg").css('color', 'black').html("<i class='"+spinnerClass+"'></i> Processing your request....");
+        // Display a loading message
+        $("#editStudentFMsg").css('color', 'black').html("<i class='fa fa-spinner fa-spin'></i> Processing your request....");
     
         $.ajax({
             method: "POST",
@@ -429,26 +438,31 @@ $.ajax({
                 studentAddress: studentAddress,
                 studentFees: studentFees,
                 studentOwed_fees: combinedOwedFees,
-                studentHealthy_status:studentHealthy_status,
-                studentRelationship:studentRelationship
+                studentHealthy_status: studentHealthy_status,
+                studentRelationship: studentRelationship
             }
         }).done(function (returnedData) {
             if (returnedData.status === 1) {
+                // Success message
                 $("#editStudentFMsg").css('color', 'green').html("Student successfully updated");
-    
                 setTimeout(function () {
                     $("#editStudentModal").modal('hide');
                 }, 1000);
-    
-                lslt();
+                lslt(); // Call your custom function
             } else {
+                // Handle errors returned from the server
                 $("#editStudentFMsg").css('color', 'red').html("One or more required fields are empty or not properly filled");
     
-                if (returnedData.studentId) $("#studentStudent_idErr").html(returnedData.studentId);
-                if (returnedData.studentName) $("#studentNameEditErr").html(returnedData.studentName);
-                if (returnedData.studentSurname) $("#studentSurnameErr").html(returnedData.studentSurname);
+                if (returnedData.errors) {
+                    // Display field-specific errors
+                    if (returnedData.errors.studentStudent_id) $("#studentStudent_idEditErr").html(returnedData.errors.studentStudent_id);
+                    if (returnedData.errors.studentName) $("#studentNameEditErr").html(returnedData.errors.studentName);
+                    if (returnedData.errors.studentSurname) $("#studentSurnameEditErr").html(returnedData.errors.studentSurname);
+                    // Add more error handling for other fields as needed
+                }
             }
         }).fail(function () {
+            // Handle AJAX request failure
             $("#editStudentFMsg").css('color', 'red').html("Unable to process your request at this time. Please check your internet connection and try again");
         });
     });
@@ -462,7 +476,6 @@ $.ajax({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    // create the report of students and their owed fees as an excel 
     $("#generateReport").click(function(e) {
         e.preventDefault();
         
@@ -481,10 +494,14 @@ $.ajax({
             success: function(response) {
                 console.log(response);
                 if (response.status === 1) {
-                    // Provide a link to download the generated report
+                    // Provide a link to download the generated report with a filename containing the date
+                    var currentDate = new Date();
+                    var dateString = currentDate.toISOString().slice(0,10); // Get the current date in YYYY-MM-DD format
+                    var filename = 'student_report_' + dateString + '.xlsx';
+    
                     var downloadLink = $('<a>')
                         .attr('href', response.report_url)
-                        .attr('download', 'student_report.xlsx')
+                        .attr('download', filename)
                         .text('Download Report');
                     $('#reportDownloadLink').empty().append(downloadLink);
                 } else if (response.status === 0) {
@@ -500,6 +517,7 @@ $.ajax({
             }
         });
     });
+    
     
    
     
