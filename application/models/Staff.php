@@ -223,7 +223,18 @@ class Staff extends CI_Model{
         }
     }
     
-
+    public function getTotalBasicSalary() {
+        $this->db->select_sum('basic_salary', 'total_salary');
+        $query = $this->db->get('staffs');
+    
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->total_salary;
+        } else {
+            return 0; // Return 0 if there are no employees or salaries
+        }
+    }
+    
 
 }
 
