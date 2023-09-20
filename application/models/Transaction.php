@@ -117,7 +117,8 @@ class Transaction extends CI_Model {
      * @param string $ce Customer Email
      * @return boolean
      */
-    public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term,$currency) {
+    public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term,$currency) { 
+        log_message("error", "Inside Transaction Model add method");
         $data = ['studentName' => $studentName, 'student_id' => $studentStudent_id, 'studentSurname' => $studentSurname, 'studentClass_name' => $studentClass_name, 'description' => $description, 'totalAmount' => $totalFees,
             'amountTendered' => $_at, 'changeDue' => $_cd, 'modeOfPayment' => $_mop, 'transType' => $transType,
             'staffId' => $this->session->admin_id, 'totalMoneySpent' => $cumAmount, 'ref' => $ref, 'cust_name'=>$cust_name,'paymentStatus'=>$paymentStatus,'term'=>$term, 'cust_phone'=>$cust_phone,
