@@ -1,6 +1,6 @@
 'use strict';
 
-var appRoot = setAppRoot("Cliffs_Internation", "Cliffs_Internation");
+var appRoot = setAppRoot("TaEduPulse", "TaEduPulse");
 var spinnerClass = 'fa fa-spinner faa-spin animated';
 
 $(document).ready(function(){
