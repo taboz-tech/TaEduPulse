@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination']);
         
         $this->load->helper('text');
         
@@ -288,6 +288,30 @@ class Search extends CI_Controller{
     
         // Set the final output as JSON
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+
+    public function subjectSearch(){
+        $data['allsubjects'] = $this->subject->subjectsearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['subjectsListTable'] = $data['allsubjects'] ? $this->load->view('subjects/subjectslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    public function examStudentSearch(){
+        $searchValue = $this->input->get('v', TRUE);
+        $selectedClass = $this->input->get('selectedClass', TRUE);
+    
+        $data['allStudents'] = $this->examination->searchStudents($searchValue, $selectedClass);
+        $data['sn'] = 1;
+    
+        $json['studentsListTable'] = $data['allStudents']
+            ? $this->load->view('examinations/examinationslisttable', $data, TRUE)
+            : "No match found";
+    
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
     
     
