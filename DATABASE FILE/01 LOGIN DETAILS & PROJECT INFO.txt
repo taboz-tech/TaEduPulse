@@ -1,5 +1,5 @@
 
-**Database Name: cliffs_college**
+**Database Name: taedupulse**
 
 **Developed by Tavonga Mafura**
 

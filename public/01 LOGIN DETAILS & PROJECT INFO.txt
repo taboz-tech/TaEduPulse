@@ -1,6 +1,6 @@
 **Log on to codeastro.com for more projects!**
 
-**Database Name: cliffs_college**
+**Database Name: taedupulse**
 
 **Developed by Tavonga Mafura**
 
