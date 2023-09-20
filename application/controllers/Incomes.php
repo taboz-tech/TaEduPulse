@@ -211,7 +211,7 @@ class Incomes extends CI_Controller{
         $incomeId = $this->input->post('i', TRUE);
         
         // Add conditions to prevent deletion of specific incomes by name
-        $incomesToPreserve = ['Fees', 'Reg_fee']; // Names of Incomes to be preserved
+        $incomesToPreserve = ['Fees', 'Reg_fee','Centre_Fee','Subject_Fee']; // Names of Incomes to be preserved
         
         // Retrieve the income name based on the ID
         $incomeInfo = $this->income->getIncomeInfo(['id' => $incomeId], ['name']);

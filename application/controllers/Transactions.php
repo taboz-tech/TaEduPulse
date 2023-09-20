@@ -264,7 +264,6 @@ class Transactions extends CI_Controller{
                 $studentSurname = $this->genmod->getTableCol('students', 'surname', 'student_id', $studentStudent_id);
                 $studentClass_name = $this->genmod->getTableCol('students', 'class_name', 'student_id', $studentStudent_id);
                 $transAmount = $get->transAmount; // money being paid for a student in loop
-                $currentFees = $get->currentFees; // current fees of student in loop
                 $totalFees = $get->totalFees; // total fees for student in loop
                 $transType = 1;
                 $paymentStatus = 1;
