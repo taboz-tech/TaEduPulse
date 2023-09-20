@@ -260,6 +260,19 @@ defined('BASEPATH') OR exit('');
                                 Staff
                             </a>
                         </li>
+                        <li class="<?= $pageTitle == 'Subjects' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Subjects') ?>">
+                                <i class="fa fa-archive"></i>
+                                Subjects
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Examinations' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Examinations') ?>">
+                                <i class="fa fa-archive"></i>
+                                Examinations
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
@@ -316,6 +329,12 @@ defined('BASEPATH') OR exit('');
                             <a href="<?= site_url('students') ?>">
                                 <i class="fa fa-archive"></i>
                                 Students
+                            </a>
+                        </li>
+                        <li class="<?= $pageTitle == 'Subjects' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Subjects') ?>">
+                                <i class="fa fa-archive"></i>
+                                Subjects
                             </a>
                         </li>
 
