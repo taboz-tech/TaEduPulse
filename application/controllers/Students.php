@@ -477,7 +477,7 @@ class Students extends CI_Controller{
             $sheet->getRowDimension(7)->setRowHeight(20); // Increase the height as needed
     
             // Set the column headers for student data
-            $columnHeaders = ['Student ID', 'Student Name', 'Current Fees Owed'];
+            $columnHeaders = ['Student ID', 'Student Name', 'Current Fees Owed','Paid'];
             $columnIndex = 1;
             foreach ($columnHeaders as $header) {
                 $sheet->setCellValueByColumnAndRow($columnIndex, 8, $header);
@@ -491,21 +491,52 @@ class Students extends CI_Controller{
                 $sheet->setCellValueByColumnAndRow(1, $rowIndex, $student->student_id);
                 $sheet->setCellValueByColumnAndRow(2, $rowIndex, $student->name . ' ' . $student->surname);
                 $sheet->setCellValueByColumnAndRow(3, $rowIndex, '$' . number_format($student->owed_fees, 2));
+                
+                // Calculate the paid amount based on the condition
+                if ($student->owed_fees <= $student->fees) {
+                    // Owed fees are less than or equal to fees, so calculate the paid amount
+                    $amountPaid = $student->fees - $student->owed_fees;
+
+                } else {
+                    log_message("error","the subtraction of".$student->fees. "<=".$student->owed_fees);
+
+                    // Owed fees are greater than fees, so set the paid amount to zero
+                    $amountPaid = 0;
+                }
+
+                // Set the value in the Excel sheet
+                $sheet->setCellValueByColumnAndRow(4, $rowIndex, '$' . number_format($amountPaid, 2));
+
                 $sheet->getStyleByColumnAndRow(1, $rowIndex)->applyFromArray($styleInfoText);
                 $sheet->getStyleByColumnAndRow(2, $rowIndex)->applyFromArray($styleInfoText);
                 $sheet->getStyleByColumnAndRow(3, $rowIndex)->applyFromArray($styleInfoText);
+                $sheet->getStyleByColumnAndRow(4, $rowIndex)->applyFromArray($styleInfoText); // Apply style to the new column
+                
                 $rowIndex++;
             }
+
     
-            // Calculate the total amount for the class
+            // Calculate the total amount for the class and total paid amount
             $totalAmountForClass = 0;
+            $totalPaidForClass = 0;
+
             foreach ($students as $student) {
                 $totalAmountForClass += $student->owed_fees;
+
+                // Calculate the paid amount based on the condition
+                if ($student->owed_fees <= $student->fees) {
+                    // Owed fees are less than or equal to fees, so calculate the paid amount
+                    $amountPaid = $student->fees - $student->owed_fees;
+                } else {
+                    // Owed fees are greater than fees, so set the paid amount to zero
+                    $amountPaid = 0;
+                }
+
+                $totalPaidForClass += $amountPaid;
             }
-    
+
             // Add a blank row before the summary section
             $sheet->insertNewRowBefore($rowIndex, 1);
-    
 
             // Display the total amount in the summary section
             $sheet->mergeCells('A' . $rowIndex . ':B' . $rowIndex);
@@ -515,6 +546,11 @@ class Students extends CI_Controller{
             $sheet->getStyle('A' . $rowIndex . ':B' . $rowIndex)->getFill()->getStartColor()->setRGB('F5F5F5'); // Light gray background
             $sheet->setCellValue('C' . $rowIndex, '$' . number_format($totalAmountForClass, 2));
             $sheet->getStyle('C' . $rowIndex)->applyFromArray($styleInfoText);
+
+            // Display the total paid amount in the 3rd column of the summary section
+            $sheet->setCellValue('D' . $rowIndex, '$' . number_format($totalPaidForClass, 2));
+            $sheet->getStyle('D' . $rowIndex)->applyFromArray($styleInfoText);
+
             $rowIndex++;
 
             // Adjust the row height for the summary section
@@ -907,10 +943,8 @@ class Students extends CI_Controller{
         $json = array();
 
         try {
-            log_message("error","before");
             // Fetch the owed fees for the student from the 'students' table
             $owed_fees = $this->genmod->getTableCol('students', 'owed_fees', 'id', $student_id);
-            log_message("error","after");
             
             // Check if the student is found
             if ($owed_fees === FALSE) {
