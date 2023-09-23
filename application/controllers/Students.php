@@ -714,28 +714,59 @@ class Students extends CI_Controller{
      * and a status of 0 if there was an error or no student ID was provided.
      */
     
-    public function delete(){
+     public function delete(){
         $this->genlib->ajaxOnly();
-        
+    
         // Initialize JSON response with a status of 0
         $json['status'] = 0;
-
+    
         // Get the student ID from POST data
         $student_id = $this->input->post('i', TRUE);
-        
+    
         // Check if a valid student ID is provided
-        if($student_id){
-
-            // Delete the student record from the 'students' table
-            $this->db->where('id', $student_id)->delete('students');
-            
-            // Set status to 1 to indicate successful deletion
-            $json['status'] = 1;
+        if ($student_id) {
+            try {
+                // Begin a database transaction
+                $this->db->trans_begin();
+    
+                // Get a list of all tables in your database
+                $tables = $this->db->list_tables();
+    
+                // Loop through the tables and check for references to the student
+                foreach ($tables as $table) {
+                    // Check if the table has a 'student_id' column
+                    if ($this->db->field_exists('student_id', $table)) {
+                        $this->db->where('student_id', $student_id)->delete($table);
+                    }
+                }
+    
+                // Delete the student record from the 'students' table
+                $this->db->where('id', $student_id)->delete('students');
+    
+                // Check if the transaction was successful
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $json['message'] = 'An error occurred while deleting the student record.';
+                } else {
+                    $this->db->trans_commit();
+                    $json['status'] = 1; // Set status to 1 to indicate successful deletion
+                }
+            } catch (Exception $e) {
+                // Log the error
+                log_message('error', 'Error deleting student record: ' . $e->getMessage());
+    
+                // Set an error message in the JSON response
+                $json['message'] = 'An error occurred while deleting the student record.';
+            }
+        } else {
+            // Set an error message in the JSON response
+            $json['message'] = 'Invalid student ID provided.';
         }
-        
+    
         // Set the final output as a JSON response
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 
     /*
     ********************************************************************************************************************************
@@ -860,6 +891,65 @@ class Students extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
+   /**
+     * Get Student Fees Status
+     * 
+     * This method retrieves the fees status for a student based on their owed fees.
+     *
+     * @return void
+     */
+    public function getStudentFeesStatus()
+    {
+        // Get the student ID from POST data
+        $student_id = $this->input->post('student_id', TRUE);
+
+        // Initialize JSON response array
+        $json = array();
+
+        try {
+            log_message("error","before");
+            // Fetch the owed fees for the student from the 'students' table
+            $owed_fees = $this->genmod->getTableCol('students', 'owed_fees', 'id', $student_id);
+            log_message("error","after");
+            
+            // Check if the student is found
+            if ($owed_fees === FALSE) {
+                // Student not found, set status to 0 and error message
+                $json['status'] = 0;
+                $json['message'] = 'Student not found.';
+            } else if ($owed_fees === null) {
+                // Owed fees are null, set status to 0 and message
+                $json['status'] = 0;
+                $json['message'] = 'Owed fees not available for this student.';
+            } else {
+                // Check if the owed fees are zero
+                if ($owed_fees == 0) {
+                    // Set status to 1 (no fees owed) and message with the amount
+                    $json['status'] = 1;
+                    $json['message'] = 'No fees owed.';
+                    $json['amount'] = 0; // You can include the amount if needed
+                } else {
+                    // Set status to 0 (fees owed) and message with the amount
+                    $json['status'] = 0;
+                    $json['message'] ='You can not delete student.     Fees owed: $' . number_format($owed_fees, 2); // Format the amount
+                    $json['amount'] = $owed_fees; // Include the amount
+                }
+            }
+        } catch (Exception $e) {
+            // Handle exceptions here
+            // Log the error message
+            log_message('error', 'Error in getStudentFeesStatus: ' . $e->getMessage());
+
+            // Set an error message in the JSON response
+            $json['status'] = -1; // Indicate a general error
+            $json['message'] = 'An error occurred while processing the request.';
+        }
+
+        // Set the final output as a JSON response
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    
 
 
     

@@ -532,45 +532,65 @@ $(document).ready(function(){
 
     
     
-    //TO DELETE A STUDENT (The studet will be marked as "deleted" instead of removing it totally from the db)
+    // TO DELETE A STUDENT (The student will be marked as "deleted" instead of removing it totally from the db)
     $("#studentsListTable").on('click', '.delStudent', function(e){
         e.preventDefault();
         
-        //get the student id
+        // Get the student ID
         var studentId = $(this).parents('tr').find('.curStudentId').val();
-        var studentRow = $(this).closest('tr');//to be used in removing the currently deleted row
+        var studentRow = $(this).closest('tr'); // To be used in removing the currently deleted row
         
         if(studentId){
-            var confirm = window.confirm("Are you sure you want to delete student? This cannot be undone.");
-            
-            if(confirm){
-                displayFlashMsg('Please wait...', spinnerClass, 'black');
-                
-                $.ajax({
-                    url: appRoot+"students/delete",
-                    method: "POST",
-                    data: {i:studentId}
-                }).done(function(rd){
-                    if(rd.status === 1){
-                        //remove student from list, update students' SN, display success msg
-                        $(studentRow).remove();
-
-                        //update the SN
-                        resetStudentSN();
-
-                        //display success message
-                        changeFlashMsgContent('Student deleted', '', 'green', 1000);
+            // Check student's fees status first
+            $.ajax({
+                url: appRoot + "students/getStudentFeesStatus", 
+                method: "POST",
+                data: { student_id: studentId }, 
+                dataType: "json"
+            }).done(function(rd){
+                if (rd.status === 1) {
+                    // No fees owed, confirm deletion
+                    var confirmDelete = window.confirm("Are you sure you want to delete this student? This cannot be undone.");
+                    
+                    if (confirmDelete) {
+                        displayFlashMsg('Please wait...', spinnerClass, 'black');
+                        
+                        // Proceed with deleting the student from the database
+                        $.ajax({
+                            url: appRoot + "students/delete",
+                            method: "POST",
+                            data: { i: studentId }
+                        }).done(function(rd){
+                            if(rd.status === 1){
+                                // Remove student from list, update students' SN, display success msg
+                                $(studentRow).remove();
+        
+                                // Update the SN
+                                resetStudentSN();
+        
+                                // Display success message
+                                changeFlashMsgContent('Student deleted', '', 'green', 1000);
+                            }
+                            else{
+                                changeFlashMsgContent(rd.message, '', 'green', 3000);
+                            }
+                        }).fail(function(){
+                            console.log('Req Failed');
+                        });
                     }
-
-                    else{
-
-                    }
-                }).fail(function(){
-                    console.log('Req Failed');
-                });
-            }
+                } else if (rd.status === 0) {
+                    // Fees owed, inform the user
+                    window.alert(rd.message);
+                } else {
+                    // Error or invalid student ID
+                    window.alert("An error occurred: " + rd.message);
+                }
+            }).fail(function(){
+                console.log('Req Failed');
+            });
         }
     });
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
