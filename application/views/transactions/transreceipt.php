@@ -21,15 +21,15 @@ defined('BASEPATH') OR exit('');
         <div class="col-sm-12">
             <label>Receipt No:</label>
             <span><?=isset($ref) ? $ref : ""?></span>
-		</div>
+        </div>
     </div>
     
-	<div class="row" style='font-weight:bold'>
-		<div class="col-xs-4">Name</div>
+    <div class="row" style='font-weight:bold'>
+        <div class="col-xs-4">Name</div>
         <div class="col-xs-4">Surname</div>
         <div class="col-xs-4">Term</div>
-	</div>
-	<hr style='margin-top:2px; margin-bottom:0px'>
+    </div>
+    <hr style='margin-top:2px; margin-bottom:0px'>
     <?php $init_total = 0; ?>
     <?php foreach($allTransInfo as $get):?>
         <div class="row">
@@ -49,12 +49,27 @@ defined('BASEPATH') OR exit('');
             <b>Total: $<?=isset($init_total) ? number_format($init_total, 2) : 0?></b>
         </div>
     </div>
+    
+    <?php if ($refundAmount !== null && $refundAmount !== 0): ?>
+    <hr style='margin-top:2px; margin-bottom:0px'>
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <b>Refund: $<?=number_format($refundAmount, 2)?></b>
+        </div>
+    </div>
+    <?php endif; ?>
+    
+    <?php
+    // Calculate the final total by subtracting the refund amount
+    $finalTotal = isset($cumAmount) ? $cumAmount - $refundAmount : 0;
+    ?>
     <hr style='margin-top:2px; margin-bottom:0px'>            
     <div class="row">
         <div class="col-xs-12 text-right">
-            <b>FINAL TOTAL: $<?=isset($cumAmount) ? number_format($cumAmount, 2) : ""?></b>
+            <b>FINAL TOTAL: $<?=number_format($finalTotal, 2)?></b>
         </div>
     </div>
+    
     <hr style='margin-top:5px; margin-bottom:0px'>
     <div class="row margin-top-5">
         <div class="col-xs-12">
