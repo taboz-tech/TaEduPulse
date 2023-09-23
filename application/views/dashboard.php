@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('');
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
                 <div class="pull-right">
                     <div><?=$totalTransactions?></div>
-                    <div class="latestStuffsText pull-right">Total Transactions</div>
+                    <div class="latestStuffsText pull-right">Total </div>
                 </div>
             </div>
             <div class="panel-footer text-center" style="color:#607d8b">Today Total Transactions</div>
@@ -49,9 +49,130 @@ defined('BASEPATH') OR exit('');
                     <div class="latestStuffsText pull-right">Monthly Sales</div>
                 </div>
             </div>
-            <div class="panel-footer text-center" style="color:#607d8b">Total Monthl Sales</div>
+            <div class="panel-footer text-center" style="color:#607d8b">Total Monthly Sales</div>
         </div>
     </div>
+
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-body latestStuffsBody" style="background-color:#795548">
+                <div class="pull-left"><i class="fa fa-shopping-cart"></i></div>
+                <div class="pull-right">
+                <div>
+                    <?php
+                    $this->db->select('COUNT(*) as total');
+                    $this->db->from('items');
+                    $query = $this->db->get()->row();
+                    ?>
+                    <?= intval($query->total); ?>
+                </div>
+
+                    <div class="latestStuffsText pull-right">Items</div>
+                </div>
+                
+            </div>
+            <div class="panel-footer text-center" style="color#795548">Total Items In Stock</div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-body latestStuffsBody" style="background-color:#5cb85c">
+                <div class="pull-left"><i class="fa fa-money"></i></div>
+                <div class="pull-right">
+                    <div>
+                        <?php
+                        // Get today's date in 'YYYY-MM-DD' format
+                        $todayDate = date('Y-m-d');
+
+                        $this->db->select_sum('totalMoneySpent');
+                        $this->db->from('transactions_item');
+                        $this->db->where('DATE(transDate)', $todayDate);
+                        $this->db->distinct();
+
+                        $query = $this->db->get()->row();
+
+                        $totalMoneySpent = ($query && isset($query->totalMoneySpent)) ? number_format($query->totalMoneySpent, 2) : '0.00';
+                        ?>
+                        <?= $totalMoneySpent; // Display 0 if null ?>
+                    </div>
+
+
+
+                    <div class="latestStuffsText pull-right">Total Amount</div>
+                </div>
+                
+            </div>
+            <div class="panel-footer text-center" style="color:#5cb85c">Total Amount Today</div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-body latestStuffsBody" style="background-color: #607d8b">
+                <div class="pull-left"><i class="fa fa-exchange"></i></div>
+                <div class="pull-right">
+                <div>
+                    <?php
+                    // Get today's date in 'YYYY-MM-DD' format
+                    $todayDate = date('Y-m-d');
+
+                    $this->db->select_sum('totalMoneySpent');
+                    $this->db->from('transactions_item');
+                    $this->db->where('DATE(transDate)', $todayDate);
+                    $this->db->distinct();
+
+                    $query = $this->db->get()->row();
+                    
+                    $totalMoneySpent = ($query && isset($query->totalMoneySpent)) ? number_format($query->totalMoneySpent, 2) : '0';
+                    ?>
+                    <?= $totalMoneySpent; // Display 0 if null ?>
+                </div>
+
+
+                    <div class="latestStuffsText pull-right">Total</div>
+                </div>
+                
+            </div>
+            <div class="panel-footer text-center" style="color:#607d8b">Today Total Transactions</div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-body latestStuffsBody" style="background-color: #607d8b">
+                <div class="pull-left"><i class="fa fa-exchange"></i></div>
+                <div class="pull-right">
+                    <div>
+                        <?php
+                        // Get the current month and year
+                        $currentMonth = date('m');
+                        $currentYear = date('Y');
+
+                        $this->db->select('DATE_FORMAT(transDate, "%Y-%m") as monthYear, SUM(totalMoneySpent) as monthlySales');
+                        $this->db->from('transactions_item');
+                        $this->db->where('MONTH(transDate)', $currentMonth);
+                        $this->db->where('YEAR(transDate)', $currentYear);
+                        $this->db->group_by('monthYear');
+
+                        $query = $this->db->get()->row();
+
+                        $monthlySales = ($query && isset($query->monthlySales)) ? number_format($query->monthlySales, 2) : '0';
+                        ?>
+                        <?= $monthlySales; // Display 0 if null ?>
+                    </div>
+
+
+
+                    <div class="latestStuffsText pull-right">Monthly Sales</div>
+                </div>
+                
+            </div>
+            <div class="panel-footer text-center" style="color:#607d8b">Total Monthly Sales</div>
+        </div>
+    </div>
+    
     
 </div>
 
