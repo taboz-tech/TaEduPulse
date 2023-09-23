@@ -234,6 +234,28 @@ class Staff extends CI_Model{
             return 0; // Return 0 if there are no employees or salaries
         }
     }
+
+    public function getLastStaffIdForMonth($monthYear) {
+        
+        // Construct the LIKE condition without the CodeIgniter like function
+        $likeCondition = "staff_id LIKE 'TAC{$monthYear}%'";
+    
+        // Generate the SQL query with a custom WHERE clause
+        $sql = "SELECT staff_id FROM staffs WHERE $likeCondition ORDER BY staff_id DESC LIMIT 1";
+    
+        // Execute the SQL query
+        $query = $this->db->query($sql);
+    
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->staff_id;
+
+        } else {  
+            return null;
+
+        }
+        
+    }
     
 
 }

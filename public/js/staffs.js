@@ -17,6 +17,7 @@ $(document).ready(function(){
      * Toggle the form to add a new Staff
      */
     $("#createStaff").click(function() {
+        fetchLastStaffId()
         $("#staffsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewStaffDiv").toggleClass('hidden');
         $("#staffName").focus();
@@ -487,4 +488,27 @@ function validateZimbabweanID(id) {
     var pattern = /^\d{2}\d{6}[A-Z]\d{2}$/;
     // Check if the input matches the pattern
     return pattern.test(id);
+}
+
+
+// function to create the staff id for the currrent month
+function fetchLastStaffId() {
+    $.ajax({
+        type: 'GET',
+        url: appRoot + "staffs/lastStaffIdForMonth",
+        success: function (response) {
+            if (response.status === 1) {
+                // Set the new student ID to the input field
+                $('#staffStaff_id').val(response.newStaffId);
+                
+            } else {
+                // Handle the case when an error occurs or no student ID is found
+                alert('An error occurred while fetching the last student ID.');
+            }
+        },
+        error: function () {
+            // Handle any errors that occur during the AJAX request
+            alert('An error occurred while fetching the last student ID.');
+        }
+    });
 }

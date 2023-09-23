@@ -265,4 +265,55 @@ class Staffs extends CI_Controller{
         
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+
+    public function lastStaffIdForMonth() {
+        // Get the current month in YYMM format (e.g., "2209" for September 2022)
+        $currentMonth = date('Ym');
+
+        // Initialize JSON response with a status of 0
+        $json['status'] = 0;
+
+        try {
+            // Call the model method to get the last student ID for the current month
+            $lastStaffId = $this->staff->getLastStaffIdForMonth($currentMonth);
+
+            if ($lastStaffId !== null) {
+                // Extract the last three digits and increment them
+                $lastThreeDigits = substr($lastStaffId, -3);
+                $newLastThreeDigits = str_pad((int)$lastThreeDigits + 1, 3, '0', STR_PAD_LEFT);
+
+                // Generate the new staff ID with "TAC" as the prefix
+                $newStaffId = "TAC{$currentMonth}{$newLastThreeDigits}";
+
+                // Set status to 1 to indicate success
+                $json['status'] = 1;
+
+                // Include the new staff ID and added one in the response
+                $json['message'] = "New Student ID for {$currentMonth}: {$newStaffId}";
+                $json['newStaffId'] = $newStaffId;
+                $json['addedOne'] = $newLastThreeDigits;
+            } else {
+                // No student ID found for the current month, use "000" for the last three digits
+                $newLastThreeDigits = "000";
+                
+                // Generate the new student ID with "TAB" as the prefix
+                $newStudentId = "TAC{$currentMonth}{$newLastThreeDigits}";
+
+                // Set status to 1 to indicate success
+                $json['status'] = 1;
+
+                // Include the new student ID in the response
+                $json['message'] = "No staff IDs found for {$currentMonth}, creating a new one: {$newStudentId}";
+                $json['newStaffId'] = $newStudentId;
+            }
+        } catch (Exception $e) {
+            // Handle exceptions and set status to 0 with an error message
+            $json['status'] = 0;
+            $json['error'] = $e->getMessage();
+        }
+
+        // Encode the response as JSON
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
 }

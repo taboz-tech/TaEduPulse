@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-10 form-group-sm">
                                 <label for="staffStaff_id">Staff Id</label>
                                 <input type="text" id="staffStaff_id" name="staffStaff_id" placeholder="Staff Id" maxlength="20"
-                                    class="form-control" onchange="checkField(this.value, 'staffStaff_idErr')">
+                                    class="form-control" onchange="checkField(this.value, 'staffStaff_idErr')" readonly>
                                 <span class="help-block errMsg" id="staffStaff_idErr"></span>
                             </div>
                         </div>
