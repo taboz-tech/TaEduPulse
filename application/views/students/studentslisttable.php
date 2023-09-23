@@ -26,6 +26,7 @@
                         <th>OWED FEES</th>
                         <th>GENDER</th>
                         <th>HEALTHY STATUS</th>
+                        <th>DATE JOINED</th>
                         <th>EDIT</th>
                         <th>DELETE</th>
                     </tr>
@@ -51,6 +52,7 @@
                         </td>
                         <td><span id="studentGender-<?=$get->id?>"><?=$get->gender?></td>
                         <td><span id="studentHealthy_status-<?=$get->id?>"><?=$get->healthyStatus?></td>
+                        <td><span id="studentDateJoined-<?=$get->id?>"><?=$get->dateAdded?></td>
                         <td class="text-center text-primary">
                             <span class="editStudent" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
