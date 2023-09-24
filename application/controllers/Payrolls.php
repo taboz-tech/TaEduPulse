@@ -111,15 +111,16 @@ class Payrolls extends CI_Controller{
         $staffOvertime =  $this->input->post('staffOvertime', TRUE);
         $staffHealthy_insurance =  $this->input->post('staffHealthy_insurance', TRUE);
         $currentMonth =  $this->input->post('currentMonth', TRUE);
+        $staffAdvancePayment = $this->input->post('staffAdvancePayment',TRUE);
         
         
-        $allIsWell = $this->validateStaffsDet($staffStaff_id,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth);
+        $allIsWell = $this->validateStaffsDet($staffStaff_id,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAdvancePayment);
         $response = json_decode($allIsWell, True);
 
         if ($response['status'] === 1){//insert each payroll into db, generate payslip and return info to client
 
             //will insert info into db and return payslip
-            $returnedData = $this->insertTrToDb($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth);
+            $returnedData = $this->insertTrToDb($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAdvancePayment);
             
             $json['status'] = $returnedData ? 1 : 0;
             $json['msg'] = $returnedData ? "Payroll successfully processed" : 
@@ -159,7 +160,7 @@ class Payrolls extends CI_Controller{
         $staffStaff_id =  $this->input->post('sId', TRUE);
 
         if ($staffStaff_id) {
-            $staff_info = $this->staff->getStaffInfo(['staff_id' => $staffStaff_id], ['name', 'surname', 'national_id',  'job_tittle', 'basic_salary', 'address', 'gender', 'email', 'phone', 'income_tax', 'overtime','healthy_insurance', 'department','staff_id']);
+            $staff_info = $this->staff->getStaffInfo(['staff_id' => $staffStaff_id], ['name', 'surname', 'national_id',  'job_tittle', 'basic_salary', 'address', 'gender', 'email', 'phone', 'income_tax', 'overtime','healthy_insurance', 'department','staff_id','advance_payment']);
             if ($staff_info) {
                 // Populate the JSON response with staff details
                 $json = array(
@@ -177,7 +178,8 @@ class Payrolls extends CI_Controller{
                     'overtime' => $staff_info->overtime,
                     'healthy_insurance' => $staff_info->healthy_insurance,
                     'staff_id'=>$staff_info->staff_id,
-                    'department'=>$staff_info->department
+                    'department'=>$staff_info->department,
+                    'advancePayment'=>$staff_info->advance_payment
                 );
             } else {
                 $json['error'] = 'Staff information not found for the given staff Id.';
@@ -206,7 +208,7 @@ class Payrolls extends CI_Controller{
      */
 
 
-     private function validateStaffsDet($staffStaff_id, $staffSalary, $staffIncome_tax, $staffOvertime, $staffHealthy_insurance, $currentMonth) {
+     private function validateStaffsDet($staffStaff_id, $staffSalary, $staffIncome_tax, $staffOvertime, $staffHealthy_insurance, $currentMonth,$staffAdvancePayment) {
         $errors = array();
     
         // Take salary from the db
@@ -221,6 +223,13 @@ class Payrolls extends CI_Controller{
     
         if ($staffOvertime != $overtimeInDb) {
             $errors['overtime'] = "Overtime validation failed";
+        }
+
+        // Take Advance Payment from the db
+        $advancePaymentInDb = $this->genmod->gettablecol('staffs', 'advance_payment', 'staff_id', $staffStaff_id);
+    
+        if ($staffAdvancePayment != $advancePaymentInDb) {
+            $errors['advancePayment'] = "Advance payment validation failed";
         }
     
         // Take income_tax from the db
@@ -265,7 +274,7 @@ class Payrolls extends CI_Controller{
     ********************************************************************************************************************************
     */
 
-    private function insertTrToDb($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth){
+    private function insertTrToDb($staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAdvancePayment){
         $allPayrollInfo = [];//to hold info of all students' in transaction
 
         //generate random string to use as Payslip ref
@@ -293,7 +302,7 @@ class Payrolls extends CI_Controller{
             * add transaction to db
             * function header: add($ref,$staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone,$paymentMethod)
             */
-            $payrollId = $this->payroll->add($ref,$staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone,$paymentMethod,$status);
+            $payrollId = $this->payroll->add($ref,$staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone,$paymentMethod,$status,$staffAdvancePayment);
             $pto_balance = $this->genmod->getTableCol('payrolls', 'pto_balance', 'ref', $ref);
             $other_allowances = $this->genmod->getTableCol('payrolls', 'other_allowances','ref',$ref);
             $pto_name = "Paid Time Off";
@@ -301,11 +310,13 @@ class Payrolls extends CI_Controller{
             $income_Tax_name = "Income Tax";
             $staffHealthy_insurance_name = "Health Insurance";
             $basic_salary_name = "Basic Salary";
+            $advancePayment_name = "Advance Payment";
+            
 
             // Create separate arrays for earnings
             $pto_earnings = ['name' => $pto_name, 'amount' => $pto_balance];
             $other_allowances_earnings = ['name' => $other_allowances_name, 'amount' => $other_allowances];
-            $basic_salary = ['name' =>$basic_salary_name, 'amount' => $staffSalary ];
+            $basic_salary = ['name' =>$basic_salary_name, 'amount' => $staffSalary];
 
             // Assign these arrays to the "earnings" key in $allPayrollInfo
             $allPayrollInfo['earnings'] = [$pto_earnings, $other_allowances_earnings,$basic_salary];
@@ -313,9 +324,10 @@ class Payrolls extends CI_Controller{
             // Create separate arrays for deductions
             $income_tax_deduction = ['name' => $income_Tax_name, 'amount' => $staffIncome_tax];
             $health_insurance_deduction = ['name' => $staffHealthy_insurance_name, 'amount' => $staffHealthy_insurance];
+            $advancePayment_deduction = ['name' => $advancePayment_name, 'amount' => $staffAdvancePayment];
 
             // Assign these arrays to the "deductions" key in $allPayrollInfo
-            $allPayrollInfo['deductions'] = [$income_tax_deduction, $health_insurance_deduction];
+            $allPayrollInfo['deductions'] = [$income_tax_deduction, $health_insurance_deduction,$advancePayment_deduction];
 
 
         } catch (Exception $e) {
@@ -414,7 +426,8 @@ class Payrolls extends CI_Controller{
             $other_allowances = $payrollInfo[0]['other_allowances'];
             $tax_withholding = $payrollInfo[0]['tax_withholding'];
             $health_insurance = $payrollInfo[0]['health_insurance'];
-            $basic_salary = $payrollInfo[0]['gross_salary'];
+            $basic_salary = $payrollInfo[0]['net_salary'];
+            $advancePayment = $payrollInfo[0]['advance_payment'];
 
             // Create separate arrays for earnings and deductions
             $earnings = [
@@ -425,7 +438,8 @@ class Payrolls extends CI_Controller{
 
             $deductions = [
                 ['name' => 'Income Tax ', 'amount' => $tax_withholding],
-                ['name' => 'Health Insurance', 'amount' => $health_insurance]
+                ['name' => 'Health Insurance', 'amount' => $health_insurance],
+                ['name' => 'Advance Payment', 'amount' => $advancePayment]
             ];
 
             // Assign the earnings and deductions arrays to the "earnings" and "deductions" keys in $allPayrollInfo
@@ -465,6 +479,12 @@ class Payrolls extends CI_Controller{
             }
     
             $gross_salary = $payrollInfo[0]['gross_salary'];
+            $health_insurance = $payrollInfo[0]['health_insurance'];
+            $income_tax = $payrollInfo[0]['tax_withholding'];
+            $advancePayment = $payrollInfo[0]['advance_payment'];
+            $net_salary = $gross_salary - ($health_insurance + $income_tax + $advancePayment);
+
+
             $payment_month = $payrollInfo[0]['payment_month'];
             $costColumnName = 'Salary_' . $payment_month;
     
@@ -472,8 +492,8 @@ class Payrolls extends CI_Controller{
             $costBalance = $this->genmod->getTableCol('costs', 'balance', 'name', $costColumnName);
             $costPaid = $this->genmod->getTableCol('costs', 'paid', 'name', $costColumnName);
 
-            $newCostBalance = $costBalance - $gross_salary;
-            $newCostPaid = $costPaid + $gross_salary;
+            $newCostBalance = $costBalance - $net_salary;
+            $newCostPaid = $costPaid + $net_salary;
             $status = 1;
     
             // Check if the payroll has already been paid

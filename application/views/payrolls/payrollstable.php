@@ -40,7 +40,7 @@
                     <td><?= $get->personnel_name?></td>
                     <td class="text-center <?= $get->status ? 'text-success' : 'text-danger' ?>"> <?= $get->status ? 'Paid' : 'Pending' ?> </td>
                     <td class="text-center text-primary">
-                            <span class="payroll" id="id-<?=$get->id?>"><i class="fa fa-undo"></i> </span>
+                            <span class="payroll" id="id-<?=$get->id?>"><i class="fa fa-money"></i> </span>
                         </td>
 
                 </tr>

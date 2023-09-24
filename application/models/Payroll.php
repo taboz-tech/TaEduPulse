@@ -26,7 +26,7 @@ class Payroll extends CI_Model {
         try {
             $this->db->select('payrolls.*, CONCAT(admin.first_name, " ", admin.last_name) as personnel_name', false);
             // Calculate deductions (you can adjust the formula as needed)pto_balance
-            $this->db->select('(payrolls.tax_withholding + payrolls.health_insurance ) as deductions', false);
+            $this->db->select('(payrolls.tax_withholding + payrolls.health_insurance + payrolls.advance_payment ) as deductions', false);
             $this->db->select('(payrolls.pto_balance + payrolls.other_allowances) as bonuses', false);
             $this->db->from('payrolls');
             $this->db->join('admin', 'payrolls.personnelId = admin.id', 'left');
@@ -77,7 +77,7 @@ class Payroll extends CI_Model {
      * @param decimal $net_salary
      * @return boolean
      */
-    public function add($ref,$staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone,$paymentMethod,$status) {
+    public function add($ref,$staffName,$staffSurname,$staffStaff_id,$staffDepartment,$staffNational_id,$staffJob_tittle,$staffSalary,$staffIncome_tax,$staffOvertime,$staffHealthy_insurance,$currentMonth,$staffAddress,$staffEmail,$staffPhone,$paymentMethod,$status,$staffAdvancePayment) {
         try {
             // Convert the month in words to a numeric value (1 to 12)
             $monthNumeric = date('n', strtotime($currentMonth . ' 1'));
@@ -87,7 +87,8 @@ class Payroll extends CI_Model {
     
             // Get the last day of the current month
             $currentMonthEnd = date('Y-m-t', strtotime(date('Y') . '-' . $monthNumeric . '-01'));
-    
+            $gross_salary = $staffSalary + $staffOvertime;
+            $net_salary = $staffSalary;
             $data = [
                 'staff_name' => $staffName,
                 'staff_surname' => $staffSurname,
@@ -101,14 +102,16 @@ class Payroll extends CI_Model {
                 'health_insurance' => $staffHealthy_insurance,
                 'ref' => $ref,
                 'status' => $status,
-                'gross_salary' => $staffSalary,
-                'net_salary' => $staffSalary,
+                'gross_salary' => $gross_salary,
+                'net_salary' => $net_salary,
                 'payment_method' => $paymentMethod,
                 'payment_month' => $currentMonth,
                 'staff_job_tittle' => $staffJob_tittle,
                 'staff_national_id' => $staffNational_id,
-                'payroll_start_date' => $currentMonthStart, // Set to the first day of the current month
-                'payroll_end_date' => $currentMonthEnd, // Set to the last day of the current month
+                'payroll_start_date' => $currentMonthStart, 
+                'payroll_end_date' => $currentMonthEnd, 
+                'advance_payment' => $staffAdvancePayment,
+                'other_allowances'=> $staffOvertime
             ];
                 
             //set the datetime based on the db driver in use

@@ -285,7 +285,19 @@ defined('BASEPATH') OR exit('');
                             <input type="text" id="staffPhoneEdit" placeholder="Staff Phone" autofocus class="form-control checkField">
                             <span class="help-block errMsg" id="staffPhoneEditErr"></span>
                         </div>
-                       
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="staffAdvancePaymentEdit">Advance Payment</label>
+                            <input type="number" id="staffAdvancePaymentEdit" placeholder="Advance Payment" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="staffAdvancePaymentEditErr"></span>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="staffOvertimeEdit">Overtime</label>
+                            <input type="number" id="staffOvertimeEdit" placeholder="Overtime" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="staffOvertimeEditErr"></span>
+                        </div>
+
                     </div>
                     
                     <input type="hidden" id="staffIdEdit">

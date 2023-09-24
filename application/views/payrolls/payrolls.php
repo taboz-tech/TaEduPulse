@@ -38,8 +38,8 @@ defined('BASEPATH') OR exit('');
             <div class="col-sm-4 form-group-sm form-inline">
                 <label for="payslipsListSortBy">Sort by</label>
                 <select id="payslipsListSortBy" class="form-control">
-                    <option value="dateAdded-ASC"> Date (ASC)</option>
                     <option value="dateAdded-DESC"> Date (DESC)</option>
+                    <option value="dateAdded-ASC"> Date (ASC)</option>
                     <option value="staff_name-ASC"> Staff Name (ASC)</option>
                     <option value="staff_name-DESC"> Staff Name (DESC)</option>
                     <option value="staff_department-ASC"> Staff Dept (ASC)</option>
@@ -156,8 +156,17 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-10 form-group-sm">
                                 <label for="staffOvertime">Staff Overtime</label>
                                 <input type="number" id="staffOvertime" name="staffOvertime" placeholder="Staff Overtime" maxlength="30"
-                                    class="form-control" onchange="checkField(this.value, 'staffOvertimeErr')">
+                                    class="form-control" onchange="checkField(this.value, 'staffOvertimeErr')" readonly>
                                 <span class="help-block errMsg" id="staffOvertimeErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-10 form-group-sm">
+                                <label for="staffAdvancePayment">Staff Advance Payment</label>
+                                <input type="number" id="staffAdvancePayment" name="staffOvertime" placeholder="Staff Advance Payment" maxlength="30"
+                                    class="form-control" onchange="checkField(this.value, 'staffAdvancePaymentErr')" readonly>
+                                <span class="help-block errMsg" id="staffAdvancePaymentErr"></span>
                             </div>
                         </div>
 

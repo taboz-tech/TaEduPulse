@@ -26,6 +26,8 @@
                         <th>SALARY</th>
                         <th>DOB</th>
                         <th>DEPARTMENT</th>
+                        <th>ADVANCE PAYMENT</th>
+                        <th>OVERTIME</th>
                         <th>DATE JOINED</th>
                         <th>STATUS</th>
                         <th>EDIT</th>
@@ -49,6 +51,8 @@
                         <td><span id="staffSalary-<?=$get->id?>"><?=$get->basic_salary?></td>
                         <td><span id="staffDob-<?=$get->id?>"><?=$get->dob?></td>
                         <td><span id="staffDepartment-<?=$get->id?>"><?=$get->department?></td>
+                        <td><span id="staffAdvancePayment-<?=$get->id?>"><?=$get->advance_payment?></td>
+                        <td><span id="staffOvertime-<?=$get->id?>"><?=$get->overtime?></td>
                         <td><span id="staffDate_joined-<?=$get->id?>"><?=$get->dateAdded?></td>
                         <td class="text-center staffStatus text-success" id="staffStatus-<?=$get->id?>">
                             <?php if($get->status == "1"): ?>

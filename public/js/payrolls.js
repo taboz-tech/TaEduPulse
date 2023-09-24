@@ -42,7 +42,7 @@ $(document).ready(function(){
     $("#createPayslip").click(function() {
         $("#payslipsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewPayslipDiv").toggleClass('hidden');
-        $("#staffOvertime").focus();
+        $("#staffIncome_tax").focus();
     });
     
 
@@ -85,6 +85,7 @@ $(document).ready(function(){
         var staffIncome_tax = $("#staffIncome_tax").val();
         var staffOvertime = $("#staffOvertime").val();
         var staffHealthy_insurance = $("#staffHealthy_insurance").val();
+        var staffAdvancePayment = $("#staffAdvancePayment").val();
 
         const currentDate = new Date();
         const options = { month: 'long' };
@@ -92,7 +93,7 @@ $(document).ready(function(){
 
 
 
-        if(!staffName || !staffSurname || !staffIncome_tax || !staffOvertime || !staffHealthy_insurance || !staffNational_id || !staffStaff_id || !staffSalary){
+        if(!staffName || !staffSurname || !staffIncome_tax || !staffOvertime || !staffHealthy_insurance || !staffNational_id || !staffStaff_id || !staffSalary || !staffAdvancePayment){
             !staffName ? $("#staffNameErr").text("required") : "";
             !staffSurname ? $("#staffSurnameErr").text("required") : "";
             !staffIncome_tax ? $("#staffIncome_taxErr").text("required") : "";
@@ -101,6 +102,7 @@ $(document).ready(function(){
             !staffNational_id ? $("#staffNational_idErr").text("required") : "";
             !staffStaff_id ? $("#staffStaff_idErr").text("required") : "";
             !staffSalary ? $("#staffSalaryErr").text("required") : "";
+            !staffAdvancePayment ? $("#staffAdvancePaymentErr").text("required") : "";
             
             
             $("#addCustErrMsg").text("One or more required fields are empty");
@@ -124,7 +126,8 @@ $(document).ready(function(){
                 staffIncome_tax:staffIncome_tax,
                 staffOvertime:staffOvertime,
                 staffHealthy_insurance:staffHealthy_insurance,
-                currentMonth:currentMonth
+                currentMonth:currentMonth,
+                staffAdvancePayment:staffAdvancePayment
                 },
             
             success: function(returnedData){
@@ -322,6 +325,7 @@ $(document).ready(function(){
                     var staffOvertime = ajaxData[i].staffOvertime;
                     var staffHealthy_insurance = ajaxData[i].staffHealthy_insurance;
                     var currentMonth = ajaxData[i].currentMonth;
+                    var staffAdvancePayment = ajaxData[i].staffAdvancePayment;
                     
                     // Perform the AJAX request
                     $.ajax({
@@ -338,7 +342,8 @@ $(document).ready(function(){
                             staffIncome_tax:staffIncome_tax,
                             staffOvertime:staffOvertime,
                             staffHealthy_insurance:staffHealthy_insurance,
-                            currentMonth:currentMonth
+                            currentMonth:currentMonth,
+                            staffAdvancePayment:staffAdvancePayment
                             },
                         success: function (returnedData) {
                             if (returnedData.status === 1) {
@@ -442,6 +447,7 @@ function sdr(staffStaff_id){
             $("#staffOvertime").val(rd.overtime);
             $("#staffDepartment").val(rd.department);
             $("#staffHealthy_insurance").val(rd.healthy_insurance);
+            $("#staffAdvancePayment").val(rd.advancePayment)
 
            
         }
@@ -495,7 +501,8 @@ function sdrb(staffStaff_ids, callback) {
                     staffOvertime: rd.overtime,
                     staffDepartment: rd.department,
                     staffHealthy_insurance: rd.healthy_insurance,
-                    currentMonth: getCurrentMonth() // Add the current month
+                    currentMonth: getCurrentMonth(),
+                    staffAdvancePayment: rd.advancePayment
                 };
                 // Add the staffData to the batchData array
                 batchData.push(staffData);
