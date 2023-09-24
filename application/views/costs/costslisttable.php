@@ -20,6 +20,7 @@
                         <th>DESCRIPTION</th>
                         <th>CURRENCY</th>
                         <th>BALANCE</th>
+                        <th>DATE</th>
                         <th>PAID</th>
                         <th>STATUS</th>
                         <th>PAY</th>
@@ -38,6 +39,7 @@
                         <td><span id="costDescription-<?=$get->id?>"><?=$get->description?></td>
                         <td><span id="costCurrency-<?=$get->id?>"><?=$get->currency?></td>
                         <td><span id="costBalance-<?=$get->id?>"><?=$get->balance?></td>
+                        <td><span id="costDate-<?=$get->id?>"><?=$get->dateAdded?></td>
                         <td><span id="costPaid-<?=$get->id?>"><?=$get->paid?></td>
                         <td class="text-center <?= $get->status ? 'text-success' : 'text-danger' ?>"> <?= $get->status ? 'Paid' : 'Pending' ?> </td>
                         <td class="text-center text-primary">
