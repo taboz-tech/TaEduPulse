@@ -579,7 +579,7 @@ class Students extends CI_Controller{
                 
     
             // Send the response as JSON
-            echo json_encode($response);
+            $this->output->set_content_type('application/json')->set_output(json_encode($response));
         } catch (Exception $e) {
             // Handle exceptions and return an error response
             $errorResponse = [
@@ -588,7 +588,7 @@ class Students extends CI_Controller{
             ];
     
             // Send the error response as JSON
-            echo json_encode($errorResponse);
+            $this->output->set_content_type('application/json')->set_output(json_encode($errorResponse));
         }
     }
     
