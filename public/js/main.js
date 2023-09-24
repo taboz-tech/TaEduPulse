@@ -15,6 +15,11 @@ $(document).ready(function(){
         vtr_(this);
     });
 
+    //to view transaction Item receipt
+    $("#transListTable").on('click', '.vtri', function(){
+        vtri_(this);
+    });
+
 
     //to view Payslip receipt
     $("#payslipsListTable").on('click', '.vpp', function(){
@@ -45,6 +50,10 @@ $(document).ready(function(){
         ptr_();
     });
 	
+    //to print receipt Item
+    $("#trans_ItemReceiptModal").on('click', '.ptr', function(){
+        ptri_();
+    });
 	
     //when the close button on the login modal is clicked
     $(".closeLogInModal").click(function(){
@@ -157,6 +166,21 @@ function ptr_(){
     window.print();//trigger the print dialog
 	
     $("#transReceiptModal").modal('hide');//dismiss modal
+}
+
+
+
+/**
+ * Print transaction receipt Item (from the customer's transaction history page)
+ * @returns {undefined}
+ */
+function ptri_(){
+	//change the font-size
+    $("#trans_ItemReceiptToPrint").css({fontSize:'8px'});
+	
+    window.print();//trigger the print dialog
+	
+    $("#trans_ItemReceiptModal").modal('hide');//dismiss modal
 }
 
 /**
@@ -462,6 +486,39 @@ function vtr_(elem){
     }
 }
 
+/**
+ * vtr_ = "View transaction's receipt"
+ * @param {type} elem
+ * @returns {undefined}
+ */
+function vtri_(elem){
+    var ref = elem.innerHTML;
+    
+    if(ref){
+        //show the loading icon
+        $("#trans_ItemReceipt").html("<i class='fa fa-spinner faa-spin animated'></i> Loading receipt");
+        
+        //show modal
+        $("#trans_ItemReceiptModal").modal('show');
+        
+        //make server request
+        $.ajax({
+            url: appRoot+"transaction_Items/vtr_",
+            type: "post",
+            data: {ref:ref},
+            success: function(returnedData){
+                if(returnedData.status === 1){
+                    $("#trans_ItemReceipt").html(returnedData.transReceipt);
+                }
+                
+                else{
+                    $("#trans_ItemReceipt").html("Transaction not found");
+                }
+            }
+        });
+    }
+}
+
 
 
 
@@ -472,6 +529,15 @@ function vtr_(elem){
  */
 function drm_(){
     $("#transReceiptModal").modal("hide");
+}
+
+
+/**
+ * drm = "Dismiss receipt  Items modal"
+ * @returns {undefined}
+ */
+function drmi_(){
+    $("#trans_ItemReceiptModal").modal("hide");
 }
 
 

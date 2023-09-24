@@ -273,6 +273,27 @@ defined('BASEPATH') OR exit('');
                                 Examinations
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Items' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Items') ?>">
+                                <i class="fa fa-tag"></i>
+                                Items
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Transaction_Items' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Transaction_Items') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Items Sale
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Calas' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Calas') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Cala
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
@@ -383,6 +404,19 @@ defined('BASEPATH') OR exit('');
                         <h4 class="text-center">Transaction Receipt</h4>
                     </div>
                     <div class="modal-body" id='transReceipt'></div>
+                </div>
+            </div>
+        </div>
+        <!-- End of modal-->
+        <!--modal to display transaction receipt when a transaction's ref is clicked on the transaction list table -->
+        <div class="modal fade" role='dialog' data-backdrop='static' id="trans_ItemReceiptModal">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header hidden-print">
+                        <button class="close" data-dismiss='modal'>&times;</button>
+                        <h4 class="text-center">Transaction Receipt</h4>
+                    </div>
+                    <div class="modal-body" id='trans_ItemReceipt'></div>
                 </div>
             </div>
         </div>
