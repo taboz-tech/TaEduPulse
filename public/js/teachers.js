@@ -23,6 +23,44 @@ $(document).ready(function(){
     });
     
 
+    // Add an event listener for the staffStaff_id field
+    $("#staffStaff_id").blur(function() {
+        // Get the staff_id value
+        var staffId = $(this).val();
+
+        // Check if staffId is not empty
+        if (staffId) {
+            // Call the getDetails method using an AJAX request
+            $.ajax({
+                url: appRoot + 'teachers/getDetails', 
+                type: 'POST',
+                data: { _sId: staffId },
+                dataType: 'json',
+                success: function(data) {
+                    // Check if the request was successful
+                    if (data.status === 0) {
+                        // Handle the error, display a message, or clear the fields
+                        alert('Error: ' + data.message);
+                    } else {
+                        // Extract the data object from the response
+                        var teacherData = data.data;
+
+                        // Fill the form fields with the retrieved data
+                        $("#teacherName").val(teacherData.name);
+                        $("#teacherSurname").val(teacherData.surname);
+                        $("#teacherGender").val(teacherData.gender).prop("disabled", true); // Disable the gender field
+                        $("#teacherDepartment").val(teacherData.department).prop("readonly", true); // Make the department field readonly
+                    
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX error here
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    });
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

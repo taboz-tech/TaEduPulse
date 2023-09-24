@@ -235,4 +235,42 @@ class Teachers extends CI_Controller{
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+    public function getDetails(){
+        $this->genlib->ajaxOnly();
+    
+        try {
+            $json['status'] = 0;
+            $staffId = $this->input->post('_sId', TRUE);
+            if($staffId){
+                $data['name'] = $this->genmod->getTableCol('staffs', 'name', 'staff_id', $staffId);
+                $data['surname'] = $this->genmod->getTableCol('staffs', 'surname', 'staff_id', $staffId);
+                $data['gender'] = $this->genmod->getTableCol('staffs', 'gender', 'staff_id', $staffId);
+                $data['department'] = $this->genmod->getTableCol('staffs', 'department', 'staff_id', $staffId);
+    
+                if ($data['name'] !== FALSE && $data['surname'] !== FALSE && $data['gender'] !== FALSE && $data['department'] !== FALSE) {
+                    // Data retrieval successful, set status to 1
+                    $json['status'] = 1;
+                    $json['data'] = $data;
+                } else {
+                    // Data retrieval failed, set an error message
+                    $json['message'] = 'Error retrieving staff details.';
+                }
+    
+                $this->output->set_content_type('application/json')->set_output(json_encode($json));
+            } else {
+                // Invalid staff ID provided
+                $json['message'] = 'Invalid staff ID provided.';
+                $this->output->set_content_type('application/json')->set_output(json_encode($json));
+            }
+        } catch (Exception $e) {
+            // Handle exceptions and log the error
+            log_message('error', 'Error in getDetails: ' . $e->getMessage());
+    
+            // Set an error message in the JSON response
+            $json['message'] = 'An error occurred while processing the request.';
+            $this->output->set_content_type('application/json')->set_output(json_encode($json));
+        }
+    }
+    
 }
