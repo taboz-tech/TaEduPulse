@@ -101,11 +101,25 @@ class Grades extends CI_Controller{
         $this->genlib->ajaxOnly();
         
         $this->load->library('form_validation');
-
         $this->form_validation->set_error_delimiters('', '');
         
-        $this->form_validation->set_rules('gradeName', 'Grade name', ['required', 'trim', 'max_length[20]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('gradeTeacher_id', 'Grade Teacher_id', ['required'],['required' => 'The %s field is required.']);
+        // Define a custom callback function for the gradeName validation
+        $this->form_validation->set_rules(
+            'gradeName',
+            'Grade name',
+            [
+                'required',
+                'trim',
+                'max_length[20]',
+                'callback_validate_grade_name'
+            ],
+            [
+                'required' => 'The %s field is required.',
+                'validate_grade_name' => 'The %s field should be in the format "Form X" where X is a number.'
+            ]
+        );
+        
+        $this->form_validation->set_rules('gradeTeacher_id', 'Grade Teacher_id', ['required'], ['required' => 'The %s field is required.']);
                         
         if($this->form_validation->run() !== FALSE){
             $this->db->trans_start();//start transaction
@@ -121,21 +135,21 @@ class Grades extends CI_Controller{
             
             //insert into eventlog
             //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Addition of {$gradeName} as a new grade with teacher_id'{$gradeTeacher_id}'to the Grades.";
+            $desc = "Addition of {$gradeName} as a new grade with teacher_id '{$gradeTeacher_id}' to the Grades.";
             
             $insertedId ? $this->genmod->addevent("Creation of new Grade", $insertedId, $desc, "grades", $this->session->admin_id) : "";
             
             $this->db->trans_complete();
             
             $json = $this->db->trans_status() !== FALSE ? 
-                    ['status'=>1, 'msg'=>"Grade successfully added"] 
+                    ['status' => 1, 'msg' => "Grade successfully added"] 
                     : 
-                    ['status'=>0, 'msg'=>"Oops! Unexpected server error! Please contact administrator for help. Sorry for the embarrassment"];
+                    ['status' => 0, 'msg' => "Oops! Unexpected server error! Please contact administrator for help. Sorry for the embarrassment"];
         }
         
         else{
-            //return all error messages
-            $json = $this->form_validation->error_array();//get an array of all errors
+            // Return all error messages
+            $json = $this->form_validation->error_array(); // Get an array of all errors
             
             $json['msg'] = "One or more required fields are empty or not correctly filled";
             $json['status'] = 0;
@@ -143,6 +157,16 @@ class Grades extends CI_Controller{
                     
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
+    // Custom callback function to validate the gradeName format
+    public function validate_grade_name($gradeName) {
+        // Use a regular expression to check if the format is "Form X" where X is a number
+        if (!preg_match('/^Form\s\d+$/', $gradeName)) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+    
     
     
     /*

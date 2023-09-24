@@ -46,7 +46,7 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    //handles the submission of adding new Grade
+    // Handles the submission of adding a new Grade
     $("#addNewGrade").click(function(e){
         e.preventDefault();
         
@@ -54,7 +54,6 @@ $(document).ready(function(){
         
         var gradeTeacher_id = $("#gradeTeacher_id").val();
         var gradeName = $("#gradeName").val();
-        
         
         if(!gradeTeacher_id || !gradeName){
             !gradeTeacher_id ? $("#gradeTeacher_idErr").text("required") : "";
@@ -70,42 +69,46 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: appRoot+"grades/add",
-            data:{gradeName:gradeName, gradeTeacher_id:gradeTeacher_id},
+            data: { gradeName: gradeName, gradeTeacher_id: gradeTeacher_id },
             
             success: function(returnedData){
                 if(returnedData.status === 1){
                     changeFlashMsgContent(returnedData.msg, "text-success", '', 1500);
                     document.getElementById("addNewGradeForm").reset();
                     
-                    //refresh the grades list table
+                    // Refresh the grades list table
                     lglt();
                     
-                    //return focus to grade name input 
+                    // Return focus to grade name input 
                     $("#gradeName").focus();
-                }
-                
-                else{
+                } else {
                     hideFlashMsg();
                     
-                    //display all errors
+                    // Display all errors
                     $("#gradeTeacher_idErr").text(returnedData.gradeTeacher_id);
-                    $("#gradeNameErr").text(returnedData.gradeName);
-                    $("#addCustErrMsg").text(returnedData.msg);
                     
+                    // Check if the grade name format error message is present
+                    if (returnedData.gradeName && returnedData.gradeName.indexOf("The Grade name field should be in the format") !== -1) {
+                        // Handle the format error here, for example:
+                        $("#gradeNameErr").text("Grade name should be in the format 'Form X' where X is a number.");
+                    } else {
+                        $("#gradeNameErr").text(returnedData.gradeName);
+                    }
+                    
+                    $("#addCustErrMsg").text(returnedData.msg);
                 }
             },
 
             error: function(){
                 if(!navigator.onLine){
                     changeFlashMsgContent("You appear to be offline. Please reconnect to the internet and try again", "", "red", "");
-                }
-
-                else{
-                    changeFlashMsgContent("Unable to process your request at this time. Pls try again later!", "", "red", "");
+                } else {
+                    changeFlashMsgContent("Unable to process your request at this time. Please try again later!", "", "red", "");
                 }
             }
         });
     });
+
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
