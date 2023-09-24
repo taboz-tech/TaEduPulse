@@ -327,7 +327,7 @@ defined('BASEPATH') OR exit('');
                         
                         <div class="col-sm-4 form-group-sm">
                             <label for="studentFees">Student Fees</label>
-                            <input type="text" id="studentFeesEdit" name="studentFeesPrice" placeholder="studentFees" class="form-control checkField">
+                            <input type="text" id="studentFeesEdit" name="studentFeesPrice" placeholder="studentFees" class="form-control checkField" readonly>
                             <span class="help-block errMsg" id="studentFeesEditErr"></span>
                         </div>
 
