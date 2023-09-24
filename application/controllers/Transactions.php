@@ -275,6 +275,7 @@ class Transactions extends CI_Controller{
                  */
                 $transId = $this->transaction->add($ref, $studentName, $studentSurname, $studentClass_name, $studentStudent_id, $description, $totalFees, $cumAmount, $_at, $_cd, $_mop, $cust_name, $cust_phone, $cust_email, $transType, $paymentStatus, $term,$currency);
                 
+                
                 $allTransInfo[$transId] = ['studentName' => $studentName, 'studentSurname' => $studentSurname, 'transAmount' => $transAmount, 'totalAmount' => $totalFees, 'term' => $term,'currency'=>$currency];
                 
                 // Load the Currency model
@@ -308,8 +309,10 @@ class Transactions extends CI_Controller{
             //get transaction date in db, to be used on the receipt. It is necessary since date and time must matc
             $dateInDb = $this->genmod->getTableCol('transactions', 'transDate', 'transId', $transId);
             
+            $refundAmount = $this->genmod->getTableCol('transactions', 'refundAmount', 'transId', $transId);
+
             //generate receipt to return
-            $dataToReturn['transReceipt'] = $this->genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $dateInDb, $_mop, $cust_name, $cust_phone, $cust_email, $currency);
+            $dataToReturn['transReceipt'] = $this->genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $dateInDb, $_mop, $cust_name, $cust_phone, $cust_email, $currency,$refundAmount);
 
             $dataToReturn['transRef'] = $ref;
             
@@ -340,7 +343,7 @@ class Transactions extends CI_Controller{
      * @param type $cust_email
      * @return type
      */
-    private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email,$currency){
+    private function genTransReceipt($allTransInfo, $cumAmount, $_at, $_cd, $ref, $transDate, $_mop, $cust_name, $cust_phone, $cust_email,$currency,$refundAmount){
         $data['allTransInfo'] = $allTransInfo;
 
         $data['cumAmount'] = $cumAmount;
@@ -353,7 +356,7 @@ class Transactions extends CI_Controller{
         $data['cust_phone'] = $cust_phone;
         $data['cust_email'] = $cust_email;
         $data['currency'] = $currency;
-        
+        $data['refundAmount']= $refundAmount;
         //generate and return receipt
         $transReceipt = $this->load->view('transactions/transreceipt', $data, TRUE);
         
@@ -394,10 +397,12 @@ class Transactions extends CI_Controller{
             $cust_phone = $transInfo[0]['cust_phone'];
             $cust_email = $transInfo[0]['cust_email'];
             $currency = $transInfo[0]['currency'];
+            $refundAmount = $transInfo[0]['refundAmount'];
+            
             
             $json['transReceipt'] = $this->genTransReceipt($transInfo, $cumAmount, $amountTendered, $changeDue, $ref, 
                 $transDate, $modeOfPayment,  $cust_name,
-                $cust_phone, $cust_email,$currency);
+                $cust_phone, $cust_email,$currency,$refundAmount);
         }
         
         else{
