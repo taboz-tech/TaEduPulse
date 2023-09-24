@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination','item','transaction_Item']);
         
         $this->load->helper('text');
         
@@ -313,6 +313,30 @@ class Search extends CI_Controller{
     
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
     
     
+    public function itemSearch(){
+        $data['allItems'] = $this->item->itemsearch($this->value);
+        $data['sn'] = 1;
+        $data['cum_total'] = $this->item->getItemsCumTotal();
+        
+        $json['itemsListTable'] = $data['allItems'] ? $this->load->view('items/itemslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+    
+    
+    public function trans_Itemsearch(){
+        log_message("error","we are hwe");
+        $data['allTransactions'] = $this->transaction_Item->transsearch($this->value);
+        log_message("error","teh data: ".print_r($data['allTransactions'],TRUE));
+        $data['sn'] = 1;
+
+        $json['transTable'] = $data['allTransactions'] ? $this->load->view('transaction_Items/transtable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
 }
