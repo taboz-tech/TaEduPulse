@@ -41,12 +41,19 @@ class Finances extends CI_Controller {
     public function generateReport() {
         
         
-        $this->load->model(['transaction', 'cost', 'currency', 'income']);
+        $this->load->model(['transaction', 'cost', 'currency', 'income','transaction_Item']);
         $currentYear = $this->input->post('year', TRUE);
         $currentMonth = sprintf("%02d", $this->input->post('month', TRUE)); // Format month with leading zeros
     
         // Step 1: Get income data
         $incomeData = $this->getTotalIncomeByCurrency($currentMonth, $currentYear);
+        $totalRevenueItems = 0; // Initialize a variable to hold the total revenue for items
+
+        // calculate total revenue for items
+        foreach ($incomeData['incomeDataItems'] as $item) {
+            $totalRevenue = $item['totalRevenue'];
+            $totalRevenueItems += $totalRevenue;
+        }
 
         // Access the total income by currency from the $incomeData array
         $totalIncomeByCurrency = $incomeData['totalIncomeByCurrency'];
@@ -61,6 +68,11 @@ class Finances extends CI_Controller {
     
         // Step 3: Convert both income and costs to USD
         $totalIncomeUSD = $this->convertToUSD($totalIncomeByCurrency);
+        
+        // Add total revenue for items to $totalIncomeUSD
+        $totalIncomeUSD += $totalRevenueItems;
+
+
         $totalCostUSD = $this->convertToUSD($totalCostByCurrency);
 
     
@@ -156,6 +168,21 @@ class Finances extends CI_Controller {
 
             $row++; // Move to the next row
         }
+        // Insert data from incomeDataItems
+        foreach ($incomeData['incomeDataItems'] as $item) {
+            $cellA = $sheet->getCell('A' . $row);
+            $cellA->setValue($item['itemName'] . ' (' . $item['totalQuantity'] . ')');
+            $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+
+            $cellB = $sheet->getCell('B' . $row);
+            $cellB->setValue('$' . $item['totalRevenue']); // Adding a dollar sign
+            $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+            $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+
+            $row++; // Move to the next row
+        }
+        
+        
         
         $mini = $row - 1;
         $sheet->getStyle('A'.$mini.':B'.$mini)->applyFromArray($borderStyle);
@@ -347,7 +374,8 @@ class Finances extends CI_Controller {
     private function getTotalIncomeByCurrency($month, $year) {
         $incomeDataFees = $this->transaction->getIncomeByCurrencyForMonth($month, $year);
         $incomeDataOther = $this->income->getIncomesForMonth($month, $year);
-    
+        $incomeDataItems = $this->transaction_Item->getSalesForMonth($month, $year);
+        
         $totalIncomeByCurrency = [];
     
         foreach ($incomeDataFees as $currency => $amount) {
@@ -370,6 +398,7 @@ class Finances extends CI_Controller {
             'incomeDataFees' => $incomeDataFees,
             'incomeDataOther' => $incomeDataOther,
             'totalIncomeByCurrency' => $totalIncomeByCurrency,
+            'incomeDataItems' => $incomeDataItems,
         ];
     
         return $result;
