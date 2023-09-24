@@ -205,6 +205,8 @@ $(document).ready(function(){
         var staffDob = $("#staffDob-" + staffId).html();
         var staffJob_tittle = $("#staffJob_tittle-" + staffId).html(); 
         var staffSalary = $("#staffSalary-" + staffId).html();   
+        var staffAdvancePayment = $("#staffAdvancePayment-" + staffId).html();
+        var staffOvertime = $("#staffOvertime-" + staffId).html();
         
         
         //prefill form with info
@@ -220,6 +222,8 @@ $(document).ready(function(){
         $("#staffDobEdit").val(staffDob);
         $("#staffJob_tittleEdit").val(staffJob_tittle);
         $("#staffSalaryEdit").val(staffSalary);
+        $("#staffAdvancePaymentEdit").val(staffAdvancePayment);
+        $("#staffOvertimeEdit").val(staffOvertime);
         
         
         //remove all error messages that might exist
@@ -236,6 +240,8 @@ $(document).ready(function(){
         $("#staffDobEditErr").html("");
         $("#staffJob_tittleEditErr").html("");
         $("#staffSalaryEditErr").html("");
+        $("#staffAdvancePaymentEditErr").html("");
+        $("#staffOvertimeEditErr").html("");
         
         
         //launch modal
@@ -262,13 +268,15 @@ $(document).ready(function(){
         var staffDob =$("#staffDobEdit").val();
         var staffJob_tittle = $("#staffJob_tittleEdit").val();
         var staffSalary = $("#staffSalaryEdit").val();
+        var staffAdvancePayment = $("#staffAdvancePaymentEdit").val();
+        var staffOvertime = $("#staffOvertimeEdit").val();
 
 
     
         // Clear previous error messages
         $(".error-message").html("");
                 
-        if (!staffSurname || !staffEmail || !staffId || !staffName || !staffNational_id || !staffJob_tittle || !staffSalary) {
+        if (!staffSurname || !staffEmail || !staffId || !staffName || !staffNational_id || !staffJob_tittle || !staffSalary ||!staffOvertime || !staffAdvancePayment) {
             if (!staffSurname) $("#staffSurnameErr").html("Surname cannot be empty");
             if (!staffEmail) $("#staffEmailEditErr").html("Staff EmailstaffEmail cannot be empty");
             if (!staffId) $("#editStaffFMsg").html("Unknown Staff");
@@ -276,6 +284,8 @@ $(document).ready(function(){
             if (!staffNational_id) $("#staffNational_idEditErr").html("Staff National Id cannot be empty");
             if (!staffJob_tittle) $("#staffJob_tittleEditErr").html("Staff Job Tittle cannot be empty");
             if (!staffSalary) $("#staffSalaryEditErr").html("Staff Salary cannot be empty");
+            if (!staffAdvancePayment) $("#staffAdvancePaymentEditErr").html("Staff Advance payment can not be empty");
+            if (!staffOvertime) $("#staffOvertimeEditErr").html("Staff overtime can not be empty");
             return;
         }
 
@@ -297,7 +307,9 @@ $(document).ready(function(){
                 staffGender:staffGender,
                 staffDob:staffDob,
                 staffJob_tittle:staffJob_tittle,
-                staffSalary:staffSalary
+                staffSalary:staffSalary,
+                staffAdvancePayment:staffAdvancePayment,
+                staffOvertime:staffOvertime
             }
         }).done(function (returnedData) {
             

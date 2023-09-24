@@ -136,18 +136,42 @@ class Staff extends CI_Model{
     * @param date $staffDob
     * @param string $staffJob_tittle
     * @param decimal $staffSalary
+    * @param decimal $staffAdvancePayment
+    * @param decimal $staffOvertime
+
     */
 
 
      
-   public function edit($staffId, $staffName, $staffSurname, $staffPhone, $staffAddress,$staffEmail,$staffDepartment,$staffNational_id,$staffGender,$staffDob,$staffJob_tittle,$staffSalary){
-       $data = ['name'=>$staffName, 'surname'=>$staffSurname, 'phone'=>$staffPhone, 'address'=>$staffAddress,'email'=>$staffEmail,'department'=>$staffDepartment, 'national_id'=>$staffNational_id,'gender'=>$staffGender,'dob'=>$staffDob,'job_tittle'=>$staffJob_tittle, 'basic_salary'=>$staffSalary];
-       
-       $this->db->where('id', $staffId);
-       $this->db->update('staffs', $data);
-       
-       return TRUE;
-   }
+    public function edit($staffId, $staffName, $staffSurname, $staffPhone, $staffAddress, $staffEmail, $staffDepartment, $staffNational_id, $staffGender, $staffDob, $staffJob_tittle, $staffSalary, $staffAdvancePayment, $staffOvertime){
+        try {
+            $data = [
+                'name' => $staffName,
+                'surname' => $staffSurname,
+                'phone' => $staffPhone,
+                'address' => $staffAddress,
+                'email' => $staffEmail,
+                'department' => $staffDepartment,
+                'national_id' => $staffNational_id,
+                'gender' => $staffGender,
+                'dob' => $staffDob,
+                'job_tittle' => $staffJob_tittle,
+                'basic_salary' => $staffSalary,
+                'advance_payment' => $staffAdvancePayment,
+                'overtime' => $staffOvertime
+            ];
+    
+            $this->db->where('id', $staffId);
+            $this->db->update('staffs', $data);
+    
+            return TRUE;
+        } catch (Exception $e) {
+            // Log the error message
+            log_message('error', 'Error in edit function: ' . $e->getMessage());
+    
+            return FALSE; // Return FALSE to indicate failure
+        }
+    }    
    
   
     /*

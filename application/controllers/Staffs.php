@@ -179,6 +179,8 @@ class Staffs extends CI_Controller{
         $this->form_validation->set_rules('staffDepartment', 'Staff Department', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
         $this->form_validation->set_rules('staffNational_id','National ID','required|regex_match[/^\d{2}\d{6}[A-Z]\d{2}$/]',['required' => 'The %s field is required.','regex_match' => 'Invalid National ID format. It should consist of two digits, followed by six digits, a single uppercase letter, and two digits.']);
         $this->form_validation->set_rules('staffSalary', 'Staff Salary', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        $this->form_validation->set_rules('staffAdvancePayment', 'Staff Advance Payment', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        $this->form_validation->set_rules('staffOvertime', 'Staff Overtime', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
 
         if($this->form_validation->run() !== FALSE){
             $staffId = set_value('_sId');
@@ -193,10 +195,12 @@ class Staffs extends CI_Controller{
             $staffDob = set_value('staffDob');
             $staffJob_tittle = set_value('staffJob_tittle');
             $staffSalary = set_value('staffSalary');
+            $staffAdvancePayment = set_value('staffAdvancePayment');
+            $staffOvertime = set_value('staffOvertime');
 
    
             //update Staff in db
-            $updated = $this->staff->edit($staffId, $staffName, $staffSurname, $staffPhone, $staffAddress,$staffEmail,$staffDepartment,$staffNational_id,$staffGender,$staffDob,$staffJob_tittle,$staffSalary);
+            $updated = $this->staff->edit($staffId, $staffName, $staffSurname, $staffPhone, $staffAddress,$staffEmail,$staffDepartment,$staffNational_id,$staffGender,$staffDob,$staffJob_tittle,$staffSalary,$staffAdvancePayment,$staffOvertime);
             
             $json['status'] = $updated ? 1 : 0;
             
