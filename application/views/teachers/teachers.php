@@ -53,20 +53,29 @@ defined('BASEPATH') OR exit('');
     <!-- row of adding new Teacher form and Teachers list table-->
     <div class="row">
         <div class="col-sm-12">
-            <!--Form to add/update a Teacher-->
+            <!-- Form to add/update a Teacher -->
             <div class="col-sm-4 hidden" id='createNewTeacherDiv'>
                 <div class="well">
                     <button class="close cancelAddTeacher">&times;</button><br>
                     <form name="addNewTeacherForm" id="addNewTeacherForm" role="form">
                         <div class="text-center errMsg" id='addCustErrMsg'></div>
-                        
+
                         <br>
-                        
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="staffStaff_id">Staff Id</label>
+                                <input type="text" id="staffStaff_id" name="staffStaff_id" placeholder="Staff Id" maxlength="20"
+                                    class="form-control" onchange="checkField(this.value, 'staffStaff_idErr')" >
+                                <span class="help-block errMsg" id="staffStaff_idErr"></span>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="teacherName">Teacher Name</label>
                                 <input type="text" id="teacherName" name="teacherName" placeholder="Teacher Name" maxlength="30"
-                                    class="form-control" onchange="checkField(this.value, 'teacherNameErr')">
+                                    class="form-control" onchange="checkField(this.value, 'teacherNameErr')" readonly>
                                 <span class="help-block errMsg" id="teacherNameErr"></span>
                             </div>
                         </div>
@@ -75,19 +84,16 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-12 form-group-sm">
                                 <label for="teacherSurname">Teacher Surname</label>
                                 <input type="text" id="teacherSurname" name="teacherSurname" placeholder="Teacher Surname" maxlength="40"
-                                    class="form-control"  onchange="checkField(this.value, 'teacherSurnameErr')">
+                                    class="form-control"  onchange="checkField(this.value, 'teacherSurnameErr')" readonly>
                                 <span class="help-block errMsg" id="teacherSurnameErr"></span>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
                                 <label for="teacherGender">Teacher Gender</label>
-                                <select id="teacherGender" name="teacherGender" class="form-control" onchange="checkField(this.value, 'teacherGenderErr')">
-                                    <option value="" disabled selected>Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
+                                <input type="text" id="teacherGender" name="teacherGender" placeholder="Teacher Gender" maxlength="10"
+                                    class="form-control" onchange="checkField(this.value, 'teacherGenderErr')" readonly>
                                 <span class="help-block errMsg" id="teacherGenderErr"></span>
                             </div>
                         </div>
@@ -114,11 +120,11 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-12 form-group-sm">
                                 <label for="teacherDepartment">Teacher Department</label>
                                 <input type="text" id="teacherDepartment" name="teacherDepartment" placeholder="Teacher Department" maxlength="100"
-                                    class="form-control" onchange="checkField(this.value, 'teacherDepartmentErr')">
+                                    class="form-control" onchange="checkField(this.value, 'teacherDepartmentErr')" readonly>
                                 <span class="help-block errMsg" id="teacherDepartmentErr"></span>
                             </div>
                         </div>
-                       
+
                         <br>
                         <div class="row text-center">
                             <div class="col-sm-6 form-group-sm">
@@ -129,7 +135,7 @@ defined('BASEPATH') OR exit('');
                                 <button type="reset" id="cancelAddTeacher" class="btn btn-danger btn-sm cancelAddTeacher" form='addNewTeacherForm'>Cancel</button>
                             </div>
                         </div>
-                    </form><!-- end of form-->
+                    </form><!-- end of form -->
                 </div>
             </div>
             
