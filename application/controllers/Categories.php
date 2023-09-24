@@ -200,22 +200,22 @@ class Categories extends CI_Controller{
     public function delete(){
 
         $this->genlib->ajaxOnly();
-
+    
         $json['status'] = 0;
         $categoryId = $this->input->post('i', TRUE);
-
+    
         if ($categoryId) {
            
             $categoryInfo = $this->category->getCategorieInfo(['id' => $categoryId], ['name']);
-
+    
             if ($categoryInfo !== false) {
                 $categoryName = $categoryInfo->name;
-
-                // Check if the category name is "Salary" (case-insensitive)
-                if (strcasecmp($categoryName, 'Salary') == 0) {
+    
+                // Check if the category name contains "fixed costs" or "salary" (case-insensitive)
+                if (stripos($categoryName, 'fixed costs') !== false || stripos($categoryName, 'salary') !== false) {
                     $json['message'] = 'You cannot delete the "'.$categoryName.'" category.';
                 } else {
-                    // Delete the category if it's not "Salary"
+                    // Delete the category if it doesn't contain "fixed costs" or "salary"
                     $this->db->where('id', $categoryId)->delete('categories');
                     $json['status'] = 1;
                 }
@@ -224,10 +224,11 @@ class Categories extends CI_Controller{
                 $json['message'] = 'Category not found.';
             }
         }
-
+    
         // Set the final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 
     
 }
