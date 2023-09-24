@@ -294,6 +294,13 @@ defined('BASEPATH') OR exit('');
                                 Cala
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Fixed_costs' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Fixed_costs') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Fixed Costs
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
