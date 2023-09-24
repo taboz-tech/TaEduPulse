@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination','item','transaction_Item']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination','item','transaction_Item','fixed_cost']);
         
         $this->load->helper('text');
         
@@ -335,6 +335,17 @@ class Search extends CI_Controller{
         $data['sn'] = 1;
 
         $json['transTable'] = $data['allTransactions'] ? $this->load->view('transaction_Items/transtable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+
+    public function fixedCostSearch(){
+        $data['allCosts'] = $this->fixed_cost->costsearch($this->value);
+        $data['sn'] = 1;
+        
+        $json['costsListTable'] = $data['allCosts'] ? $this->load->view('fixed_costs/costslisttable', $data, TRUE) : "No match found";
         
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
