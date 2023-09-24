@@ -364,70 +364,81 @@ function lslt(url) {
     return false;
 }
 
-
-
-
+// Function to generate PDF using pdfmake
 function generatePDF() {
-    // Get the table body element
-    var tableBody = document.getElementById("studentMarksTableBody");
+    // Define the table content
+    const tableContent = [];
+    const tableHeaders = ['Student Name', 'Component A', 'Component B', 'Component C', 'Component D', 'Component E', 'Average'];
 
-    // Create an array to store the table data
-    var tableData = [];
+    // Get the table rows
+    const rows = document.querySelectorAll("#studentMarksTableBody tr");
 
-    // Iterate through the table rows and extract data
-    for (var i = 0; i < tableBody.rows.length; i++) {
-        var rowData = [];
-        var row = tableBody.rows[i];
+    // Loop through each row and extract data
+    rows.forEach((row) => {
+        const rowData = [];
+        const columns = row.querySelectorAll("td");
+        
+        // Loop through each column in the row
+        columns.forEach((column, index) => {
+            // Skip the first hidden column (ID)
+            if (index > 0) {
+                rowData.push(column.textContent);
+            }
+        });
 
-        // Skip the first column (hidden ID)
-        for (var j = 1; j < row.cells.length; j++) {
-            rowData.push(row.cells[j].textContent);
-        }
+        tableContent.push(rowData);
+    });
 
-        tableData.push(rowData);
-    }
-
-    // Define the content for the PDF
-    var content = [
-        {
-            text: "Student Marks Report", // Title
-            style: "header",
-            alignment: "center"
-        },
-        {
-            // Create a table using the row data
-            table: {
-                headerRows: 1,
-                widths: ["auto", "*", "*", "*", "*", "*"], // Increase the width of the "Student Name" column
-                body: [
-                    ["Student Name", "Component A", "Component B", "Component C", "Component D", "Component E"],
-                    // Iterate through the extracted table data and add rows to the PDF table
-                    ...tableData.map(function (rowData) {
-                        return rowData.map(function (cellData) {
-                            return { text: cellData, alignment: "center" };
-                        });
-                    })
-                ]
+    // Define the PDF document definition
+    const docDefinition = {
+        content: [
+            { text: 'Student Marks Table', style: 'header' },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: ['*', '*', '*', '*', '*', '*', '*'],
+                    body: [tableHeaders, ...tableContent]
+                }
+            }
+        ],
+        styles: {
+            header: {
+                fontSize: 18,
+                bold: true,
+                alignment: 'center'
             }
         }
-    ];
-
-    // Define PDF styles
-    var styles = {
-        header: {
-            fontSize: 16,
-            bold: true,
-            margin: [0, 0, 0, 10] // Margin bottom
-        }
     };
 
-    // Create the PDF document
-    var pdfDoc = {
-        content: content,
-        styles: styles
-    };
-
-    // Generate and open the PDF
-    pdfMake.createPdf(pdfDoc).open();
+    // Generate the PDF
+    pdfMake.createPdf(docDefinition).download('student_marks.pdf');
 }
+
+
+
+function generateHelloWorldPDF() {
+    try {
+        // Define the content for the PDF
+        var content = [
+            {
+                text: "Hello, World!", // Text to display
+                fontSize: 24, // Font size
+                bold: true, // Bold text
+                alignment: "center" // Text alignment
+            }
+        ];
+
+        // Create the PDF document
+        var pdfDoc = {
+            content: content
+        };
+
+        // Generate and open the PDF
+        pdfMake.createPdf(pdfDoc).open();
+    } catch (error) {
+        console.error("Error generating PDF:", error.message);
+    }
+}
+
+// Call the function to generate the "Hello, World!" PDF
 
