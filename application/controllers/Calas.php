@@ -215,7 +215,9 @@ class Calas extends CI_Controller{
         try {
             // Call the createMissingStudentSubjectMarks method to ensure all data is synchronized
             $class_name = $this->input->get('class',TRUE); 
-            $subject = $this->input->get('subject',TRUE);
+            $subjectId = $this->input->get('subject',TRUE);
+
+            $subjectName = $this->genmod->getTableCol('subjects', 'name', 'id', $subjectId);
 
             $isDataSynchronized = $this->cala->createMissingStudentSubjectMarks($class_name);
     
@@ -224,7 +226,7 @@ class Calas extends CI_Controller{
             }
     
             // Now, retrieve the students' data
-            $studentsData = $this->cala->getStudentData($class_name,$subject);
+            $studentsData = $this->cala->getStudentData($class_name,$subjectId);
     
             // Check if the students' data was retrieved successfully
             if ($studentsData === FALSE) {
@@ -235,6 +237,7 @@ class Calas extends CI_Controller{
             $json['class'] = $class;
             $json['status'] = 1;
             $json['studentsData'] = $studentsData;
+            $json['subject'] = $subjectName;
         } catch (Exception $e) {
             // Handle exceptions and set status to 0 with an error message
             $json['status'] = 0;

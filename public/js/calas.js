@@ -190,46 +190,53 @@ $(document).ready(function(){
                 success: function (response) {
                     console.log("Response from getStudentsData:", response);
                     $('#classSubjectSelectionModal').modal('hide');
-      
-                    var studentsData = response.studentsData;
-                    var selectedClass = response.class; // Assuming you have the selected class
-
-                    // Clear any existing rows in the table body
-                    $("#studentMarksTableBody").empty();
-
-                    // Set the selected class name in the modal
-                    $("#selectedClassNameCaptureMarks").text(selectedClass);
-
-                    // Iterate through the student data and populate the table
-                    studentsData.forEach(function(student) {
-                        var row = $("<tr>");
-
-                        // Create a hidden cell for the student's ID
-                        var idCell = $("<td>")
-                            .addClass("hidden-id")
-                            .css("display", "none")
-                            .text(student.id); // Use the student's ID here
-
-                        // Create cells for student name, components (you can add more cells as needed)
-                        var nameCell = $("<td>").text(student.student_name + " " + student.surname);
-                        var componentACell = $("<td>").attr("contenteditable", "true").text(student.componentA);
-                        var componentBCell = $("<td>").attr("contenteditable", "true").text(student.componentB);
-                        var componentCCell = $("<td>").attr("contenteditable", "true").text(student.componentC);
-                        var componentDCell = $("<td>").attr("contenteditable", "true").text(student.componentD);
-                        var componentECell = $("<td>").attr("contenteditable", "true").text(student.componentE);
-                        var averageCell = $("<td>").attr("contenteditable", "true").text(student.average);
-
-                        // Append cells to the row
-                        row.append(idCell, nameCell, componentACell, componentBCell, componentCCell, componentDCell, componentECell,averageCell);
-
-                        // Append the row to the table body
-                        $("#studentMarksTableBody").append(row);
-                    });
-
-                    // Show the modal with populated data
-                    $("#captureMarksModal").modal("show");
-
-                },
+                
+                    if (response.status === 1) {
+                        var studentsData = response.studentsData;
+                        var selectedClass = response.class;
+                        var selectedSubject = response.subject;
+                
+                        // Clear any existing rows in the table body
+                        $("#studentMarksTableBody").empty();
+                
+                        // Set the selected class name in the modal
+                        $("#selectedClassNameCaptureMarks").text(selectedClass);
+                
+                        $("#selectedSubjectCaptureMarks").text(selectedSubject);
+                
+                        // Iterate through the student data and populate the table
+                        studentsData.forEach(function(student) {
+                            var row = $("<tr>");
+                
+                            // Create a hidden cell for the student's ID
+                            var idCell = $("<td>")
+                                .addClass("hidden-id")
+                                .css("display", "none")
+                                .text(student.id); // Use the student's ID here
+                
+                            // Create cells for student name, components (you can add more cells as needed)
+                            var nameCell = $("<td>").text(student.student_name + " " + student.surname);
+                            var componentACell = $("<td>").attr("contenteditable", "true").text(student.componentA);
+                            var componentBCell = $("<td>").attr("contenteditable", "true").text(student.componentB);
+                            var componentCCell = $("<td>").attr("contenteditable", "true").text(student.componentC);
+                            var componentDCell = $("<td>").attr("contenteditable", "true").text(student.componentD);
+                            var componentECell = $("<td>").attr("contenteditable", "true").text(student.componentE);
+                            var averageCell = $("<td>").attr("contenteditable", "true").text(student.average);
+                
+                            // Append cells to the row
+                            row.append(idCell, nameCell, componentACell, componentBCell, componentCCell, componentDCell, componentECell,averageCell);
+                
+                            // Append the row to the table body
+                            $("#studentMarksTableBody").append(row);
+                        });
+                
+                        // Show the modal with populated data
+                        $("#captureMarksModal").modal("show");
+                    } else {
+                        // Display a message indicating that no students are registered
+                        alert("No students are registered in the selected class and subject.");
+                    }
+                },                
                 error: function (xhr, status, error) {
                     // Handle errors here and display an error message
                     alert("Error: " + error);
@@ -320,7 +327,7 @@ $(document).ready(function(){
 
     // Add a click event listener to the "Download PDF" button
     $("#downloadPDF").click(function () {
-        generatePDF();
+        generateFlyer();
     });
 
     
@@ -364,8 +371,16 @@ function lslt(url) {
     return false;
 }
 
-// Function to generate PDF using pdfmake
 function generatePDF() {
+    // Get the selected class name from the modal
+    const selectedClassName = document.getElementById("selectedClassNameCaptureMarks").textContent;
+
+    // Get the selected subject from the modal
+    const selectedSubject = document.getElementById("selectedSubjectCaptureMarks").textContent;
+
+    // Combine class and subject into one line
+    const classAndSubject = `${selectedClassName}: ${selectedSubject}`;
+
     // Define the table content
     const tableContent = [];
     const tableHeaders = ['Student Name', 'Component A', 'Component B', 'Component C', 'Component D', 'Component E', 'Average'];
@@ -377,7 +392,7 @@ function generatePDF() {
     rows.forEach((row) => {
         const rowData = [];
         const columns = row.querySelectorAll("td");
-        
+
         // Loop through each column in the row
         columns.forEach((column, index) => {
             // Skip the first hidden column (ID)
@@ -393,6 +408,7 @@ function generatePDF() {
     const docDefinition = {
         content: [
             { text: 'Student Marks Table', style: 'header' },
+            { text: classAndSubject, style: 'classAndSubjectHeader' }, // Combine class and subject in one line
             {
                 table: {
                     headerRows: 1,
@@ -406,6 +422,12 @@ function generatePDF() {
                 fontSize: 18,
                 bold: true,
                 alignment: 'center'
+            },
+            classAndSubjectHeader: {
+                fontSize: 16,
+                bold: true,
+                alignment: 'center',
+                margin: [0, 10, 0, 10] // Add margin for spacing
             }
         }
     };
@@ -413,6 +435,118 @@ function generatePDF() {
     // Generate the PDF
     pdfMake.createPdf(docDefinition).download('student_marks.pdf');
 }
+
+
+
+function generateFlyer() {
+    // Define the fonts and colors
+    const fonts = {
+        Roboto: {
+            normal: 'public/pdfmake/fonts/roboto/regular.ttf',
+            bold: 'public/pdfmake/fonts/roboto/bold.ttf',
+            italics: 'public/pdfmake/fonts/roboto/italic.ttf',
+            bolditalics: 'public/pdfmake/fonts/roboto/bolditalic.ttf',
+        },
+    };
+
+    const colors = {
+        primary: '#007bff', // Blue
+        secondary: '#28a745', // Green
+        text: '#333', // Dark Gray
+    };
+
+    // Create the PDF document definition
+    const documentDefinition = {
+        content: [
+            {
+                text: '🚀 Ultimate Educational Management System 🚀',
+                style: 'header',
+            },
+            {
+                text: 'Highlights:',
+                style: 'subheader',
+            },
+            {
+                ul: [
+                    { text: 'Simplified Enrollment: Effortlessly enroll students, no more paperwork.', listType: 'square' },
+                    { text: 'Comprehensive Records: Maintain detailed student profiles and vital data.', listType: 'square' },
+                    { text: 'Rapid Information Access: Instant access to crucial student information.', listType: 'square' },
+                    { text: 'Streamlined Communication: Stay connected with students and families.', listType: 'square' },
+                    { text: 'Administrative Efficiency: Save time and resources for student success.', listType: 'square' },
+                    { text: 'Fee Payment Tracking: Precise monitoring of fee payments.', listType: 'square' },
+                    { text: 'Sales Management: Effortless inventory and sales record management.', listType: 'square' },
+                    { text: 'Monthly Finance Reports: Crystal-clear financial insights.', listType: 'square' },
+                    { text: 'Global Currency Support: Flexibility with major Zimbabwean currencies.', listType: 'square' },
+                    { text: 'Interactive Dashboard: Visualize data for informed decisions.', listType: 'square' },
+                    { text: 'Ironclad Security: Robust user authentication and data protection.', listType: 'square' },
+                    { text: 'Staff Management: Organize your team with ease.', listType: 'square' },
+                    { text: 'Continuous Assessment: Elevate teaching with detailed student progress tracking.', listType: 'square' },
+                ],
+                margin: [0, 10, 0, 10], // Add margin around the bullet points
+            },
+            {
+                text: 'Ready to transform your institution with these powerful features?',
+                style: 'callout',
+                margin: [0, 20, 0, 10], // Add margin to separate from highlights
+            },
+            {
+                text: 'Contact us at [Your Contact Information] to get started! 🚀💰📊',
+                style: 'contact',
+            },
+        ],
+        background: [
+            // Create a rectangle shape for the background color
+            {
+                canvas: [
+                    {
+                        type: 'rect',
+                        x: 0,
+                        y: 0,
+                        w: 595.28, // Page width
+                        h: 20, // Add a colored bar at the top of the page
+                        color: colors.primary,
+                    },
+                ],
+                absolutePosition: { x: 0, y: 0 },
+            },
+        ],
+        styles: {
+            header: {
+                fontSize: 24,
+                bold: true,
+                color: 'white', // White text on the colored bar
+                alignment: 'center',
+            },
+            subheader: {
+                fontSize: 16,
+                bold: true,
+                margin: [0, 10, 0, 10],
+                color: colors.secondary,
+            },
+            callout: {
+                margin: [0, 20, 0, 10],
+                color: colors.text,
+            },
+            contact: {
+                margin: [0, 10, 0, 0],
+                color: colors.primary,
+                decoration: 'underline',
+            },
+        },
+        defaultStyle: {
+            font: 'Roboto',
+            fontSize: 12,
+            color: colors.text,
+        },
+    };
+
+    // Generate the PDF
+    pdfMake.createPdf(documentDefinition).download('educational_system_flyer.pdf');
+}
+
+
+
+
 
 
 

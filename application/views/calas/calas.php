@@ -104,8 +104,17 @@ defined('BASEPATH') OR exit('');
             </div>
             <div class="modal-body">
                 <div class="selected-class-display">
-                    <h3>Selected Class: <span id="selectedClassNameCaptureMarks"></span></h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Class: <span id="selectedClassNameCaptureMarks"></span></h3>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Add a <span> element to display the selected subject -->
+                            <h3>Subject: <span id="selectedSubjectCaptureMarks"></span></h3>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;"> <!-- Adjust the max-height as needed -->
                     <table class="table table-bordered">
                         <thead>
