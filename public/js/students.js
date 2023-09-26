@@ -165,9 +165,23 @@ $(document).ready(function(){
         var studentOwed_fees = $("#studentOwed_fees").val();
         var studentHealthy_status = $("#studentHealthy_status").val();
         var studentRelationship = $("#studentRelationship").val();
+        var studentDob = $("#studentDob").val();
+
+        // Add validation for studentParent_phone
+        var phonePattern = /^(07\d{8})$|^(\+263\d{9,14})$/;
+
+        // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
+        var today = new Date();
+        var fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+
+        var enteredDate = new Date(studentDob);
+        if ( enteredDate < fiveYearsAgo) {
+            $("#studentDobErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+            return; // Return early without processing further if there's an error
+        }
 
         
-        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees || !studentOwed_fees || !studentRelationship){
+        if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees || !studentOwed_fees || !studentRelationship || !phonePattern.test(studentParent_phone) || !studentDob ){
             !studentName ? $("#studentNameErr").text("required") : "";
             !studentStudent_id ? $("#studentStudent_idErr").text("required") : "";
             !studentSurname ? $("#studentSurnameErr").text("required") : "";
@@ -177,6 +191,8 @@ $(document).ready(function(){
             !studentFees ? $("#studentFeesErr").text("required") : "";
             !studentOwed_fees ? $("#studentOwed_feesErr").text("required") : "";
             !studentRelationship ? $("#studentRelatioshipErr").text("required") : ""
+            !phonePattern.test(studentParent_phone) ? $("#studentParent_phoneErr").html("Invalid phone number") : $("#studentParent_phoneErr").html("");
+            !studentDob ? $("#studentDobErr").text("required") : "";
             
             
             $("#addCustErrMsg").text("One or more required fields are empty");
@@ -194,7 +210,8 @@ $(document).ready(function(){
                 studentGender:studentGender, studentFees:studentFees,
                 studentParent_name:studentParent_name, studentParent_phone:studentParent_phone, 
                 studentAddress:studentAddress, studentOwed_fees:studentOwed_fees,
-                studentHealthy_status:studentHealthy_status, studentRelationship:studentRelationship
+                studentHealthy_status:studentHealthy_status, studentRelationship:studentRelationship,
+                studentDob:studentDob
             },
             
             success: function(returnedData){
@@ -218,13 +235,14 @@ $(document).ready(function(){
                     $("#studentStudent_idErr").text(returnedData.studentStudent_id);
                     $("#studentNameErr").text(returnedData.studentName);
                     $("#studentSurnameErr").text(returnedData.studentSurname);
-                    $("#studentClass_nameErr").text(returnedData.studentClass_name)
+                    $("#studentClass_nameErr").text(returnedData.studentClass_name);
                     $("#studentGenderErr").text(returnedData.studentGender);
                     $("#studentFeesErr").text(returnedData.studentFees);
                     $("#studentParent_nameErr").text(returnedData.studentParent_name);
                     $("#studentParent_phoneErr").text(returnedData.studentParent_phone);
                     $("#studentAddressErr").text(returnedData.studentAddress);
-                    $("#studentOwed_feesErr").text(returnedData.studentOwed_fees)
+                    $("#studentOwed_feesErr").text(returnedData.studentOwed_fees);
+                    $("#studentDobErr").text(returnedData.studentDob);
                     $("#addCustErrMsg").text(returnedData.msg);
                     
                 }
@@ -327,6 +345,7 @@ $(document).ready(function(){
         var studentRelationship = $("#studentRelationship-" + studentId).html();
         var studentFees = parseFloat($("#studentFees-" + studentId).html().replace(",", "")).toFixed(2);
         var studentOwed_fees = parseFloat($("#studentOwed_fees-" + studentId).html().replace(",", "")).toFixed(2);
+        var studentDob = $("#studentDob-" + studentId).html();
 
         if (isNaN(studentOwed_fees)) {
             studentOwed_fees = 0;
@@ -345,6 +364,7 @@ $(document).ready(function(){
         $("#studentOwed_feesEdit").val(studentOwed_fees);
         $("#studentHealthy_statusEdit").val(studentHealthy_status);
         $("#studentRelationshipEdit").val(studentRelationship);
+        $("#studentDobEdit").val(studentDob);
         
         //remove all error messages that might exist
         $("#editStudentFMsg").html("");
@@ -360,6 +380,7 @@ $(document).ready(function(){
         $("#studentOwed_feesEditErr").html("");
         $("#studentHealthy_statusEditErr").html("");
         $("#studentRelationshipEditErr").html("");
+        $("#studentDobEditErr").html("");
 
         // Fetch and populate the student class select field
         populateEditGradesSelect(appRoot + "students/getGradesForSelect/", studentClass_name);
@@ -393,17 +414,29 @@ $(document).ready(function(){
         var studentOwed_fees = $("#studentOwed_feesEdit").val();
         var studentHealthy_status = $("#studentHealthy_statusEdit").val();
         var studentRelationship = $("#studentRelationshipEdit").val();
+        var studentDob = $("#studentDobEdit").val();
         
         // Clear previous error messages
         $(".errMsg").html("");
-        $("#editStudentFMsg").html(""); // Clear the general error message
+        $("#editStudentFMsg").html(""); 
+
+        // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
+        var today = new Date();
+        var fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+
+        var enteredDate = new Date(studentDob);
+        if ( enteredDate < fiveYearsAgo) {
+            $("#studentDobEditErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+            return; // Return early without processing further if there's an error
+        }
         
         // Validate required fields
-        if (!studentStudent_id || !studentFees || !studentId || !studentName) {
+        if (!studentStudent_id || !studentFees || !studentId || !studentName || !studentDob) {
             if (!studentStudent_id) $("#studentStudent_idEditErr").html("Student ID cannot be empty");
             if (!studentFees) $("#studentFeesEditErr").html("Student fees cannot be empty");
             if (!studentId) $("#editStudentFMsg").html("Unknown Student");
             if (!studentName) $("#studentNameEditErr").html("Student name cannot be empty");
+            if (!studentDob) $("#studentDobEditErr").html("DOB cannot be empty");
             return;
         }
     
@@ -439,7 +472,8 @@ $(document).ready(function(){
                 studentFees: studentFees,
                 studentOwed_fees: combinedOwedFees,
                 studentHealthy_status: studentHealthy_status,
-                studentRelationship: studentRelationship
+                studentRelationship: studentRelationship,
+                studentDob:studentDob
             }
         }).done(function (returnedData) {
             if (returnedData.status === 1) {
@@ -515,6 +549,12 @@ $(document).ready(function(){
             error: function() {
                 console.log("Error occurred during AJAX call.");
             }
+        });
+
+         // remove phone error when keys are clicked 
+        $("#studentParent_phone").keyup(function(){
+
+            changeInnerHTML(["studentParent_phoneErr"], "");      
         });
     });
     
@@ -598,6 +638,27 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Add an input event listener to the input field with the ID "studentParent_phone"
+    $("#studentParent_phone").on('input', function(e){
+        // Get the trimmed value entered by the user
+        const enteredValue = $(this).val().trim();
+        
+        // Define the valid prefixes
+        const validPrefixes = ["07", "+263"];
+        
+        // Check if the entered value starts with any valid prefix
+        const isValid = validPrefixes.some(prefix => enteredValue.startsWith(prefix));
+
+        // Get the error message element
+        const custPhoneErr = $("#studentParent_phoneErr");
+
+        // Update the error message based on validity
+        if (isValid) {
+            custPhoneErr.html("");
+        } else {
+            custPhoneErr.html("Invalid phone number");
+        }
+    });
 });
 
 

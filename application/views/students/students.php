@@ -158,7 +158,16 @@ defined('BASEPATH') OR exit('');
                                 <span class="help-block errMsg" id="studentHealthy_statusErr"></span>
                             </div>
                         </div>
-                        
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group-sm">
+                                <label for="studentDob">Student DOB</label>
+                                <input type="date" id="studentDob" name="studentDob" placeholder="Student DOB" class="form-control" 
+                                    max="<?= date('Y-m-d', strtotime('-5 years')) ?>"
+                                    onchange="checkField(this.value, 'studentDobErr')">
+                                <span class="help-block errMsg" id="studentDobErr"></span>
+                            </div>
+                        </div>                      
 
                         <div class="row">
                             <div class="col-sm-12 form-group-sm">
@@ -305,6 +314,13 @@ defined('BASEPATH') OR exit('');
                             <input type="text" id="studentHealthy_statusEdit" placeholder="Student Healthy Status" autofocus class="form-control checkField">
                             <span class="help-block errMsg" id="studentHealthy_statusEditErr"></span>
                         </div>
+                        
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="studentDobEdit">Student DOB</label>
+                            <input type="date" id="studentDobEdit" name="studentDobEdit" autofocus class="form-control checkField" max="<?= date('Y-m-d', strtotime('-5 years')) ?>">
+                            <span class="help-block errMsg" id="studentDobEditErr"></span>
+                        </div>
+
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="studentParent_nameEdit">Student Parent_name</label>
@@ -332,15 +348,19 @@ defined('BASEPATH') OR exit('');
                         </div>
 
                         <div class="col-sm-4 form-group-sm">
-                            <label for="enableOwedFeesEdit">Allow Edit</label>
-                            <input type="checkbox" id="enableOwedFeesEdit">
-                        </div>
-
-                        <div class="col-sm-4 form-group-sm">
                             <label for="studentOwed_fees">Owed Fees</label>
-                            <input type="text" id="studentOwed_feesEdit" name="studentOwed_fees" placeholder="studentOwed_fees" class="form-control checkField">
+                            <div class="input-group">
+                                <input type="text" id="studentOwed_feesEdit" name="studentOwed_fees" placeholder="Owed Fees" class="form-control checkField">
+                                <?php if ($this->session->admin_role === "Super"): ?>
+                                <div class="input-group-append">
+                                    <label for="enableOwedFeesEdit" class="input-group-text">Allow Edit</label>
+                                    <input type="checkbox" id="enableOwedFeesEdit">
+                                </div>
+                                <?php endif; ?>
+                            </div>
                             <span class="help-block errMsg" id="studentOwed_feesEditErr"></span>
                         </div>
+
                     </div>
                     
                     <input type="hidden" id="studentIdEdit">

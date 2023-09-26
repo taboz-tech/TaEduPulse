@@ -47,6 +47,10 @@ class Finances extends CI_Controller {
     
         // Step 1: Get income data
         $incomeData = $this->getTotalIncomeByCurrency($currentMonth, $currentYear);
+
+        // Access the total income by currency from the $incomeData array
+        $totalIncomeByCurrency = $incomeData['totalIncomeByCurrency'];
+
         $totalRevenueItems = 0; // Initialize a variable to hold the total revenue for items
 
         // calculate total revenue for items
@@ -55,9 +59,10 @@ class Finances extends CI_Controller {
             $totalRevenueItems += $totalRevenue;
         }
 
-        // Access the total income by currency from the $incomeData array
-        $totalIncomeByCurrency = $incomeData['totalIncomeByCurrency'];
-
+        // Add total revenue to the "USD" amount in the array
+        if (isset($totalIncomeByCurrency['USD'])) {
+            $totalIncomeByCurrency['USD'] += $totalRevenueItems;
+        }
     
         // Step 2: Get cost data
         $costData = $this->getTotalCostByCurrency();
@@ -68,9 +73,6 @@ class Finances extends CI_Controller {
     
         // Step 3: Convert both income and costs to USD
         $totalIncomeUSD = $this->convertToUSD($totalIncomeByCurrency);
-        
-        // Add total revenue for items to $totalIncomeUSD
-        $totalIncomeUSD += $totalRevenueItems;
 
 
         $totalCostUSD = $this->convertToUSD($totalCostByCurrency);
@@ -158,16 +160,27 @@ class Finances extends CI_Controller {
             $cellA = $sheet->getCell('A' . $row);
             $cellA->setValue('Tuition (' . $currency . ')');
             $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-            
+
             $cellB = $sheet->getCell('B' . $row);
             $cellB->setValue('$' . $amount); // Adding a dollar sign
             $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-            
             $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
-            
 
             $row++; // Move to the next row
         }
+
+        // Insert exam fee row
+        $cellA = $sheet->getCell('A' . $row);
+        $cellA->setValue('Exam Fees(USD)');
+        $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+
+        $cellB = $sheet->getCell('B' . $row);
+        $cellB->setValue('$' . $incomeData['exam_fees']); // Adding a dollar sign
+        $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+        $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+
+        $row++; // Move to the next row
+
         // Insert data from incomeDataItems
         foreach ($incomeData['incomeDataItems'] as $item) {
             $cellA = $sheet->getCell('A' . $row);
@@ -181,6 +194,7 @@ class Finances extends CI_Controller {
 
             $row++; // Move to the next row
         }
+
         
         
         
@@ -231,7 +245,7 @@ class Finances extends CI_Controller {
         $cell->getStyle()->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK))->setBold(true)->setItalic(true);
 
         // Insert data from totalIncomeByCurrency below the merged row
-        foreach ($incomeData['totalIncomeByCurrency'] as $currency => $amount) {
+        foreach ($totalIncomeByCurrency as $currency => $amount) {
             $cellA = $sheet->getCell('A' . ($row + 1));
             $cellA->setValue($currency);
             $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
@@ -375,7 +389,14 @@ class Finances extends CI_Controller {
         $incomeDataFees = $this->transaction->getIncomeByCurrencyForMonth($month, $year);
         $incomeDataOther = $this->income->getIncomesForMonth($month, $year);
         $incomeDataItems = $this->transaction_Item->getSalesForMonth($month, $year);
-        
+    
+        // Extract 'exam_fees' from $incomeDataFees
+        $examFees = $incomeDataFees['exam_fees'];
+    
+        // Remove 'exam_fees' from $incomeDataFees
+        unset($incomeDataFees['exam_fees']);
+    
+        // Calculate total income by currency
         $totalIncomeByCurrency = [];
     
         foreach ($incomeDataFees as $currency => $amount) {
@@ -393,16 +414,27 @@ class Finances extends CI_Controller {
             $totalIncomeByCurrency[$currency] += $amount;
         }
     
-        // Create an associative array to return all three values
+        // Check if "USD" entry exists in totalIncomeByCurrency
+        if (isset($totalIncomeByCurrency['USD'])) {
+            // If it exists, add "exam_fees" to it
+            $totalIncomeByCurrency['USD'] += $examFees;
+        } else {
+            // If it doesn't exist, create it with the value of "exam_fees"
+            $totalIncomeByCurrency['USD'] = $examFees;
+        }
+    
+        // Create an associative array to return all values
         $result = [
             'incomeDataFees' => $incomeDataFees,
             'incomeDataOther' => $incomeDataOther,
             'totalIncomeByCurrency' => $totalIncomeByCurrency,
             'incomeDataItems' => $incomeDataItems,
+            'exam_fees' => $examFees,
         ];
     
         return $result;
     }
+    
     
 
     private function getTotalCostByCurrency() {

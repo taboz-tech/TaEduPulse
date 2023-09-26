@@ -155,6 +155,7 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentOwed_fees', 'Student Owed Fees', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        $this->form_validation->set_rules('studentDob','Date of Birth','callback_is_date|callback_valid_dob',['is_date' => 'The Date of Birth field must be a valid date.','valid_dob' => 'The Date of Birth must be at least 5 years ago from today.' ]);
         
 
         if($this->form_validation->run() !== FALSE){
@@ -163,7 +164,7 @@ class Students extends CI_Controller{
                 
                 // Insert student data into the database using the 'student' model's 'add' method
                 $insertedId = $this->student->add(set_value('studentName'), set_value('studentSurname'), set_value('studentStudent_id'), 
-                        set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'),set_value('studentOwed_fees'),set_value('studentHealthy_status'), set_value('studentRelationship'));
+                        set_value('studentClass_name'), set_value('studentGender'),set_value('studentParent_name'),set_value('studentParent_phone'),set_value('studentAddress'),set_value('studentFees'),set_value('studentOwed_fees'),set_value('studentHealthy_status'), set_value('studentRelationship'), set_value('studentDob'));
     
                 // Additional student data for logging purposes 
                 $studentName = set_value('studentName');
@@ -498,7 +499,6 @@ class Students extends CI_Controller{
                     $amountPaid = $student->fees - $student->owed_fees;
 
                 } else {
-                    log_message("error","the subtraction of".$student->fees. "<=".$student->owed_fees);
 
                     // Owed fees are greater than fees, so set the paid amount to zero
                     $amountPaid = 0;
@@ -631,7 +631,7 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentStudent_id', 'Student Student_id', ['required', 'trim', 'max_length[15]'], ['required'=>'required']);
         $this->form_validation->set_rules('studentParent_phone','Student Student_phone',['required','trim','max_length[15]'],['required'=>'required']);
         $this->form_validation->set_rules('studentOwed_fees', 'Student Owed Fees', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
-    
+        
         // Initialize an array to store detailed error messages
         $errorMessages = [];
     
@@ -651,8 +651,9 @@ class Students extends CI_Controller{
                 $studentOwed_fees = set_value('studentOwed_fees');
                 $studentHealthy_status = set_value('studentHealthy_status');
                 $studentRelationship = set_value('studentRelationship');
+                $studentDob = set_value('studentDob');
                 // Update student in the database
-                $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_phone, $studentFees, $studentParent_name, $studentAddress, $studentOwed_fees, $studentHealthy_status, $studentRelationship);
+                $updated = $this->student->edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_phone, $studentFees, $studentParent_name, $studentAddress, $studentOwed_fees, $studentHealthy_status, $studentRelationship,$studentDob);
 
                 if (!$updated) {
                     throw new Exception("Unable to update the student record. Please try again later or contact the administrator.");
@@ -983,6 +984,26 @@ class Students extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
+    public function is_date($dob) {
+        if (strtotime($dob) === false) {
+            return false; 
+        } else {
+            return true;  
+        }
+    }
+    
+    public function valid_dob($dob) {
+        $dob_timestamp = strtotime($dob);
+    
+        $five_years_ago = strtotime('-5 years', strtotime(date('Y-m-d')));
+    
+        if ($dob_timestamp < $five_years_ago) {
+            return true;  
+        } else {
+            return false;  
+        }
+    }
+   
     
 
 

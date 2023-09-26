@@ -25,10 +25,13 @@
                         <th>FEES</th>
                         <th>OWED FEES</th>
                         <th>GENDER</th>
+                        <th>DOB</th>
                         <th>HEALTHY STATUS</th>
                         <th>DATE JOINED</th>
                         <th>EDIT</th>
+                        <?php if ($this->session->admin_role === "Super"): ?>
                         <th>DELETE</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,12 +54,15 @@
                             </span>
                         </td>
                         <td><span id="studentGender-<?=$get->id?>"><?=$get->gender?></td>
+                        <td><span id="studentDob-<?=$get->id?>"><?=$get->dob?></td>
                         <td><span id="studentHealthy_status-<?=$get->id?>"><?=$get->healthyStatus?></td>
                         <td><span id="studentDateJoined-<?=$get->id?>"><?=$get->dateAdded?></td>
                         <td class="text-center text-primary">
                             <span class="editStudent" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
+                        <?php if ($this->session->admin_role === "Super"): ?>
                         <td class="text-center"><i class="fa fa-trash text-danger delStudent pointer"></i></td>
+                        <?php endif; ?>
                     </tr>
                     <?php $sn++; ?>
                     <?php endforeach; ?>
