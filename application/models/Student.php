@@ -75,9 +75,10 @@ class Student extends CI_Model{
      * @param type $studentOwed_fees
      * @param type $studentHealthy_status
      * @param type $studentRelationship
+     * @param type $studentDob
      * @return boolean
      */
-    public function add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name, $studentParent_phone, $studentAddress, $studentFees, $studentOwed_fees, $studentHealthy_status, $studentRelationship){
+    public function add($studentName, $studentSurname, $studentStudent_id, $studentClass_name, $studentGender, $studentParent_name, $studentParent_phone, $studentAddress, $studentFees, $studentOwed_fees, $studentHealthy_status, $studentRelationship,$studentDob){
         try {
             $data = [
                 'name' => $studentName,
@@ -91,7 +92,8 @@ class Student extends CI_Model{
                 'fees' => $studentFees,
                 'owed_fees' => $studentOwed_fees,
                 'healthyStatus' => $studentHealthy_status,
-                'relationship' => $studentRelationship
+                'relationship' => $studentRelationship,
+                'dob' => $studentDob
             ];
     
             // Set the datetime based on the db driver in use
@@ -294,7 +296,7 @@ class Student extends CI_Model{
 
 
      
-    public function edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_phone, $studentFees, $studentParent_name, $studentAddress, $studentOwed_fees, $studentHealthy_status, $studentRelationship){
+    public function edit($studentId, $studentName, $studentSurname, $studentClass_name, $studentParent_phone, $studentFees, $studentParent_name, $studentAddress, $studentOwed_fees, $studentHealthy_status, $studentRelationship,$studentDob){
         try {
             $data = [
                 'name' => $studentName,
@@ -306,23 +308,28 @@ class Student extends CI_Model{
                 'address' => $studentAddress,
                 'owed_fees' => $studentOwed_fees,
                 'healthyStatus' => $studentHealthy_status,
-                'relationship' => $studentRelationship
-            ];
+                'relationship' => $studentRelationship,
+                'lastUpdated' => date('Y-m-d H:i:s'),
+                'dob' => $studentDob
+                    ];
     
             $this->db->where('id', $studentId);
             $this->db->update('students', $data);
     
+                    
             if ($this->db->affected_rows() > 0) {
                 return TRUE;
             } else {
-                log_message('error', 'Database error: Update operation failed');
-                return false; // Return false to indicate a database error
+                $error = $this->db->error(); // Get detailed error information
+                log_message('error', 'Database error: Update operation failed. Error Code: ' . $error['code'] . ', Error Message: ' . $error['message']);
+                return FALSE; // Return false to indicate a database error
             }
         } catch (Exception $e) {
             log_message('error', 'An error occurred: ' . $e->getMessage());
-            return false; // Return false to indicate a general error
+            return FALSE; // Return false to indicate a general error
         }
     }
+    
     
    
    /*
