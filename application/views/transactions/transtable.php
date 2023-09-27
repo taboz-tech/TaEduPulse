@@ -23,8 +23,11 @@
                     <th>Customer</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <?php if ($this->session->admin_role !== "Basic"): ?>
                     <th>Refund</th>
                     <th>ACTION</th>
+                    <?php endif; ?>
+
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +47,7 @@
                     <td><?=$get->cust_name?> - <?=$get->cust_phone?> - <?=$get->cust_email?></td>
                     <td><?= date('jS M, Y h:ia', strtotime($get->transDate)) ?></td>
                     <td><?=$get->cancelled ? 'Cancelled' : 'Completed'?></td>
+                    <?php if ($this->session->admin_role !== "Basic"): ?>
                     <td class="text-center">
                         <?php if ($get->refundAmount === null): ?>
                             <span class="text-warning refund-action" data-refundable="true"><i class="fa fa-exclamation"></i></span>
@@ -56,19 +60,21 @@
                         <?php endif; ?>
                     </td>
                     <td class="text-center text-primary">
-                            <span class="refundTrans" id="refund-<?=$get->transId?>"><i class="fa fa-reply"></i> </span>
-                        </td>
+                        <span class="refundTrans" id="refund-<?=$get->transId?>"><i class="fa fa-reply"></i> </span>
+                    </td>
+                    <?php endif; ?>
+
                 </tr>
                 <?php $sn++; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-<!-- table div end-->
+    <!-- table div end-->
     <?php else: ?>
-        <ul><li>No Transactions</li></ul>
+    <ul><li>No Transactions</li></ul>
     <?php endif; ?>
-    
+
     <!--Pagination div-->
     <div class="col-sm-12 text-center">
         <ul class="pagination">
