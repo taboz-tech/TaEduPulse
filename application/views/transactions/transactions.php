@@ -198,10 +198,12 @@ if(isset($students) && !empty($students)) {
                         <select id="transListSortBy" class="form-control">
                             <option value="transDate-DESC">date(Latest First)</option>
                             <option value="transDate-ASC">date(Oldest First)</option>
-                            <option value="quantity-DESC">Quantity (Highest first)</option>
-                            <option value="quantity-ASC">Quantity (Lowest first)</option>
-                            <option value="totalPrice-DESC">Total Price (Highest first)</option>
-                            <option value="totalPrice-ASC">Total Price (Lowest first)</option>
+                            <option value="studentName-ASC">studentName(ASC)</option>
+                            <option value="studentName-DESC">studentName(DESC)</option>
+                            <option value="modeOfPayment-ASC">modeOfPayment(ASC)</option>
+                            <option value="modeOfPayment-DESC">modeOfPayment(DESC)</option>
+                            <option value="currency-ASC">currency (ASC)</option>
+                            <option value="currency-DESC">currency (DESC)</option>
                             <option value="totalMoneySpent-DESC">Total Amount Spent (Highest first)</option>
                             <option value="totalMoneySpent-ASC">Total Amount Spent (Lowest first)</option>
                         </select>
