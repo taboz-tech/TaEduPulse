@@ -26,13 +26,13 @@ if(isset($items) && !empty($items)){
                         <button class='btn btn-primary btn-sm' id='showTransForm'><i class="fa fa-plus"></i> New Transaction </button>
                     </span>
                 </div>
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                     <span class="pointer text-primary">
                         <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#reportModal'>
                             <i class="fa fa-newspaper-o"></i> Generate Report 
                         </button>
                     </span>
-                </div>
+                </div> -->
             </div>
             <br>
             <!--- End of row to create new transaction-->
