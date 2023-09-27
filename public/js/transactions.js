@@ -1215,15 +1215,25 @@ function populateCurrenciesSelect(url) {
                 var selectField = $('#currency');
 
                 selectField.empty();
+
+                // Initialize a variable to track if USD was found
+                var usdFound = false;
+
                 $.each(currencies, function(index, currency) {
                     selectField.append($('<option>', {
                         value: currency.rate,
                         text: currency.name 
                     }));
+
+                    // Check if the currency is USD and select it
+                    if (currency.name === 'USD') {
+                        selectField.val(currency.rate);
+                        usdFound = true;
+                    }
                 });
 
-                // Set the default selected currency to the first one in the response
-                if (currencies.length > 0) {
+                // If USD was not found, select the first currency
+                if (!usdFound && currencies.length > 0) {
                     selectField.val(currencies[0].rate);
                 }
             } else {
@@ -1235,4 +1245,5 @@ function populateCurrenciesSelect(url) {
         }
     });
 }
+
 
