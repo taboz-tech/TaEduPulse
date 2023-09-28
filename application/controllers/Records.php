@@ -57,13 +57,7 @@ class Records extends CI_Controller{
         
         $json['reportsListTable'] = $this->load->view('records/recordslisttable', $data, TRUE); // Get view with populated reports table
         
-        // Log the JSON response before sending
-        // log_message('error', 'JSON Response: ' . json_encode($json));
-
-        // // Log HTTP headers before sending the JSON response
-        // $headers = headers_list();
-        // log_message('error', 'HTTP Headers: ' . json_encode($headers));
-
+        
 
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
        
