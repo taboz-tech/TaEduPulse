@@ -98,11 +98,9 @@ class Currencies extends CI_Controller{
         $this->form_validation->set_error_delimiters('', '');
     
         
-        $this->form_validation->set_rules('currencieName', 'Currencie Name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
-        $this->form_validation->set_rules('currencieRate', 'Currencie Rate', ['numeric', 'greater_than[0]'], [
-            'numeric' => 'The %s field must be a valid number.',
-            'greater_than' => 'The %s field must be greater than 0.'
-        ]);
+        $this->form_validation->set_rules('currencieName','Currencie Name',['required', 'trim', 'max_length[30]', 'is_unique[currencies.name]'],['required' => 'The %s field is required.', 'is_unique' => 'A currency with this name already exists.']);
+        
+        $this->form_validation->set_rules('currencieRate', 'Currencie Rate', ['numeric', 'greater_than[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than' => 'The %s field must be greater than 0.']);
        
         if($this->form_validation->run() !== FALSE){
             $this->db->trans_start();//start transaction
