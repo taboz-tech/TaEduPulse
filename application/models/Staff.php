@@ -247,7 +247,7 @@ class Staff extends CI_Model{
         }
     }
     
-    public function getTotalBasicSalary() {
+    public function totalBasicSalary() {
         $this->db->select_sum('basic_salary', 'total_salary');
         $query = $this->db->get('staffs');
     
