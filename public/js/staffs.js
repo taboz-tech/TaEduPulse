@@ -66,8 +66,27 @@ $(document).ready(function(){
         var staffJob_tittle = $("#staffJob_tittle").val();
         var staffSalary = $("#staffSalary").val();
 
+        // Add validation for studentParent_phone
+        var phonePattern = /^(07\d{8})$|^(\+263\d{9,14})$/;
+
+        // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
+        var today = new Date();
+        var fiveYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+        var enteredDate = new Date(staffDob);
+        if ( enteredDate < fiveYearsAgo) {
+            $("#staffDobErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+            return; // Return early without processing further if there's an error
+        }
+
+        if (staffSalary === "" || parseFloat(staffSalary) === 0) {
+            $("#staffSalaryErr").text("Staff Salary must be greater than zero.");
+            return; 
+        }
+
+
         
-        if(!staffName || !staffSurname || !staffGender || !staffAddress || !staffEmail || !staffNational_id || !staffStaff_id || !staffSalary){
+        if(!staffName || !staffSurname || !staffGender || !staffAddress || !staffEmail || !staffNational_id || !staffStaff_id || !staffSalary || !phonePattern.test(staffPhone) ){
             !staffName ? $("#staffNameErr").text("required") : "";
             !staffSurname ? $("#staffSurnameErr").text("required") : "";
             !staffGender ? $("#staffGenderErr").text("required") : "";
@@ -76,6 +95,8 @@ $(document).ready(function(){
             !staffNational_id ? $("#staffNational_idErr").text("required") : "";
             !staffStaff_id ? $("#staffStaff_idErr").text("required") : "";
             !staffSalary ? $("#staffSalaryErr").text("required") : "";
+            !phonePattern.test(staffPhone) ? $("#staffPhoneErr").html("Invalid phone number") : $("#staffPhoneErr").html("");
+
             
             
             $("#addCustErrMsg").text("One or more required fields are empty");
@@ -101,6 +122,9 @@ $(document).ready(function(){
                     
                     //refresh the Staffs list table
                     lslt();
+
+                    // pick new staff Id
+                    fetchLastStaffId()
                     
                     //return focus to Staff name input
                     $("#staffName").focus();
@@ -275,6 +299,21 @@ $(document).ready(function(){
     
         // Clear previous error messages
         $(".error-message").html("");
+        if (staffSalary === "" || parseFloat(staffSalary) === 0) {
+            $("#staffSalaryEditErr").text("Staff Salary must be greater than zero.");
+            return; 
+        }
+
+        // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
+        var today = new Date();
+        var fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+
+        var enteredDate = new Date(staffDob);
+        if ( enteredDate < fiveYearsAgo) {
+            $("#staffDobEditErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+            return; // Return early without processing further if there's an error
+        }
+        
                 
         if (!staffSurname || !staffEmail || !staffId || !staffName || !staffNational_id || !staffJob_tittle || !staffSalary ||!staffOvertime || !staffAdvancePayment) {
             if (!staffSurname) $("#staffSurnameErr").html("Surname cannot be empty");
@@ -449,6 +488,28 @@ $(document).ready(function(){
                     console.log('err');
                 }
             });
+        }
+    });
+
+    // Add an input event listener to the input field with the ID "studentParent_phone"
+    $("#staffPhone").on('input', function(e){
+        // Get the trimmed value entered by the user
+        const enteredValue = $(this).val().trim();
+        
+        // Define the valid prefixes
+        const validPrefixes = ["07", "+263"];
+        
+        // Check if the entered value starts with any valid prefix
+        const isValid = validPrefixes.some(prefix => enteredValue.startsWith(prefix));
+
+        // Get the error message element
+        const custPhoneErr = $("#staffPhoneErr");
+
+        // Update the error message based on validity
+        if (isValid) {
+            custPhoneErr.html("");
+        } else {
+            custPhoneErr.html("Invalid phone number");
         }
     });
 });

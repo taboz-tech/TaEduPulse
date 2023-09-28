@@ -22,7 +22,7 @@ class Staffs extends CI_Controller{
      */
     public function index(){
         $data['pageContent'] = $this->load->view('staffs/staffs', '', TRUE);
-        $data['pageTitle'] = "Staffs";
+        $data['pageTitle'] = "Staff";
 
         $this->load->view('main', $data);
     }
@@ -108,6 +108,8 @@ class Staffs extends CI_Controller{
         $this->form_validation->set_rules('staffNational_id','National ID','required|regex_match[/^\d{2}\d{6}[A-Z]\d{2}$/]',['required' => 'The %s field is required.','regex_match' => 'Invalid National ID format. It should consist of two digits, followed by six digits, a single uppercase letter, and two digits.']);
         $this->form_validation->set_rules('staffStaff_id', 'Staff ID', 'required|trim|max_length[20]', ['required' => 'The %s field is required.', 'max_length' => 'The %s field cannot exceed 20 characters.']);
         $this->form_validation->set_rules('staffSalary', 'Staff Salary', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
+        $this->form_validation->set_rules('staff Dob','Date of Birth','callback_is_date|callback_valid_dob',['is_date' => 'The Date of Birth field must be a valid date.','valid_dob' => 'The Date of Birth must be at least 5 years ago from today.' ]);
+
 
         if($this->form_validation->run() !== FALSE){
             $this->db->trans_start();//start transaction
@@ -319,5 +321,25 @@ class Staffs extends CI_Controller{
 
         // Encode the response as JSON
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    public function is_date($dob) {
+        if (strtotime($dob) === false) {
+            return false; 
+        } else {
+            return true;  
+        }
+    }
+    
+    public function valid_dob($dob) {
+        $dob_timestamp = strtotime($dob);
+    
+        $five_years_ago = strtotime('-18 years', strtotime(date('Y-m-d')));
+    
+        if ($dob_timestamp < $five_years_ago) {
+            return true;  
+        } else {
+            return false;  
+        }
     }
 }

@@ -94,8 +94,11 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-10 form-group-sm">
                                 <label for="staffGender">Staff Gender</label>
-                                <input type="text" id="staffGender" name="staffGender" placeholder="Staff Gender" maxlength="10"
-                                    class="form-control" onchange="checkField(this.value, 'staffGenderErr')">
+                                <select id="staffGender" name="staffGender" class="form-control" onchange="checkField(this.value, 'staffGenderErr')">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                                 <span class="help-block errMsg" id="staffGenderErr"></span>
                             </div>
                         </div>
@@ -121,7 +124,7 @@ defined('BASEPATH') OR exit('');
                         <div class="row">
                             <div class="col-sm-10 form-group-sm">
                                 <label for="staffSalary">Staff Salary</label>
-                                <input type="number" id="staffSalary" name="staffSalary" placeholder="Staff Salary" min="0"
+                                <input type="number" id="staffSalary" name="staffSalary" placeholder="Staff Salary"  min="0.01"
                                     class="form-control" onchange="checkField(this.value, 'staffJob_tittleErr')">
                                 <span class="help-block errMsg" id="staffSalaryErr"></span>
                             </div>
@@ -147,13 +150,13 @@ defined('BASEPATH') OR exit('');
 
                         <div class="row">
                             <div class="col-sm-10 form-group-sm">
-                                <label for="staffDob">Staff D.O.B</label>
-                                <input type="date" id="staffDob" name="staffDob" placeholder="Staff D.O.B" class="form-control"
+                                <label for="staffDob">Staff DOB</label>
+                                <input type="date" id="staffDob" name="staffDob" placeholder="Staff DOB" class="form-control" 
+                                    max="<?= date('Y-m-d', strtotime('-18 years')) ?>"
                                     onchange="checkField(this.value, 'staffDobErr')">
                                 <span class="help-block errMsg" id="staffDobErr"></span>
                             </div>
-                        </div>
-
+                        </div>  
 
 
                         <div class="row">
@@ -257,15 +260,18 @@ defined('BASEPATH') OR exit('');
 
                         <div class="col-sm-4 form-group-sm">
                             <label for="staffSalaryEdit">Staff Salary</label>
-                            <input type="number" id="staffSalaryEdit" placeholder="Staff Salary" autofocus class="form-control checkField">
+                            <input type="number" id="staffSalaryEdit" placeholder="Staff Salary" autofocus class="form-control checkField" min="0.01">
                             <span class="help-block errMsg" id="staffSalaryEditErr"></span>
                         </div>
 
+
                         <div class="col-sm-4 form-group-sm">
                             <label for="staffDobEdit">Staff D.O.B</label>
-                            <input type="date" id="staffDobEdit" placeholder="Staff D.O.B" autofocus class="form-control checkField">
+                            <input type="date" id="staffDobEdit" placeholder="Staff D.O.B" autofocus class="form-control checkField" max="<?= date('Y-m-d', strtotime('-18 years')) ?>">
                             <span class="help-block errMsg" id="staffDobEditErr"></span>
                         </div>
+                        
+                        
 
 
                         <div class="col-sm-4 form-group-sm">
