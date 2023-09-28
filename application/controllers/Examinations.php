@@ -35,7 +35,7 @@ class Examinations extends CI_Controller{
      */
     public function index(){
         $data['pageContent'] = $this->load->view('examinations/examinations', '', TRUE);
-        $data['pageTitle'] = "Examination";
+        $data['pageTitle'] = "Examinations";
 
         $this->load->view('main', $data);
     }
