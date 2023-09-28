@@ -254,17 +254,20 @@ class Scheduler extends CI_Controller {
             $row++; // Move to the next row
         }
 
-        // Insert exam fee row
-        $cellA = $sheet->getCell('A' . $row);
-        $cellA->setValue('Exam Fees(USD)');
-        $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+        // Check if exam_fees is not zero and not null
+        if ($incomeData['exam_fees'] !== null && $incomeData['exam_fees'] !== 0) {
+            // Insert exam fee row
+            $cellA = $sheet->getCell('A' . $row);
+            $cellA->setValue('Exam Fees(USD)');
+            $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
 
-        $cellB = $sheet->getCell('B' . $row);
-        $cellB->setValue('$' . $incomeData['exam_fees']); // Adding a dollar sign
-        $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-        $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+            $cellB = $sheet->getCell('B' . $row);
+            $cellB->setValue('$' . $incomeData['exam_fees']); // Adding a dollar sign
+            $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+            $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
-        $row++; // Move to the next row
+            $row++; // Move to the next row
+        }
 
         // Insert data from incomeDataItems
         foreach ($incomeData['incomeDataItems'] as $item) {

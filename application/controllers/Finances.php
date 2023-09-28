@@ -160,26 +160,33 @@ class Finances extends CI_Controller {
             $cellA = $sheet->getCell('A' . $row);
             $cellA->setValue('Tuition (' . $currency . ')');
             $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+        
+            $cellB = $sheet->getCell('B' . $row);
+        
+            // Check if $amount is null or empty, and replace it with 0
+            $amount = ($amount !== null && $amount !== '') ? $amount : 0;
+        
+            $cellB->setValue('$' . $amount); // Adding a dollar sign
+            $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+            $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        
+            $row++; // Move to the next row
+        }        
+
+        // Check if exam_fees is not zero and not null
+        if ($incomeData['exam_fees'] !== null && $incomeData['exam_fees'] !== 0) {
+            // Insert exam fee row
+            $cellA = $sheet->getCell('A' . $row);
+            $cellA->setValue('Exam Fees(USD)');
+            $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
 
             $cellB = $sheet->getCell('B' . $row);
-            $cellB->setValue('$' . $amount); // Adding a dollar sign
+            $cellB->setValue('$' . $incomeData['exam_fees']); // Adding a dollar sign
             $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
             $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
             $row++; // Move to the next row
         }
-
-        // Insert exam fee row
-        $cellA = $sheet->getCell('A' . $row);
-        $cellA->setValue('Exam Fees(USD)');
-        $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-
-        $cellB = $sheet->getCell('B' . $row);
-        $cellB->setValue('$' . $incomeData['exam_fees']); // Adding a dollar sign
-        $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-        $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
-
-        $row++; // Move to the next row
 
         // Insert data from incomeDataItems
         foreach ($incomeData['incomeDataItems'] as $item) {
