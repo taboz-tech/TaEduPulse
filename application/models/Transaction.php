@@ -118,7 +118,6 @@ class Transaction extends CI_Model {
      * @return boolean
      */
     public function add($ref,$studentName, $studentSurname,$studentClass_name,$studentStudent_id,$description, $totalFees, $cumAmount, $_at, $_cd,$_mop, $cust_name, $cust_phone,  $cust_email, $transType,$paymentStatus,$term,$currency) { 
-        log_message("error", "Inside Transaction Model add method");
         $data = ['studentName' => $studentName, 'student_id' => $studentStudent_id, 'studentSurname' => $studentSurname, 'studentClass_name' => $studentClass_name, 'description' => $description, 'totalAmount' => $totalFees,
             'amountTendered' => $_at, 'changeDue' => $_cd, 'modeOfPayment' => $_mop, 'transType' => $transType,
             'staffId' => $this->session->admin_id, 'totalMoneySpent' => $cumAmount, 'ref' => $ref, 'cust_name'=>$cust_name,'paymentStatus'=>$paymentStatus,'term'=>$term, 'cust_phone'=>$cust_phone,
@@ -191,7 +190,9 @@ class Transaction extends CI_Model {
         $this->db->select('GROUP_CONCAT(DISTINCT transactions.studentSurname) AS studentSurname');
         $this->db->select('GROUP_CONCAT(DISTINCT transactions.totalAmount) AS totalAmount');
         $this->db->select('GROUP_CONCAT(DISTINCT transactions.description) AS description');
-    
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.currency) AS currency');
+        $this->db->select('GROUP_CONCAT(DISTINCT transactions.refundAmount) AS refundAmount');
+        
         $this->db->join('admin', 'transactions.staffId = admin.id', 'LEFT');
         $this->db->like('transactions.ref', $value);
         $this->db->or_like('transactions.studentName', $value);
@@ -480,19 +481,21 @@ class Transaction extends CI_Model {
             // Get all currencies
             $currencies = $this->db->get('currencies')->result();
     
-            // Initialize income data array with 0 for each currency
+            // Initialize income data array with 0 for each currency and "exam_fees"
             $incomeData = [];
             foreach ($currencies as $currency) {
                 $incomeData[$currency->name] = 0;
             }
+            $incomeData['exam_fees'] = 0;
     
-            // Calculate total income for the specified month by currency
-            $this->db->select('currency');
-            $this->db->select_sum('totalAmount', 'totalIncome');
+            // Calculate total income for transType = 1 and 2 separately
+            $this->db->select('currency, transType');
+            $this->db->select_sum('IFNULL(totalAmount - refundAmount, totalAmount)', 'totalIncome');
             $this->db->where('transDate >=', $startDate);
             $this->db->where('transDate <=', $endDate);
             $this->db->where('refundDate IS NULL', null, false); // Exclude transactions with refund date
-            $this->db->group_by('currency');
+            $this->db->group_by('currency, transType'); // Group by both currency and transType
+    
             $incomeQuery = $this->db->get('transactions');
     
             if (!$incomeQuery) {
@@ -502,14 +505,21 @@ class Transaction extends CI_Model {
     
             // Update the income data array with actual totals
             foreach ($incomeQuery->result() as $row) {
-                $incomeData[$row->currency] = $row->totalIncome;
+                if ($row->transType == 2) {
+                    $incomeData['exam_fees'] += $row->totalIncome;
+                } else {
+                    $incomeData[$row->currency] += $row->totalIncome;
+                }
             }
-            return $incomeData; // Return only the income data
+    
+            return $incomeData; // Return the income data array
         } catch (Exception $e) {
             log_message('error', 'Error: ' . $e->getMessage());
             return FALSE; // Or handle the error in your own way
         }
     }
+    
+    
     
     /**
      * Get refund amount by transaction ID
