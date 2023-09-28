@@ -189,19 +189,41 @@ class Subjects extends CI_Controller{
     */
     
     
-    public function delete(){
-        $this->genlib->ajaxOnly();
-        
-        $json['status'] = 0;
-        $subjectId = $this->input->post('i', TRUE);
-        
-        if($subjectId){
-            $this->db->where('id', $subjectId)->delete('subjects');
+    public function delete() {
+        try {
+            $this->genlib->ajaxOnly();
             
-            $json['status'] = 1;
+            $json['status'] = 0;
+            $subjectId = $this->input->post('i', TRUE);
+            
+            if ($subjectId) {
+                // Check if there are dependencies in student_subject_marks
+                $this->db->where('subject_id', $subjectId);
+                $dependencyCheck = $this->db->get('student_subject_marks')->num_rows();
+                
+                if ($dependencyCheck === 0) {
+                    // No dependencies, safe to delete the subject
+                    $this->db->where('id', $subjectId)->delete('subjects');
+                    $json['status'] = 1;
+                } else {
+                    // Handle the error due to dependencies
+                    $json['error'] = 'Cannot delete the subject because it has associated records in student_subject_marks.';
+                }
+            }
+            
+            // Set final output
+            $this->output->set_content_type('application/json')->set_output(json_encode($json));
+        } catch (Exception $e) {
+            // Log the error using CodeIgniter's log_message function
+            log_message('error', "Error in delete function: " . $e->getMessage());
+            
+            // Handle the error and provide an appropriate response
+            $json['status'] = 0;
+            $json['error'] = 'An error occurred while processing your request.';
+            
+            $this->output->set_content_type('application/json')->set_output(json_encode($json));
         }
-        
-        //set final output
-        $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
+    
 }

@@ -257,7 +257,8 @@ $(document).ready(function(){
                     }
 
                     else{
-
+                        //display success message
+                        changeFlashMsgContent(rd.error, '', 'red', 6000);
                     }
                 }).fail(function(){
                     console.log('Req Failed');
