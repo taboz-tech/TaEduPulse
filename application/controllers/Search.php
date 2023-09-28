@@ -18,7 +18,7 @@ class Search extends CI_Controller{
         
         $this->genlib->ajaxOnly();
         
-        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination','item','transaction_Item','fixed_cost']);
+        $this->load->model(['transaction', 'student','grade','teacher','cost','category','currency','income','record','staff','payroll','subject','examination','item','transaction_Item','fixed_cost', 'asset']);
         
         $this->load->helper('text');
         
@@ -346,6 +346,16 @@ class Search extends CI_Controller{
         $data['sn'] = 1;
         
         $json['costsListTable'] = $data['allCosts'] ? $this->load->view('fixed_costs/costslisttable', $data, TRUE) : "No match found";
+        
+        //set final output
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    public function assetSearch(){
+        $data['allassets'] = $this->asset->searchAssets($this->value);
+        $data['sn'] = 1;
+        
+        $json['assetsListTable'] = $data['allassets'] ? $this->load->view('assets/assetslisttable', $data, TRUE) : "No match found";
         
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
