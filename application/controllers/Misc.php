@@ -64,17 +64,94 @@ class Misc extends CI_Controller{
 
    
     
-    public function dldb(){
+    public function backupDb(){
         $this->genlib->checkLogin();
-        
         $this->genlib->superOnly();
         
-        $file_path = BASEPATH . "sqlite/1410inventory.sqlite";//link to db file
+        // Load the database library
+        $this->load->database();
         
-        $this->output->set_content_type('')->set_output(file_get_contents($file_path));
+        // Load the File Helper
+        $this->load->helper('file');
+        
+        // Set the backup directory path
+        $backup_dir = '/var/www/html/TaEduPulse/backup/';
+        
+        // Get a list of existing backup files
+        $backup_files = glob($backup_dir . '*.sql');
+        
+        // If there are more than three backup files, remove the oldest ones
+        if (count($backup_files) > 2) {
+            // Sort backup files by modification time in ascending order
+            array_multisort(
+                array_map('filemtime', $backup_files),
+                SORT_NUMERIC,
+                SORT_ASC,
+                $backup_files
+            );
+            
+            // Determine the number of files to delete
+            $files_to_delete = count($backup_files) - 2; // Keep the most recent three
+            
+            // Delete the oldest backup files
+            for ($i = 0; $i < $files_to_delete; $i++) {
+                unlink($backup_files[$i]);
+            }
+        }
+        
+        // Initialize the backup data
+        $backup_data = '';
+        
+        // Get the list of tables in your database
+        $tables = $this->db->list_tables();
+        
+        foreach ($tables as $table)
+        {
+            // Add table structure and data to the backup data
+            $backup_data .= "DROP TABLE IF EXISTS $table;\n";
+            $create_table_query = $this->db->query("SHOW CREATE TABLE $table")->row_array();
+            $backup_data .= $create_table_query['Create Table'] . ";\n\n";
+            
+            $table_data = $this->db->get($table)->result_array();
+            foreach ($table_data as $row)
+            {
+                // Remove addslashes, it's not needed
+                // $row = array_map('addslashes', $row);
+                
+                // Escape data using CI's db class
+                $row = $this->db->escape($row);
+                
+                $row_values = implode(",", $row);
+                $backup_data .= "INSERT INTO $table VALUES ($row_values);\n";
+            }
+            
+            $backup_data .= "\n"; // Add a blank line between tables
+        }
+        
+        // Set the backup file path
+        $backup_file = $backup_dir . 'database_backup_' . date('Y-m-d_H-i-s') . '.sql';
+        
+        // Write the backup data to the file
+        if (write_file($backup_file, $backup_data))
+        {
+            // Load the download helper to force download the backup file
+            $this->load->helper('download');
+            
+            // Set the backup file's name
+            $filename = basename($backup_file);
+            
+            // Force download the backup file
+            force_download($filename, file_get_contents($backup_file));
+        }
+        else
+        {
+            // Handle backup file write error
+            $json['msg'] = "Failed to create a backup.";
+            $json['status'] = 0;
+        }
     }
-    
-    
+
+
     
     
     /**
