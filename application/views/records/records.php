@@ -6,11 +6,7 @@
             <!-- sort and search row -->
             <div class="row">
                 <div class="col-sm-12">
-                    <!-- Add New Record Button -->
-                    <div class="col-sm-2 form-inline form-group-sm">
-                        <button class="btn btn-primary btn-sm" id="createRecord">Add New Record</button>
-                    </div>
-
+                    
                     <!-- Show per page dropdown -->
                     <div class="col-sm-3 form-inline form-group-sm">
                         <label for="recordsListPerPage">Show</label>
