@@ -98,7 +98,7 @@ class Categories extends CI_Controller{
         $this->form_validation->set_error_delimiters('', '');
 
         
-        $this->form_validation->set_rules('categorieName', 'Categorie Name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('categorieName','Categorie Name',['required', 'trim', 'max_length[30]', 'is_unique[categories.name]'],['required' => 'The %s field is required.', 'is_unique' => 'A category with this name already exists.']);        
         $this->form_validation->set_rules('categorieDescription', 'Catehorie Description', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
        
         if($this->form_validation->run() !== FALSE){
