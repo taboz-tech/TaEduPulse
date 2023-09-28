@@ -47,10 +47,10 @@ defined('BASEPATH') OR exit('');
             <div class="row">
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-sm-2 form-inline form-group-sm">
+                        <!-- <div class="col-sm-2 form-inline form-group-sm">
                             <button class="btn btn-primary btn-sm" id="generateReport">Generate Report</button>
                             
-                        </div>
+                        </div> -->
                         <div class="col-sm-3 form-inline form-group-sm">
                             <label for="classDropdown">Select Class</label>
                             <select id="classDropdown" class="form-control">
