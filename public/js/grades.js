@@ -20,9 +20,9 @@ $(document).ready(function(){
      */
     $("#createGrade").click(function() {
         populateTeachersSelect();
-        $("#GradesListDiv").toggleClass("col-sm-8", "col-sm-12");
+        $("#gradesListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewGradeDiv").toggleClass('hidden');
-        $("#GradeName").focus();
+        $("#gradeName").focus();
     });
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
