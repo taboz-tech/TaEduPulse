@@ -22,25 +22,22 @@ class Finance extends CI_Model{
         try {
             $this->db->select('DATE_FORMAT(dateAdded, "%Y-%m") as month, 
                             SUM(CASE WHEN currency = "USD" THEN amount
-                                    ELSE amount / (
-                                        SELECT rate FROM currencies 
-                                        WHERE name = costs.currency 
-                                        ORDER BY dateAdded DESC LIMIT 1
-                                    ) END) as total_cost,
-                            SUM(CASE WHEN status = 1 THEN 
-                                    (CASE WHEN currency = "USD" THEN amount
-                                    ELSE amount / (
-                                        SELECT rate FROM currencies 
-                                        WHERE name = costs.currency 
-                                        ORDER BY dateAdded DESC LIMIT 1
-                                    ) END) ELSE 0 END) as total_paid_cost,
-                            SUM(CASE WHEN status = 0 THEN 
-                                    (CASE WHEN currency = "USD" THEN balance
-                                    ELSE balance / (
-                                        SELECT rate FROM currencies 
-                                        WHERE name = costs.currency 
-                                        ORDER BY dateAdded DESC LIMIT 1
-                                    ) END) ELSE 0 END) as total_balance');
+                                ELSE amount / (
+                                    SELECT rate FROM currencies 
+                                    WHERE name = costs.currency 
+                                    ORDER BY dateAdded DESC LIMIT 1
+                                ) END) as total_cost,
+                            SUM(CASE WHEN currency = "USD" THEN paid
+                                ELSE paid / (
+                                    SELECT rate FROM currencies 
+                                    WHERE name = costs.currency 
+                                    ORDER BY dateAdded DESC LIMIT 1
+                                ) END) as total_paid_cost,
+                            SUM(balance / (
+                                    SELECT rate FROM currencies 
+                                    WHERE name = costs.currency 
+                                    ORDER BY dateAdded DESC LIMIT 1
+                                )) as total_balance');
             $this->db->from('costs');
             $this->db->group_by('month');
             $this->db->order_by('month');
@@ -67,6 +64,7 @@ class Finance extends CI_Model{
             return array('error' => $e->getMessage());
         }
     }
+    
     
 
     
