@@ -17,6 +17,9 @@
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
+                            <option value="30">50</option>
+                            <option value="30">100</option>
+
                         </select>
                         <label>per page</label>
                     </div>
