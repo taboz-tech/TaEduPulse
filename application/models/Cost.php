@@ -131,14 +131,60 @@ class Cost extends CI_Model{
 
 
      
-   public function edit($costId, $costName, $costAmount, $costCategory, $costDescription,$costCurrency,$newBalance){
-       $data = ['name'=>$costName, 'amount'=>$costAmount, 'category'=>$costCategory, 'description'=>$costDescription,'currency'=>$costCurrency, 'balance'=>$newBalance];
-       
-       $this->db->where('id', $costId);
-       $this->db->update('costs', $data);
-       
-       return TRUE;
-   }
+    public function edit($costId, $costName, $costAmount, $costCategory, $costDescription, $costCurrency, $newBalance) {
+        try {
+            // Retrieve the current amount from the database
+            $this->db->select('amount');
+            $this->db->where('id', $costId);
+            $query = $this->db->get('costs');
+    
+            if ($query->num_rows() === 1) {
+                $currentAmount = $query->row()->amount;
+    
+                // Check if the new amount is greater than the current amount
+                if ($costAmount > $currentAmount) {
+                    // Update the data and set status to zero
+                    $data = [
+                        'name' => $costName,
+                        'amount' => $costAmount,
+                        'category' => $costCategory,
+                        'description' => $costDescription,
+                        'currency' => $costCurrency,
+                        'balance' => $newBalance,
+                        'status' => 0 // Set status to zero
+                    ];
+    
+                    $this->db->where('id', $costId);
+                    $this->db->update('costs', $data);
+    
+                    return TRUE;
+                } else {
+                    // New amount is not greater, only update other fields
+                    $data = [
+                        'name' => $costName,
+                        'amount' => $costAmount,
+                        'category' => $costCategory,
+                        'description' => $costDescription,
+                        'currency' => $costCurrency,
+                        'balance' => $newBalance
+                    ];
+    
+                    $this->db->where('id', $costId);
+                    $this->db->update('costs', $data);
+    
+                    return TRUE;
+                }
+            } else {
+                // Handle the case when the costId is not found
+                return FALSE;
+            }
+        } catch (Exception $e) {
+            // Log the error here, e.g., using the error_log function
+            error_log("Error in edit function: " . $e->getMessage());
+            return FALSE;
+        }
+    }
+    
    
   
     /*
