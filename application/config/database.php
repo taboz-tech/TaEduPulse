@@ -76,7 +76,7 @@ $query_builder = TRUE;
 //details for mysql
 $db['mysql'] = array(
 	'dsn'	=> 'mysql:hostname=localhost; dbname=taedupulse',
-	'hostname' => '',
+	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => 'tavonga14',
 	'database' => 'taedupulse',
