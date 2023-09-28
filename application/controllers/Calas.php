@@ -33,7 +33,7 @@ class Calas extends CI_Controller{
      */
     public function index(){
         $data['pageContent'] = $this->load->view('calas/calas', '', TRUE);
-        $data['pageTitle'] = "Cala";
+        $data['pageTitle'] = "Calas";
 
         $this->load->view('main', $data);
     }
