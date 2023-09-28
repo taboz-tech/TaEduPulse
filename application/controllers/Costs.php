@@ -167,18 +167,16 @@ class Costs extends CI_Controller{
         $this->genlib->ajaxOnly();
         
         $this->load->library('form_validation');
-
+    
         $this->form_validation->set_error_delimiters('', '');
     
-
         $this->form_validation->set_rules('_cId', '', ['required', 'trim', 'numeric']);
         $this->form_validation->set_rules('costName', 'Cost Name', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
         $this->form_validation->set_rules('costAmount', 'Cost Amount', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
         $this->form_validation->set_rules('costCategory', 'Cost Category', ['required', 'trim', 'max_length[30]'], ['required'=>'required']);
         $this->form_validation->set_rules('costDescription', 'Cost Description', ['required', 'trim', 'max_length[50]'], ['required'=>'required']);
         $this->form_validation->set_rules('costCurrency','Cost Currency',['required','trim','max_length[15]'],['required'=>'required']);
-        
-
+    
         if($this->form_validation->run() !== FALSE){
             $costId = set_value('_cId');
             $costName = set_value('costName');
@@ -186,34 +184,37 @@ class Costs extends CI_Controller{
             $costCategory = set_value('costCategory');
             $costDescription = set_value('costDescription');
             $costCurrency = set_value('costCurrency');
-
+    
             $oldAmount = $this->genmod->gettablecol('costs', 'amount', 'id', $costId);
             $oldBalance = $this->genmod->gettablecol('costs', 'balance', 'id', $costId);
+            $paid = $this->genmod->gettablecol('costs', 'paid', 'id', $costId);
             $change = $costAmount - $oldAmount;
             $newBalance = $oldBalance + $change;
+            
     
-    
-
-           
-            //update Cost in db
-            $updated = $this->cost->edit($costId, $costName, $costAmount, $costCategory,$costDescription,$costCurrency,$newBalance);
-            
-            $json['status'] = $updated ? 1 : 0;
-            
-            //add event to log
-            //function header: addevent($event, $eventRowId, $eventDesc, $eventTable, $staffId)
-            $desc = "Details of Cost with  Name '$costName' was updated";
-            
-            $this->genmod->addevent("Cost Update", $costId, $desc, 'costs', $this->session->admin_id);
-        }
-        
-        else{
+            // Check if the new amount is greater than or equal to the paid amount
+            if ($costAmount >= $paid) {
+                // Update Cost in db
+                $updated = $this->cost->edit($costId, $costName, $costAmount, $costCategory, $costDescription, $costCurrency, $newBalance);
+                
+                $json['status'] = $updated ? 1 : 0;
+                
+                // Add event to log
+                $desc = "Details of Cost with Name '$costName' was updated";
+                
+                $this->genmod->addevent("Cost Update", $costId, $desc, 'costs', $this->session->admin_id);
+            } else {
+                $json['status'] = 0;
+                $json['message'] = 'The Cost Amount cannot be less than the Paid Amount.';
+            }
+        } else {
             $json['status'] = 0;
             $json = $this->form_validation->error_array();
         }
         
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+    
 
 
 
