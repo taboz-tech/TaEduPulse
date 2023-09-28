@@ -26,7 +26,9 @@
                         <th>TOTAL EARNED ON ITEM</th>
                         <th>UPDATE QUANTITY</th>
                         <th>EDIT</th>
+                        <?php if ($this->session->admin_role !== "Basic"): ?>
                         <th>DELETE</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +72,9 @@
                         <td class="text-center text-primary">
                             <span class="editItem" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
+                        <?php if ($this->session->admin_role !== "Basic"): ?>
                         <td class="text-center"><i class="fa fa-trash text-danger delItem pointer"></i></td>
+                        <?php endif; ?>
                     </tr>
                     <?php $sn++; ?>
                     <?php endforeach; ?>
