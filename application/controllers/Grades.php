@@ -158,14 +158,15 @@ class Grades extends CI_Controller{
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
     
-    // Custom callback function to validate the gradeName format
+
     public function validate_grade_name($gradeName) {
-        // Use a regular expression to check if the format is "Form X" where X is a number
-        if (!preg_match('/^Form\s\d+$/', $gradeName)) {
+        // Use a regular expression to check if the format is "Form X" followed by optional additional text
+        if (!preg_match('/^Form\s\d+(\s.+)?$/', $gradeName)) {
             return FALSE;
         }
         return TRUE;
     }
+    
     
     
     
@@ -198,9 +199,23 @@ class Grades extends CI_Controller{
         $this->form_validation->set_error_delimiters('', '');
         
         $this->form_validation->set_rules('_gId', '', ['required', 'trim', 'numeric']);
-        $this->form_validation->set_rules('gradeName', 'Grade Name', ['required', 'trim', 'max_length[20]'], ['required'=>'required']);
         $this->form_validation->set_rules('gradeTeacher_id', 'Grade Teacher_id', ['required', 'trim'], ['required'=>'required']);
-        
+        // Define a custom callback function for the gradeName validation
+        $this->form_validation->set_rules(
+            'gradeName',
+            'Grade name',
+            [
+                'required',
+                'trim',
+                'max_length[20]',
+                'callback_validate_grade_name'
+            ],
+            [
+                'required' => 'The %s field is required.',
+                'validate_grade_name' => 'The %s field should be in the format "Form X" where X is a number.'
+            ]
+        );
+
         if($this->form_validation->run() !== FALSE){
             $gradeId = set_value('_gId');
             $gradeName = set_value('gradeName');
