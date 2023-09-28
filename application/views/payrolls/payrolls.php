@@ -44,6 +44,9 @@ defined('BASEPATH') OR exit('');
                     <option value="staff_name-DESC"> Staff Name (DESC)</option>
                     <option value="staff_department-ASC"> Staff Dept (ASC)</option>
                     <option value="staff_department-DESC"> Staff Dept (DESC)</option>
+                    <option value="payment_month-ASC"> Payment Month (ASC)</option>
+                    <option value="payment_month-DESC"> Payment Month (DESC)</option>
+                    
                     
                 </select>
             </div>
