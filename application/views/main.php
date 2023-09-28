@@ -301,6 +301,13 @@ defined('BASEPATH') OR exit('');
                                 Fixed Costs
                             </a>
                         </li>
+
+                        <li class="<?= $pageTitle == 'Assets' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Assets') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Assets
+                            </a>
+                        </li>
                         
                         <!--
                         <li class="<?= $pageTitle == 'Employees' ? 'active' : '' ?>">
@@ -365,6 +372,64 @@ defined('BASEPATH') OR exit('');
                                 Subjects
                             </a>
                         </li>
+                        
+                        <li class="<?= $pageTitle == 'Costs' ? 'active' : '' ?>">
+                            <a href="<?= site_url('costs') ?>">
+                                <i class="fa fa-dollar"></i>
+                                Costs
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Categories' ? 'active' : '' ?>">
+                            <a href="<?= site_url('categories') ?>">
+                                <i class="fa fa-folder"></i>
+                                Categories
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Currencies' ? 'active' : '' ?>">
+                            <a href="<?= site_url('currencies') ?>">
+                                <i class="fa fa-money"></i>
+                                Currencies
+                            </a>
+                        </li>
+
+                        
+                        <li class="<?= $pageTitle == 'Items' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Items') ?>">
+                                <i class="fa fa-tag"></i>
+                                Items
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Transaction_Items' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Transaction_Items') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Items Sale
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Calas' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Calas') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Cala
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Fixed_costs' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Fixed_costs') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Fixed Costs
+                            </a>
+                        </li>
+
+                        <li class="<?= $pageTitle == 'Assets' ? 'active' : '' ?>">
+                            <a href="<?= site_url('Assets') ?>">
+                                <i class="fa fa-shopping-cart"></i>
+                                Assets
+                            </a>
+                        </li>
+
 
                         <?php endif; ?>
                         
