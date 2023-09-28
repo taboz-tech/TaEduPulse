@@ -290,21 +290,21 @@ defined('BASEPATH') OR exit('');
 
                         <li class="<?= $pageTitle == 'Calas' ? 'active' : '' ?>">
                             <a href="<?= site_url('Calas') ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-book"></i>
                                 Cala
                             </a>
                         </li>
 
                         <li class="<?= $pageTitle == 'Fixed_costs' ? 'active' : '' ?>">
                             <a href="<?= site_url('Fixed_costs') ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-dollar"></i>
                                 Fixed Costs
                             </a>
                         </li>
 
                         <li class="<?= $pageTitle == 'Assets' ? 'active' : '' ?>">
                             <a href="<?= site_url('Assets') ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-cubes"></i>
                                 Assets
                             </a>
                         </li>
@@ -411,21 +411,21 @@ defined('BASEPATH') OR exit('');
 
                         <li class="<?= $pageTitle == 'Calas' ? 'active' : '' ?>">
                             <a href="<?= site_url('Calas') ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-book"></i>
                                 Cala
                             </a>
                         </li>
 
                         <li class="<?= $pageTitle == 'Fixed_costs' ? 'active' : '' ?>">
                             <a href="<?= site_url('Fixed_costs') ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-dollar"></i>
                                 Fixed Costs
                             </a>
                         </li>
 
                         <li class="<?= $pageTitle == 'Assets' ? 'active' : '' ?>">
                             <a href="<?= site_url('Assets') ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-cubes"></i>
                                 Assets
                             </a>
                         </li>
