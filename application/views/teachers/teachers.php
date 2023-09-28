@@ -29,12 +29,16 @@ defined('BASEPATH') OR exit('');
                     <div class="col-sm-4 form-group-sm form-inline">
                         <label for="teachersListSortBy">Sort by</label>
                         <select id="teachersListSortBy" class="form-control">
-                            <option value="name-ASC">Teacher Name (A-Z)</option>
-                            <option value="surname-ASC">Teacher Surname (Ascending)</option>
-                            <option value="dateAdded-ASC">Date Added (Ascending)</option>
-                            <option value="name-DESC">Teacher Name (Z-A)</option>
-                            <option value="surname-DESC">Teacher Surname (Descending)</option>
-                            <option value="dateAdded-DESC">Date Added (Descending)</option>
+                            <option value="name-ASC">Teacher Name (ASC)</option>
+                            <option value="surname-ASC">Teacher Surname (ASC)</option>
+                            <option value="dateAdded-ASC">Date Added (ASC)</option>
+                            <option value="subject-ASC">Subject (ASC)</option>
+                            <option value="department-ASC">Department (ASC)</option>
+                            <option value="name-DESC">Teacher Name (DESC)</option>
+                            <option value="surname-DESC">Teacher Surname (DESC)</option>
+                            <option value="dateAdded-DESC">Date Added (DESC)</option>
+                            <option value="subject-DESC">Subject (DESC)</option>
+                            <option value="department-DESC">Department (DESC)</option>
                         </select>
                     </div>
 
