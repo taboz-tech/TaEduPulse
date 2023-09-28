@@ -29,12 +29,14 @@ defined('BASEPATH') OR exit('');
                     <div class="col-sm-4 form-group-sm form-inline">
                         <label for="costsListSortBy">Sort by</label>
                         <select id="costsListSortBy" class="form-control">
-                            <option value="name-ASC">Cost Name (A-Z)</option>
-                            <option value="category-ASC">Cost Category (Ascending)</option>
-                            <option value="dateAdded-ASC">Date Added (Ascending)</option>
-                            <option value="name-DESC">Cost Name (Z-A)</option>
-                            <option value="category-DESC">Cost Category (Descending)</option>
-                            <option value="dateAdded-DESC">Date Added (Descending)</option>
+                            <option value="name-ASC">Cost Name (ASC)</option>
+                            <option value="category-ASC">Cost Category (ASC)</option>
+                            <option value="dateAdded-ASC">Date Added (ASC)</option>
+                            <option value="currency-ASC">Currency (ASC)</option>
+                            <option value="name-DESC">Cost Name (DESC)</option>
+                            <option value="category-DESC">Cost Category (DESC)</option>
+                            <option value="dateAdded-DESC">Date Added (DESC)</option>
+                            <option value="currency-DESC">Currency (DESC)</option>
                         </select>
                     </div>
 
