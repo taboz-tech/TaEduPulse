@@ -23,9 +23,13 @@
                         <th>DATE</th>
                         <th>PAID</th>
                         <th>STATUS</th>
+                        <?php if ($this->session->admin_role !== "Basic"): ?>
                         <th>PAY</th>
+                        <?php endif; ?>
                         <th>EDIT</th>
+                        <?php if ($this->session->admin_role !== "Basic"): ?>
                         <th>DELETE</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,13 +46,17 @@
                         <td><span id="costDate-<?=$get->id?>"><?=$get->dateAdded?></td>
                         <td><span id="costPaid-<?=$get->id?>"><?=$get->paid?></td>
                         <td class="text-center <?= $get->status ? 'text-success' : 'text-danger' ?>"> <?= $get->status ? 'Paid' : 'Pending' ?> </td>
+                        <?php if ($this->session->admin_role !== "Basic"): ?>
                         <td class="text-center text-primary">
                             <span class="payCost" id="pay-<?=$get->id?>"><i class="fa fa-money"></i> </span>
                         </td>
+                        <?php endif; ?>
                         <td class="text-center text-primary">
                             <span class="editCost" id="edit-<?=$get->id?>"><i class="fa fa-pencil pointer"></i> </span>
                         </td>
+                        <?php if ($this->session->admin_role !== "Basic"): ?>
                         <td class="text-center"><i class="fa fa-trash text-danger delCost pointer"></i></td>
+                        <?php endif; ?>
                     </tr>
                     <?php $sn++; ?>
                     <?php endforeach; ?>
