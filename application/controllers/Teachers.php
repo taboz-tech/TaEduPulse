@@ -94,7 +94,7 @@ class Teachers extends CI_Controller{
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
     
-        $this->form_validation->set_rules('teacherName', 'Teacher Name', ['required', 'trim', 'max_length[30]'],['required' => 'The %s field is required.']);
+        $this->form_validation->set_rules('teacherName','Teacher Name',['required','trim', 'max_length[30]','is_unique[teachers.name]'],['required' => 'The {field} field is required.','is_unique' => 'The {field} must be unique.' ]);
         $this->form_validation->set_rules('teacherSurname', 'Teacher Surname', ['required', 'trim', 'max_length[40]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('teacherGender', 'Teacher Gender', ['required', 'trim', 'max_length[10]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('teacherSubject', 'Teacher Subject',['required', 'trim', 'max_length[100]'],['required' => 'The %s field is required.']);
