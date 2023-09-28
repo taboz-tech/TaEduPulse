@@ -99,7 +99,7 @@ class Costs extends CI_Controller{
     
         try {
             // Validation rules
-            $this->form_validation->set_rules('costName', 'Cost Name', ['required', 'trim', 'max_length[30]', 'is_unique[costs.name]'], ['required' => 'The %s field is required.', 'is_unique' => 'A cost with this name already exists.']);
+            $this->form_validation->set_rules('costName','Cost Name',['required', 'trim', 'max_length[30]', 'is_unique[costs.name]'],['required' => 'The %s field is required.', 'is_unique' => 'A cost with this name already exists.'] );            
             $this->form_validation->set_rules('costAmount', 'Cost Amount', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.', 'greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
             $this->form_validation->set_rules('costCategory', 'Cost Category', ['required', 'trim', 'max_length[20]'], ['required' => 'The %s field is required.']);
             $this->form_validation->set_rules('costDescription', 'Cost Description', ['required', 'trim', 'max_length[50]'], ['required' => 'The %s field is required.']);
