@@ -297,8 +297,10 @@ class Cost extends CI_Model{
         }
     }
     
-    public function getAllCostsAndCurrencies() {
+    public function getAllCostsAndCurrencies($month,$year) {
         // Select all costs and their currencies
+        $this->db->where('MONTH(dateAdded)', $month);
+        $this->db->where('YEAR(dateAdded)', $year);
         $this->db->select('name, amount, currency');
         $query = $this->db->get('costs');
     
