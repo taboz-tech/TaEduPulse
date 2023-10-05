@@ -68,7 +68,10 @@ $(document).ready(function(){
     $("#createStudent").click(function() {
         populateGradesSelect();
         fetchLastStudentId();
-        fetchFeesIncome();
+        var selectedOption = $("#studentClass_name option:selected");
+        var studentClassName = selectedOption.text();
+
+        fetchFeesIncome(studentClassName);
         $("#studentsListDiv").toggleClass("col-sm-8", "col-sm-12");
         $("#createNewStudentDiv").toggleClass('hidden');
         $("#studentName").focus();
@@ -93,7 +96,11 @@ $(document).ready(function(){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      
+    $("#studentClass_name").change(function () {
+        var selectedText = $(this).find("option:selected").text(); // Get the selected option's text
+        fetchFeesIncome(selectedText);
+    });
+    
 
 
     $(".cancelAddStudent").click(function(){
@@ -170,15 +177,17 @@ $(document).ready(function(){
         // Add validation for studentParent_phone
         var phonePattern = /^(07\d{8})$|^(\+263\d{9,14})$/;
 
-        // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
+        // Calculate the date 1 years ago formatted as "YYYY-MM-DD"
         var today = new Date();
-        var fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+        var oneYearOlder = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
 
         var enteredDate = new Date(studentDob);
-        if ( enteredDate < fiveYearsAgo) {
-            $("#studentDobErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+
+        if (enteredDate > oneYearOlder) {
+            $("#studentDobErr").text("Invalid date. Please enter a date exactly 1 year older than the current date.");
             return; // Return early without processing further if there's an error
         }
+
 
         
         if(!studentName || !studentStudent_id || !studentSurname || !studentGender || !studentParent_phone || !studentAddress || !studentFees || !studentOwed_fees || !studentRelationship || !phonePattern.test(studentParent_phone) || !studentDob ){
@@ -422,13 +431,15 @@ $(document).ready(function(){
 
         // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
         var today = new Date();
-        var fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+        var oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
 
         var enteredDate = new Date(studentDob);
-        if ( enteredDate < fiveYearsAgo) {
-            $("#studentDobEditErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+
+        if (enteredDate > oneYearAgo) {
+            $("#studentDobEditErr").text("Invalid date. Please enter a date exactly 1 year ago or earlier.");
             return; // Return early without processing further if there's an error
         }
+
         
         // Validate required fields
         if (!studentStudent_id || !studentFees || !studentId || !studentName || !studentDob) {
@@ -813,16 +824,42 @@ function fetchLastStudentId() {
 }
 
 // Function to fetch the "Fees" income amount
-function fetchFeesIncome() {
+function fetchFeesIncome(classname) {
     $.ajax({
         url: appRoot + "incomes/getIncomes",
         type: 'GET',
         dataType: 'json',
         success: function(response) {
             if (response.status === 1) {
-            
-                var fees = parseFloat(response.feesAmount);
-                var regFees = parseFloat(response.regFeeAmount);
+                var extractedNumber = extractNumberFromClass(classname);
+
+                var feesData = response.feeData; // Assuming your response contains fees data as an array
+
+                var selectedFee;
+
+                if (extractedNumber === "1" || extractedNumber === "2") {
+                    // Use ZJC fee
+                    selectedFee = findFeeByName(feesData, 'Fees ZJC');
+                } else if (extractedNumber === "3" || extractedNumber === "4") {
+                    // Use Olevel fee
+                    selectedFee = findFeeByName(feesData, 'Fees Olevel');
+                } else if (extractedNumber === "5" || extractedNumber === "6") {
+                    // Use Alevel fee
+                    selectedFee = findFeeByName(feesData, 'Fees Alevel');
+                } else {
+                    // Handle other cases here
+                    selectedFee = null;
+                }
+
+                if (selectedFee !== null) {
+                    // Parse the selected fee amount
+                    var fees = parseFloat(selectedFee.amount);
+                } else {
+                    var fees = 0.00;
+                    
+                }
+                // Now fetch the registration fee
+                var regFees = parseFloat(findRegistrationFee(feesData));
 
                 // Check if parsing was successful
                 if (!isNaN(fees) && !isNaN(regFees)) {
@@ -846,3 +883,34 @@ function fetchFeesIncome() {
     });
 }
 
+function extractNumberFromClass(className) {
+    // Use a regular expression to find the number in the class name
+    var match = className.match(/\d+/);
+
+    if (match) {
+        // Extracted number is in match[0]
+        return match[0];
+    } else {
+        // No number found in the class name
+        return null;
+    }
+}
+
+function findRegistrationFee(feesData) {
+    for (var i = 0; i < feesData.length; i++) {
+        if (feesData[i].name === 'Reg_fee') {
+            return parseFloat(feesData[i].amount);
+        }
+    }
+    return null; // If no registration fee is found
+}
+
+// Function to find a fee by name in the fees data array
+function findFeeByName(feesData, name) {
+    for (var i = 0; i < feesData.length; i++) {
+        if (feesData[i].name === name) {
+            return feesData[i];
+        }
+    }
+    return null; // Fee not found
+}
