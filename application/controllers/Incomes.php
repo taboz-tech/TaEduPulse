@@ -210,7 +210,7 @@ class Incomes extends CI_Controller{
         $incomeId = $this->input->post('i', TRUE);
         
         // Add conditions to prevent deletion of specific incomes by name
-        $incomesToPreserve = ['Fees', 'Reg_fee','Centre_Fee','Subject_Fee']; // Names of Incomes to be preserved
+        $incomesToPreserve = ['Fees', 'Reg_fee','Centre_Fee','Subject_Fee','Fees Olevel','Fees Alevel','Fees ZJC']; // Names of Incomes to be preserved
         
         // Retrieve the income name based on the ID
         $incomeInfo = $this->income->getIncomeInfo(['id' => $incomeId], ['name']);
@@ -276,30 +276,34 @@ class Incomes extends CI_Controller{
      */
     public function getIncomes() {
         try {
-            // Define where clauses for "Fees" and "Reg_fee" incomes
-            $feesWhereClause = ['name' => 'Fees'];
-            $regFeeWhereClause = ['name' => 'Reg_fee'];
-        
-            // Define the fields to fetch, which should include 'amount'
-            $fieldsToFetch = ['amount'];
-
-            
-            // Use your 'income' model to fetch the income information for "Fees"
-            $feesIncomeInfo = $this->income->getIncomeInfo($feesWhereClause, $fieldsToFetch);
-
-            // Use your 'income' model to fetch the income information for "Reg_fee"
-            $regFeeIncomeInfo = $this->income->getIncomeInfo($regFeeWhereClause, $fieldsToFetch);
-
-            if ($feesIncomeInfo !== FALSE && $regFeeIncomeInfo !== FALSE) {
-                $response = [
-                    'status' => 1,
-                    'feesAmount' => $feesIncomeInfo->amount,
-                    'regFeeAmount' => $regFeeIncomeInfo->amount
-                ];
-            } else {
-                throw new Exception('One or more incomes not found');
+            // Define the names of the fees you want to retrieve
+            $feeNames = ['Fees ZJC', 'Reg_fee', 'Fees Olevel', 'Fees Alevel'];
+    
+            // Initialize an array to store the fee name and amount pairs
+            $feeData = [];
+    
+            // Use your 'income' model to fetch the income information for each fee
+            foreach ($feeNames as $feeName) {
+                $whereClause = ['name' => $feeName];
+                $fieldsToFetch = ['name', 'amount'];
+                $incomeInfo = $this->income->getIncomeInfo($whereClause, $fieldsToFetch);
+    
+                if ($incomeInfo !== FALSE) {
+                    // Add the name and amount to the $feeData array
+                    $feeData[] = [
+                        'name' => $incomeInfo->name,
+                        'amount' => $incomeInfo->amount
+                    ];
+                } else {
+                    throw new Exception('Income not found for ' . $feeName);
+                }
             }
-
+    
+            $response = [
+                'status' => 1,
+                'feeData' => $feeData
+            ];
+    
             // Return the response as JSON
             $this->output->set_content_type('application/json')->set_output(json_encode($response));
         } catch (Exception $e) {
@@ -307,11 +311,12 @@ class Incomes extends CI_Controller{
                 'status' => 0,
                 'message' => $e->getMessage()
             ];
-
+    
             // Return the error response as JSON
             $this->output->set_content_type('application/json')->set_output(json_encode($errorResponse));
         }
     }
+    
 
 
 

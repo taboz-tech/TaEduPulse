@@ -297,4 +297,33 @@ class Grades extends CI_Controller{
         //set final output
         $this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
+
+    function getGradeIdByNumber($numbers) {
+        $matchingGrades = [];
+    
+        // Query the database to retrieve grade names
+        $grades = $this->db->get('grades')->result_array();
+    
+        // Loop through each grade name
+        foreach ($grades as $grade) {
+            $gradeName = $grade['gradeName'];
+    
+            // Use a regular expression to match the middle number
+            if (preg_match('/Form (\d+)/', $gradeName, $matches)) {
+                $gradeNumber = intval($matches[1]);
+    
+                // Check if the grade number is in the array of numbers
+                if (in_array($gradeNumber, $numbers)) {
+                    // If it matches, store the grade name and id
+                    $matchingGrades[] = [
+                        'gradeName' => $gradeName,
+                        'gradeId' => $grade['gradeId']
+                    ];
+                }
+            }
+        }
+    
+        return $matchingGrades;
+    }
+    
 }

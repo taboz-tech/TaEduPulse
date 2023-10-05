@@ -214,5 +214,37 @@ class Grade extends CI_Model{
         }
     }
 
+    /**
+     * Get grade names based on middle numbers.
+     *
+     * @param array $numbers Array of numbers to filter by.
+     *
+     * @return array An array of grade names matching the numbers.
+     */
+    public function getGrade($numbers) {
+        $matchingGradeNames = [];
+
+        // Get all grade names from the database
+        $gradeNames = $this->db->select('name')->get('grades')->result_array();
+
+        // Loop through each grade name
+        foreach ($gradeNames as $grade) {
+            $gradeName = $grade['name'];
+
+            // Use a regular expression to match the middle number
+            if (preg_match('/Form (\d+)/', $gradeName, $matches)) {
+                $gradeNumber = intval($matches[1]);
+
+                // Check if the grade number is in the array of numbers
+                if (in_array($gradeNumber, $numbers)) {
+                    $matchingGradeNames[] = $gradeName;
+                }
+            }
+        }
+
+        return $matchingGradeNames;
+    }
+
+
    
 }
