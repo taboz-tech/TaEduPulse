@@ -245,22 +245,32 @@ class Student extends CI_Model{
     ********************************************************************************************************************************
     */
 
-    /**
-     * Bulk update fees and owed fees for all students
+   /**
+     * Bulk update fees and owed fees for students with matching grade names
      * @param float $newFees The new value for fees for all students
      * @param float $feesToAdd The amount to add to the current owed fees for all students
+     * @param array $matchingGradeNames An array of matching grade names
      * @return bool TRUE on success, FALSE on failure
      */
-    public function updateFees($newFees, $feesToAdd) {
+    public function updateFees($newFees, $feesToAdd, $matchingGradeNames) {
         try {
-            $this->db->set('fees', $newFees);
-            $this->db->set('owed_fees', 'owed_fees + ' . $feesToAdd, FALSE);
-            $this->db->update('students');
+            // Get the IDs of the grades that match the given grade names
+            $this->db->select('id');
+            $this->db->where_in('name', $matchingGradeNames);
+            $query = $this->db->get('grades');
             
-            if ($this->db->affected_rows() > 0) {
-                return TRUE;
+            if ($query !== false) {
+                $gradeIds = array_column($query->result_array(), 'id');
+                
+                // Update the owed fees for students with matching grade IDs
+                $this->db->set('fees', $newFees);
+                $this->db->set('owed_fees', 'owed_fees + ' . $feesToAdd, false);
+                $this->db->where_in('class_name', $gradeIds);
+                $this->db->update('students');
+                
+                return true;
             } else {
-                log_message('error', 'Database error: Update operation failed');
+                log_message('error', 'Database error: ' . $this->db->error());
                 return false; // Return false to indicate a database error
             }
         } catch (Exception $e) {
@@ -269,6 +279,11 @@ class Student extends CI_Model{
         }
     }
     
+    
+    
+
+
+
 
    
    /*

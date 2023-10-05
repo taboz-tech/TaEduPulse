@@ -280,7 +280,7 @@ $(document).ready(function(){
         var incomeId = $(this).attr('id').split("-")[1];
         var incomeName = $("#incomeName-" + incomeId).html();
     
-        if (incomeName === "Fees") {
+        if (incomeName === "Fees Alevel" || incomeName === "Fees ZJC" || incomeName === "Fees Olevel") {
             var incomeAmount = $("#incomeAmount-" + incomeId).html();
             var incomeCurrency = $("#incomeCurrency-" + incomeId).html();
     
@@ -290,15 +290,16 @@ $(document).ready(function(){
             $("#modalIncomeAmount").text(incomeAmount);
             $("#modalIncomeCurrency").text(incomeCurrency);
         
-            //launch modal
+            // Launch modal
             $("#feesIncomeModal").modal('show');
-
+    
         } else {
             // Display a flash message for other income names
             displayFlashMsg("Invalid Operation", "fa fa-exclamation-circle", "red", 3000);
             
         }
     });
+    
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
