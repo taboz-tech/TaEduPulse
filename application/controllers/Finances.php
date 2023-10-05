@@ -65,7 +65,7 @@ class Finances extends CI_Controller {
         }
     
         // Step 2: Get cost data
-        $costData = $this->getTotalCostByCurrency();
+        $costData = $this->getTotalCostByCurrency($currentMonth,$currentYear);
 
         // Access the total Cost by currency from the $CostData array
         $totalCostByCurrency = $costData['totalCostByCurrency'];
@@ -97,7 +97,7 @@ class Finances extends CI_Controller {
         $sheet->getStyle('A1:G1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('E0E0E0');
     
         // Set the school name at the center, increase font size, and row height
-        $schoolName = "Your School Name";
+        $schoolName = "Great Hope College";
         $sheet->setCellValue('A1', $schoolName);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('A1')->getFont()->setSize(18)->setSize(18)->setName('Arial'); // Use the Arial font family
@@ -187,23 +187,21 @@ class Finances extends CI_Controller {
 
             $row++; // Move to the next row
         }
-
         // Insert data from incomeDataItems
-        foreach ($incomeData['incomeDataItems'] as $item) {
-            $cellA = $sheet->getCell('A' . $row);
-            $cellA->setValue($item['itemName'] . ' (' . $item['totalQuantity'] . ')');
-            $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-
-            $cellB = $sheet->getCell('B' . $row);
-            $cellB->setValue('$' . $item['totalRevenue']); // Adding a dollar sign
-            $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-            $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
-
-            $row++; // Move to the next row
-        }
-
+        if (is_array($incomeData['incomeDataItems'])) {
+            foreach ($incomeData['incomeDataItems'] as $item) {
+                $cellA = $sheet->getCell('A' . $row);
+                $cellA->setValue($item['itemName'] . ' (' . $item['totalQuantity'] . ')');
+                $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
         
+                $cellB = $sheet->getCell('B' . $row);
+                $cellB->setValue('$' . $item['totalRevenue']); // Adding a dollar sign
+                $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+                $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
         
+                $row++; // Move to the next row
+            }
+        }                
         
         $mini = $row - 1;
         $sheet->getStyle('A'.$mini.':B'.$mini)->applyFromArray($borderStyle);
@@ -221,21 +219,24 @@ class Finances extends CI_Controller {
         $sheet->getStyle('A'.$row.':B'.$row)->applyFromArray($borderStyle);
 
         $row++;
-        
+        log_message("error","the array is: ". print_r($incomeData['incomeDataOther'], true));
         // Insert data from incomeDataOther
-        foreach ($incomeData['incomeDataOther'] as $income) {
-            $cellA = $sheet->getCell('A' . $row);
-            $cellA->setValue(ucwords($income->name) . ' (' . $income->currency . ')');
-            $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-            
-            $cellB = $sheet->getCell('B' . $row);
-            $cellB->setValue('$' . $income->amount); // Adding a dollar sign
-            $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
-            
-            $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
-            
-            $row++; // Move to the next row
+        if (is_array($incomeData['incomeDataOther'])) {
+            foreach ($incomeData['incomeDataOther'] as $income) {
+                $cellA = $sheet->getCell('A' . $row);
+                $cellA->setValue(ucwords($income->name) . ' (' . $income->currency . ')');
+                $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+                
+                $cellB = $sheet->getCell('B' . $row);
+                $cellB->setValue('$' . $income->amount); // Adding a dollar sign
+                $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+                
+                $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+                
+                $row++; // Move to the next row
+            }
         }
+        
         $mini = $row - 1;
         $sheet->getStyle('A'.$mini.':B'.$mini)->applyFromArray($borderStyle);       
         $sheet->getStyle('A'.$row.':B'.$row)->applyFromArray($borderStyle);
@@ -305,20 +306,21 @@ class Finances extends CI_Controller {
         $cell->getStyle()->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK))->setBold(true)->setItalic(true);
 
         $expensesRow++;
-        foreach ($costData['allCosts'] as $costItem) {
-            $cellA = $sheet->getCell('A' . $expensesRow);
-            $cellA->setValue(ucwords($costItem['name']) . ' (' . $costItem['currency'] . ')'); // Using 'name' for cost item name
-            $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+        if (is_array($costData['allCosts'])) {
+            foreach ($costData['allCosts'] as $costItem) {
+                $cellA = $sheet->getCell('A' . $expensesRow);
+                $cellA->setValue(ucwords($costItem['name']) . ' (' . $costItem['currency'] . ')');
+                $cellA->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
         
-            $cellB = $sheet->getCell('B' . $expensesRow);
-            $cellB->setValue('$' . $costItem['amount']); // Adding a dollar sign
-            $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
+                $cellB = $sheet->getCell('B' . $expensesRow);
+                $cellB->setValue('$' . $costItem['amount']); // Adding a dollar sign
+                $cellB->getStyle()->getFont()->setItalic(true)->setName('Arial'); // Make it italic and set the font family to Arial
         
-            $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+                $cellB->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
         
-            $expensesRow++; // Move to the next row
-        }
-        
+                $expensesRow++; // Move to the next row
+            }
+        }         
         $expensesRow + 2;
 
         $mini = $expensesRow - 1;
@@ -410,16 +412,18 @@ class Finances extends CI_Controller {
             $totalIncomeByCurrency[$currency] = $amount;
         }
     
-        foreach ($incomeDataOther as $income) {
-            $currency = $income->currency;
-            $amount = $income->amount;
-    
-            if (!isset($totalIncomeByCurrency[$currency])) {
-                $totalIncomeByCurrency[$currency] = 0;
+        if (is_iterable($incomeDataOther)) {
+            foreach ($incomeDataOther as $income) {
+                $currency = $income->currency;
+                $amount = $income->amount;
+        
+                if (!isset($totalIncomeByCurrency[$currency])) {
+                    $totalIncomeByCurrency[$currency] = 0;
+                }
+        
+                $totalIncomeByCurrency[$currency] += $amount;
             }
-    
-            $totalIncomeByCurrency[$currency] += $amount;
-        }
+        }         
     
         // Check if "USD" entry exists in totalIncomeByCurrency
         if (isset($totalIncomeByCurrency['USD'])) {
@@ -444,9 +448,9 @@ class Finances extends CI_Controller {
     
     
 
-    private function getTotalCostByCurrency() {
+    private function getTotalCostByCurrency($month,$year) {
         try {
-            $costsData = $this->cost->getAllCostsAndCurrencies();
+            $costsData = $this->cost->getAllCostsAndCurrencies($month,$year);
             $totalCostByCurrency = [];
             $response = ['allCosts' => []]; // Initialize the response array
     
