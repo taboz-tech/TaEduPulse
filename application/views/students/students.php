@@ -163,7 +163,7 @@ defined('BASEPATH') OR exit('');
                             <div class="col-sm-12 form-group-sm">
                                 <label for="studentDob">Student DOB</label>
                                 <input type="date" id="studentDob" name="studentDob" placeholder="Student DOB" class="form-control" 
-                                    max="<?= date('Y-m-d', strtotime('-5 years')) ?>"
+                                    max="<?= date('Y-m-d', strtotime('-1 years')) ?>"
                                     onchange="checkField(this.value, 'studentDobErr')">
                                 <span class="help-block errMsg" id="studentDobErr"></span>
                             </div>
@@ -317,7 +317,7 @@ defined('BASEPATH') OR exit('');
                         
                         <div class="col-sm-4 form-group-sm">
                             <label for="studentDobEdit">Student DOB</label>
-                            <input type="date" id="studentDobEdit" name="studentDobEdit" autofocus class="form-control checkField" max="<?= date('Y-m-d', strtotime('-5 years')) ?>">
+                            <input type="date" id="studentDobEdit" name="studentDobEdit" autofocus class="form-control checkField" max="<?= date('Y-m-d', strtotime('-1 years')) ?>">
                             <span class="help-block errMsg" id="studentDobEditErr"></span>
                         </div>
 

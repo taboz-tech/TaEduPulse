@@ -14,16 +14,16 @@
                 <thead>
                     <tr>
                         <th>SN</th>
-                        <th>STUDENT NAME</th>
-                        <th>STUDENT SURNAME</th>
+                        <th>NAME</th>
+                        <th>SURNAME</th>
                         <th>STUDENT ID</th>
-                        <th>CLASS NAME</th>
+                        <th>CLASS</th>
                         <th>PARENT NAME</th>
                         <th>RELATIONSHIP</th>
                         <th>PARENT PHONE</th>
                         <th>ADDRESS</th>
                         <th>FEES</th>
-                        <th>OWED FEES</th>
+                        <th>BALANCE</th>
                         <th>GENDER</th>
                         <th>DOB</th>
                         <th>HEALTHY STATUS</th>
