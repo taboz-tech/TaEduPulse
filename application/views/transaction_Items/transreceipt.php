@@ -7,8 +7,9 @@ defined('BASEPATH') OR exit('');
     <div class="row">
         <div class="col-xs-12 text-center text-uppercase">
             <center style='margin-bottom:5px'><img src="<?=base_url()?>public/images/receipt_logo2.png" alt="logo" class="img-responsive" width="45px"></center>
-            <b>3084  MAFURA TABOZ PVT , B-7</b>
-            <div>077 592 3458, 071 532 8408</div>
+            <b>Great Hope International </b>
+            <div><b>Contact Info:</b> 0773867278, Email</div>
+            <div><b>Address:</b> 494 Nzou Crescent Windsor</div>
         </div>
     </div>
     <div class="row text-center">
