@@ -155,7 +155,7 @@ class Students extends CI_Controller{
         $this->form_validation->set_rules('studentParent_phone', 'Student Parent_phone', ['required', 'trim', 'max_length[50]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentAddress', 'Student Address', ['required', 'trim', 'max_length[80]'],['required' => 'The %s field is required.']);
         $this->form_validation->set_rules('studentOwed_fees', 'Student Owed Fees', ['numeric', 'greater_than_equal_to[0]'], ['numeric' => 'The %s field must be a valid number.','greater_than_equal_to' => 'The %s field must be greater than or equal to 0.']);
-        $this->form_validation->set_rules('studentDob','Date of Birth','callback_is_date|callback_valid_dob',['is_date' => 'The Date of Birth field must be a valid date.','valid_dob' => 'The Date of Birth must be at least 5 years ago from today.' ]);
+        $this->form_validation->set_rules('studentDob','Date of Birth','callback_is_date|callback_valid_dob',['is_date' => 'The Date of Birth field must be a valid date.','valid_dob' => 'The Date of Birth must be at least 1 years ago from today.' ]);
         
 
         if($this->form_validation->run() !== FALSE){
@@ -434,8 +434,7 @@ class Students extends CI_Controller{
     
             // Populate and style the rest of the info
             $infoData = [
-                ['Address:', '39 Chitsere', 'New Mabvuku', 'Harare', '', '', 'Phone:', "'+263775923458"],
-                ['', '', '', '', '', '', '', "'+263715328408"],
+                ['Address:', '494 Nzou', 'Crescent Windsor', 'Ruwa,Harare', '', '', 'Phone:', "'+263773867278"],
                 ['', '', '', '', '', '', 'Email:', 'mafurataboz@gmail.com'],
             ];
     
@@ -830,17 +829,31 @@ class Students extends CI_Controller{
         // Get the new fees value and the amount to add to owed fees from POST data
         $newFees = $this->input->post('newFees', TRUE); 
         $feesToAdd = $this->input->post('feesToAdd', TRUE);
-    
+        $incomeName = $this->input->post('incomeName', TRUE);
+        $storedValues = [];
+
+        if ($incomeName === 'Fees ZJC') {
+            $storedValues = [1, 2];
+        } elseif ($incomeName === 'Fees Alevel') {
+            $storedValues = [5, 6];
+        } else {
+            $storedValues = [3, 4];
+        }
+        $this->load->model('grade');
+        $matchingGrade = $this->grade->getGrade($storedValues);
+
+        
         // Initialize JSON response with a status of 0
         $json['status'] = 0;
     
         try {
             // Check the validity of input values
-            if (!empty($newFees) && is_numeric($newFees) && !empty($feesToAdd) && is_numeric($feesToAdd)) {
+            if (!empty($newFees) && is_numeric($newFees) && !empty($feesToAdd) && is_numeric($feesToAdd) && !empty($matchingGrade)) {
                 $this->load->model('student');
     
                 // Perform the bulk update
-                $updated = $this->student->updateFees($newFees, $feesToAdd);
+                log_message("error","here we areyyyy");
+                $updated = $this->student->updateFees($newFees, $feesToAdd, $matchingGrade);
     
                 if ($updated) {
                     // Add event to log
@@ -995,9 +1008,9 @@ class Students extends CI_Controller{
     public function valid_dob($dob) {
         $dob_timestamp = strtotime($dob);
     
-        $five_years_ago = strtotime('-5 years', strtotime(date('Y-m-d')));
+        $one_years_ago = strtotime('-1 years', strtotime(date('Y-m-d')));
     
-        if ($dob_timestamp < $five_years_ago) {
+        if ($dob_timestamp < $one_years_ago) {
             return true;  
         } else {
             return false;  
