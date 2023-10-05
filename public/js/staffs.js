@@ -71,14 +71,15 @@ $(document).ready(function(){
 
         // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
         var today = new Date();
-        var fiveYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+        var eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
         var enteredDate = new Date(staffDob);
-        if ( enteredDate < fiveYearsAgo) {
-            $("#staffDobErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+
+        if (enteredDate >= eighteenYearsAgo) {
+            $("#staffDobErr").text("Invalid date. Please enter a date older than 18 years.");
             return; // Return early without processing further if there's an error
         }
-
+            
         if (staffSalary === "" || parseFloat(staffSalary) === 0) {
             $("#staffSalaryErr").text("Staff Salary must be greater than zero.");
             return; 
@@ -306,11 +307,12 @@ $(document).ready(function(){
 
         // Calculate the date 5 years ago formatted as "YYYY-MM-DD"
         var today = new Date();
-        var fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+        var eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
         var enteredDate = new Date(staffDob);
-        if ( enteredDate < fiveYearsAgo) {
-            $("#staffDobEditErr").text("Invalid date. Please enter a date exactly 5 years ago or earlier.");
+
+        if (enteredDate >= eighteenYearsAgo) {
+            $("#staffDobEditErr").text("Invalid date. Please enter a date older than 18 years.");
             return; // Return early without processing further if there's an error
         }
         
